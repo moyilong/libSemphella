@@ -13,18 +13,22 @@ MAKEFLAGS:=OUTDIR=$(OUTDIR) INSTALL_DIR=$(INSTALL_DIR) CFLAGS=$(CFLAGS) CXXFLAGS
 
 SUBDIR=libSemphella libDragonEDGE bios mpshell PT time_lize 
 
+WORKD_FOR
+
 define for_each
 	for dir in $(SUBDIR); do \
 		echo "sub call for each $$dir" ; \
-		$(MAKE) -C $$dir $(1) $(MAKEFLAGS);  \
+		$(MAKE) -C $$dir $(WORK_FOR) $(MAKEFLAGS);  \
 	done 
 endef
 
 all:
-	$(call for_each,all)
+	WORK_FOR=all
+	$(call for_each)
 
 install:
-	$(call for_each,install)
+	WORK_FOR=install
+	$(call for_each)
 
 clean:
-	$(call for_each,clean)
+	$(call for_each)
