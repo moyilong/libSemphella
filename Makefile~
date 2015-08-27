@@ -16,7 +16,7 @@ define for_each
 	for dir in $(SUBDIR); do \
 		echo "sub call for each $$dir"
 		$(MAKE) -C $$dir $1 $(MAKEFLAGS) $2;  \
-	done \
+	done 
 endef
 
 all:
