@@ -11,7 +11,7 @@
  INSTALL_DIR?=/usr
 
 $(OUTDIR)/time_lize:
-	$(CCARGS) -o $(OUTDIR)/time_lize time_lize.cpp stdafx.cpp -lSemphella -lgomp -L$(OUTDIR) -I$(CURDIR)/../
+	$(CCARGS) -o $(OUTDIR)/time_lize time_lize.cpp stdafx.cpp -lSemphella -lgomp -I$(CURDIR)/../
 
 install:$(OUTDIR)/time_lize
 	mkdir -p $(INSTALL_DIR)/bin

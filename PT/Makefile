@@ -11,7 +11,7 @@ INSTALL_DIR?=/usr
 
 
 $(OUTDIR)/PT:
-	$(CCARGS) -o $(OUTDIR)/PT -lSemphella -I$(CURDIR)/../ runner.cpp libPT.cpp
+	$(CCARGS) -o $(OUTDIR)/PT -lSemphella -L$(OUTDIR) -I$(CURDIR)/../ runner.cpp libPT.cpp
 
 install:$(OUTDIR)/PT
 	mkdir -p $(INSTALL_DIR)/bin

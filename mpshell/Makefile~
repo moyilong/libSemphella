@@ -10,14 +10,14 @@
  OUTDIR?=.
  INSTALL_DIR?=/usr
 
-$(OUTDIR)/time_lize:
-	$(CCARGS) -o $(OUTDIR)/time_lize time_lize.cpp stdafx.cpp -lSemphella -lgomp -L$(OUTDIR) -I$(CURDIR)/../
+$(OUTDIR)/mpshell:
+	$(CCARGS) -o $(OUTDIR)/mpshell mpshell.cpp -lSemphella -I$(CURDIR)/../
 
-install:$(OUTDIR)/time_lize
+install:$(OUTDIR)/mpshell
 	mkdir -p $(INSTALL_DIR)/bin
-	cp $(OUTDIR)/time_lize $(INSTALL_DIR)/bin/time_lize
+	cp $(OUTDIR)/mpshell $(INSTALL_DIR)/bin/mpshell
 
-all:$(OUTDIR)/time_lize
+all:$(OUTDIR)/mpshell
 
 clean:
 	rm -rf $(OUTDIR)

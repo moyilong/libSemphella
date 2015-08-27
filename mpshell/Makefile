@@ -11,7 +11,7 @@
  INSTALL_DIR?=/usr
 
 $(OUTDIR)/mpshell:
-	$(CCARGS) -o $(OUTDIR)/mpshell mpshell.cpp -lSemphella -I$(CURDIR)/../
+	$(CCARGS) -o $(OUTDIR)/mpshell mpshell.cpp -lSemphella -L$(OUTDIR) -I$(CURDIR)/../
 
 install:$(OUTDIR)/mpshell
 	mkdir -p $(INSTALL_DIR)/bin

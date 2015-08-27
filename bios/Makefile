@@ -11,7 +11,7 @@
  INSTALL_DIR?=/usr
 
 $(OUTDIR)/bios:
-	$(CCARGS) -o $(OUTDIR)/bios bios.cpp -lSemphella -lgomp -I$(CURDIR)/../
+	$(CCARGS) -o $(OUTDIR)/bios bios.cpp -lSemphella -lgomp -L$(OUTDIR) -I$(CURDIR)/../
 
 install:$(OUTDIR)/bios
 	mkdir -p $(INSTALL_DIR)/bin
