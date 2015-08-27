@@ -6,14 +6,24 @@
 OUTDIR?=$(CURDIR)/out
 MAKE?=make
 MAKEFLAGS?=
+CXXFLAGS?=-D_LIB_SEMPHELLA
+CFLAGS?=-D_LIB_SEMPHELLA -L$(OUTDIR)
+MAKEFLAGS:=OUTDIR=$(OUTDIR)
+
+SUBDIR=libSemphella libDragonEDGE bios mpshell PT time_lize 
+
+define for_each
+	for dir in $(SUBDIR); do \
+		echo "sub call for each $$dir"
+		$(MAKE) -C $$dir $1 $(MAKEFLAGS) $2;  \
+	done \
+endef
+
 all:
-	mkdir -p $(OUTDIR)
-	for dir in $(ls $(CURDIR)); do \
-	if [ -e $$dir/Makefile ]; then \
-		$(MAKE) -C $$dir all OUTDIR=$(OUTDIR) CFLAGS=$(CFLAGS) CXXFLAGS=$(CXXFLAGS) \
-	fi; done;
+	$(call for_each,all)
+
+install:
+	$(call for_each,install)
+
 clean:
-	rmdir -rfv $(OUTDIR)
-
-
-	
+	$(call for_each,clean)
