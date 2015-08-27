@@ -1,0 +1,27 @@
+﻿生成启动时间为 2015/8/24 16:10:37。
+     1>项目“H:\DragonSource\DragonOS\win32\libSemphella\libSemphella.vcxproj”在节点 2 上(Build 个目标)。
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _USRDLL /D LIBSEMPHELLA_EXPORTS /D _WINDLL /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /openmp /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt -D_CRT_SECURE_NO_WARNINGS -D__DLL_EXPORT crypt.cpp math.cpp
+         crypt.cpp
+     1>h:\dragonsource\dragonos\win32\libsemphella\crypt.cpp(23): warning C4244: “参数”: 从“__int64”转换到“const char”，可能丢失数据
+     1>h:\dragonsource\dragonos\win32\libsemphella\crypt.cpp(29): warning C4018: “<”: 有符号/无符号不匹配
+     1>h:\dragonsource\dragonos\win32\libsemphella\crypt.cpp(32): warning C4018: “<”: 有符号/无符号不匹配
+     1>h:\dragonsource\dragonos\win32\libsemphella\crypt.cpp(61): warning C4018: “<”: 有符号/无符号不匹配
+         正在生成代码...
+         正在编译...
+         math.cpp
+         正在生成代码...
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"H:\DragonSource\DragonOS\win32\Debug\libSemphella.dll" /INCREMENTAL /NOLOGO /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /manifestinput:"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\Include\Manifest\dpiaware.manifest" /DEBUG /PDB:"H:\DragonSource\DragonOS\win32\Debug\libSemphella.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"H:\DragonSource\DragonOS\win32\Debug\libSemphella.lib" /MACHINE:X86 /DLL Debug\APD_LOADER.obj
+         Debug\bios.obj
+         Debug\crypt.obj
+         Debug\debug.obj
+         Debug\libSemphella.obj
+         Debug\math.obj
+         Debug\string.obj
+         libSemphella.vcxproj -> H:\DragonSource\DragonOS\win32\Debug\libSemphella.dll
+     1>已完成生成项目“H:\DragonSource\DragonOS\win32\libSemphella\libSemphella.vcxproj”(Build 个目标)的操作。
+
+生成成功。
+
+已用时间 00:00:01.30

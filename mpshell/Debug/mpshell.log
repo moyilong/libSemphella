@@ -1,0 +1,12 @@
+﻿生成启动时间为 2015/8/24 16:10:26。
+     1>项目“H:\DragonSource\DragonOS\win32\mpshell\mpshell.vcxproj”在节点 4 上(Build 个目标)。
+     1>Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"H:\DragonSource\DragonOS\win32\Debug\mpshell.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"H:\DragonSource\DragonOS\win32\Debug\mpshell.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"H:\DragonSource\DragonOS\win32\Debug\mpshell.lib" /MACHINE:X86 Debug\mpshell.obj
+         Debug\stdafx.obj
+         H:\DragonSource\DragonOS\win32\Debug\libSemphella.lib
+         mpshell.vcxproj -> H:\DragonSource\DragonOS\win32\Debug\mpshell.exe
+     1>已完成生成项目“H:\DragonSource\DragonOS\win32\mpshell\mpshell.vcxproj”(Build 个目标)的操作。
+
+生成成功。
+
+已用时间 00:00:00.52
