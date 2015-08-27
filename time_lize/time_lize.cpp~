@@ -64,7 +64,6 @@ void for_each(NODE link, COUNT_TYPE nid)
 
 int main(int argc, char* argv[])
 {
-	time_lize << "Demo Start!"<<endl;
 	script_dir = SCRIPT_DIR;
 	if (script_dir.empty())
 	{
