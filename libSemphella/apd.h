@@ -5,23 +5,6 @@
 namespace APD_UTILS{
 
 	typedef 	long long COUNT_TYPE;
-
-#define PSTR "libSemphella-APD-File"
-
-	struct APD_BIN{
-		char diff_str[sizeof(PSTR)];
-		COUNT_TYPE node_size;
-	};
-
-	struct NODE_INFO{
-		COUNT_TYPE label_size;
-		char n_name[MAX_BUFF_SIZE];
-	};
-
-	struct LABEL_INFO{
-		COUNT_TYPE namelen;
-		COUNT_TYPE datalen;
-	};
 	
 	struct label{
 		string name;
@@ -38,7 +21,7 @@ namespace APD_UTILS{
 	class API APD {
 	public:
 		APD();
-		APD(string filename,bool bin_stat=false,bool crypt_stat=false,string passwd="");
+		APD(string filename);
 		~APD();
 		void load(string filename);
 		string get_label(string node, string lab);
@@ -65,19 +48,6 @@ namespace APD_UTILS{
 		{
 			remove(node, lab);
 		}
-		void export_bin();
-		void import_bin(string filename);
-
-		/*
-		void enable_bin_mode();
-		void disable_bin_mode();
-		void enable_crypt(string password);
-		void disable_crypt();
-		*/
-
-		void set_bin_mode(bool stat);
-		void set_crypt_mode(bool cpy);
-		void set_password(string pwd);
 
 	private:
 		string filename;

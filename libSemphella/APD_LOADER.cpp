@@ -12,22 +12,15 @@ namespace APD_UTILS
 
 	}
 
-	APD::APD(string filename, bool bin_stat, bool crypt_stats, string passwd)
-	{
-		if (!bin_stat)
-		load(filename);
-		else{
-			bin_mode = true;
-			cryptd = crypt_stats;
-			p_password = passwd;
-			import_bin(filename);
-		}
-	}
-
 	APD::~APD()
 	{
 		poll.clear();
 		fileio.close();
+	}
+
+	APD::APD(string filename)
+	{
+		load(filename);
 	}
 
 	void APD::load(string filename)
@@ -265,96 +258,4 @@ namespace APD_UTILS
 			poll.push_back(temp);
 		}
 	}
-
-	void APD::export_bin( )
-	{
-		fileio.close();
-		fileio.open(filename, ios::in | ios::out | ios::trunc);
-		if (!fileio.is_open()){
-			apd << "clean file faild!" << endl << "resume file stat!" << endl;
-			fileio.open(filename, ios::in | ios::out);
-			if (!fileio.is_open())
-			{
-				apd << "File Resume Faild!" << endl;
-				return;
-			}
-		}
-		APD_BIN bin;
-		bin.node_size = poll.size();
-		strcpy(bin.diff_str, PSTR);
-		if (cryptd)
-			crypt((char*)&bin, sizeof(APD_BIN), p_password);
-		fileio.write((char*)&bin, sizeof(APD_BIN));
-		for (COUNT_TYPE n = 0; n < poll.size(); n++)
-		{
-			NODE_INFO cache;
-			cache.label_size = poll.at(n).label.size();
-			strcpy(cache.n_name, poll.at(n).n_name.data());
-			if (cryptd)
-				crypt((char*)&cache, sizeof(NODE_INFO), p_password);
-			fileio.write((char*)&cache, sizeof(NODE_INFO));
-			for (COUNT_TYPE x = 0; x < poll.at(n).label.size(); x++)
-			{
-				char *name_buff = (char*)malloc(poll.at(n).label.at(x).name.size());
-				char *data_buff = (char*)malloc(poll.at(n).label.at(x).data.size());
-				strcpy(name_buff, poll.at(n).label.at(x).name.data());
-				strcpy(data_buff, poll.at(n).label.at(x).data.data());
-				LABEL_INFO writed;
-				writed.datalen = poll.at(n).label.at(x).data.size();
-				writed.namelen = poll.at(n).label.at(x).name.size();
-				if (cryptd)
-				{
-					crypt(name_buff, writed.namelen, p_password);
-					crypt(data_buff, writed.datalen, p_password);
-					crypt((char*)&writed, sizeof(LABEL_INFO), p_password);
-				}
-				fileio.write((char*)&writed, sizeof(LABEL_INFO));
-				fileio.write(name_buff, writed.namelen);
-				fileio.write(data_buff, writed.datalen);
-				free(name_buff);
-				free(data_buff);
-			}
-		}
-
-	}
-	/*
-	void APD::enable_bin_mode() 
-	{
-		bin_mode = true; 
-	}
-	void APD::disable_bin_mode() 
-	{ 
-		bin_mode = false; 
-	}
-
-	void APD::enable_crypt(string password)
-	{
-		cryptd = true;
-		p_password = password;
-		return;
-	}
-	void APD::disable_crypt() 
-	{ 
-		cryptd = false;
-		return;
-	}
-	*/
-	void APD::set_bin_mode(bool stat)
-	{
-		bin_mode = stat;
-	}
-	void APD::set_crypt_mode(bool cpy)
-	{
-		cryptd = cpy;
-	}
-	void APD::set_password(string pwd)
-	{
-		char buff[MAX_BUFF_SIZE] = { 0x00 };
-		crypt(buff, MAX_BUFF_SIZE, pwd);
-		p_password = buff;
-
-
-	}
-
-
 }
