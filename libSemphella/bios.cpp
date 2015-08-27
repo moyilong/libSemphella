@@ -17,6 +17,10 @@ using namespace std;
 #include "linux.h"
 #endif
 
+#include "debug.h"
+
+libDebug bios("libBIOS");
+
 char *check_string = CHECK_STRING;
 
 
@@ -33,7 +37,7 @@ BIOS::BIOS(string file, string sign,bool create)
 	iobit.open(file.data(), ios::binary|ios::in |ios::out);
 	if (!iobit.is_open() )
 	{
-		cout << "Open " << file << " Faild!" << endl;
+		bios << "Open " << file << " Faild!" << endl;
 		last_stat = OPEN_FAID;
 		return;
 	}
@@ -50,7 +54,7 @@ BIOS::BIOS(string file, string sign,bool create)
 				stat = false;
 		if (!stat)
 		{
-			cout << "Check arear faild" << endl;
+			bios << "Check arear faild" << endl;
 			last_stat = CHECK_FAILD;
 			return;
 		}
@@ -92,7 +96,7 @@ void BIOS::write()
 #ifndef _WNO_WRITE
 	if (!info.write_skip)
 	{
-		DEBUG_LINE cout << "Writting File...." << endl;
+		DEBUG_LINE bios << "Writting File...." << endl;
 		iobit.seekp(0);
 		char buff[sizeof(BIOS_INFO)];
 		memcpy(buff, &info, sizeof(BIOS_INFO));
@@ -100,9 +104,9 @@ void BIOS::write()
 		iobit.write(buff, sizeof(BIOS_INFO));
 	}
 	else{
-		cout << "BIOS is Protect" << endl;
+		bios << "BIOS is Protect" << endl;
 	}
 #else
-	cout << "BIOS is Protect" << endl;
+	bios << "BIOS is Protect" << endl;
 #endif
 }

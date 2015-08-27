@@ -17,6 +17,10 @@ using namespace std;
 #include "linux.h"
 #endif
 
+#include "debug.h"
+
+libDebug bios("libBIOS");
+
 char *check_string = CHECK_STRING;
 
 
@@ -62,7 +66,10 @@ BIOS::BIOS(string file, string sign,bool create)
 		strcpy(info.version_info, "ELONE DragonBoard Different System Description Table Version 1.0\nProduct and Vendor Define file\nDragonOS Basic IO Sheet\nELONE Firmware Interface");
 		strcpy(info.check_area, CHECK_STRING);
 		info.EFI.first_init_time = clock();
-		memset(info.dsdt, 0, DSDT_LEN);
+//		memset(info.dsdt, 0, DSDT_LEN);
+#pragma omp parallel for
+		for (int n=0;n<DSDT_LEN;n++)
+			info.dsdt[n]=0;
 		write();
 	}
 
