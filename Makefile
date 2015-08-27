@@ -8,7 +8,7 @@ INSTALL_DIR=/usr
 MAKE?=make
 CXXFLAGS?=-D_LIB_SEMPHELLA
 CFLAGS?=-D_LIB_SEMPHELLA -L$(OUTDIR)
-MAKEFLAGS:=OUTDIR="$(OUTDIR)" INSTALL_DIR="$(INSTALL_DIR)" CFLAGS="$(CFLAGS)" CXXFLAGS="$(CXXFLAGS)"
+MAKEFLAGS:=
 
 SUBDIR=libSemphella libDragonEDGE bios mpshell PT time_lize 
 
@@ -16,17 +16,17 @@ SUBDIR=libSemphella libDragonEDGE bios mpshell PT time_lize
 all:
 	for dir in $(SUBDIR); do \
 		echo "sub call for each $$dir" ; \
-		$(MAKE) -C $$dir all  $(MAKEFLAGS);  \
+		$(MAKE) -C $$dir all  OUTDIR="$(OUTDIR)" INSTALL_DIR="$(INSTALL_DIR)" CFLAGS="$(CFLAGS)" CXXFLAGS="$(CXXFLAGS)";  \
 	done 
 
 install:
 	for dir in $(SUBDIR); do \
 		echo "sub call for each $$dir" ; \
-		$(MAKE) -C $$dir install  $(MAKEFLAGS);  \
+		$(MAKE) -C $$dir install   OUTDIR="$(OUTDIR)" INSTALL_DIR="$(INSTALL_DIR)" CFLAGS="$(CFLAGS)" CXXFLAGS="$(CXXFLAGS)";  \
 	done 
 
 clean:
 	for dir in $(SUBDIR); do \
 		echo "sub call for each $$dir" ; \
-		$(MAKE) -C $$dir clean  $(MAKEFLAGS);  \
+		$(MAKE) -C $$dir clean   OUTDIR="$(OUTDIR)" INSTALL_DIR="$(INSTALL_DIR)" CFLAGS="$(CFLAGS)" CXXFLAGS="$(CXXFLAGS)";  \
 	done 
