@@ -31,4 +31,5 @@ install:
 	$(call for_each)
 
 clean:
+	WORK_FOR=clean
 	$(call for_each)

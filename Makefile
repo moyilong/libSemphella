@@ -13,7 +13,7 @@ MAKEFLAGS:=OUTDIR=$(OUTDIR) INSTALL_DIR=$(INSTALL_DIR) CFLAGS=$(CFLAGS) CXXFLAGS
 
 SUBDIR=libSemphella libDragonEDGE bios mpshell PT time_lize 
 
-WORKD_FOR
+WORKD_FOR:=
 
 define for_each
 	for dir in $(SUBDIR); do \
