@@ -19,6 +19,9 @@ namespace APD_UTILS
 	}
 
 	APD::APD(string filename)
+	{
+		load(filename);
+	}
 
 	void APD::load(string filename)
 	{
