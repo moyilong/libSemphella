@@ -16,7 +16,7 @@ SUBDIR=libSemphella libDragonEDGE bios mpshell PT time_lize
 define for_each
 	for dir in $(SUBDIR); do \
 		echo "sub call for each $$dir" ; \
-		$(MAKE) -C $$dir $1 $(MAKEFLAGS) $2;  \
+		$(MAKE) -C $$dir $(1) $(MAKEFLAGS) $(2);  \
 	done 
 endef
 
