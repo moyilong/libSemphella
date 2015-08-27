@@ -12,17 +12,18 @@ MAKEFLAGS:=OUTDIR=$(OUTDIR)
 
 SUBDIR=libSemphella libDragonEDGE bios mpshell PT time_lize 
 
-all:
+define for_each
 	for dir in $(SUBDIR); do \
-		$(MAKE) -C $$dir all $(MAKEFLAGS); \
+		echo "sub call for each $$dir"
+		$(MAKE) -C $$dir $1 $(MAKEFLAGS) $2;  \
 	done \
+endef
+
+all:
+	$(call for_each,all)
 
 install:
-	for dir in $(SUBDIR); do \
-		$(MAKE) -C $$dir install $(MAKEFLAGS); \
-	done \
+	$(call for_each,install)
 
 clean:
-	for dir in $(SUBDIR); do \
-		$(MAKE) -C $$dir clean $(MAKEFLAGS); \
-	done \
+	$(call for_each,clean)
