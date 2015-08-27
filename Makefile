@@ -17,17 +17,17 @@ SUBDIR=libSemphella libDragonEDGE bios mpshell PT time_lize
 all:
 	for dir in $(SUBDIR); do \
 		echo "sub call for each $$dir" ; \
-		$(MAKE) -C $$dir all $(WORK_FOR) $(MAKEFLAGS);  \
+		$(MAKE) -C $$dir all  $(MAKEFLAGS);  \
 	done 
 
 install:
 	for dir in $(SUBDIR); do \
 		echo "sub call for each $$dir" ; \
-		$(MAKE) -C $$dir install $(WORK_FOR) $(MAKEFLAGS);  \
+		$(MAKE) -C $$dir install  $(MAKEFLAGS);  \
 	done 
 
 clean:
 	for dir in $(SUBDIR); do \
 		echo "sub call for each $$dir" ; \
-		$(MAKE) -C $$dir clean $(WORK_FOR) $(MAKEFLAGS);  \
+		$(MAKE) -C $$dir clean  $(MAKEFLAGS);  \
 	done 
