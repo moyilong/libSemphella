@@ -6,15 +6,23 @@
 OUTDIR?=$(CURDIR)/out
 MAKE?=make
 MAKEFLAGS?=
+CXXFLAGS?=-D_LIB_SEMPHELLA
+CFLAGS?=-D_LIB_SEMPHELLA -L$(OUTDIR)
+MAKEFLAGS:=OUTDIR=$(OUTDIR)
+
+SUBDIR=libSemphella libDragonEDGE bios mpshell PT time_lize 
+
 all:
-	mkdir -p $(OUTDIR)
-	for dir in $(ls $(CURDIR)); do \
-	if [ -e $$dir/Makefile ]; then \
-		$(MAKE) -C $$dir all OUTDIR=$(OUTDIR) CFLAGS=$(CFLAGS) CXXFLAGS=$(CXXFLAGS) \
-	fi;\
-	done;
+	for dir in $(SUBDIR); do \
+		$(MAKE) -C $$dir all $(MAKEFLAGS); \
+	done \
+
+install:
+	for dir in $(SUBDIR); do \
+		$(MAKE) -C $$dir install $(MAKEFLAGS); \
+	done \
+
 clean:
-	rmdir -rfv $(OUTDIR)
-
-
-	
+	for dir in $(SUBDIR); do \
+		$(MAKE) -C $$dir clean $(MAKEFLAGS); \
+	done \
