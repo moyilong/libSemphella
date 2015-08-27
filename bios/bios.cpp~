@@ -102,9 +102,6 @@ int main(int argc, char *argv[])
 			}
 			break;
 		case 'c':
-		case 's':
-		case 'o':
-			break;
 		default:
 			cout << "Unknow Command!" << endl;
 			break;
