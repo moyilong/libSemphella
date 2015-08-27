@@ -13,8 +13,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mpshell", "mpshell\mpshell.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "time_lize", "time_lize\time_lize.vcxproj", "{9F6BFD77-28AD-45F8-8D7F-C70C8B9209C3}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "apdutil", "apdutil\apdutil.vcxproj", "{78975B35-9F80-4B22-9AB7-78D74B4C3D4B}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -57,12 +55,6 @@ Global
 		{9F6BFD77-28AD-45F8-8D7F-C70C8B9209C3}.Release|Win32.ActiveCfg = Release|Win32
 		{9F6BFD77-28AD-45F8-8D7F-C70C8B9209C3}.Release|Win32.Build.0 = Release|Win32
 		{9F6BFD77-28AD-45F8-8D7F-C70C8B9209C3}.Release|x64.ActiveCfg = Release|Win32
-		{78975B35-9F80-4B22-9AB7-78D74B4C3D4B}.Debug|Win32.ActiveCfg = Debug|Win32
-		{78975B35-9F80-4B22-9AB7-78D74B4C3D4B}.Debug|Win32.Build.0 = Debug|Win32
-		{78975B35-9F80-4B22-9AB7-78D74B4C3D4B}.Debug|x64.ActiveCfg = Debug|Win32
-		{78975B35-9F80-4B22-9AB7-78D74B4C3D4B}.Release|Win32.ActiveCfg = Release|Win32
-		{78975B35-9F80-4B22-9AB7-78D74B4C3D4B}.Release|Win32.Build.0 = Release|Win32
-		{78975B35-9F80-4B22-9AB7-78D74B4C3D4B}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
