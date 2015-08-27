@@ -12,7 +12,7 @@ INSTALLDIR?=/usr
 
 $(OUTDIR)/libDragonEDGE.so:
 	mkdir -p $(OUTDIR)
-	$(GCC) -fpic -shared $(CXXFLAGS) -O3  -I$(CURDIR)/../ -fpermissive -Wall -Wno-sign-compare  -lgomp -fopenmp -std=c++11 -fpermissive  -Wall -D__LINUX__ -D__DLL_EXPORT -o $(OUTDIR)/libDragonEDGE.so $$(ls | grep .cpp | grep -v \~)
+	$(GCC) -fpic -shared $(CXXFLAGS) -O3  -I$(CURDIR)/../ -lSemphella -fpermissive -Wall -Wno-sign-compare  -lgomp -fopenmp -std=c++11 -fpermissive  -Wall -D__LINUX__ -D__DLL_EXPORT -o $(OUTDIR)/libDragonEDGE.so $$(ls | grep .cpp | grep -v \~)
 
 all:$(OUTDIR)/libDragonEDGE.so
 install:$(OUTDIR)/libDragonEDGE.so
