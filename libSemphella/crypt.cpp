@@ -127,15 +127,9 @@ API char get_off()
 	return cache;
 }
 
-#define count_t unsigned  long long
 
-API void dymanic_code(const char *license, long long license_len,string password,string &ret)
+API void half_dymanic_code(const char *license, long long license_len, string password, string &ret, count_t now)
 {
-	time_t ntime = time(0);
-	count_t now = ntime / 10;
-	now += now * 10;
-	now += now - 'm';
-	cpt << "get time now:" << now << endl;
 	string license_buff;
 	for (int n = 0; n < license_len; n++)
 	{
@@ -156,12 +150,21 @@ API void dymanic_code(const char *license, long long license_len,string password
 			crypt_len[n] += now + b - n;
 		char get[MAX_BUFF_SIZE];
 		char c;
-		c=xbit(crypt_len, MAX_BUFF_SIZE, !now+!n)+n*100;
-		eitoa(now^c, get, 16);
+		c = xbit(crypt_len, MAX_BUFF_SIZE, !now + !n) + n * 100;
+		eitoa(now^c, get, 16,DEFAULT_WORD_BLACK_LIST);
 		cpt << "GetD:" << get << endl;
 		string temp = get;
 		//ret += get[strlen(get) - 1];
 		//ret += get[strlen(get) - 2];
-		ret += temp.substr(temp.size()-2);
-	}	
+		ret += temp.substr(temp.size() - 2);
+	}
+}
+API void dymanic_code(const char *license, long long license_len,string password,string &ret)
+{
+	time_t ntime = time(0);
+	count_t now = ntime / 10;
+	now += now * 10;
+	now += now - 'm';
+	cpt << "get time now:" << now << endl;
+	half_dymanic_code(license, license_len, password, ret,now);
 }

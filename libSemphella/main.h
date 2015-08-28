@@ -1,5 +1,4 @@
-#ifndef LIBSEMPHELLA_GLOBAL_H
-#define LIBSEMPHELLA_GLOBAL_H
+#pragma once
 
 #define MAX_BUFF_SIZE   4096
 #define API_VER         128
@@ -36,4 +35,10 @@ using namespace std;
 
 #endif
 
-#endif // LIBSEMPHELLA_GLOBAL_H
+#ifndef DEFAULT_WORD_WHITE_LIST
+#define DEFAULT_WORD_WHITE_LIST "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdef"
+#endif
+
+#ifndef DEFAULT_WORD_BLACK_LIST
+#define DEFAULT_WORD_BLACK_LIST "MUsXGH1bEgTYijNwdklm7ZIJaxSAVWPQtn2340FfOCDuvh8yz56cBoR9qrepKL"
+#endif

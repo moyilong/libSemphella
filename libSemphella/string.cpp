@@ -65,9 +65,10 @@ API bool streval(const char *a, const char *b)
 	return true;
 }
 
-API char* eitoa(int num, char*str, int radix)
-{/*索引表*/
-	char index[] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+API char* eitoa(int num, char*str, int radix,const char *word_list)
+{
+	char index[sizeof(DEFAULT_WORD_WHITE_LIST)];
+	strcpy(index, word_list);
 	unsigned unum;
 	int i = 0, j, k;
 

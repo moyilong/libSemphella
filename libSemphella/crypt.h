@@ -1,18 +1,12 @@
 #pragma once
-
+#include "main.h"
 API char get_off();
 
 #ifndef _EL_CPYOFF
 #define _EL_CPYOFF  0x5F
 #endif
 
-#ifndef DEFAULT_WORD_WHITE_LIST
-#define DEFAULT_WORD_WHITE_LIST "UVyZQRSgBcde1Cz5qrsFGHT3b2nopit4xWXYauKLMAm690vwNOPjklh78DEfIJ"
-#endif
-
-#ifndef DEFAULT_WORD_BLACK_LIST
-#define DEFAULT_WORD_BLACK_LIST "MUsXGH1bEgTYijNwdklm7ZIJaxSAVWPQtn2340FfOCDuvh8yz56cBoR9qrepKL"
-#endif
+#define count_t unsigned  long long
 
 API char xbit(const char *data,long long len,const char off=_EL_CPYOFF);
 API void crypt(char* data,long long len,const char *password);
@@ -29,6 +23,7 @@ API void crypt_t(char *data, long long len,const char *password, const char *la=
 
 
 API void dymanic_code(const char *license, long long license_len, string password, string &ret);
+API void half_dymanic_code(const char *license, long long license_len, string password, string &ret, count_t now);
 
 //inline feature
 

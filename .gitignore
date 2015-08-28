@@ -39,3 +39,9 @@ win32/Debug
 win32/x64
 win32/*/Debug
 *.ipch
+*.dll
+*.exe
+*.lib
+*.log
+*.pch
+*.exp
