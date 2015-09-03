@@ -1,17 +1,6 @@
-﻿生成启动时间为 2015/8/28 13:47:33。
+﻿生成启动时间为 2015/9/3 12:19:35。
      1>项目“F:\DragonOS\libSemphella\bios\bios.vcxproj”在节点 2 上(Build 个目标)。
-     1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt -DOS_TYPE="\"WINDOWS\"" -D_CRT_SECURE_NOWARNINGS bios.cpp
-         bios.cpp
-     1>f:\dragonos\libsemphella\libsemphella\libbios.h(37): warning C4309: “初始化”: 截断常量值
-     1>f:\dragonos\libsemphella\libsemphella\libbios.h(57): warning C4251: “BIOS::info”: struct“BIOS_INFO”需要有 dll 接口由 class“BIOS”的客户端使用
-                 f:\dragonos\libsemphella\libsemphella\libbios.h(34) : 参见“BIOS_INFO”的声明
-     1>f:\dragonos\libsemphella\libsemphella\libbios.h(59): warning C4251: “BIOS::iobit”: class“std::basic_fstream<char,std::char_traits<char>>”需要有 dll 接口由 class“BIOS”的客户端使用
-     1>f:\dragonos\libsemphella\libsemphella\libbios.h(60): warning C4251: “BIOS::passwd”: class“std::basic_string<char,std::char_traits<char>,std::allocator<char>>”需要有 dll 接口由 class“BIOS”的客户端使用
-     1>f:\dragonos\libsemphella\bios\bios.cpp(83): warning C4258: “n”: 忽略 For 循环中的定义；使用封闭范围中的定义
-                 f:\dragonos\libsemphella\bios\bios.cpp(61) : 忽略“n”的定义
-                 f:\dragonos\libsemphella\bios\bios.cpp(43) : 使用“n”的定义
-       Link:
+     1>Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"F:\DragonOS\libSemphella\Debug\bios.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"F:\DragonOS\libSemphella\Debug\bios.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"F:\DragonOS\libSemphella\Debug\bios.lib" /MACHINE:X86 Debug\bios.obj
          F:\DragonOS\libSemphella\Debug\libSemphella.lib
          bios.vcxproj -> F:\DragonOS\libSemphella\Debug\bios.exe
@@ -19,4 +8,4 @@
 
 生成成功。
 
-已用时间 00:00:00.92
+已用时间 00:00:00.30

@@ -22,6 +22,9 @@
     <ClCompile Include="math.cpp">
       <Filter>代码</Filter>
     </ClCompile>
+    <ClCompile Include="kernel.cpp">
+      <Filter>代码</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="crypt.h">
@@ -49,6 +52,9 @@
       <Filter>头</Filter>
     </ClInclude>
     <ClInclude Include="math.h">
+      <Filter>头</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel.h">
       <Filter>头</Filter>
     </ClInclude>
   </ItemGroup>

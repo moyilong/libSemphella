@@ -1,79 +1,14 @@
-﻿生成启动时间为 2015/8/28 13:47:30。
+﻿生成启动时间为 2015/9/3 12:19:34。
      1>项目“F:\DragonOS\libSemphella\libSemphella\libSemphella.vcxproj”在节点 2 上(Build 个目标)。
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _USRDLL /D LIBSEMPHELLA_EXPORTS /D _WINDLL /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /openmp /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt -D_CRT_SECURE_NO_WARNINGS -D__DLL_EXPORT APD_LOADER.cpp bios.cpp crypt.cpp debug.cpp libSemphella.cpp math.cpp string.cpp
-         string.cpp
-     1>f:\dragonos\libsemphella\libsemphella\string.cpp(15): warning C4018: “<”: 有符号/无符号不匹配
-     1>f:\dragonos\libsemphella\libsemphella\string.cpp(37): warning C4018: “<”: 有符号/无符号不匹配
-     1>f:\dragonos\libsemphella\libsemphella\string.cpp(41): warning C4018: “<”: 有符号/无符号不匹配
-     1>f:\dragonos\libsemphella\libsemphella\string.cpp(62): warning C4018: “<”: 有符号/无符号不匹配
-         crypt.cpp
-     1>f:\dragonos\libsemphella\libsemphella\debug.h(23): warning C4251: “libDebug::name”: class“std::basic_string<char,std::char_traits<char>,std::allocator<char>>”需要有 dll 接口由 class“libDebug”的客户端使用
-     1>f:\dragonos\libsemphella\libsemphella\debug.h(25): warning C4251: “libDebug::buff”: class“std::basic_string<char,std::char_traits<char>,std::allocator<char>>”需要有 dll 接口由 class“libDebug”的客户端使用
-     1>f:\dragonos\libsemphella\libsemphella\debug.h(27): warning C4251: “libDebug::filelink”: class“std::basic_ofstream<char,std::char_traits<char>>”需要有 dll 接口由 class“libDebug”的客户端使用
-     1>f:\dragonos\libsemphella\libsemphella\crypt.cpp(27): warning C4244: “参数”: 从“__int64”转换到“const char”，可能丢失数据
-     1>f:\dragonos\libsemphella\libsemphella\crypt.cpp(51): warning C4018: “<”: 有符号/无符号不匹配
-     1>f:\dragonos\libsemphella\libsemphella\crypt.cpp(72): warning C4018: “<”: 有符号/无符号不匹配
-     1>f:\dragonos\libsemphella\libsemphella\crypt.cpp(75): warning C4018: “<”: 有符号/无符号不匹配
-     1>f:\dragonos\libsemphella\libsemphella\crypt.cpp(104): warning C4018: “<”: 有符号/无符号不匹配
-     1>f:\dragonos\libsemphella\libsemphella\crypt.cpp(124): warning C4018: “<”: 有符号/无符号不匹配
-     1>f:\dragonos\libsemphella\libsemphella\crypt.cpp(140): warning C4244: “初始化”: 从“unsigned __int64”转换到“char”，可能丢失数据
-     1>f:\dragonos\libsemphella\libsemphella\crypt.cpp(144): warning C4244: “参数”: 从“unsigned __int64”转换到“int”，可能丢失数据
-     1>f:\dragonos\libsemphella\libsemphella\crypt.cpp(150): warning C4244: “+=”: 从“unsigned __int64”转换到“char”，可能丢失数据
-     1>f:\dragonos\libsemphella\libsemphella\crypt.cpp(154): warning C4244: “参数”: 从“unsigned __int64”转换到“int”，可能丢失数据
-     1>f:\dragonos\libsemphella\libsemphella\crypt.cpp(168): warning C4244: “参数”: 从“unsigned __int64”转换到“int”，可能丢失数据
-         正在生成代码...
-         正在编译...
-         math.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _USRDLL /D LIBSEMPHELLA_EXPORTS /D _WINDLL /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /openmp /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt -D_CRT_SECURE_NO_WARNINGS -D__DLL_EXPORT libSemphella.cpp
          libSemphella.cpp
-         debug.cpp
-     1>f:\dragonos\libsemphella\libsemphella\debug.h(23): warning C4251: “libDebug::name”: class“std::basic_string<char,std::char_traits<char>,std::allocator<char>>”需要有 dll 接口由 class“libDebug”的客户端使用
-     1>f:\dragonos\libsemphella\libsemphella\debug.h(25): warning C4251: “libDebug::buff”: class“std::basic_string<char,std::char_traits<char>,std::allocator<char>>”需要有 dll 接口由 class“libDebug”的客户端使用
-     1>f:\dragonos\libsemphella\libsemphella\debug.h(27): warning C4251: “libDebug::filelink”: class“std::basic_ofstream<char,std::char_traits<char>>”需要有 dll 接口由 class“libDebug”的客户端使用
-         bios.cpp
-     1>f:\dragonos\libsemphella\libsemphella\libbios.h(37): warning C4309: “初始化”: 截断常量值
-     1>f:\dragonos\libsemphella\libsemphella\libbios.h(57): warning C4251: “BIOS::info”: struct“BIOS_INFO”需要有 dll 接口由 class“BIOS”的客户端使用
-                 f:\dragonos\libsemphella\libsemphella\libbios.h(34) : 参见“BIOS_INFO”的声明
-     1>f:\dragonos\libsemphella\libsemphella\libbios.h(59): warning C4251: “BIOS::iobit”: class“std::basic_fstream<char,std::char_traits<char>>”需要有 dll 接口由 class“BIOS”的客户端使用
-     1>f:\dragonos\libsemphella\libsemphella\libbios.h(60): warning C4251: “BIOS::passwd”: class“std::basic_string<char,std::char_traits<char>,std::allocator<char>>”需要有 dll 接口由 class“BIOS”的客户端使用
-     1>f:\dragonos\libsemphella\libsemphella\debug.h(23): warning C4251: “libDebug::name”: class“std::basic_string<char,std::char_traits<char>,std::allocator<char>>”需要有 dll 接口由 class“libDebug”的客户端使用
-     1>f:\dragonos\libsemphella\libsemphella\debug.h(25): warning C4251: “libDebug::buff”: class“std::basic_string<char,std::char_traits<char>,std::allocator<char>>”需要有 dll 接口由 class“libDebug”的客户端使用
-     1>f:\dragonos\libsemphella\libsemphella\debug.h(27): warning C4251: “libDebug::filelink”: class“std::basic_ofstream<char,std::char_traits<char>>”需要有 dll 接口由 class“libDebug”的客户端使用
-     1>f:\dragonos\libsemphella\libsemphella\bios.cpp(52): warning C4018: “<”: 有符号/无符号不匹配
-         APD_LOADER.cpp
-     1>f:\dragonos\libsemphella\libsemphella\apd.h(53): warning C4251: “APD_UTILS::APD::filename”: class“std::basic_string<char,std::char_traits<char>,std::allocator<char>>”需要有 dll 接口由 class“APD_UTILS::APD”的客户端使用
-     1>f:\dragonos\libsemphella\libsemphella\apd.h(54): warning C4251: “APD_UTILS::APD::fileio”: class“std::basic_fstream<char,std::char_traits<char>>”需要有 dll 接口由 class“APD_UTILS::APD”的客户端使用
-     1>f:\dragonos\libsemphella\libsemphella\apd.h(55): warning C4251: “APD_UTILS::APD::poll”: class“std::vector<APD_UTILS::NODE,std::allocator<_Ty>>”需要有 dll 接口由 class“APD_UTILS::APD”的客户端使用
-                 with
-                 [
-                     _Ty=APD_UTILS::NODE
-                 ]
-     1>f:\dragonos\libsemphella\libsemphella\apd.h(58): warning C4251: “APD_UTILS::APD::p_password”: class“std::basic_string<char,std::char_traits<char>,std::allocator<char>>”需要有 dll 接口由 class“APD_UTILS::APD”的客户端使用
-     1>f:\dragonos\libsemphella\libsemphella\debug.h(23): warning C4251: “libDebug::name”: class“std::basic_string<char,std::char_traits<char>,std::allocator<char>>”需要有 dll 接口由 class“libDebug”的客户端使用
-     1>f:\dragonos\libsemphella\libsemphella\debug.h(25): warning C4251: “libDebug::buff”: class“std::basic_string<char,std::char_traits<char>,std::allocator<char>>”需要有 dll 接口由 class“libDebug”的客户端使用
-     1>f:\dragonos\libsemphella\libsemphella\debug.h(27): warning C4251: “libDebug::filelink”: class“std::basic_ofstream<char,std::char_traits<char>>”需要有 dll 接口由 class“libDebug”的客户端使用
-     1>f:\dragonos\libsemphella\libsemphella\apd_loader.cpp(81): warning C4244: “参数”: 从“APD_UTILS::COUNT_TYPE”转换到“unsigned int”，可能丢失数据
-     1>f:\dragonos\libsemphella\libsemphella\apd_loader.cpp(99): warning C4244: “参数”: 从“APD_UTILS::COUNT_TYPE”转换到“unsigned int”，可能丢失数据
-     1>f:\dragonos\libsemphella\libsemphella\apd_loader.cpp(102): warning C4244: “参数”: 从“APD_UTILS::COUNT_TYPE”转换到“unsigned int”，可能丢失数据
-     1>f:\dragonos\libsemphella\libsemphella\apd_loader.cpp(110): warning C4244: “参数”: 从“APD_UTILS::COUNT_TYPE”转换到“unsigned int”，可能丢失数据
-     1>f:\dragonos\libsemphella\libsemphella\apd_loader.cpp(122): warning C4244: “参数”: 从“APD_UTILS::COUNT_TYPE”转换到“unsigned int”，可能丢失数据
-     1>f:\dragonos\libsemphella\libsemphella\apd_loader.cpp(123): warning C4244: “参数”: 从“APD_UTILS::COUNT_TYPE”转换到“unsigned int”，可能丢失数据
-     1>f:\dragonos\libsemphella\libsemphella\apd_loader.cpp(136): warning C4244: “参数”: 从“APD_UTILS::COUNT_TYPE”转换到“unsigned int”，可能丢失数据
-     1>f:\dragonos\libsemphella\libsemphella\apd_loader.cpp(137): warning C4244: “参数”: 从“APD_UTILS::COUNT_TYPE”转换到“unsigned int”，可能丢失数据
-     1>f:\dragonos\libsemphella\libsemphella\apd_loader.cpp(141): warning C4244: “参数”: 从“APD_UTILS::COUNT_TYPE”转换到“int”，可能丢失数据
-     1>f:\dragonos\libsemphella\libsemphella\apd_loader.cpp(140): warning C4102: “END”: 未引用的标签
-     1>f:\dragonos\libsemphella\libsemphella\apd_loader.cpp(168): warning C4244: “参数”: 从“APD_UTILS::COUNT_TYPE”转换到“unsigned int”，可能丢失数据
-     1>f:\dragonos\libsemphella\libsemphella\apd_loader.cpp(169): warning C4244: “参数”: 从“APD_UTILS::COUNT_TYPE”转换到“unsigned int”，可能丢失数据
-     1>f:\dragonos\libsemphella\libsemphella\apd_loader.cpp(170): warning C4244: “参数”: 从“APD_UTILS::COUNT_TYPE”转换到“unsigned int”，可能丢失数据
-     1>f:\dragonos\libsemphella\libsemphella\apd_loader.cpp(182): warning C4244: “参数”: 从“APD_UTILS::COUNT_TYPE”转换到“__w64 int”，可能丢失数据
-     1>f:\dragonos\libsemphella\libsemphella\apd_loader.cpp(199): warning C4244: “参数”: 从“APD_UTILS::COUNT_TYPE”转换到“unsigned int”，可能丢失数据
-     1>f:\dragonos\libsemphella\libsemphella\apd_loader.cpp(199): warning C4244: “参数”: 从“APD_UTILS::COUNT_TYPE”转换到“__w64 int”，可能丢失数据
-         正在生成代码...
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"F:\DragonOS\libSemphella\Debug\libSemphella.dll" /INCREMENTAL /NOLOGO /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /manifestinput:"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\Include\Manifest\dpiaware.manifest" /DEBUG /PDB:"F:\DragonOS\libSemphella\Debug\libSemphella.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"F:\DragonOS\libSemphella\Debug\libSemphella.lib" /MACHINE:X86 /DLL Debug\APD_LOADER.obj
          Debug\bios.obj
          Debug\crypt.obj
          Debug\debug.obj
+         Debug\kernel.obj
          Debug\libSemphella.obj
          Debug\math.obj
          Debug\string.obj
@@ -83,4 +18,4 @@
 
 生成成功。
 
-已用时间 00:00:02.95
+已用时间 00:00:00.97
