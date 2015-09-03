@@ -22,7 +22,7 @@
     <ClCompile Include="math.cpp">
       <Filter>代码</Filter>
     </ClCompile>
-    <ClCompile Include="kernel.cpp">
+    <ClCompile Include="fstream.cpp">
       <Filter>代码</Filter>
     </ClCompile>
   </ItemGroup>
@@ -54,7 +54,7 @@
     <ClInclude Include="math.h">
       <Filter>头</Filter>
     </ClInclude>
-    <ClInclude Include="kernel.h">
+    <ClInclude Include="efstream.h">
       <Filter>头</Filter>
     </ClInclude>
   </ItemGroup>
