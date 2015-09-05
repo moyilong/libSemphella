@@ -156,7 +156,6 @@
     <ClInclude Include="apd.h" />
     <ClInclude Include="crypt.h" />
     <ClInclude Include="debug.h" />
-    <ClInclude Include="efstream.h" />
     <ClInclude Include="libbios.h" />
     <ClInclude Include="libsemphella.h" />
     <ClInclude Include="linux.h" />
@@ -169,7 +168,6 @@
     <ClCompile Include="bios.cpp" />
     <ClCompile Include="crypt.cpp" />
     <ClCompile Include="debug.cpp" />
-    <ClCompile Include="fstream.cpp" />
     <ClCompile Include="libSemphella.cpp" />
     <ClCompile Include="math.cpp" />
     <ClCompile Include="string.cpp" />

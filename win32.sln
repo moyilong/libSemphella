@@ -15,8 +15,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "time_lize", "time_lize\time
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libDragonEDGE", "libDragonEDGE\libDragonEDGE.vcxproj", "{64CAEC9A-91EC-4A4C-BD39-0E092DD3140E}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "dCodec", "dCodec\dCodec.vcxproj", "{CA4012F1-6FAB-42AD-9E89-4A1EBCE842E2}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Compile|Win32 = Compile|Win32
@@ -93,16 +91,6 @@ Global
 		{64CAEC9A-91EC-4A4C-BD39-0E092DD3140E}.Release|Win32.Build.0 = Release|Win32
 		{64CAEC9A-91EC-4A4C-BD39-0E092DD3140E}.Release|x64.ActiveCfg = Release|x64
 		{64CAEC9A-91EC-4A4C-BD39-0E092DD3140E}.Release|x64.Build.0 = Release|x64
-		{CA4012F1-6FAB-42AD-9E89-4A1EBCE842E2}.Compile|Win32.ActiveCfg = Release|Win32
-		{CA4012F1-6FAB-42AD-9E89-4A1EBCE842E2}.Compile|Win32.Build.0 = Release|Win32
-		{CA4012F1-6FAB-42AD-9E89-4A1EBCE842E2}.Compile|x64.ActiveCfg = Release|x64
-		{CA4012F1-6FAB-42AD-9E89-4A1EBCE842E2}.Compile|x64.Build.0 = Release|x64
-		{CA4012F1-6FAB-42AD-9E89-4A1EBCE842E2}.Debug|Win32.ActiveCfg = Debug|Win32
-		{CA4012F1-6FAB-42AD-9E89-4A1EBCE842E2}.Debug|Win32.Build.0 = Debug|Win32
-		{CA4012F1-6FAB-42AD-9E89-4A1EBCE842E2}.Debug|x64.ActiveCfg = Debug|Win32
-		{CA4012F1-6FAB-42AD-9E89-4A1EBCE842E2}.Release|Win32.ActiveCfg = Release|Win32
-		{CA4012F1-6FAB-42AD-9E89-4A1EBCE842E2}.Release|Win32.Build.0 = Release|Win32
-		{CA4012F1-6FAB-42AD-9E89-4A1EBCE842E2}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
