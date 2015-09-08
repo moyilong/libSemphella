@@ -101,6 +101,13 @@ int main(int argc, char *argv[])
 				break;
 			}
 			break;
+		case 'I':
+			cout << data.info.version_info << endl;
+			cout << "PID:"<<data.info.product << endl;
+			cout << "VID:" << data.info.vendor << endl;
+			cout << "First Init Time:" << data.info.EFI.first_init_time << endl;
+			cout << "Start Count:" << data.info.EFI.power_up_count << endl;
+			break;
 		case 'c':
 		case 's':
 		case 'o':

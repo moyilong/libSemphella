@@ -22,9 +22,10 @@ API inline char xbit(const char *data,long long len,const char off)
 
 API void crypt(char* data,long long len,const char *password)
 {
+	char xbit_bit = (password, strlen(password),_EL_CPYOFF);
 #pragma omp parallel for
-    for (long long n=0;n<len;n++)
-        data[n]^=xbit(password,strlen(password),n+strlen(password)+_EL_CPYOFF);
+	for (long long n = 0; n < len; n++)
+		data[n] ^= xbit_bit + n;
 }
 
 API void crypt_t(char *data, long long len,const char *password, const char *la, const char *lb)
