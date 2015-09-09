@@ -28,5 +28,6 @@ private:
 protected:
 };
 
+API void display_dump(const char *data, long long len, int x = 5);
 
 #endif // DEBUG_H

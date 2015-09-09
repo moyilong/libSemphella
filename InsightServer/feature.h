@@ -7,17 +7,28 @@
 
 #define DEVICE_SERIAL_TYPE	unsigned long long;
 
-enum WORK_TYPE {
-	NOTHING,
-};
-
-
 struct CONN_HEAD {
 	char F_API = FEATURE_API;
 	char C_API = COMPACT_API;
-	WORK_TYPE type;
+	long long type;
 	int protoco=0;
+
 };
 
 #define HEAD_LEN	sizeof(CONN_HEAD)
+
+#define APICALL_NOTHING	0xFFFFFF01
+#define APICALL_ERROR	0xFFFFFF02
+
+/*
+*
+*
+*	Basic Feature Level
+*
+*
+*/
+
+#define SWITCH_PROTOCO		0xFFFF0000
+#define ENABLE_FAILD_SAFE	0xFFFF0001
+#define DISABLE_FAILD_SAFE	0xFFFF0002
 

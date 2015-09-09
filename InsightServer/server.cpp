@@ -1,7 +1,7 @@
 #include "include.h"
 #include "feature.h"
 #include "utils.h"
-
+#include "mod.h"
 libDebug server("Server");
 int protoco=0;
 
@@ -37,17 +37,35 @@ void server_main()
 	while (true)
 	{
 		server << "Waitting for Accept..." << endl;
-		SOCKET Accept;
+		SOCKET Accept=INVALID_SOCKET;
 		sockaddr_in addr;
 		int len = sizeof(sockaddr_in);
-		Accept = accept(Accept, (sockaddr*)&addr,&len);
+		Accept = accept(sListen, (sockaddr*)&addr,&len);
 		char buff[HEAD_LEN] = { 0x00 };
 		recv(Accept, buff, HEAD_LEN, 0);
-		CONN_HEAD ret = dePackage(buff);
+		bool stat = true;
+		CONN_HEAD ret = dePackage(buff,stat);
+		if (!stat)
+		{
+#ifndef __LINUX__
+			closesocket(Accept);
+#else
+			close(Accept);
+#endif
+		}
 		CONN_HEAD back;
-		back.type = NOTHING;
+		back.type = APICALL_NOTHING;
 		back.protoco = protoco;
+		modules_api api = get_modapi(ret.type);
+		if (api == NULL)
+			back.type = APICALL_ERROR;
+		else
+			if (!api(ret, back))
+			{
+			server << "Modules Report a Error!" << endl;
+			}
 		char sbuff[HEAD_LEN] = { 0x00 };
+		Package(back, sbuff);
 		send(Accept, sbuff, HEAD_LEN, 0);
 #ifndef __LINUX__
 		closesocket(Accept);
@@ -61,3 +79,11 @@ void server_main()
 	close(sListen);
 #endif
 }
+
+bool switch_protoco(const CONN_HEAD getd, CONN_HEAD&ret)
+{
+	protoco = getd.protoco;
+	return true;
+}
+
+mod __switch_protoco(SWITCH_PROTOCO, switch_protoco);
