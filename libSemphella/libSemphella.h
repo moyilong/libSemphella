@@ -5,7 +5,7 @@ API void sZero(void *dest,int value,int len);
 inline  void esleep(unsigned long long ms)
 {
 #ifdef __LINUX__
-	usleep(ms*1000);
+	usleep(ms);
 #else
 	Sleep(ms);
 #endif
