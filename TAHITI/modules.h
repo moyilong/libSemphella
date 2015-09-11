@@ -1,4 +1,5 @@
 #pragma once
+#define MAX_MOD_SIZE	MAX_BUFF_SIZE
 #include "linux_support.hpp"
 #include "feature_define.h"
 

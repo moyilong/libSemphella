@@ -1,6 +1,9 @@
 #include "stdafx.h"
 #include "modules.h"
-vector<Modules>poll;
+
+long long mod_size=0;
+
+Modules mod_poll[MAX_MOD_SIZE];
 
 
 Modules::Modules()
@@ -17,7 +20,8 @@ Modules::Modules(feature_t _mode,string name, ESS_Modules __server_entry, ESS_CM
 	entry_server = __server_entry;
 	entry_client_ret = __client_entry_ret;
 	entry_client_to = __clinet_entry_to;
-	poll.push_back(*this);
+	mod_poll[mod_size] = *this;
+	mod_size++;
 }
 
 ESS_Modules Modules::get_server_entry()
@@ -36,12 +40,12 @@ ESS_CMOD Modules::get_client_ret()
 
 int get_modules_size()
 {
-	return poll.size();
+	return mod_size;
 }
 
 Modules get_mod(unsigned long long ID)
 {
-	return poll.at(ID);
+	return mod_poll[ID];
 }
 
 feature_t Modules::get_api()
