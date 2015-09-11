@@ -10,7 +10,6 @@ class Modules{
 public:
 	Modules();
 	Modules(feature_t _mode,string name, ESS_Modules __server_entry = NULL, ESS_CMOD __clinet_entry_to = NULL, ESS_CMOD __client_entry_ret = NULL);
-	enum FEATURE_DEFINE getmode();
 	ESS_Modules get_server_entry();
 	ESS_CMOD get_client_to();
 	ESS_CMOD get_client_ret();

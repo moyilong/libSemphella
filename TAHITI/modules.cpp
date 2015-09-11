@@ -19,11 +19,6 @@ Modules::Modules(feature_t _mode,string name, ESS_Modules __server_entry, ESS_CM
 	poll.push_back(*this);
 }
 
-enum FEATURE_DEFINE Modules::getmode()
-{
-	return (enum FEATURE_DEFINE)mode;
-}
-
 ESS_Modules Modules::get_server_entry()
 {
 	return entry_server;
