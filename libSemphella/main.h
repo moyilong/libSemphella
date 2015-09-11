@@ -22,7 +22,9 @@ using namespace std;
 #define DEFAULT_DEBUG_STAT  true
 
 #ifdef __LINUX__
-
+#include <string.h>
+#include <unistd.h>
+#include <sys/types.h>
 #define API  
 
 #else
