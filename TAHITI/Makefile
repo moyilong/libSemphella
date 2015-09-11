@@ -15,7 +15,8 @@ CXXFLAGS?=-O3
 $(OUTDIR)/TAHITI:
 	if [ ! -e $(EXTERNEL_MODULES_DIR) ] ; then mkdir -p $(EXTERNEL_MODULES_DIR); fi
 	mkdir -p $(OUTDIR)
-	$(GCC) $(CXXFLAGS) -lSemphella -fpermissive -Wall -Wno-sign-compare  -lgomp -fopenmp -std=c++11 -fpermissive  -Wall -D__LINUX__ -I$(CURDIR)/../  -L$(OUTDIR) -o $(OUTDIR)/TAHITI $$(ls | grep .cpp | grep -v \~) $$(find $(EXTERNEL_MODULES_DIR)| grep .cpp | grep -v \~)
+	#$(GCC) $(CXXFLAGS) -lSemphella -fpermissive -Wall -Wno-sign-compare  -lgomp -fopenmp -std=c++11 -fpermissive  -Wall -D__LINUX__ -I$(CURDIR)/../  -L$(OUTDIR) -o $(OUTDIR)/TAHITI $$(ls | grep .cpp | grep -v \~) $$(find $(EXTERNEL_MODULES_DIR)| grep .cpp | grep -v \~)
+	sh build.sh $(OUTDIR) $(EXTERNEL_MODULES_DIR) $(CXXFLAGS) $(GCC)
 
 all:$(OUTDIR)/TAHITI
 install:$(OUTDIR)/TAHITI
