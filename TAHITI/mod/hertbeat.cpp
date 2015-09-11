@@ -15,23 +15,23 @@ inline DEVICE_ID get_dev_id()
 	return ret;
 }
 
-vector<DEVICE>poll;
+vector<DEVICE>dev_poll;
 
 void Hert_beat_server(struct DATA_FORMAT in, struct DATA_FORMAT &ret, SOCKET &conn)
 {
-	for (int n = 0; n < poll.size();n++)
-		if (poll.at(n).id == in.dev.id)
+	for (int n = 0; n < dev_poll.size();n++)
+		if (dev_poll.at(n).id == in.dev.id)
 		{
 		strcpy(local.name, "test!");
-		ret.dev.last = poll.at(n).last;
-		poll.at(n).last = time(0);
+		ret.dev.last = dev_poll.at(n).last;
+		dev_poll.at(n).last = time(0);
 		return;
 		}
 	cout << "Regist a new device:" << in.dev.id << " = " << in.dev.name << endl;
 	DEVICE temp;
 	memcpy(&temp, &in.dev, sizeof(DEVICE));
 	temp.last = time(0);
-	poll.push_back(temp);
+	dev_poll.push_back(temp);
 	ret.dev.last = 0;
 }
 
