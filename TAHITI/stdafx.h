@@ -18,7 +18,7 @@ using namespace std;
 #include <sys/wait.h>
 #include <string.h>
 #include <unistd.h>
-#include <netdb>
+#include <netdb.h>
 #include <arpa/net.h>
 #else
 #include <WinSock2.h>
