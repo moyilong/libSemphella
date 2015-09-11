@@ -36,7 +36,7 @@
     <ClInclude Include="linux_support.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="mod\protoco.h">
+    <ClInclude Include="protoco.h">
       <Filter>MOD</Filter>
     </ClInclude>
   </ItemGroup>
@@ -53,10 +53,10 @@
     <ClCompile Include="client.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="mod\hertbeat.cpp">
+    <ClCompile Include="hertbeat.mod.cpp">
       <Filter>MOD</Filter>
     </ClCompile>
-    <ClCompile Include="mod\protoco.cpp">
+    <ClCompile Include="protoco.mod.cpp">
       <Filter>MOD</Filter>
     </ClCompile>
   </ItemGroup>

@@ -152,14 +152,14 @@
     <ClInclude Include="inline.h" />
     <ClInclude Include="linux_support.hpp" />
     <ClInclude Include="modules.h" />
-    <ClInclude Include="mod\protoco.h" />
+    <ClInclude Include="protoco.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="client.cpp" />
+    <ClCompile Include="hertbeat.mod.cpp" />
     <ClCompile Include="modules.cpp" />
-    <ClCompile Include="mod\hertbeat.cpp" />
-    <ClCompile Include="mod\protoco.cpp" />
+    <ClCompile Include="protoco.mod.cpp" />
     <ClCompile Include="server.cpp" />
     <ClCompile Include="TAHITI.cpp" />
   </ItemGroup>

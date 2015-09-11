@@ -1,7 +1,7 @@
-#include "../stdafx.h"
-#include "../modules.h"
+#include "stdafx.h"
+#include "modules.h"
 #include <time.h>
-#include "../feature_define.h"
+#include "feature_define.h"
 
 DEVICE local;
 bool local_init = false;
