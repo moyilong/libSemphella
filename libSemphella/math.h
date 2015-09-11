@@ -13,7 +13,7 @@ template<class T> inline T min(T a, T b)
 		return b;
 	return a;
 }
-
+#ifdef __LINUX__
 template<class C>inline int get_type_len(C value)
 {
 	C temp;
@@ -57,3 +57,4 @@ protected:
 	void float_check();
 };
 
+#endif

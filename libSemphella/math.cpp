@@ -1,7 +1,7 @@
 
 #include "libSemphella.h"
 #include "math.h"
-
+#ifndef __LINUX__
 int_c::int_c()
 {
 	sZero(int_t, 0, INT_LEN);
@@ -236,3 +236,5 @@ void int_c::random()
 		float_t[n] = crandom(0, 9);
 	}
 }
+
+#endif
