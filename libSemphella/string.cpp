@@ -9,14 +9,19 @@ using namespace std;
 #include "libSemphella.h"
 #include "string.h"
 
-API int strfind(const char *str,char find)
+API int strfind(const char *str,char find,bool wn)
 {
     int ret=0;
-    for (int n=0;n<strlen(str);n++)
-        if (str[n]==find)
-            ret++;
+	for (int n = 0; n < strlen(str); n++)
+		if (str[n] == find)
+			if (wn)
+				ret = n;
+			else
+				ret++;
     return ret;
 }
+
+
 
 API void strcpy(char *dest,const char *origin,long long cplen,long long r_off,long long w_off)
 {

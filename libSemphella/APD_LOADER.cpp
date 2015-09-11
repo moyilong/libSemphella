@@ -52,7 +52,7 @@ namespace APD_UTILS
 			}
 			else{
 				label xbuff;
-				int equal = strfind(sbuff.data(), '=');
+				int equal = strfind(sbuff.data(), '=',true);
 				if (equal == 0)
 				{
 					apd << "file format error!" << endl << "Error Place:" << sbuff << endl;
@@ -60,11 +60,14 @@ namespace APD_UTILS
 				else{
 					xbuff.name = sbuff.substr(0, equal);
 					xbuff.data = sbuff.substr(equal + 1);
+					apd << "Pushd:" << buff.n_name << "//" << xbuff.name << " = " << xbuff.data << endl;
 					buff.label.push_back(xbuff);
 				}
 
 			}
 		}
+		if (buff.label.size() != 0)
+			poll.push_back(buff);
 	}
 	string APD::get_label(string node, string lab)
 	{
@@ -116,7 +119,10 @@ namespace APD_UTILS
 	{
 		COUNT_TYPE xnode = check_node(node);
 		if (xnode == -1)
+		{
+			apd << "CheckNode was not exist node!" << endl;
 			return -1;
+		}
 		COUNT_TYPE ret=-1;
 #pragma omp parallel for
 		for (COUNT_TYPE n = 0; n < poll.at(xnode).label.size(); n++)

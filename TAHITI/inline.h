@@ -4,5 +4,6 @@ void client_main();
 struct KERNEL{
 	string server = "localhost";
 	int port = PORT;
+	string device_name="unknow_test";
 };
 KERNEL kernel();

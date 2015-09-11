@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "modules.h"
 #include "inline.h"
+
 #ifndef __LINUX__
 inline void close(SOCKET conn)
 {

@@ -1,6 +1,6 @@
 #pragma once
 #include "main.h"
-API int strfind(const char *str,char find);
+API int strfind(const char *str,char find,bool wn=false);
 API void strcpy(char *dest,const char *origin,long long cplen,long long r_off,long long w_off);
 API string strreplace(const char*origin, const char *replace, const char*value);
 API string & operator<<(string input, string x);

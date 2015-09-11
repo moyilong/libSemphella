@@ -6,7 +6,14 @@
 
 bool server_daemon = false;
 
+#include <libSemphella/apd.h>
+
+using namespace APD_UTILS;
+
+APD config;
+
 KERNEL ker;
+string config_file = "";
 
 int main(int argc, char *argv[])
 {
@@ -31,10 +38,29 @@ int main(int argc, char *argv[])
 				n++;
 				ker.server = argv[n];
 				break;
+			case 'n':
+				n++;
+				ker.device_name = argv[n];
+				break;
+			case 'c':
+				n++;
+				config_file = argv[n];
+				break;
 			default:
 				break;
 		}
 	}
+	if (!config_file.empty())
+	{
+		config.load(config_file);
+		if (config.check_label("main", "server") != -1)
+			ker.server = config.get_label("main", "server");
+		if (config.check("main", "port") != -1)
+			ker.port = atoi(config.get_label("main", "port").data());
+		if (config.check("main", "name") != -1)
+			ker.device_name = config.get_label("main", "name");
+	}
+	cout << "Connect To:" << ker.server << ":" << ker.port << endl;
 	if (server_daemon)
 		server_main();
 	else

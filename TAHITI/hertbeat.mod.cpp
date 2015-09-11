@@ -2,15 +2,14 @@
 #include "modules.h"
 #include <time.h>
 #include "feature_define.h"
-
+#include "inline.h"
 DEVICE local;
 bool local_init = false;
 
 inline DEVICE_ID get_dev_id()
 {
 	DEVICE_ID ret=rand();
-	int stop = rand();
-	for (int n = 0; n < stop; n++)
+	for (int n = 0; n < MAX_BUFF_SIZE; n++)
 		ret += rand();
 	return ret;
 }
@@ -22,7 +21,6 @@ void Hert_beat_server(struct DATA_FORMAT in, struct DATA_FORMAT &ret, SOCKET &co
 	for (int n = 0; n < dev_poll.size();n++)
 		if (dev_poll.at(n).id == in.dev.id)
 		{
-		strcpy(local.name, "test!");
 		ret.dev.last = dev_poll.at(n).last;
 		dev_poll.at(n).last = time(0);
 		return;
@@ -37,11 +35,6 @@ void Hert_beat_server(struct DATA_FORMAT in, struct DATA_FORMAT &ret, SOCKET &co
 
 void Hert_beat_client_to(struct DATA_FORMAT &data)
 {
-	if (!local_init)
-	{
-		local.id = get_dev_id();
-		local_init = true;
-	}
 	memcpy(&data.dev, &local, sizeof(DEVICE));
 
 }
@@ -49,11 +42,18 @@ void Hert_beat_client_to(struct DATA_FORMAT &data)
 void Hert_beat_client_ret(struct DATA_FORMAT &data)
 {
 	local.last = data.dev.last;
+	DEBUG_LINE cout << "last get time:" << local.last << endl;
 }
 
 Modules Hert_beat_link(0xFFFF0001,"HertBeat", Hert_beat_server, Hert_beat_client_to, Hert_beat_client_ret);
 
 DEVICE GETLOCAL()
 {
+	if (!local_init)
+	{
+		local.id = get_dev_id();
+		local_init = true;
+		strcpy(local.name, kernel().device_name.data());
+	}
 	return local;
 }
