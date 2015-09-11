@@ -1,7 +1,6 @@
 
 #include "libSemphella.h"
 #include "math.h"
-#include <limits>
 
 int_c::int_c()
 {
