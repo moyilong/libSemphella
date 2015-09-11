@@ -19,7 +19,7 @@ using namespace std;
 #include <string.h>
 #include <unistd.h>
 #include <netdb.h>
-#include <arpa/net.h>
+#include <arpa/inet.h>
 #else
 #include <WinSock2.h>
 #include <stdio.h>
