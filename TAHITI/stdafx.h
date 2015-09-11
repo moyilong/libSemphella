@@ -18,6 +18,7 @@ using namespace std;
 #include <sys/wait.h>
 #include <string.h>
 #include <unistd.h>
+#include <system.h>
 #else
 #include <WinSock2.h>
 #include <stdio.h>

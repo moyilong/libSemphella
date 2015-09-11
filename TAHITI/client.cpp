@@ -72,7 +72,11 @@ void client_main()
 				get_mod(n).get_client_ret()(ret);
 			}
 			close(clientSocket);
+#ifndef __LINUX__
 			Sleep(1000);
+#else
+			usleep(1000);
+#endif
 				}
 
 	}
