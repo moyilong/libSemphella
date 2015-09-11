@@ -10,11 +10,13 @@ AR?=$(TARGET_CROSS)ar
 OUTDIR?=$(CURDIR)/out
 INSTALLDIR?=/usr
 EXTERNEL_MODULES_DIR?=$(CURDIR)/mod
+CXXFLAGS?=-O3
+CXXFLAGS+=-lSemphella -fpermissive -Wall -Wno-sign-compare  -lgomp -fopenmp -std=c++11 -fpermissive  -Wall -D__LINUX__
 
 $(OUTDIR)/TAHITI:
 	if [ ! -e $(EXTERNEL_MODULES_DIR) ] ; then mkdir -p $(EXTERNEL_MODULES_DIR); fi
 	mkdir -p $(OUTDIR)
-	$(GCC) -fpic -shared $(CXXFLAGS) -O3  -I$(CURDIR)/../ -lSemphella -fpermissive -Wall -Wno-sign-compare  -lgomp -fopenmp -std=c++11 -fpermissive  -Wall -D__LINUX__ -D__DLL_EXPORT -L$(OUTDIR) -o $(OUTDIR)/libDragonEDGE.so $$(ls | grep .cpp | grep -v \~) $$(ls $(EXTERNEL_MODULES_DIR)| grep .cpp | grep -v \~)
+	$(GCC) $(CXXFLAGS) -I$(CURDIR)/../  -L$(OUTDIR) -o $(OUTDIR)/TAHITI $$(ls | grep .cpp | grep -v \~) $$(tree $(EXTERNEL_MODULES_DIR)| grep .cpp.o | grep -v \~)
 
 all:$(OUTDIR)/TAHITI
 install:$(OUTDIR)/TAHITI
