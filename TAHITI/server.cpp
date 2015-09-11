@@ -91,7 +91,7 @@ void ErrSetBack(struct DATA_FORMAT &ret, const char *ERR_INFO)
 	 ErrSetBack(ret, _ERROR_NO_ERROR);
 	 DEBUG_LINE cout << "Start to Match Modules:" <<get_in.def<< endl;
 	for (int n = 0; n < get_modules_size(); n++)
-		if (get_mod(n).getmode() == get_in.def)
+		if (get_mod(n).get_api() == get_in.def)
 			{
 		DEBUG_LINE cout << "Find Modules:" << get_mod(n).sname << endl;
 			ESS_Modules get_ent = get_mod(n).get_server_entry();
