@@ -38,7 +38,7 @@ void client_main()
 				{
 					DEBUG_LINE cout << "Warring of Create Connect!" << endl;
 				}
-				Sleep(100);
+				esleep(100);
 			}
 			DATA_FORMAT to;
 			DATA_FORMAT ret;
@@ -72,11 +72,7 @@ void client_main()
 				get_mod(n).get_client_ret()(ret);
 			}
 			close(clientSocket);
-#ifndef __LINUX__
-			Sleep(1000);
-#else
-			usleep(1000);
-#endif
+			esleep(1000);
 				}
 
 	}
