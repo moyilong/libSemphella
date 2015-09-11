@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "modules.h"
+#include "../stdafx.h"
+#include "../modules.h"
 #include "protoco.h"
 int protoco = 0;
 
