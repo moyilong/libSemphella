@@ -52,6 +52,7 @@ typedef  unsigned long long feature_t;
 
 inline void Convert(char *data, int len)
 {
+#pragma omp parallel for
 for (int n = sizeof(char) * 3; n < len; n++)
 	data[n] ^=  n;
 }
