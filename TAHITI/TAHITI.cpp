@@ -6,7 +6,7 @@
 
 bool server_daemon = false;
 
-void main(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
 #ifndef __LINUX__
 	WSAData wsa;
@@ -29,4 +29,5 @@ void main(int argc, char *argv[])
 		server_main();
 	else
 		client_main();
+	return 0;
 }
