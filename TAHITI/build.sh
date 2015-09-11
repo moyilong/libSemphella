@@ -1,9 +1,11 @@
 #!/bin/sh
 OUTDIR=$1
 MODDIR=$2
-CFLAGS=$3
 COMPILER=$4
 LINK=
+
+CFLAGS=$3 -lSemphella -fpermissive -Wall -Wno-sign-compare  -lgomp -fopenmp -std=c++11 -fpermissive \
+	-Wall -D__LINUX__ -I$PWD/../  -L$OUTDIR
 for file in $(ls | grep .cpp | grep -v \~) ;
 	do
 		LINK=$LINK $OUTDIR/$file.o
