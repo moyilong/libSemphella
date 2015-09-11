@@ -26,6 +26,7 @@ void ErrSetBack(struct DATA_FORMAT &ret, const char *ERR_INFO)
 		cout <<"feature_define.h min support:"<<S_API_ALLOW_MIN<<endl;
 		cout <<"feature_define.h Send Len:"<<SEND_LEN<<endl;
 		cout << "feature_define.h error_id:" << ERR_BACK << endl;
+		cout << "Count of Modules:" << get_modules_size() << endl;
 		cout <<"=============TAHITI Project Debug Table==============="<<endl;
 	}
 	 SOCKET sListen = socket(AF_INET, SOCK_STREAM, 0);
