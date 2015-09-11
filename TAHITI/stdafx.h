@@ -17,6 +17,7 @@ using namespace std;
 #include <netinet/in.h>
 #include <sys/wait.h>
 #include <string.h>
+#include <unistd.h>
 #else
 #include <WinSock2.h>
 #include <stdio.h>
