@@ -94,7 +94,7 @@ void ErrSetBack(struct DATA_FORMAT &ret, const char *ERR_INFO)
 	for (int n = 0; n < get_modules_size(); n++)
 		if (get_mod(n).get_api() == get_in.def)
 			{
-		DEBUG_LINE cout << "Find Modules:" << get_mod(n).sname << endl;
+		DEBUG_LINE cout << "Find Modules:" << get_mod(n).get_name() << endl;
 			ESS_Modules get_ent = get_mod(n).get_server_entry();
 			if (get_ent == NULL)
 			{

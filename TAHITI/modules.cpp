@@ -11,11 +11,15 @@ Modules::Modules()
 };
 
 
+string Modules::get_name()
+{
+	return sname;
+}
+
 Modules::Modules(feature_t _mode,string name, ESS_Modules __server_entry, ESS_CMOD __clinet_entry_to, ESS_CMOD __client_entry_ret)
 {
 	DEBUG_LINE cout << "reg of:" << name << endl;
-	inited = true;
-	sname = name;
+	strcpy(sname, name.data());
 	mode = _mode;
 	entry_server = __server_entry;
 	entry_client_ret = __client_entry_ret;

@@ -27,7 +27,7 @@ void client_main()
 			for (int n = 0; n < get_modules_size(); n++)
 				if (get_mod(n).get_client_to() != NULL)
 				{
-			DEBUG_LINE cout << "=========================" << endl << "Work for:" << get_mod(n).sname<< endl;
+			DEBUG_LINE cout << "=========================" << endl << "Work for:" << get_mod(n).get_name()<< endl;
 			DEBUG_LINE cout << "create connect!" << endl;
 			clientSocket = socket(AF_INET, SOCK_STREAM, 0);
 			int create_count = 0;

@@ -15,15 +15,13 @@ public:
 	ESS_CMOD get_client_to();
 	ESS_CMOD get_client_ret();
 	feature_t get_api();
-	string sname;
+	string get_name();
 private:
-	
-	bool inited = false;
 	int mode;
 	ESS_CMOD entry_client_to;
 	ESS_CMOD entry_client_ret;
 	ESS_Modules entry_server;
-
+	char sname[MAX_BUFF_SIZE];
 };
 
 Modules get_mod(unsigned long long ID);
