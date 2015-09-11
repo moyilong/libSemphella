@@ -16,11 +16,3 @@ API void sZero(void *dest,int value, int len)
 		_dest[n] = value;
 }
 
-API void esleep(unsigned long long ms)
-{
-#ifdef __LINUX__
-	usleep(ms);
-#else
-	Sleep(ms);
-#endif
-}
