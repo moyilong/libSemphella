@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "feature_define.h"
 #include "modules.h"
+#include "inline.h"
 DEVICE GETLOCAL();
 SOCKET clientSocket;
 
@@ -16,11 +17,9 @@ void client_main()
 
 	sockaddr_in server;
 	server.sin_family = AF_INET;
-	int port = PORT;
-	server.sin_port = htons(PORT);
+	server.sin_port = htons(kernel().port) ;
 	struct hostent *host;
-	char host_name[] = "localhost";
-	host = gethostbyname(host_name);
+	host = gethostbyname(kernel().server.data());
 	server.sin_addr = *((struct in_addr *)host->h_addr);
 
 		while (true)
@@ -36,9 +35,9 @@ void client_main()
 				create_count++;
 				if (create_count % 10==0)
 				{
-					DEBUG_LINE cout << "Warring of Create Connect!" << endl;
+					DEBUG_LINE cout << "Warring of Create Connect!  Try:"<<create_count << endl;
 				}
-				esleep(1000);
+				esleep(100);
 			}
 			DATA_FORMAT to;
 			DATA_FORMAT ret;

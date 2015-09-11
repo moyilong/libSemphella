@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "modules.h"
-
+#include "inline.h"
 #ifndef __LINUX__
 inline void close(SOCKET conn)
 {
@@ -37,7 +37,7 @@ void ErrSetBack(struct DATA_FORMAT &ret, const char *ERR_INFO)
 
 	 sockaddr_in serv;
 	 serv.sin_family = AF_INET;
-	 serv.sin_port = htons(PORT);	
+	 serv.sin_port = htons(kernel().port);	
 	 serv.sin_addr.s_addr = htonl(INADDR_ANY);	
 
 	 if (bind(sListen, (sockaddr*)&serv, sizeof(serv)) == SOCKET_ERROR){

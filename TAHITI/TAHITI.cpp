@@ -6,6 +6,8 @@
 
 bool server_daemon = false;
 
+KERNEL ker;
+
 int main(int argc, char *argv[])
 {
 #ifndef __LINUX__
@@ -21,6 +23,14 @@ int main(int argc, char *argv[])
 			case 'd':
 				server_daemon = true;
 				break;
+			case 'p':
+				n++;
+				ker.port = atoi(argv[n]);
+				break;
+			case 's':
+				n++;
+				ker.server = argv[n];
+				break;
 			default:
 				break;
 		}
@@ -30,4 +40,9 @@ int main(int argc, char *argv[])
 	else
 		client_main();
 	return 0;
+}
+
+KERNEL kernel()
+{
+	return ker;
 }
