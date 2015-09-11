@@ -20,6 +20,7 @@ using namespace std;
 #include <unistd.h>
 #include <netdb.h>
 #include <arpa/inet.h>
+#include "linux_support.hpp"
 #else
 #include <WinSock2.h>
 #include <stdio.h>

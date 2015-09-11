@@ -104,8 +104,8 @@ Global
 		{D4094C16-ACC4-4954-B161-AC21CDBC51F9}.Debug|x64.ActiveCfg = Debug|Win32
 		{D4094C16-ACC4-4954-B161-AC21CDBC51F9}.Release|Win32.ActiveCfg = Release|Win32
 		{D4094C16-ACC4-4954-B161-AC21CDBC51F9}.Release|Win32.Build.0 = Release|Win32
-		{D4094C16-ACC4-4954-B161-AC21CDBC51F9}.Release|x64.ActiveCfg = Release|Win32
-		{D4094C16-ACC4-4954-B161-AC21CDBC51F9}.Release|x64.Build.0 = Release|Win32
+		{D4094C16-ACC4-4954-B161-AC21CDBC51F9}.Release|x64.ActiveCfg = Release|x64
+		{D4094C16-ACC4-4954-B161-AC21CDBC51F9}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
