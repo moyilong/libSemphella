@@ -36,7 +36,7 @@ void client_main()
 		char send_buff[HEAD_LEN] = { 0x00 };
 		Package(send_to, send_buff);
 		send(client, send_buff, HEAD_LEN, 0);
-		char recv_buff[HEAD_LEN];
+		char recv_buff[HEAD_LEN] = { 0x00 };
 		recv(client, recv_buff, HEAD_LEN, 0);
 		bool stat = true;
 		CONN_HEAD ret=dePackage(recv_buff, stat);
