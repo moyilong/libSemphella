@@ -10,12 +10,13 @@ Modules::Modules()
 
 Modules::Modules(feature_t _mode,string name, ESS_Modules __server_entry, ESS_CMOD __clinet_entry_to, ESS_CMOD __client_entry_ret)
 {
+	DEBUG_LINE cout << "reg of:" << name << endl;
 	inited = true;
 	sname = name;
 	mode = _mode;
 	entry_server = __server_entry;
 	entry_client_ret = __client_entry_ret;
-	entry_client_to = __clinet_entry_to;	
+	entry_client_to = __clinet_entry_to;
 	poll.push_back(*this);
 }
 
@@ -33,7 +34,7 @@ ESS_CMOD Modules::get_client_ret()
 	return entry_client_ret;
 }
 
-unsigned long long get_modules_size()
+int get_modules_size()
 {
 	return poll.size();
 }

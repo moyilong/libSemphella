@@ -26,4 +26,4 @@ private:
 };
 
 Modules get_mod(unsigned long long ID);
-unsigned long long get_modules_size();
+int get_modules_size();

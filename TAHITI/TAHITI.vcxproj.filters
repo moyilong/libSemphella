@@ -53,10 +53,10 @@
     <ClCompile Include="client.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="hertbeat.mod.cpp">
+    <ClCompile Include="protoco.mod.cpp">
       <Filter>MOD</Filter>
     </ClCompile>
-    <ClCompile Include="protoco.mod.cpp">
+    <ClCompile Include="hertbeat.mod.cpp">
       <Filter>MOD</Filter>
     </ClCompile>
   </ItemGroup>
