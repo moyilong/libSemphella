@@ -37,7 +37,7 @@ typedef  unsigned long long feature_t;
 
 
 
-#define DATA_LEN	4096					//定长传输
+#define DATA_LEN	1024					//定长传输
 
 #define PORT 		2258					//端口号
 #define IP "127.0.0.1"
