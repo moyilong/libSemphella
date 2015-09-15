@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "modules.h"
 #include "inline.h"
-
+libDebug server_dbg("ServerMain");
 #ifndef __LINUX__
 inline void close(SOCKET conn)
 {
@@ -57,8 +57,8 @@ void ErrSetBack(struct DATA_FORMAT &ret, const char *ERR_INFO)
 
  while(true){
 	 info.server_io_count++;
-	 DEBUG_LINE cout << "=======================================" << endl << "Wait for Accept..." << endl;
-	 DEBUG_LINE cout<<" Count Connect:"<<info.server_io_count<<endl;	 
+	 server_dbg << "=======================================" << endl << "Wait for Accept..." << endl;
+	 server_dbg<<" Count Connect:"<<info.server_io_count<<endl;	 
 	 
 	 SOCKET sAccept;
 	 struct DATA_FORMAT get_in;
@@ -88,18 +88,18 @@ void ErrSetBack(struct DATA_FORMAT &ret, const char *ERR_INFO)
 	 }
 	 Convert(buff, sizeof(struct DATA_FORMAT));
 	 memcpy(&get_in, buff, SEND_LEN);
-	 DEBUG_LINE cout << "Securty Check..." << endl;
+	 server_dbg << "Securty Check..." << endl;
 
 	 ErrSetBack(ret, _ERROR_NO_ERROR);
-	 DEBUG_LINE cout << "Start to Match Modules:" <<get_in.def<< endl;
+	 server_dbg << "Start to Match Modules:" <<get_in.def<< endl;
 	for (int n = 0; n < get_modules_size(); n++)
 		if (get_mod(n).get_api() == get_in.def)
 			{
-		DEBUG_LINE cout << "Find Modules:" << get_mod(n).get_name() << endl;
+		server_dbg << "Find Modules:" << get_mod(n).get_name() << endl;
 			ESS_Modules get_ent = get_mod(n).get_server_entry();
 			if (get_ent == NULL)
 			{
-				DEBUG_LINE cout << "Modules is not Compact!" << endl;
+				server_dbg << "Modules is not Compact!" << endl;
 				ErrSetBack(ret, _ERROR_SERVER_MODULES_NO_THIS);
 				goto SEND;
 			}
@@ -112,12 +112,12 @@ void ErrSetBack(struct DATA_FORMAT &ret, const char *ERR_INFO)
 	ErrSetBack(ret,_ERROR_DEFINE_UNKNOW);
 
  SEND:
-	DEBUG_LINE cout<<"Returning Data..."<<endl;
+	server_dbg<<"Returning Data..."<<endl;
 	 char sbuff[SEND_LEN];
 	 memcpy(sbuff, &ret,SEND_LEN);
 	 Convert(sbuff, SEND_LEN);
 	 send(sAccept, sbuff, SEND_LEN, 0);
-	 DEBUG_LINE cout << "Connect Over!" << endl;
+	 server_dbg << "Connect Over!" << endl;
 	 
  LOOP_STOP:
 	close(sAccept);

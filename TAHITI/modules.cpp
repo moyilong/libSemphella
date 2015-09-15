@@ -5,6 +5,8 @@ long long mod_size=0;
 
 Modules mod_poll[MAX_MOD_SIZE];
 
+libDebug mod_fram("ModulesFramework");
+
 
 Modules::Modules()
 {
@@ -26,7 +28,7 @@ void Modules::init()
 
 void Modules::reg()
 {
-	DEBUG_LINE cout << "reg of:" << this->sname << endl;
+	mod_fram<< "reg of:" << this->sname << endl;
 	mod_poll[mod_size] = *this;
 	mod_size++;
 

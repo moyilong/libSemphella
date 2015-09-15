@@ -4,7 +4,7 @@
 #include "inline.h"
 DEVICE GETLOCAL();
 SOCKET clientSocket;
-
+libDebug client_dbg("ClientDaemon");
 #ifndef __LINUX__
 inline void close(SOCKET conn)
 {
@@ -26,7 +26,7 @@ void client_main()
 			for (int n = 0; n < get_modules_size(); n++)
 				if (get_mod(n).get_client_to() != NULL&&get_mod(n).get_api()!=CLI_FEATURE)
 				{
-			DEBUG_LINE cout << "=========================" << endl << "Work for:" << get_mod(n).get_name()<< endl;
+			client_dbg << "=========================" << endl << "Work for:" << get_mod(n).get_name()<< endl;
 			DATA_FORMAT push, ret;
 			push.def = get_mod(n).get_api();
 			get_mod(n).get_client_to()(push);

@@ -7,6 +7,8 @@
 #include "modules.h"
 using namespace APD_UTILS;
 
+libDebug tahiti("TAHITI_MAIN");
+
 APD config;
 
 KERNEL ker;
