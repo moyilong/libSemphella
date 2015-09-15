@@ -8,7 +8,6 @@
 
 
 libDebug tahiti("TAHITI_MAIN");
-
 APD config;
 
 KERNEL ker;

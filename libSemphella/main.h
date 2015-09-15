@@ -25,14 +25,18 @@ using namespace std;
 #include <string.h>
 #include <unistd.h>
 #include <sys/types.h>
-#define API  
+#endif
+
+#ifdef __LINUX__
+
+#define API  extern 'C' 
 
 #else
 
 #ifdef __DLL_EXPORT
-#define API	__declspec(dllexport)
+#define API	extern 'C' __declspec(dllexport)
 #else
-#define API	__declspec(dllimport)
+#define API	extern 'C' __declspec(dllimport)
 #endif
 
 #endif
