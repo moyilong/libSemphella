@@ -159,6 +159,7 @@
     <ClCompile Include="client.cpp" />
     <ClCompile Include="hertbeat.mod.cpp" />
     <ClCompile Include="modules.cpp" />
+    <ClCompile Include="modules_api.cpp" />
     <ClCompile Include="protoco.mod.cpp" />
     <ClCompile Include="server.cpp" />
     <ClCompile Include="TAHITI.cpp" />

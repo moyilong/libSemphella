@@ -6,7 +6,9 @@ struct PROTOCO_INFO{
 
 
 #define PROTOCO_API	0x800000AA
+#define PROTOCO_SWITCH 0x800000AB
 
+#define SWITCH_OVER	"____SWITCH_OVER"
 #ifdef __LINUX__
 #define COMMAND_HEAD	"sh "
 #define SCRIPT_DIR		"/etc/protoco.d"

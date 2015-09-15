@@ -37,3 +37,29 @@ void Protoco_Scan_Client_ret(DATA_FORMAT &ret)
 }
 
 Modules Protoco_Scan(PROTOCO_API, "ProtocoScanner",Protoco_Scan_Server, Protoco_Scan_Client_to, Protoco_Scan_Client_ret);
+
+int switcher(vector<string> cmd)
+{
+	int sprotoco = atoi(cmd.at(0).data());
+	PROTOCO_INFO send;
+	send.protoco_count = sprotoco;
+	DATA_FORMAT get;
+	get.def = PROTOCO_SWITCH;
+	memcpy(get.buff, &send, sizeof(PROTOCO_INFO));
+	DATA_FORMAT back=network_trans(get);
+	if (!strcmp(back.buff, SWITCH_OVER))
+		return 0;
+	else
+		return -1;
+}
+
+void Protoco_Switch_Server(DATA_FORMAT in, DATA_FORMAT &ret, SOCKET &conn)
+{
+	PROTOCO_INFO get;
+	memcpy(&get, in.buff, sizeof(PROTOCO_INFO));
+	protoco = get.protoco_count;
+	strcpy(ret.buff, SWITCH_OVER);
+	cout << "Now Switch To Protoco:" << protoco << endl;
+}
+
+Modules Protoco_Switch(PROTOCO_SWITCH, "pswitch", Protoco_Switch_Server, NULL, NULL, switcher);

@@ -3,11 +3,8 @@
 
 #include "stdafx.h"
 #include "inline.h"
-
-bool server_daemon = false;
-
 #include <libSemphella/apd.h>
-
+#include "modules.h"
 using namespace APD_UTILS;
 
 APD config;
@@ -19,17 +16,19 @@ int main(int argc, char *argv[])
 {
 #ifndef __LINUX__
 	WSAData wsa;
-	DWORD word = MAKEWORD(2, 2);
+	WORD word = MAKEWORD(2, 2);
 	WSAStartup(word, &wsa);
 #endif
+	if (argc < 2)
+	{
+		cout << "Use Age:" << argv[0] << " [command] [option]" << endl;
+		return -1;
+	}
 	for (int n = 0; n < argc; n++)
 	{
 		if (argv[n][0] == '-')
 			switch (argv[n][1])
 		{
-			case 'd':
-				server_daemon = true;
-				break;
 			case 'p':
 				n++;
 				ker.port = atoi(argv[n]);
@@ -61,10 +60,22 @@ int main(int argc, char *argv[])
 			ker.device_name = config.get_label("main", "name");
 	}
 	cout << "Connect To:" << ker.server << ":" << ker.port << endl;
-	if (server_daemon)
-		server_main();
-	else
-		client_main();
+	vector<string> cmd;
+	for (int n = 2; n < argc; n++)
+		cmd.push_back(argv[n]);
+	for (long long n = 0; n < get_modules_size(); n++)
+	{
+		if (!strcmp(get_mod(n).get_name().data(), argv[1]))
+		{
+			if (get_mod(n).get_cli() == NULL)
+			{
+				cout << "This method is not support on this modules!" << endl;
+				exit(-1);
+			}
+			return get_mod(n).get_cli()(cmd);
+		}
+	}
+	cout << "unknow command!" << endl << "command:" << argv[1] << endl;
 	return 0;
 }
 
@@ -72,3 +83,18 @@ KERNEL kernel()
 {
 	return ker;
 }
+
+int __server_relink(vector<string> command)
+{
+	server_main();
+	return 0;
+}
+
+int __client_main(vector<string> command)
+{
+	client_main();
+	return 0;
+}
+
+Modules server_link("server", __server_relink);
+Modules client_link("client_daemon", __client_main);
