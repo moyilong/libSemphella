@@ -1,9 +1,6 @@
 #include "libSemphella.h"
 
 
-
-namespace APD_UTILS{
-
 	typedef 	long long COUNT_TYPE;
 	
 	struct label{
@@ -57,5 +54,3 @@ namespace APD_UTILS{
 		bool cryptd = false;
 		string p_password;
 	};
-
-};

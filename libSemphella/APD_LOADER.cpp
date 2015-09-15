@@ -4,8 +4,6 @@
 #include "crypt.h"
 libDebug apd("APD Framework");
 
-namespace APD_UTILS
-{
 
 	APD::APD()
 	{
@@ -204,4 +202,4 @@ namespace APD_UTILS
 		}
 		poll.at(id).label.erase(poll.at(id).label.begin() + lid);
 	}
-}
+	

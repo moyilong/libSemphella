@@ -5,7 +5,7 @@
 #include "inline.h"
 #include <libSemphella/apd.h>
 #include "modules.h"
-using namespace APD_UTILS;
+
 
 libDebug tahiti("TAHITI_MAIN");
 
