@@ -15,7 +15,7 @@
 
 	typedef void(for_each_api)(NODE node_link,COUNT_TYPE nid);
 	typedef bool(for_each_check)(string data);
-	class API APD {
+	class CAPI APD {
 	public:
 		APD();
 		APD(string filename);

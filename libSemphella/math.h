@@ -25,7 +25,7 @@ template<class C>inline int get_type_len(C value)
 
 #define INT_LEN	4096
 
-class API int_c {
+class CAPI int_c {
 public:
 	int_c();
 	~int_c();

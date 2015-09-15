@@ -6,7 +6,7 @@
 
 #define endl "\n"
 
-class API libDebug
+class CAPI libDebug
 {
 public:
     libDebug();

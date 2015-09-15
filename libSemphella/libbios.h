@@ -45,7 +45,7 @@ struct BIOS_INFO{
 };
 
 
-class API BIOS{
+class CAPI BIOS{
 public:
 	BIOS(string file,string sign,bool create=false);
 	BIOS(string sign,bool create=false,string file=getenv("BIOS_FILE"));

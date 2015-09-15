@@ -29,14 +29,14 @@ using namespace std;
 
 #ifdef __LINUX__
 
-#define API  extern 'C' 
+#define CAPI 
 
 #else
 
 #ifdef __DLL_EXPORT
-#define API	extern 'C' __declspec(dllexport)
+#define CAPI	 __declspec(dllexport)
 #else
-#define API	extern 'C' __declspec(dllimport)
+#define CAPI	 __declspec(dllimport)
 #endif
 
 #endif
@@ -48,3 +48,5 @@ using namespace std;
 #ifndef DEFAULT_WORD_BLACK_LIST
 #define DEFAULT_WORD_BLACK_LIST "MUsXGH1bEgTYijNwdklm7ZIJaxSAVWPQtn2340FfOCDuvh8yz56cBoR9qrepKL"
 #endif
+
+#define API extern "C" CAPI
