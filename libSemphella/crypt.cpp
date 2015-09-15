@@ -20,7 +20,7 @@ API inline char xbit(const char *data,long long len,const char off)
 }
 
 
-API void crypt(char* data,long long len,const char *password)
+CAPI void crypt(char* data,long long len,const char *password)
 {
 	char xbit_bit = (password, strlen(password),_EL_CPYOFF);
 #pragma omp parallel for
@@ -28,7 +28,7 @@ API void crypt(char* data,long long len,const char *password)
 		data[n] ^= xbit_bit + n;
 }
 
-API void crypt_t(char *data, long long len,const char *password, const char *la, const char *lb)
+CAPI void crypt_t(char *data, long long len,const char *password, const char *la, const char *lb)
 {
 	char *t_password = (char*)malloc(strlen(password));
 	strcpy(t_password, password, 0, 0, 0);
@@ -65,7 +65,7 @@ API bool word_list_check(const char *word_white_list,const char *word_black_list
 	return ret;
 }
 
-API void word_list_convert(char *str, const char *word_white_list, const char *word_balck_list)
+CAPI void word_list_convert(char *str, const char *word_white_list, const char *word_balck_list)
 {
 	if (!word_list_check(word_white_list, word_balck_list))
 		cpt << "Warring:word list dict is unsecure" << endl;
