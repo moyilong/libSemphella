@@ -5,6 +5,5 @@ struct KERNEL{
 	string server = "localhost";
 	int port = PORT;
 	string device_name="unknow_test";
-	long long sleep_time = 1000;
 };
 KERNEL kernel();

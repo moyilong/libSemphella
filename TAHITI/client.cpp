@@ -71,7 +71,7 @@ void client_main()
 				get_mod(n).get_client_ret()(ret);
 			}
 			close(clientSocket);
-			esleep(kernel().sleep_time);
+			esleep(1000);
 				}
 
 	}

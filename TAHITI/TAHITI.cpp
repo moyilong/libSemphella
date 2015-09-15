@@ -59,8 +59,6 @@ int main(int argc, char *argv[])
 			ker.port = atoi(config.get_label("main", "port").data());
 		if (config.check("main", "name") != -1)
 			ker.device_name = config.get_label("main", "name");
-		if (config.check("main", "sleep") != -1)
-			ker.sleep_time = atoi(config.get_label("main", "sleep").data());
 	}
 	cout << "Connect To:" << ker.server << ":" << ker.port << endl;
 	if (server_daemon)
