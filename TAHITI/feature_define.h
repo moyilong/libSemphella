@@ -25,6 +25,8 @@ typedef  unsigned long long feature_t;
 #define _ERROR_DATA_UNCONFIRM			"________UN_CONFIRM_DATA__"			//数据不完整
 #define _ERROR_COMMAND_NOT_FIND			"SERVER_COMMAND_NOT_FIND__"			//服务器指令未寻获
 #define _ERROR_SERVER_MODULES_NO_THIS	"___SERVER_NO_THIS_FEATURE"			//此指令没有服务器版本
+#define _ERROR_PERMISSION_DINED			"___PERMISSION_DINED______"			//权限不足
+#define _ERROR_AUTH_FAILD				"__SRC_AUTH_FAILD_________"			//授权失败
 
 
 
@@ -35,6 +37,7 @@ typedef  unsigned long long feature_t;
 
 
 
+#define AUTH_CODE_LEN	1024		//验证密钥长度
 
 
 #define DATA_LEN	4096					//定长传输
@@ -79,13 +82,16 @@ struct DATA_FORMAT{
 	char buff[DATA_LEN];				//数据		
 	int protoco = -1;			//匹配协议号
 	struct DEVICE dev;
+	char auth_key[AUTH_CODE_LEN];
 	inline DATA_FORMAT()
 	{
 		API_LEVEL = S_API_VERSION;
 		HEAD_CHECK_A = 0xA9;
 		HEAD_CHECK_B = GetHeadCheck(HEAD_CHECK_A);
 		real_data_len = -1;
+		memset(auth_key, 0, sizeof(auth_key));
 	}
+	
 	
 };
 

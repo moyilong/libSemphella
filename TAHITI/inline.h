@@ -6,4 +6,4 @@ struct KERNEL{
 	int port = PORT;
 	string device_name="unknow_test";
 };
-KERNEL kernel();
+KERNEL &kernel();

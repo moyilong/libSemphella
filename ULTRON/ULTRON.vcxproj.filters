@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="MOD">
-      <UniqueIdentifier>{43fe40f7-36aa-4e19-94b5-56bd2931cee9}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -24,42 +21,15 @@
     <ClInclude Include="stdafx.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="feature_define.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="modules.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="inline.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="protoco.h">
-      <Filter>MOD</Filter>
-    </ClInclude>
-    <ClInclude Include="net_base.h">
+    <ClInclude Include="targetver.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="TAHITI.cpp">
+    <ClCompile Include="stdafx.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="server.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="modules.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="client.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="protoco.mod.cpp">
-      <Filter>MOD</Filter>
-    </ClCompile>
-    <ClCompile Include="hertbeat.mod.cpp">
-      <Filter>MOD</Filter>
-    </ClCompile>
-    <ClCompile Include="modules_api.cpp">
+    <ClCompile Include="ULTRON.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
