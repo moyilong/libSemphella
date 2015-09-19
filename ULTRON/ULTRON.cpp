@@ -10,7 +10,7 @@ using namespace std;
 #include <TAHITI/modules.h>
 #include <TAHITI/inline.h>
 
-#include <libSemphella/libsemphella.h>
+#include <libSemphella/libSemphella.h>
 #include <libSemphella/apd.h>
 
 APD config;
