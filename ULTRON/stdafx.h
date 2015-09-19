@@ -8,7 +8,10 @@
 #include "targetver.h"
 
 #include <stdio.h>
+
+#ifndef __LINUX__
 #include <tchar.h>
+#endif
 
 
 
