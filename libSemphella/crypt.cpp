@@ -11,12 +11,6 @@ using namespace std;
 #include "string.h"
 libDebug cpt("Semphella-CryptMod");
 
-template<class T>dZero(T n)
-{
-	if (n == 0)
-		return 1;
-	return n;
-}
 
 API char xorbit(string password,char *data,int len)
 {

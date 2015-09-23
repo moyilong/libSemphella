@@ -13,6 +13,15 @@ template<class T> inline T min(T a, T b)
 		return b;
 	return a;
 }
+
+template<class T>inline T dZero(T n)
+{
+	if (n == 0)
+		return 1;
+	return n;
+}
+
+
 #ifndef __LINUX__
 template<class C>inline int get_type_len(C value)
 {
@@ -24,37 +33,3 @@ template<class C>inline int get_type_len(C value)
 }
 
 #define INT_LEN	4096
-
-class CAPI int_c {
-public:
-	int_c();
-	~int_c();
-	int_c operator +(int_c a);
-	int_c operator -(int_c a);
-	int_c operator *(int_c a);
-	int_c operator /(int_c a);
-	int_c operator ^(int_c b);
-	int_c operator |(int_c b);
-	int_c operator &(int_c b);
-	
-	operator int();
-	operator float();
-	operator long long();
-	operator long double();
-	operator string();
-
-	bool operator ==(int_c b);
-
-	char *get_int();
-	char *get_float();
-
-	void random();
-private:
-	char int_t[INT_LEN];
-	char float_t[INT_LEN];
-protected:
-	void int_check();
-	void float_check();
-};
-
-#endif
