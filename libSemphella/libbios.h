@@ -59,5 +59,4 @@ private:
 	fstream iobit;
 	string passwd;
 protected:
-
 };

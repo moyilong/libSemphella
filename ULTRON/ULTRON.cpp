@@ -26,6 +26,12 @@ APD config;
 			cout << "Use Age:" << argv[0] << " [command] [option]" << endl;
 			return -1;
 		}
+		if (!strcmp(argv[1], "list"))
+		{
+			for (int n = 0; n < get_modules_size(); n++)
+				cout << n << ":" << get_mod(n).get_name() << endl;
+			return-1;
+		}
 		for (int n = 0; n < argc; n++)
 		{
 			if (argv[n][0] == '-')

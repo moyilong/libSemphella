@@ -110,3 +110,4 @@ void BIOS::write()
 	bios << "BIOS is Protect" << endl;
 #endif
 }
+

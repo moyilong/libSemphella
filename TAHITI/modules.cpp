@@ -5,11 +5,20 @@ long long mod_size=0;
 
 Modules mod_poll[MAX_MOD_SIZE];
 
-libDebug mod_fram("ModulesFramework");
+libDebug mod_fram("ModFrameWork");
+bool framework_init = false;
+void framework_inif()
+{
+	if (framework_init)
+		return;
+	mod_fram.setname("ModulesFramework");
+	framework_init = true;
+}
 
 
 Modules::Modules()
 {
+	framework_inif();
 };
 
 
@@ -18,8 +27,11 @@ string Modules::get_name()
 	return sname;
 }
 
+
+
 void Modules::init()
 {
+	framework_inif();
 	entry_client_ret = NULL;
 	entry_client_to = NULL;
 	entry_server = NULL;

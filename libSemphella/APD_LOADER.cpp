@@ -7,22 +7,33 @@ libDebug apd("APD Framework");
 
 	APD::APD()
 	{
-
+		apd << "Apd is init a empty Class" << endl;
 	}
 
 	APD::~APD()
 	{
+		apd << "APD :" << filename << " was been clean" << endl;
 		poll.clear();
 		fileio.close();
 	}
 
 	APD::APD(string filename)
 	{
+		if (filename.empty())
+		{
+			apd << "Warring:Use NONE_NULL_LINK to init a APD Class" << endl;
+			abort();
+		}
 		load(filename);
 	}
 
 	void APD::load(string filename)
 	{
+		if (filename.empty())
+		{
+			cout << "Load a NULL File Name!" << endl;
+			abort();
+		}
 		fileio.open(filename.data(), ios::in | ios::out);
 		if (!fileio.is_open())
 		{
