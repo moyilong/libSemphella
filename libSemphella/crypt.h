@@ -42,4 +42,4 @@ inline void crypt(char *data, long long len, const string password)
 	crypt(data, len, password.data());
 }
 
-API char xorbit(string password, char *data, int len);
+API char xor_crypt(string password, char *data, int len);

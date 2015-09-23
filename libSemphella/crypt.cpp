@@ -11,19 +11,39 @@ using namespace std;
 #include "string.h"
 libDebug cpt("Semphella-CryptMod");
 
+int inline get_n(int max, int n)
+{
+	int ret=0;
+	if (n == 0)
+		return 1;
+	do{
+		if (max > n)
+			ret = max%n;
+		else
+			ret = n%max;
+	} while (ret > max);
+	if (ret == 0)
+		return 1;
+	return ret;
+}
 
-API char xorbit(string password,char *data,int len)
+API char xor_crypt(string password,char *data,int len)
 {
 	char xsum = 0;
 	for (int n = 0; n < password.size(); n++)
-		xsum ^= password.at(n);
+		xsum += password.at(n);
 	char *vdata = (char*)malloc(len*sizeof(char));
 	sZero(vdata, 0, len);
 	for (int n = 0; n < len; n++)
-		vdata[n] = xsum + n^password.at(password.size() % dZero(n)) - password.size();
+	{
+		vdata[n] = xsum + n + password.at(get_n(password.size(), n)) + password.size() -len;
+		xsum ^= vdata[n] + len;
+	}
 #pragma omp parallel for
 	for (int n = 0; n < len; n++)
 		data[n] = data[n] ^ vdata[n];
+	free(vdata);
+	vdata = NULL;
 }
 
 API inline char xbit(const char *data,long long len,const char off)
