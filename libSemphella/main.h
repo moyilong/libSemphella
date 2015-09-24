@@ -25,14 +25,18 @@ using namespace std;
 #include <string.h>
 #include <unistd.h>
 #include <sys/types.h>
-#define API  
+#endif
+
+#ifdef __LINUX__
+
+#define CAPI 
 
 #else
 
 #ifdef __DLL_EXPORT
-#define API	__declspec(dllexport)
+#define CAPI	 __declspec(dllexport)
 #else
-#define API	__declspec(dllimport)
+#define CAPI	 __declspec(dllimport)
 #endif
 
 #endif
@@ -44,3 +48,5 @@ using namespace std;
 #ifndef DEFAULT_WORD_BLACK_LIST
 #define DEFAULT_WORD_BLACK_LIST "MUsXGH1bEgTYijNwdklm7ZIJaxSAVWPQtn2340FfOCDuvh8yz56cBoR9qrepKL"
 #endif
+
+#define API extern "C" CAPI

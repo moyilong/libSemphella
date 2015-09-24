@@ -23,7 +23,7 @@ API int strfind(const char *str,char find,bool wn)
 
 
 
-API void strcpy(char *dest,const char *origin,long long cplen,long long r_off,long long w_off)
+CAPI void strcpy(char *dest,const char *origin,long long cplen,long long r_off,long long w_off)
 {
 #pragma omp parallel for
     for (long long n=0;n<cplen;n++)

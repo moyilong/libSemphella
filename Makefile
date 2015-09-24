@@ -10,7 +10,7 @@ CXXFLAGS?=-D_LIB_SEMPHELLA
 CFLAGS?=-D_LIB_SEMPHELLA -L$(OUTDIR)
 MAKEFLAGS:=
 
-SUBDIR=libSemphella libDragonEDGE bios mpshell PT time_lize TAHITI
+SUBDIR=libSemphella libDragonEDGE TAHITI bios mpshell PT time_lize  ULTRON
 
 
 all:

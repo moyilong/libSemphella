@@ -4,7 +4,7 @@
 #include "stdafx.h"
 #include <libSemphella/apd.h>
 #include <libSemphella/string.h>
-using namespace APD_UTILS;
+
 string script_dir;
 string config_dir;
 
