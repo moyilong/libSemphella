@@ -32,18 +32,12 @@ API char xor_crypt(string password,char *data,int len)
 	char xsum = 0;
 	for (int n = 0; n < password.size(); n++)
 		xsum += password.at(n);
-	char *vdata = (char*)malloc(len*sizeof(char));
-	sZero(vdata, 0, len);
-	for (int n = 0; n < len; n++)
-	{
-		vdata[n] = xsum + n + password.at(get_n(password.size(), n)) + password.size() -len;
-		xsum ^= vdata[n] + len;
-	}
 #pragma omp parallel for
 	for (int n = 0; n < len; n++)
-		data[n] = data[n] ^ vdata[n];
-	free(vdata);
-	vdata = NULL;
+	{
+		char xor_bit = xsum + n + password.at(get_n(password.size(), n)) + password.size() - len;
+		data[n] = data[n] ^ xor_bit;
+	}
 }
 
 API inline char xbit(const char *data,long long len,const char off)
