@@ -1,7 +1,9 @@
 
 struct KERNEL{
 	bool loop_continue = true;
-	string work_file = "//DragonOS/";
+	string work_dir = "";
+	string pwd = "//DragonOS/";
+	KERNEL();
 };
 
 KERNEL &kernel();
@@ -23,3 +25,4 @@ private:
 
 int get_count();
 CLI get_point(int n);
+string cli_head();

@@ -51,3 +51,11 @@ int __edit(vector<string>dep)
 }
 
 CLI _edit("edit", __edit);
+
+string cli_head()
+{
+	string ret;
+	ret = "cd ";
+	ret.append(kernel().work_dir);
+	ret.append("")
+}

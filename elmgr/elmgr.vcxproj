@@ -89,6 +89,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="command.cpp" />
+    <ClCompile Include="command_cmd.cpp" />
     <ClCompile Include="elmgr.cpp" />
     <ClCompile Include="parser.cpp" />
     <ClCompile Include="stdafx.cpp" />

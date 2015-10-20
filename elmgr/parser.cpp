@@ -39,3 +39,12 @@ KERNEL &kernel()
 {
 	return kern;
 }
+
+KERNEL::KERNEL()
+{
+#ifdef __LINUX__
+	work_file="/etc/config"
+#else
+	work_dir = "%cd%";
+#endif
+}
