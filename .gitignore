@@ -41,6 +41,7 @@ win32/*/Debug
 *.ipch
 *.dll
 *.exe
+out/
 *.lib
 *.log
 *.pch
