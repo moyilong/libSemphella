@@ -107,9 +107,10 @@ int main(int argc, char *argv[])
 			break;
 		case 'I':
 			cout << data.info.version_info << endl;
-			cout << "PID:"<<data.info.product << endl;
-			cout << "VID:" << data.info.vendor << endl;
-			cout << "First Init Time:" << data.info.EFI.first_init_time << endl;
+			cout << "PID:"<<hex<<data.info.product <<oct<< endl;
+			cout << "VID:" << hex<<data.info.vendor<<oct << endl;
+			//cout << "First Init Time:" << data.info.EFI.first_init_time << endl;
+			printf("First Init Time:%lld\n", data.info.EFI.first_init_time);
 			cout << "Start Count:" << data.info.EFI.power_up_count << endl;
 			break;
 		case 'c':
