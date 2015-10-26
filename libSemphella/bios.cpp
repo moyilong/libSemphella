@@ -35,7 +35,7 @@ BIOS::BIOS(string file, string sign,bool create)
 {
 	passwd = sign;
 	iobit.open(file.data(), ios::binary|ios::in |ios::out);
-	if (!iobit.is_open() )
+	if (!iobit.is_open())
 	{
 		bios << "Open " << file << " Faild!" << endl;
 		last_stat = OPEN_FAID;
@@ -65,7 +65,7 @@ BIOS::BIOS(string file, string sign,bool create)
 		strcpy(info.OS,OS_TYPE);
 		strcpy(info.version_info, "ELONE DragonBoard Different System Description Table Version 1.0\nProduct and Vendor Define file\nDragonOS Basic IO Sheet\nELONE Firmware Interface");
 		strcpy(info.check_area, CHECK_STRING);
-		info.EFI.first_init_time = clock();
+		info.EFI.first_init_time = time();
 //		memset(info.dsdt, 0, DSDT_LEN);
 #pragma omp parallel for
 		for (int n=0;n<DSDT_LEN;n++)

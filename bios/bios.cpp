@@ -47,7 +47,7 @@ int main(int argc, char *argv[])
 		{
 		case 'W':
 			data.write();
-			break;
+			ibreak;
 		case 'r':
 			n++;
 			cout << data.readenv(atoi(argv[n]));
