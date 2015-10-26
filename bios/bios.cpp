@@ -50,16 +50,16 @@ int main(int argc, char *argv[])
 			break;
 		case 'r':
 			n++;
-			cout << data.readenv(atoi(argv[n]));
+			printf("%ul", data.readenv(atoi(argv[n])));
 			exit(0);
 			break;
 		case 'w':
-			data.setenv(atoi(argv[n + 1]), atoi(argv[n + 2]));
+			data.setenv(atoi(argv[n + 1]), atoll(argv[n + 2]));
 			n += 2;
 			break;
 		case 'd':
 			for (int x = 0; x < DSDT_LEN; x++)
-				cout << x << "\t\t" << data.readenv(x) << endl;
+				printf("%d\t\t%ul", x, data.readenv(x));
 			exit(0);
 			break;
 		case 'e':
