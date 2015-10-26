@@ -3,7 +3,7 @@
 
 #ifndef __LINUX__
 
-IO_TYPE init(string port,DEVICE_STAT stat)
+IO_TYPE pinit(string port,DEVICE_STAT stat)
 {
 	cout << "WorkPort:" << port << endl;
 	IO_TYPE ret;
@@ -36,19 +36,19 @@ IO_TYPE init(string port,DEVICE_STAT stat)
 	return ret;
 }
 
-void close(IO_TYPE port)
+void pclose(IO_TYPE port)
 {
 	CloseHandle(port);
 }
 
-int read(IO_TYPE io, char *buff, size_t read_len)
+int pread(IO_TYPE io, char *buff, size_t read_len)
 {
 	DWORD ret=0;
 	ReadFile(io, buff, read_len, &ret, NULL);
 	return ret;
 }
 
-int write(IO_TYPE io,const char *buff, size_t send_len)
+int pwrite(IO_TYPE io,const char *buff, size_t send_len)
 {
 	cout << "Write data to Port:" << buff << endl;
 	cout << "Send Size:" << send_len << endl;
