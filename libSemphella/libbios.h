@@ -28,7 +28,7 @@ enum BIOS_STATUS{
 struct MONITOR_TABLE{
 	unsigned long long power_up_time;
 	unsigned long long power_up_count;
-	time_t first_init_time;
+	time_t first_init_time=-1;
 };
 
 struct BIOS_INFO{

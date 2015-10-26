@@ -58,8 +58,8 @@ int main(int argc, char *argv[])
 			n += 2;
 			break;
 		case 'd':
-			for (int n = 0; n < DSDT_LEN; n++)
-				cout << n << "\t\t" << data.readenv(n) << endl;
+			for (int x = 0; x < DSDT_LEN; x++)
+				cout << x << "\t\t" << data.readenv(x) << endl;
 			exit(0);
 			break;
 		case 'e':
@@ -78,6 +78,10 @@ int main(int argc, char *argv[])
 		case 'O':
 			cout << data.info.OS << ":" << OS_TYPE << endl;
 			exit(0);
+			break;
+		case 'u':
+			if (data.info.EFI.first_init_time == -1)
+				data.info.EFI.first_init_time = time(0);
 			break;
 		case 'D':
 			switch (argv[n][2])

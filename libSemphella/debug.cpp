@@ -55,7 +55,7 @@ void libDebug::display_log(string info)
            stime+=name;
            stime+="]"+ buff;
           
-		   cout << stime;
+		   DEBUG_LINE cout << stime;
 		   if (log_to_file)
 			   filelink << stime;
 		   buff = "";
