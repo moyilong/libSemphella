@@ -4,23 +4,39 @@
 #include "stdafx.h"
 #include <libSemphella/main.h>
 #include <libSemphella/libbios.h>
+#include <libSemphella/crypt.h>
 
-#define PASSWORD	"moyilong"
+string PASSWORD = "moyiypt_passwog_c&lrd::^&*$^#nor$#";
 
 const char *hextbl = "0123456789ABCDEF";
 
-int htoi(const char *str)
+inline float get_acc_float(const float input)
+{
+	float ret= input * 10 + sin(input) - cos(input) * tan(input);
+	cout << "Return Fload:" << ret << endl;
+	return ret;
+}
+
+int _htoi(const char *str)
 {
 	int ret = 0;
 	for (int n = strlen(str) - 1; n >= 0; n++)
 	{
 		int off = 0;
 		for (off = 0; off < strlen(hextbl); off++)
-			if (str[n] == hextbl[off]||str[n]==(hextbl[off]-('a'-'A')))
+			if (str[n] == hextbl[off] || str[n] == (hextbl[off] - ('a' - 'A')))
 				break;
 		ret += pow(16, n)*off;
 	}
 	return ret;
+}
+
+int htoi(const char *str)
+{
+	if (str[0] == 0 && str[1] == 'x')
+		return _htoi(str + 2);
+	else
+		return atoi(str);
 }
 
 struct PARTITION_INFO{
@@ -58,8 +74,21 @@ void read_from_file(string file)
 }
 int bios_part = 0;
 string output = "firmware.efi";
+#define MB	1024*1024
+unsigned long long fsize = 16 * MB;
 void main(int argc, char *argv[])
 {
+	cout << "Sirius 量产以及SPI固件合成工具" << endl;
+	cout << "请输入密码:";
+	string pwd;
+	cin >> pwd;
+	cout << endl;
+	if (get_acc_float(38.281021) != get_acc_float(getsum(pwd.data(), strlen(pwd.data()))))
+	{
+		cout << "警告:错误的密码!" << endl;
+		abort();
+	}
+	cout << "密码确认!" << endl;
 	for (int n = 1; n < argc; n++)
 		if (argv[n][0] == '-')
 			switch (argv[n][1])
@@ -85,33 +114,59 @@ void main(int argc, char *argv[])
 				output = argv[n] + 2;
 				break;
 			case 'n':
-				bios_part = atoi(argv[n] + 2);
+				bios_part = htoi(argv[n] + 2);
+				break;
+			case 'l':
+				fsize = htoi(argv[n] + 2);
+				break;
+			case 'P':
+				PASSWORD = argv[n] + 2;
 				break;
 			default:
 				break;
 		}
-	ofstream out;
-	out.open(output.data(), ios::_Noreplace);
-	if (!out.is_open())
-	{
-		cout << "OpenFile Faild!" << endl;
-		return;
-	}
-	out.seekp(out.beg);
+	char *firmware_size = (char*)calloc(fsize, sizeof(char));
 	for (int n = 0; n < poll.size(); n++)
 	{
-		ifstream ipart;
-		ipart.open(poll.at(n).origin.data(), ios::_Nocreate);
-		if (!ipart.is_open())
+		if (n == bios_part)
 		{
-			cout << "Open Partition File Faild!" << endl;
-			cout << n << "@" << poll.at(n).pname << endl;
+			size_t iLen;
+			char buff[128];
+			memset(buff, 0, sizeof(buff));
+			getenv_s(&iLen, buff, "TEMP");			
+			string tmp_file =buff;
+			tmp_file.append("//");
+			memset(buff, 0, sizeof(buff));
+			sprintf_s(buff, "%d%d%d", rand(), rand(), rand());
+			tmp_file.append(buff);
+			BIOS bios(tmp_file, "ELONE DragonOS moyilong Phenom Semphella libDragon", true);
+			bios.setenv(0, rand()*rand()*rand());
+			poll.at(n).origin = tmp_file;
+		}
+		ifstream input;
+		input.open(poll.at(n).pname.data(), ios::_Nocreate);
+		if (!input.is_open())
+		{
+			cout << "Open Original File Faild::" << poll.at(n).pname << " from " << poll.at(n).origin << endl;
+			free(firmware_size);
 			abort();
 		}
-		char *buff = (char*)calloc(poll.at(n).len, sizeof(char));
-		ipart.readsome(buff, poll.at(n).len);
-		out.write(buff, poll.at(n).len);
-		ipart.close();
-		free(buff);
+		input.read(firmware_size + poll.at(n).start, poll.at(n).len);
+		input.close();
+	}
+	if (!output.empty())
+	{
+		ofstream iout;
+		iout.open(output);
+		if (!iout.is_open())
+		{
+			cout << "Create Target File Faild!" << endl;
+			free(firmware_size);
+			abort();
+		}
+		iout.write(firmware_size, fsize);
+		iout.close();
+		free(firmware_size);
+		return;
 	}
 }

@@ -186,3 +186,12 @@ API void dymanic_code(const char *license, long long license_len,string password
 	cpt << "get time now:" << now << endl;
 	half_dymanic_code(license, license_len, password, ret,now);
 }
+
+API float getsum(const char *data, int len)
+{
+	float ret=0;
+#pragma omp parallel for reduction(+:ret)
+	for (int n = 0; n < len; n++)
+		ret += log(data[n]-n + len*sin(data[n])-cos(data[n])-log10(data[n]));
+	return ret;
+}

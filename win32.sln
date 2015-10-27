@@ -19,6 +19,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DragonEDGE", "DragonEDGE\Dr
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "flash_mix", "flash_mix\flash_mix.vcxproj", "{BB06D0F2-3F85-4C12-B2CA-9B83E026564D}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "s2s", "s2s\s2s.vcxproj", "{1538D703-5A9A-4C65-B1FA-208CFDA8DC90}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Compile|Mixed Platforms = Compile|Mixed Platforms
@@ -167,7 +169,24 @@ Global
 		{BB06D0F2-3F85-4C12-B2CA-9B83E026564D}.Release|Mixed Platforms.Build.0 = Release|Win32
 		{BB06D0F2-3F85-4C12-B2CA-9B83E026564D}.Release|Win32.ActiveCfg = Release|Win32
 		{BB06D0F2-3F85-4C12-B2CA-9B83E026564D}.Release|Win32.Build.0 = Release|Win32
-		{BB06D0F2-3F85-4C12-B2CA-9B83E026564D}.Release|x64.ActiveCfg = Release|Win32
+		{BB06D0F2-3F85-4C12-B2CA-9B83E026564D}.Release|x64.ActiveCfg = Release|x64
+		{BB06D0F2-3F85-4C12-B2CA-9B83E026564D}.Release|x64.Build.0 = Release|x64
+		{1538D703-5A9A-4C65-B1FA-208CFDA8DC90}.Compile|Mixed Platforms.ActiveCfg = Release|Win32
+		{1538D703-5A9A-4C65-B1FA-208CFDA8DC90}.Compile|Mixed Platforms.Build.0 = Release|Win32
+		{1538D703-5A9A-4C65-B1FA-208CFDA8DC90}.Compile|Win32.ActiveCfg = Release|Win32
+		{1538D703-5A9A-4C65-B1FA-208CFDA8DC90}.Compile|Win32.Build.0 = Release|Win32
+		{1538D703-5A9A-4C65-B1FA-208CFDA8DC90}.Compile|x64.ActiveCfg = Release|Win32
+		{1538D703-5A9A-4C65-B1FA-208CFDA8DC90}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{1538D703-5A9A-4C65-B1FA-208CFDA8DC90}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{1538D703-5A9A-4C65-B1FA-208CFDA8DC90}.Debug|Win32.ActiveCfg = Debug|Win32
+		{1538D703-5A9A-4C65-B1FA-208CFDA8DC90}.Debug|Win32.Build.0 = Debug|Win32
+		{1538D703-5A9A-4C65-B1FA-208CFDA8DC90}.Debug|x64.ActiveCfg = Debug|Win32
+		{1538D703-5A9A-4C65-B1FA-208CFDA8DC90}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{1538D703-5A9A-4C65-B1FA-208CFDA8DC90}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{1538D703-5A9A-4C65-B1FA-208CFDA8DC90}.Release|Win32.ActiveCfg = Release|Win32
+		{1538D703-5A9A-4C65-B1FA-208CFDA8DC90}.Release|Win32.Build.0 = Release|Win32
+		{1538D703-5A9A-4C65-B1FA-208CFDA8DC90}.Release|x64.ActiveCfg = Release|x64
+		{1538D703-5A9A-4C65-B1FA-208CFDA8DC90}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
