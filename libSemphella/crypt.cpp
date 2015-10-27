@@ -13,18 +13,7 @@ libDebug cpt("Semphella-CryptMod");
 
 int inline get_n(int max, int n)
 {
-	int ret=0;
-	if (n == 0)
-		return 1;
-	do{
-		if (max > n)
-			ret = max%n;
-		else
-			ret = n%max;
-	} while (ret > max);
-	if (ret == 0)
-		return 1;
-	return ret;
+	return abs(sin(max)*n);
 }
 
 API char xor_crypt(string password,char *data,int len)
@@ -51,10 +40,9 @@ API inline char xbit(const char *data,long long len,const char off)
 
 CAPI void crypt(char* data,long long len,const char *password)
 {
-	char xbit_bit = (password, strlen(password),_EL_CPYOFF);
 #pragma omp parallel for
 	for (long long n = 0; n < len; n++)
-		data[n] ^= xbit_bit + n;
+		data[n] ^= get_n(strlen(password),n);
 }
 
 CAPI void crypt_t(char *data, long long len,const char *password, const char *la, const char *lb)

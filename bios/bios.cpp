@@ -59,7 +59,7 @@ int main(int argc, char *argv[])
 			break;
 		case 'd':
 			for (int x = 0; x < DSDT_LEN; x++)
-				printf("%d\t\t%ul", x, data.readenv(x));
+				printf("%d\t\t%ul\n", x, data.readenv(x));
 			exit(0);
 			break;
 		case 'e':
@@ -77,7 +77,7 @@ int main(int argc, char *argv[])
 			break;
 		case 'O':
 			cout << data.info.OS << ":" << OS_TYPE << endl;
-			exit(0);
+			exit(0); 
 			break;
 		case 'u':
 			if (data.info.EFI.first_init_time == -1)
