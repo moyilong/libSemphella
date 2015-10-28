@@ -3,6 +3,7 @@
 #define TABLE_LEN	32
 #define DSDT_LEN	128
 #define CHECK_STRING	"ELONE-DragonOS DSDT Table"
+#define ECC_PASSWORD	"ELONE-DragonOS DSDT ECC Partition Password"
 
 #ifndef VENDOR
 #define VENDOR	0x59DD
@@ -42,6 +43,8 @@ struct BIOS_INFO{
 	bool write_skip = false;
 	MONITOR_TABLE EFI;
 	char OS[32];
+	const char end_mask = 0x55;
+	const char end_mask_2 = 0xAA;
 };
 
 
@@ -60,3 +63,6 @@ private:
 	string passwd;
 protected:
 };
+
+//#define __WNO_BIOS_CRYPT
+//#define __WNO_ECC_CRYPT

@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
 			break;
 		case 'r':
 			n++;
-			printf("%ul", data.readenv(atoi(argv[n])));
+			printf("%d", data.readenv(atoi(argv[n])));
 			exit(0);
 			break;
 		case 'w':
