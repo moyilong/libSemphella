@@ -24,6 +24,7 @@ enum BIOS_STATUS{
 	NORMALLY,
 	CHECK_FAILD,
 	OPEN_FAID,
+	ECC_FAILD,
 };
 
 struct MONITOR_TABLE{
@@ -45,6 +46,16 @@ struct BIOS_INFO{
 	char OS[32];
 	const char end_mask = 0x55;
 	const char end_mask_2 = 0xAA;
+	inline BIOS_INFO()
+	{
+		sZero(version_info, 0, 256);
+		sZero(check_area,0, sizeof(CHECK_STRING));
+		strcpy(check_area, CHECK_STRING);
+		sZero(dsdt, 0, sizeof(dsdt));
+		EFI.first_init_time = -1;
+		EFI.power_up_count = 0;
+		EFI.power_up_time = 0;
+	}
 };
 
 

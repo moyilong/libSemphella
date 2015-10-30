@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
 	if (data.last_stat != NORMALLY)
 	{
 		cout << "IO Error!" << endl;
-		exit(-1);
+		return -1;
 	}
 	for (int n = 1; n < argc - 1; n++)
 		if (argv[n][0] == '-')

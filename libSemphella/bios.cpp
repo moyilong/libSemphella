@@ -66,7 +66,7 @@ BIOS::BIOS(string file, string sign, bool create)
 			flush_when_read = true;
 			break;
 		case -1:
-			last_stat = CHECK_FAILD;
+			last_stat = ECC_FAILD;
 			cout << "ECC Check Faild!" << endl;
 			break;
 		}
