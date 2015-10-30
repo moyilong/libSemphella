@@ -3,6 +3,7 @@
 #include <string>
 #include <fstream>
 #include <omp.h>
+#include <math.h>
 using namespace std;
 #include "libSemphella.h"
 #include "crypt.h"
@@ -16,7 +17,9 @@ int inline get_n(int max, int n)
 	//return abs(sin(max)*n);
 	double ret = 0;
 	ret = sin(n)*max;
-	ret = abs(ret);
+        //ret = abs(ret);
+        if (ret<0)
+            ret=-ret;
 	return ret;
 }
 
