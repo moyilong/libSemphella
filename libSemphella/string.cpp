@@ -54,9 +54,6 @@ API string strreplace(const char*origin, const char *replace, const char*value)
 		else
 			ret += origin[n];
 		}
-		else{
-			ret += origin[n];
-		}
 		return ret;
 }
 
