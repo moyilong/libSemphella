@@ -15,5 +15,3 @@
 // TODO:  在此处引用程序需要的其他头文件
 #include "stdafx.h"
 #include <Windows.h>
-#include "CH341PT.H"
-#pragma comment(lib,"CH341PT.lib")
