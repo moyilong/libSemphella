@@ -83,7 +83,8 @@ void main(int argc, char *argv[])
 	string pwd;
 	cin >> pwd;
 	cout << endl;
-	if (get_acc_float(38.281021) != get_acc_float(getsum(pwd.data(), strlen(pwd.data()))))
+	float passwd = get_acc_float(getsum(pwd.data(), strlen(pwd.data())));
+	if (get_acc_float(38.281021) !=passwd&&get_acc_float(37.217239) !=passwd)
 	{
 		cout << "¾¯¸æ:´íÎóµÄÃÜÂë!" << endl;
 		abort();
@@ -123,6 +124,8 @@ void main(int argc, char *argv[])
 				PASSWORD = argv[n] + 2;
 				break;
 			default:
+				cout << "Î´ÖªÃüÁîÐÐ:" << argv[n] << endl;
+				exit(-1);
 				break;
 		}
 	char *firmware_size = (char*)calloc(fsize, sizeof(char));
