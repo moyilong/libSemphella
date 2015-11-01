@@ -107,6 +107,7 @@ TEST:
 	struct INFO{
 		string str;
 		float data;
+		size_t match_size = 0;
 	};
 	vector<INFO>ipoll;
 	char str[MAX_BUFF_SIZE];
@@ -130,6 +131,8 @@ TEST:
 			{
 				stat = false;
 				match++;
+				ipoll.at(n).match_size++;
+				cout << "FindN:" << inf.data <<" " <<inf.str <<"=="<<ipoll.at(n).str<<"  Match:"<<ipoll.at(n).match_size<<endl;
 				//out << "Find Equal!" << endl;
 				//out << n<<"Find At:" <<  "(" << inf.data << ") == " << ipoll.at(n).str << "(" << ipoll.at(n).data << ")" << endl;
 			}
@@ -144,7 +147,8 @@ TEST:
 			liops = iops;
 		}
 		count++;
-		ipoll.push_back(inf);
+		if (stat)
+			ipoll.push_back(inf);
 	}
 	return;
 

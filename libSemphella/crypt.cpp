@@ -199,6 +199,14 @@ API float getsum(const char *data, int len)
 	float ret=0;
 #pragma omp parallel for reduction(+:ret)
 	for (int n = 0; n < len; n++)
-		ret += log(data[n]-n + len*sin(data[n])-cos(data[n])-log10(data[n]));
+	{
+		ret += log(data[n] - n + len*sin(data[n]) - cos(data[n]) - log10(data[n]));
+		if (data[n] % 2 == 0)
+		{
+			ret += 2 * sin(data[n]);
+		}
+		else
+			ret -= 2 * sin(data[n]);
+	}
 	return ret;
 }

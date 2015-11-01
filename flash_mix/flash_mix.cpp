@@ -5,7 +5,7 @@
 #include <libSemphella/main.h>
 #include <libSemphella/libbios.h>
 #include <libSemphella/crypt.h>
-
+#include <libSemphella/string.h>
 string PASSWORD = "moyiypt_passwog_c&lrd::^&*$^#nor$#";
 
 const char *hextbl = "0123456789ABCDEF";
@@ -13,30 +13,70 @@ const char *hextbl = "0123456789ABCDEF";
 inline float get_acc_float(const float input)
 {
 	float ret= input * 10 + sin(input) - cos(input) * tan(input);
-	cout << "Return Fload:" << ret << endl;
 	return ret;
 }
 
-int _htoi(const char *str)
+int ehoti(const char* str)
 {
-	int ret = 0;
-	for (int n = strlen(str) - 1; n >= 0; n++)
+	if (strstr(str, "0x") || strstr(str, "0X"))
 	{
-		int off = 0;
-		for (off = 0; off < strlen(hextbl); off++)
-			if (str[n] == hextbl[off] || str[n] == (hextbl[off] - ('a' - 'A')))
+		str += 2;
+		int tmp = 0;
+		int len = strlen(str);
+		int i = 0;
+		for (i = 0; i < len; i++)
+		{
+			int nDecNum;
+			switch (str[i])
+			{
+			case 'a':
+			case 'A':
+				nDecNum = 10;
 				break;
-		ret += pow(16, n)*off;
-	}
-	return ret;
-}
+			case 'b':
+			case 'B':
+				nDecNum = 11;
+				break;
+			case 'c':
+			case 'C':
+				nDecNum = 12;
+				break;
+			case 'd':
+			case 'D':
+				nDecNum = 13;
+				break;
+			case 'e':
+			case 'E':
+				nDecNum = 14;
+				break;
+			case 'f':
+			case 'F':
+				nDecNum = 15;
+				break;
+			case '0':
+			case '1':
+			case '2':
+			case '3':
+			case '4':
+			case '5':
+			case '6':
+			case '7':
+			case '8':
+			case '9':
+				nDecNum = str[i] - '0';
+				break;
+			default:
+				return 0;
 
-int htoi(const char *str)
-{
-	if (str[0] == 0 && str[1] == 'x')
-		return _htoi(str + 2);
+			}
+			tmp += nDecNum*pow(16, len - i - 1);
+		}
+		return tmp;
+	}
 	else
+	{
 		return atoi(str);
+	}
 }
 
 struct PARTITION_INFO{
@@ -66,47 +106,48 @@ void read_from_file(string file)
 				ipoll.push_back(n);
 		PARTITION_INFO info;
 		info.pname = xline.substr(0, ipoll.at(0));
-		info.start = htoi(xline.substr(ipoll.at(0) + 1, ipoll.at(1)).data());
-		info.len = htoi(xline.substr(ipoll.at(1),ipoll.at(2)).data());
+		info.start = ehoti(xline.substr(ipoll.at(0) + 1, ipoll.at(1)).data());
+		info.len = ehoti(xline.substr(ipoll.at(1),ipoll.at(2)).data());
 		info.origin = xline.substr(ipoll.at(2));
 		poll.push_back(info);
 	}
+}
+PARTITION_INFO Str2Par(string in)
+{
+	//STD_FORMAT partition_name:origin_file.start+len
+	int emp=-1;
+	int spl = -1;
+	int dot = -1;
+	emp = strfind(in.data(), '.', true);
+	spl = strfind(in.data(), ':', true);
+	dot = strfind(in.data(), '+', true);
+	if (emp == -1 || spl == -1 || dot == -1)
+	{
+		cout << "Synatx Error:" << in << endl;
+		exit(-1);
+	}
+	PARTITION_INFO ret;
+	ret.pname = in.substr(0, spl);
+	ret.origin = in.substr(spl + 1, emp);
+	ret.start = ehoti(in.substr(emp + 1, dot).data());
+	ret.len = ehoti(in.substr(dot + 1).data());
+	return ret;
 }
 int bios_part = 0;
 string output = "firmware.efi";
 #define MB	1024*1024
 unsigned long long fsize = 16 * MB;
+int vendor = 0xAF5D;
+int product = 0xBF9E;
 void main(int argc, char *argv[])
 {
-	cout << "Sirius 量产以及SPI固件合成工具" << endl;
-	cout << "请输入密码:";
-	string pwd;
-	cin >> pwd;
-	cout << endl;
-	float passwd = get_acc_float(getsum(pwd.data(), strlen(pwd.data())));
-	if (get_acc_float(38.281021) !=passwd&&get_acc_float(37.217239) !=passwd)
-	{
-		cout << "警告:错误的密码!" << endl;
-		abort();
-	}
-	cout << "密码确认!" << endl;
+	bool std_input = false;
 	for (int n = 1; n < argc; n++)
 		if (argv[n][0] == '-')
 			switch (argv[n][1])
 		{
-			case 'p':
-				if (true)
-				{
-					PARTITION_INFO info;
-					info.pname = argv[n] + 2;
-					n++;
-					info.start = htoi(argv[n]);
-					n++;
-					info.len = htoi(argv[n]);
-					n++;
-					info.origin = argv[n];
-					poll.push_back(info);
-				}
+			case 'i':
+				poll.push_back(Str2Par(argv[n] + 2));
 				break;
 			case 'f':
 				read_from_file(argv[n] + 2);
@@ -115,18 +156,55 @@ void main(int argc, char *argv[])
 				output = argv[n] + 2;
 				break;
 			case 'n':
-				bios_part = htoi(argv[n] + 2);
+				bios_part = ehoti(argv[n] + 2);
 				break;
 			case 'l':
-				fsize = htoi(argv[n] + 2);
+				fsize = ehoti(argv[n] + 2);
 				break;
 			case 'P':
 				PASSWORD = argv[n] + 2;
+				break;
+			case 's':
+				std_input = true;
+				break;
+			case 'v':
+				vendor = ehoti(argv[n] + 2);
+				break;
+			case 'p':
+				product = ehoti(argv[n] + 2);
 				break;
 			default:
 				cout << "未知命令行:" << argv[n] << endl;
 				exit(-1);
 				break;
+		}
+	cout << "优华电器 Sirius 量产以及SPI固件合成工具" << endl;
+	cout << "Vendor:" << hex<<vendor <<oct<< " Product:" << hex<<product <<oct<< endl;
+	if (vendor > 0xFFFF || product > 0xFFFF)
+	{
+		cout << "Vendor or Product ID Error!" << endl;
+		exit(-1);
+	}
+	cout << "请输入密码:";
+	string pwd;
+	cin >> pwd;
+	cout << endl;
+	float passwd = get_acc_float(getsum(pwd.data(), strlen(pwd.data())));
+	if (get_acc_float(38.281021) != passwd&&get_acc_float(39.504578) != passwd)
+	{
+		cout << "警告:错误的密码!" << endl;
+		abort();
+	}
+	cout << "密码确认!" << endl;
+	if (std_input)
+		while (true)
+		{
+			cout << "STD:" << endl;
+			string in;
+			cin >> in;
+			if (streval("::END", in.data()))
+				break;
+			poll.push_back(Str2Par(in));
 		}
 	char *firmware_size = (char*)calloc(fsize, sizeof(char));
 	for (int n = 0; n < poll.size(); n++)
@@ -144,6 +222,8 @@ void main(int argc, char *argv[])
 			tmp_file.append(buff);
 			BIOS bios(tmp_file, "ELONE DragonOS moyilong Phenom Semphella libDragon", true);
 			bios.setenv(0, rand()*rand()*rand());
+			bios.info.vendor = vendor;
+			bios.info.product = product;
 			poll.at(n).origin = tmp_file;
 		}
 		ifstream input;

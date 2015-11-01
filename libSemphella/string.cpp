@@ -15,7 +15,7 @@ API int strfind(const char *str,char find,bool wn)
 	for (int n = 0; n < strlen(str); n++)
 		if (str[n] == find)
 			if (wn)
-				ret = n;
+				return n;
 			else
 				ret++;
     return ret;
