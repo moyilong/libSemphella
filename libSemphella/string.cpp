@@ -72,7 +72,7 @@ API bool streval(const char *a, const char *b)
 
 API char* eitoa(int num, char*str, int radix,const char *word_list)
 {
-	char index[sizeof(DEFAULT_WORD_WHITE_LIST)];
+	char *index = (char*)calloc(strlen(word_list), sizeof(char));
 	strcpy(index, word_list);
 	unsigned unum;
 	int i = 0, j, k;
@@ -99,5 +99,6 @@ API char* eitoa(int num, char*str, int radix,const char *word_list)
 		str[j] = str[i - 1 + k - j];
 		str[i - 1 + k - j] = temp;
 	}
+	free(index);
 	return str;
 }
