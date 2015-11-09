@@ -37,9 +37,11 @@ int main(int argc, char *argv[])
 	BIOS data(emufile, sign,create);
 	if (data.last_stat != NORMALLY)
 	{
-		cout << "IO Error!" << endl;
+		cout << "Faild to Open Devices!" << endl;
 		return -1;
 	}
+	if (data.info.EFI.first_init_time == -1)
+		data.info.EFI.first_init_time = time(0);
 	for (int n = 1; n < argc - 1; n++)
 		if (argv[n][0] == '-')
 		{
