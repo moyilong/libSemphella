@@ -5,7 +5,7 @@
 #include <libSemphella/main.h>
 #include <libSemphella/crypt.h>
 #include <time.h>
-const char *strtbl = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+const char *strtbl = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz~`!@#$%^&*()-=_+{}[]\\|;':\",.<>/?/+*-";
 
 
 void str_add(char *g)

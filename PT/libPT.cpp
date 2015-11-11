@@ -7,7 +7,7 @@ using namespace std;
 #include "libPT.h"
 
 #ifndef MATRIX_SIZE
-#define MATRIX_SIZE	 64
+#define MATRIX_SIZE	64
 #endif
 #define U_RANDOM	0xA55B99FC
 
@@ -54,6 +54,7 @@ inline long long c_long(long long a, long long b, long long c, long long d)
 	long long ****l_matrix;
 	double ****d_matrix;
 	ret.start = clock();
+	cout << "Start to Malloc..." << endl;
 	matrix = (char****)malloc(sizeof(char*)*MATRIX_SIZE);
 #pragma omp parallel for
 	for (int a = 0; a < MATRIX_SIZE; a++)
@@ -64,9 +65,13 @@ inline long long c_long(long long a, long long b, long long c, long long d)
 			matrix[a][z] = (char**)malloc(sizeof(char*)*MATRIX_SIZE);
 #pragma omp parallel for
 	for (int a = 0; a < MATRIX_SIZE; a++)
+	{
+#pragma omp parallel for
 		for (int z = 0; z < MATRIX_SIZE; z++)
-			for (int y = 0; y < MATRIX_SIZE;y++)
+			for (int y = 0; y < MATRIX_SIZE; y++)
 				matrix[a][z][y] = (char*)malloc(sizeof(char)*MATRIX_SIZE);
+	}
+
 	l_matrix = (long long ****)malloc(sizeof(long long*)*MATRIX_SIZE);
 #pragma omp parallel for
 	for (int a = 0; a < MATRIX_SIZE; a++)
@@ -77,9 +82,12 @@ inline long long c_long(long long a, long long b, long long c, long long d)
 			l_matrix[a][z] = (long long**)malloc(sizeof(long long*)*MATRIX_SIZE);
 #pragma omp parallel for
 	for (int a = 0; a < MATRIX_SIZE; a++)
+	{
+#pragma omp parallel for
 		for (int z = 0; z < MATRIX_SIZE; z++)
 			for (int y = 0; y < MATRIX_SIZE; y++)
 				l_matrix[a][z][y] = (long long*)malloc(sizeof(long long)*MATRIX_SIZE);
+	}
 	d_matrix = (double****)malloc(sizeof(double*)*MATRIX_SIZE);
 #pragma omp parallel for
 	for (int a = 0; a < MATRIX_SIZE; a++)
@@ -90,9 +98,12 @@ inline long long c_long(long long a, long long b, long long c, long long d)
 			d_matrix[a][z] = (double**)malloc(sizeof(double*)*MATRIX_SIZE);
 #pragma omp parallel for
 	for (int a = 0; a < MATRIX_SIZE; a++)
+	{
+#pragma omp parallel for
 		for (int z = 0; z < MATRIX_SIZE; z++)
 			for (int y = 0; y < MATRIX_SIZE; y++)
 				d_matrix[a][z][y] = (double*)malloc(sizeof(double)*MATRIX_SIZE);
+	}
 	ret.mem_alloc = clock();
 
 #pragma omp parallel for 
@@ -101,7 +112,7 @@ inline long long c_long(long long a, long long b, long long c, long long d)
 			for (int y = 0; y < MATRIX_SIZE; y++)
 				for (int x = 0; x < MATRIX_SIZE; x++)
 					matrix[a][z][y][z] = c_char(a, z, y, x);
-	//cout << "char caculate complete!" << endl;
+	cout << "char caculate complete!" << endl;
 	ret.caculate_c_time = clock();
 #pragma omp parallel for 
 	for (int a = 0; a < MATRIX_SIZE; a++)
@@ -109,7 +120,7 @@ inline long long c_long(long long a, long long b, long long c, long long d)
 			for (int y = 0; y < MATRIX_SIZE; y++)
 				for (int x = 0; x < MATRIX_SIZE; x++)
 					l_matrix[a][z][y][z] = c_long(a, z, y, x);
-	//cout << "long long caculate complete!" << endl;
+	cout << "long long caculate complete!" << endl;
 	ret.caculate_l_time = clock();
 #pragma omp parallel for 
 	for (int a = 0; a < MATRIX_SIZE; a++)
@@ -117,7 +128,7 @@ inline long long c_long(long long a, long long b, long long c, long long d)
 			for (int y = 0; y < MATRIX_SIZE; y++)
 				for (int x = 0; x < MATRIX_SIZE; x++)
 					d_matrix[a][z][y][z] = c_double(a, z, y, x);
-	//cout << "double caculate complete!" << endl;
+	cout << "double caculate complete!" << endl;
 	ret.caculate_d_time = clock();
 	int stop = pow(MATRIX_SIZE, 4);
 #pragma omp parallel for 
