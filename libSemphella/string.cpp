@@ -99,3 +99,42 @@ API char* eitoa(int num, char*str, int radix,const char *word_list)
 	free(index);
 	return str;
 }
+
+API bool is_str(const char bit)
+{
+	if (('A' >= bit && 'Z' <= bit) || ('a' >= bit && 'z' <= bit))
+		return true;
+	return false;
+}
+
+API bool is_upper(const char bit)
+{
+	if (!is_str(bit))
+		return false;
+	if ('A' >= bit && 'Z' <= bit)
+		return true;
+	return false;
+}
+
+API char set_upper(const char bit, bool upper)
+{
+	if (!is_str(bit))
+		return false;
+	if (is_upper(bit))
+		return bit + ('a' - 'A');
+	else
+		return bit - ('a' - 'A');
+}
+
+API string upper_string(string str,bool upper)
+{
+	string ret;
+	for (int n = 0; n < str.size(); n++)
+	{
+		if (is_upper(str.at(n)))
+			ret += set_upper(str.at(n), upper);
+		else
+			ret += str.at(n);
+	}
+	return ret;
+}

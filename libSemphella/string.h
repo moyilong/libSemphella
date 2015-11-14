@@ -6,5 +6,7 @@ API string strreplace(const char*origin, const char *replace, const char*value);
 API string & operator<<(string input, string x);
 API bool streval(const char *a, const char *b);
 API char* eitoa(int num, char*str, int radix,const char *word_list=DEFAULT_WORD_WHITE_LIST);
-
-
+API bool is_upper(const char bit);
+API char set_upper(const char bit, bool upper=true);
+API string upper_string(string str, bool upper=true);
+API bool is_str(const char bit);

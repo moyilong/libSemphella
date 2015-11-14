@@ -12,7 +12,7 @@ using namespace std;
 #include "string.h"
 libDebug cpt("Semphella-CryptMod");
 
-int inline get_n(int max, int n)
+__inline int get_n(int max, int n)
 {
 	//return abs(sin(max)*n);
 	double ret = 0;
