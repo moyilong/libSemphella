@@ -17,7 +17,7 @@ CAPI void word_list_convert( char *str,const char *word_white_list=DEFAULT_WORD_
 	, const char *word_balck_list = DEFAULT_WORD_BLACK_LIST);
 
 
-API string word_crypt(const string origin, const string password);
+
 API bool word_list_check(const char *word_white_list,const  char *word_black_list);
 CAPI void crypt_t(char *data, long long len,const char *password, const char *la= DEFAULT_WORD_WHITE_LIST, const char *lb= DEFAULT_WORD_BLACK_LIST);
 
