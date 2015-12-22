@@ -1,6 +1,7 @@
 #include "license.h"
 #include "string.h"
 #include "debug.h"
+#include <math.h>
 libDebug lics("License");
 const char ASCODE[] = DEFAULT_WORD_WHITE_LIST;
 
