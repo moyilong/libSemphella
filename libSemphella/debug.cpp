@@ -51,9 +51,13 @@ void libDebug::display_log(string info)
        buff+=info;
        if (strfind(buff.data(),'\n')>0)
        {
+		   char cbuff[MAX_BUFF_SIZE] = { 0x00 };
            string stime="[";
            stime+=name;
-           stime+="]"+ buff;
+		   stime += "][";
+		   sprintf(cbuff, "%ul", KERNEL.get_start_time());
+		   stime += cbuff;
+		   stime += "][" + buff;
           
 		   DEBUG_LINE cout << stime;
 		   if (log_to_file)

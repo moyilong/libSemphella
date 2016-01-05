@@ -13,9 +13,6 @@
     <ClInclude Include="targetver.h">
       <Filter>头</Filter>
     </ClInclude>
-    <ClInclude Include="vendor.h">
-      <Filter>头</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Makefile" />

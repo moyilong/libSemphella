@@ -159,7 +159,7 @@
     <ClInclude Include="apd.h" />
     <ClInclude Include="crypt.h" />
     <ClInclude Include="debug.h" />
-    <ClInclude Include="ECC.h" />
+    <ClInclude Include="kernel.h" />
     <ClInclude Include="libbios.h" />
     <ClInclude Include="libsemphella.h" />
     <ClInclude Include="license.h" />
@@ -173,7 +173,7 @@
     <ClCompile Include="bios.cpp" />
     <ClCompile Include="crypt.cpp" />
     <ClCompile Include="debug.cpp" />
-    <ClCompile Include="ECC.cpp" />
+    <ClCompile Include="kernel.cpp" />
     <ClCompile Include="libSemphella.cpp" />
     <ClCompile Include="license.cpp" />
     <ClCompile Include="math.cpp" />

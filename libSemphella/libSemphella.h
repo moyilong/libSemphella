@@ -9,3 +9,5 @@ API void sZero(void *dest, int value, int len);
 #else
 #define esleep(ms) Sleep(ms)
 #endif
+
+#include "kernel.h"
