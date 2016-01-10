@@ -45,6 +45,13 @@ int main(int argc,char* argv[])
 				cout << "\t##MP_TN\tOMPÏß³Ì±àºÅ" << endl;
 				cout << "\t##MP_ID\tOMPËæ»ú±àºÅ" << endl;
 				exit(0);
+			case 's':
+				for (int x=n;x<argc;x++)
+					if (argv[x][0] == '-')
+						break;
+					else
+						poll.push_back(argv[x]);
+				break;
 			case 'n':
 				n++;
 				omp_set_num_threads(atoi(argv[n]));
