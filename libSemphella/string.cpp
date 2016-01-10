@@ -38,7 +38,7 @@ API string strreplace(const char*origin, const char *replace, const char*value)
 {
 
 	string ret;
-	strr << "Replace \"" << origin << "\" :\"" << replace << "\" => \"" << value << "\"" << endl;
+	//strr << "Replace \"" << origin << "\" :\"" << replace << "\" => \"" << value << "\"" << endl;
 	for (int n = 0; n < strlen(origin); n++)
 	{
 		if (origin[n] == replace[0])
