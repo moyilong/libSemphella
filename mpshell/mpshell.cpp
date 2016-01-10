@@ -37,6 +37,14 @@ int main(int argc,char* argv[])
 		if (argv[n][0] == '-')
 			switch (argv[n][1])
 		{
+			case 'h':
+				cout << "MPShell Useage:" << endl;
+				cout << "mpshell <args> -c <shell>"<<endl;
+				cout << " Replace List:" << endl;
+				cout << "\t##OMP\tOMP循环条目" << endl;
+				cout << "\t##MP_TN\tOMP线程编号" << endl;
+				cout << "\t##MP_ID\tOMP随机编号" << endl;
+				exit(0);
 			case 'n':
 				n++;
 				omp_set_num_threads(atoi(argv[n]));
