@@ -120,6 +120,7 @@ int main(int argc,char* argv[])
 		memset(cbuff, 0, sizeof(cbuff));
 		sprintf(cbuff, "%d", abs(rand()*rand()*rand()));
 		buff = strreplace(buff.data(), "##MP_ID", cbuff);
+		mpshell<<"Working Number: "<<n<<" // "<<poll.size()<<endl;
 		exec(buff);
 	}
 	return 1;
