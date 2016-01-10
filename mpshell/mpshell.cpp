@@ -110,6 +110,7 @@ int main(int argc,char* argv[])
 	mpshell << "Command:" << command << endl;
 	mpshell << "poll size:" << poll.size() << endl;
 	//OMP_START
+	int count=0;
 #pragma omp parallel for 
 	for (int n = 0; n < poll.size(); n++)
 	{
@@ -120,7 +121,8 @@ int main(int argc,char* argv[])
 		memset(cbuff, 0, sizeof(cbuff));
 		sprintf(cbuff, "%d", abs(rand()*rand()*rand()));
 		buff = strreplace(buff.data(), "##MP_ID", cbuff);
-		mpshell<<"Working Number: "<<n<<" // "<<poll.size()<<endl;
+		count++;
+		mpshell<<"Working Number: "<<count<<" // "<<poll.size()<<endl;
 		exec(buff);
 	}
 	return 1;
