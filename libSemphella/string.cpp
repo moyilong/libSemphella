@@ -8,6 +8,9 @@
 using namespace std;
 #include "libSemphella.h"
 #include "string.h"
+#include "debug.h"
+
+libDebug strr("stringlib");
 
 API int strfind(const char *str,char find,bool wn)
 {
@@ -33,34 +36,36 @@ CAPI void strcpy(char *dest,const char *origin,long long cplen,long long r_off,l
 
 API string strreplace(const char*origin, const char *replace, const char*value)
 {
+
 	string ret;
-	if (strlen(origin) < strlen(replace))
-	{
-		ret = origin;
-		return ret;
-	}
+	strr << "Replace \"" << origin << "\" :\"" << replace << "\" => \"" << value << "\"" << endl;
 	for (int n = 0; n < strlen(origin); n++)
-		if (origin[n] == replace[0] && strlen(origin) - n >= strlen(replace))
+	{
+		if (origin[n] == replace[0])
 		{
-		bool check = true;
-		for (int x = 0; x < strlen(replace); x++)
-			if (replace[x] != origin[n + x])
-				check = false;
-		if (check)
-		{
-			n += strlen(replace)-1;
-			ret += value;
+			bool check = true;
+			for (int x = 0; x < strlen(replace)&&check; x++)
+				if (origin[n + x] != replace[x])
+					check = false;
+
+			if (check)
+			{
+				ret += value;
+				n += strlen(replace);
+			}
+			else
+				ret += origin[n];
 		}
-		else
-			ret += origin[n];
-		}
-		return ret;
+		ret += origin[n];
+	}
+	return ret;
 }
 
-API bool streval(const char *a, const char *b)
+API bool streval(const char *a, const char *b,bool over_len)
 {
 	if (strlen(a) != strlen(b))
-		return false;
+		if (!over_len)
+			return false;
 	for (int n = 0; n < strlen(a); n++)
 		if (a[n] != b[n])
 			return false;

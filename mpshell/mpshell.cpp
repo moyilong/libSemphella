@@ -46,7 +46,7 @@ int main(int argc,char* argv[])
 				cout << "\t##MP_ID\tOMPËæ»ú±àºÅ" << endl;
 				exit(0);
 			case 's':
-				for (int x=n;x<argc;x++)
+				for (int x=n+1;x<argc;x++)
 					if (argv[x][0] == '-')
 						break;
 					else
@@ -106,6 +106,9 @@ int main(int argc,char* argv[])
 		command += argv[n];
 		command += " ";
 	}
+	mpshell << "into execute mode!" << endl;
+	mpshell << "Command:" << command << endl;
+	mpshell << "poll size:" << poll.size() << endl;
 	//OMP_START
 #pragma omp parallel for 
 	for (int n = 0; n < poll.size(); n++)

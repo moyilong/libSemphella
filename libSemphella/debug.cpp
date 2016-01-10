@@ -57,7 +57,7 @@ void libDebug::display_log(string info)
 		   stime += "][";
 		   sprintf(cbuff, "%ul", KERNEL.get_start_time());
 		   stime += cbuff;
-		   stime += "][" + buff;
+		   stime += "]" + buff;
           
 		   DEBUG_LINE cout << stime;
 		   if (log_to_file)
