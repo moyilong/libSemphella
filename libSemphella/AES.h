@@ -11,13 +11,13 @@ class CAPI AES
 public:
 	AES(void);
 	AES(unsigned char* key);
-	virtual ~AES(void);
+	~AES(void);
 
-	void Encrypt(unsigned char *, unsigned char *, size_t);
-	void Decrypt(unsigned char *, unsigned char *, size_t);
+	void Encrypt(unsigned char *, unsigned char *, unsigned long long );
+	void Decrypt(unsigned char *, unsigned char *, unsigned long long );
 
-	void Encrypt(unsigned char *,  size_t);
-	void Decrypt(unsigned char *,  size_t);
+	void Encrypt(unsigned char *,  unsigned long long );
+	void Decrypt(unsigned char *,  unsigned long long );
 
 	void SetKey(unsigned char *key);
 

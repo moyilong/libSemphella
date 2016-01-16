@@ -524,13 +524,14 @@ unsigned char CAPI *ZEN_LIB::sha1(const unsigned char *msg,
 	zen_sha1_final(&ctx, msg, size, result);
 	return result;
 }
-
+#include <math.h>
 string common_convert(const unsigned char *data, size_t len)
 {
 	string ret;
 	for (int n = 0; n < len; n++)
 	{
-		int value = sin(data[n])*strlen(DEFAULT_WORD_WHITE_LIST);
+        int value = sin(data[n]);
+              value *=strlen(DEFAULT_WORD_WHITE_LIST);
 		if (value < 0)
 			value = -value;
 		ret += DEFAULT_WORD_WHITE_LIST[value];

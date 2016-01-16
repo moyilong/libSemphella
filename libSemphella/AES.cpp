@@ -43,20 +43,14 @@ static	unsigned char inversepermutationbox[] =
 	0x17,0x2b,0x04,0x7e,0xba,0x77,0xd6,0x26,0xe1,0x69,0x14,0x63,0x55,0x21,0x0c,0x7d  /*f*/
 };
 #include "string.h"
-void AES::Encrypt(unsigned char *data, size_t len)
+void AES::Encrypt(unsigned char *data, unsigned long long len)
 {
-	unsigned char *wback = (unsigned char *)malloc(sizeof(len)*sizeof(unsigned char));
-	this->Encrypt(data, wback, len);
-	strcpy((char*)data, (char*)wback, len, 0, 0);
-	free(wback);
+	Cipher((void *)data, len);
 }
 
-void AES::Decrypt(unsigned char *data, size_t len)
+void AES::Decrypt(unsigned char *data, unsigned long long len)
 {
-	unsigned char *wback = (unsigned char *)malloc(sizeof(len)*sizeof(unsigned char));
-	this->Decrypt(data, wback, len);
-	strcpy((char*)data, (char*)wback, len, 0, 0);
-	free(wback);
+	InvCipher((void *)data, len);
 }
 
 AES::AES(void)
@@ -84,7 +78,7 @@ AES::~AES(void)
 /* return : void                                                        */
 /************************************************************************/
 
-void AES::Encrypt(unsigned char* data, unsigned char * encryptArray, size_t len)
+void AES::Encrypt(unsigned char* data, unsigned char * encryptArray, unsigned long long len)
 {
 	memcpy(encryptArray, data, len);
 	Cipher((void *)encryptArray, len);
@@ -99,7 +93,7 @@ void AES::Encrypt(unsigned char* data, unsigned char * encryptArray, size_t len)
 /* return : void                                                        */
 /************************************************************************/
 
-void AES::Decrypt(unsigned char * data, unsigned char * decryptArray, size_t len)
+void AES::Decrypt(unsigned char * data, unsigned char * decryptArray, unsigned long long len)
 {
 	memcpy(decryptArray, data, len);
 	InvCipher((void *)decryptArray, len);

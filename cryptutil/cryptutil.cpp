@@ -21,19 +21,17 @@ FILE *output;
 
 unsigned char real_time_sha1[ZEN_SHA1_HASH_SIZE];
 
-inline void process(FILE *in, FILE *out, long long plen)
+inline void process(FILE *in, FILE *out, size_t plen)
 {
 	unsigned char *read_buff = (unsigned char *)malloc(plen*sizeof(unsigned char));
-	unsigned char *write_buff = (unsigned char *)malloc(plen*sizeof(unsigned char));
 	memset(read_buff, 0, sizeof(read_buff));
 	fread(read_buff, sizeof(unsigned char), plen / sizeof(unsigned char), in);
 	if (enctype_stat)
-		aes.Encrypt(read_buff, write_buff, plen);
+        aes.Encrypt(read_buff, plen);
 	else
-		aes.Decrypt(read_buff, write_buff, plen);
-	fwrite(write_buff, sizeof(unsigned char), plen / sizeof(unsigned char), out);
+        aes.Decrypt(read_buff, plen);
+    fwrite(read_buff, sizeof(unsigned char), plen / sizeof(unsigned char), out);
 	free(read_buff);
-	free(write_buff);
 }
 
 int main(int argc, char *argv[])
