@@ -1,6 +1,6 @@
 #include "kernel.h"
 #include <time.h>
-
+#include "sum.h"
 bool kernel_inited = false;
 
 kernel KERNEL;
@@ -10,7 +10,6 @@ kernel::kernel()
 	if (kernel_inited)
 		this->abort();
 	start_time = time(0);
-
 }
 
 

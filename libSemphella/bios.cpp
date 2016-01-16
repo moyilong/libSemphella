@@ -18,10 +18,12 @@ using namespace std;
 #endif
 
 #include "debug.h"
-
+#include "AES.h"
 libDebug bios("libBIOS");
 
 char *check_string = CHECK_STRING;
+
+AES cpt((unsigned char*)CHECK_STRING);
 
 BIOS::~BIOS()
 {
@@ -48,7 +50,8 @@ BIOS::BIOS(string file, string sign, bool create)
 		iobit.read(buff, sizeof(BIOS_INFO));
 
 #ifndef __WNO_BIOS_CRYPT
-		crypt(buff, sizeof(BIOS_INFO), sign);
+		//crypt(buff, sizeof(BIOS_INFO), sign);
+		cpt.Decrypt((unsigned char*)buff, sizeof(BIOS_INFO));
 #endif
 		memcpy(&info, buff, sizeof(BIOS_INFO));
 		bool stat = true;
@@ -103,7 +106,7 @@ void BIOS::write()
 		char buff[sizeof(BIOS_INFO)];
 		memcpy(buff, &info, sizeof(BIOS_INFO));
 #ifndef __WNO_BIOS_CRYPT
-		crypt(buff, sizeof(BIOS_INFO), passwd);
+		cpt.Encrypt((unsigned char*)buff, sizeof(BIOS_INFO));
 #endif
 	}
 	else{

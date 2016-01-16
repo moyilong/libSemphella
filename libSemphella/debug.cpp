@@ -14,8 +14,8 @@ libDebug::libDebug()
 
 libDebug::~libDebug()
 {
-if (log_to_file&&filelink.is_open())
-    filelink.close();
+	if (log_to_file&&filelink.is_open())
+		filelink.close();
 }
 
 

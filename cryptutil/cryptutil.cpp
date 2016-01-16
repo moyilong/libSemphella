@@ -2,163 +2,93 @@
 //
 
 #include "stdafx.h"
+#include <libSemphella/main.h>
+#include <libSemphella/crypt.h>
+#include <libSemphella/AES.h>
+#include "common.h"
+#include <libSemphella/sum.h>
+#define CHECK_STR	"ELONE_DRAGONOS_ABCDEF"
 
+string password;
+string infile;
+string outfile;
 
-string cn;
-string na;
-string tx;
+#define BLOCK_SIZE	4096
+AES aes;
+bool enctype_stat = true;
+FILE *input;
+FILE *output;
 
-string output;
-string input;
+unsigned char real_time_sha1[ZEN_SHA1_HASH_SIZE];
 
-string lic;
-
-enum mode {
-	xcrypt,
-	create,
-	check,
-}mod;
-
-license lics;
-
-void init_lic()
+inline void process(FILE *in, FILE *out, long long plen)
 {
-	ifstream in;
-	in.open(lic.data());
-	if (!in.is_open())
-	{
-		cout << "打开文件失败!" << endl;
-		abort();
-	}
-	char buff[DUMP_LEN];
-	in.read(buff, DUMP_LEN);
-	in.close();
-	lics.load(buff);
+	unsigned char *read_buff = (unsigned char *)malloc(plen*sizeof(unsigned char));
+	unsigned char *write_buff = (unsigned char *)malloc(plen*sizeof(unsigned char));
+	memset(read_buff, 0, sizeof(read_buff));
+	fread(read_buff, sizeof(unsigned char), plen / sizeof(unsigned char), in);
+	if (enctype_stat)
+		aes.Encrypt(read_buff, write_buff, plen);
+	else
+		aes.Decrypt(read_buff, write_buff, plen);
+	fwrite(write_buff, sizeof(unsigned char), plen / sizeof(unsigned char), out);
+	free(read_buff);
+	free(write_buff);
 }
 
-void create_fun()
+int main(int argc, char *argv[])
 {
-	cout << "Creating License..." << endl;
-	lics.create(cn, na, tx);
-	cout << "Dumping License...." << endl;
-	string dump = lics.dump();
-	//cout << "FloatPoint:" << getsum(dump.data(), dump.size()) << endl;
-	float val = getsum(dump.data(), dump.size());
-	printf("FloatPoint: %f\n", val);
-	ofstream out;
-	cout << "Writting to Files..." << endl;
-	cout << "STD->" << output << endl;
-	out.open(output.data());
-	if (!out.is_open())
-	{
-		cout << "打开文件失败!" << endl;
-		return;
-	}
-	cout << "LIC->" << output << endl;
-	out.write(dump.data(), dump.size());
-	cout << "END!!" << endl;
-	out.close();
-	
-	exit(0);
-}
-
-int main(int argc,char *argv[])
-{
-	if (argc == 0)
-	{
-		cout << "Error of Args!" << endl;
-		return 0;
-	}
 	for (int n = 0; n < argc; n++)
-		if (argv[n][0]=='-' || argv[n][0]== '/')
-			switch (argv[n][1])
-			{
-			case 'c':
-				cn = argv[n] + 2;
-				break;
-			case 'n':
-				na = argv[n] + 2;
-				break;
-			case 't':
-				tx = argv[n] + 2;
-				break;
-			case 'o':
-				output = argv[n] + 2;
-				break;
-			case 'i':
-				input = argv[n] + 2;
-				break;
-			case 'l':
-				lic = argv[n] + 2;
-				break;
-			case '-':
-				switch (argv[n][2])
-				{
-				case 'c':
-					mod = create;
-					break;
-				case 't':
-					mod = check;
-					break;
-				case 'p':
-					mod = xcrypt;
-					break;
-				}
-				break;
-			default:
-				cout << "未知指令:" << argv[n] << endl;
-				abort();
-				break;
-			}
-	ifstream fin;
-	ofstream fout;
-	int64_t count;
-	int64_t bsize,val;
-
-	switch (mod)
+	if (argv[n][0]=='-')
+		switch (argv[n][1])
+		{
+		case 'p':
+			password = argv[n] + 2;
+			break;
+		case 'i':
+			infile = argv[n] + 2;
+			break;
+		case 'o':
+			outfile = argv[n] + 2;
+			break;
+		case 'd':
+			enctype_stat = false;
+			break;
+		}
+	if (password.empty() || infile.empty() || outfile.empty())
+		exit(-1);
+	input = fopen(infile.data(), "rb+");
+	output = fopen(outfile.data(), "wb+");
+	if (input == NULL || output == NULL)
 	{
-	case create:
-		create_fun();
-		break;
-	case check:
-		break;
-	case xcrypt:
-		init_lic();
-		fin.open(input.data());
-		fout.open(output.data());
-		if (!fin.is_open()||!fout.is_open())
-		{
-			cout << "打开操作文件失败!" << endl;
-			abort();
-		}
-		count = fin.tellg();
-		fin.seekg(ios_base::end);
-		count -= fin.tellg();
-		fin.seekg(ios::beg);
-		count = abs(count);
-		bsize = count / MAX_BUFF_SIZE;
-		val = count - (MAX_BUFF_SIZE * bsize);
-		for (int n = 0; n < bsize;n++)
-		{
-			char buff[MAX_BUFF_SIZE];
-			fin.read(buff, MAX_BUFF_SIZE);
-			lics.crypt(buff, MAX_BUFF_SIZE);
-			fout.write(buff, MAX_BUFF_SIZE);
-		}
-		if (val != 0)
-		{
-			char buff[MAX_BUFF_SIZE];
-			fin.read(buff, MAX_BUFF_SIZE);
-			lics.crypt(buff, MAX_BUFF_SIZE);
-			fout.write(buff, MAX_BUFF_SIZE);
-		}
-		fin.close();
-		fout.close();
-		break;
-	default:
-		cout << "请指定工作模式!" << endl;
-		break;
+		cout << "File Operation Faild!" << endl;
+		if (input!=NULL)
+			fclose(input);
+		if (output != NULL)
+			fclose(output);
+		exit(-2);
 	}
-	return 0;
+	unsigned char *pdata = (unsigned char *)malloc(password.size()*sizeof(unsigned char));
+	memcpy(pdata, password.data(), password.size()*sizeof(unsigned char));
+	free(pdata);
+	long long len = ftell(input);
+	fseek(input, 0, SEEK_END);
+	len = ftell(input) - len;
+	fseek(input, 0, SEEK_SET);
+	long long count = 0;
+	cout << "Work Stat:" << hex<<len << " per " <<hex<< BLOCK_SIZE << endl;
+	cout << "Process " << infile << " => " << outfile << endl;
+	for (int n = 0; n +BLOCK_SIZE< len;n+=BLOCK_SIZE)
+	{
+		count++;
+		process(input, output, BLOCK_SIZE);
+	}
+	if (count*BLOCK_SIZE < len)
+	{
+		cout << "Special Fix :" << len - (count*BLOCK_SIZE)<<endl;
+		process(input, output, len - (count*BLOCK_SIZE));
+	}
+exit:
+	fclose(input);
+	fclose(output);
 }
-

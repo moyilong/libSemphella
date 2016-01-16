@@ -26,6 +26,12 @@
       <Filter>代码</Filter>
     </ClCompile>
     <ClCompile Include="kernel.cpp" />
+    <ClCompile Include="AES.cpp">
+      <Filter>代码</Filter>
+    </ClCompile>
+    <ClCompile Include="sum.cpp">
+      <Filter>代码</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="crypt.h">
@@ -59,6 +65,12 @@
       <Filter>头</Filter>
     </ClInclude>
     <ClInclude Include="kernel.h" />
+    <ClInclude Include="AES.h">
+      <Filter>头</Filter>
+    </ClInclude>
+    <ClInclude Include="sum.h">
+      <Filter>头</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />

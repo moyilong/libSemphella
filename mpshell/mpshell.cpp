@@ -15,6 +15,7 @@ vector<string>poll;
 //			##MP_TN		OMPÏß³Ì±àºÅ
 //			##MP_ID	OMPËæ»ú±àºÅ
 bool testmode = false;
+bool disable_nl = false;
 inline void exec(string command)
 {
 	DEBUG_LINE mpshell << "Exec:" << command << endl;
@@ -94,7 +95,10 @@ int main(int argc,char* argv[])
 					poll.push_back(sbuff);
 				}
 				break;
-
+			case '-':
+				if (streval(argv[n], "--disable-nullline"))
+					disable_nl = true;
+				break;
 			default:
 				mpshell << "UNKNOW COMMAND MODE!" << endl;
 				return -1;
@@ -113,6 +117,9 @@ int main(int argc,char* argv[])
 #pragma omp parallel for 
 	for (int n = 0; n < poll.size(); n++)
 	{
+		if (disable_nl)
+			if (poll.at(n).empty())
+				continue;
 		string buff = strreplace(command.data(), "##OMP",poll.at(n).data());
 		char cbuff[MAX_BUFF_SIZE] = { 0x00 };
 		sprintf(cbuff, "%d", omp_get_thread_num());

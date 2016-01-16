@@ -126,6 +126,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;LIBSEMPHELLA_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalOptions>/D__DLL_EXPORT /D_CRT_SECURE_NO_WARNINGS %(AdditionalOptions)</AdditionalOptions>
+      <OpenMPSupport>true</OpenMPSupport>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -156,9 +157,11 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AES.h" />
     <ClInclude Include="apd.h" />
     <ClInclude Include="crypt.h" />
     <ClInclude Include="debug.h" />
+    <ClInclude Include="sum.h" />
     <ClInclude Include="kernel.h" />
     <ClInclude Include="libbios.h" />
     <ClInclude Include="libsemphella.h" />
@@ -169,10 +172,12 @@
     <ClInclude Include="string.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AES.cpp" />
     <ClCompile Include="APD_LOADER.cpp" />
     <ClCompile Include="bios.cpp" />
     <ClCompile Include="crypt.cpp" />
     <ClCompile Include="debug.cpp" />
+    <ClCompile Include="sum.cpp" />
     <ClCompile Include="kernel.cpp" />
     <ClCompile Include="libSemphella.cpp" />
     <ClCompile Include="license.cpp" />
