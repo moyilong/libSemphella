@@ -29,6 +29,8 @@ git-src
 *.opensdf
 *.suo
 *.sdf
+*.iobj
+*.ipdb
 *.idb
 *.pdb
 *.obj
@@ -46,3 +48,4 @@ out/
 *.log
 *.pch
 *.exp
+Releases/

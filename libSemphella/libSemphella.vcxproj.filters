@@ -32,6 +32,9 @@
     <ClCompile Include="sum.cpp">
       <Filter>代码</Filter>
     </ClCompile>
+    <ClCompile Include="files.cpp">
+      <Filter>代码</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="crypt.h">
@@ -69,6 +72,9 @@
       <Filter>头</Filter>
     </ClInclude>
     <ClInclude Include="sum.h">
+      <Filter>头</Filter>
+    </ClInclude>
+    <ClInclude Include="files.h">
       <Filter>头</Filter>
     </ClInclude>
   </ItemGroup>

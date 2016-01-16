@@ -157,7 +157,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cryptutil.cpp" />
-    <ClCompile Include="stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\libSemphella\libSemphella.vcxproj">
