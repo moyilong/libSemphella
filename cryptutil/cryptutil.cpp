@@ -12,8 +12,6 @@
 string password;
 string infile;
 string outfile;
-#include <stdlib.h>
-#include <stdio.h>
 
 #define BLOCK_SIZE	4096
 AES aes;
@@ -55,45 +53,6 @@ int main(int argc, char *argv[])
 			enctype_stat = false;
 			break;
 		}
-	if (streval(infile.data(), "-"))
-	{
-		if (outfile.empty())
-		{
-			cout << "Out File Name is Empty!" << endl;
-			return -1;
-		}
-		output=fopen(outfile.data(), "wb+");
-		if (output == NULL)
-		{
-			cout << "Open Write Back File Faild!" << endl;
-			return -1;
-		}
-		unsigned char buff[BLOCK_SIZE];
-		bool conn = true;
-		while (conn)
-		{
-			int count = -1;
-			for (int n = 0; n < BLOCK_SIZE; n++)
-			{
-				int tmpget = getchar();
-				buff[n] = tmpget;
-				if (tmpget == EOF)
-				{
-					count = n;
-					break;
-				}
-			}
-			if (count == -1)
-				count = BLOCK_SIZE;
-			if (enctype_stat)
-				aes.Encrypt(buff, count);
-			else
-				aes.Decrypt(buff, count);
-			fwrite(buff, sizeof(unsigned char), count, output);
-			memset(buff, 0, sizeof(buff));
-		}
-		
-	}
 	if (password.empty() || infile.empty() || outfile.empty())
 		exit(-1);
 	input = fopen(infile.data(), "rb+");
