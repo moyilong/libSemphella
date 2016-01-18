@@ -90,20 +90,20 @@ void crack()
 }
 ofstream out("logdump.log");
 
-void main(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
 	if (argv[1][0] == '-'&&argv[1][1] == 't')
 	{
 		goto TEST;
-		return;
+		return 0;
 	}
 	if (argv[1][0] == '-'&&argv[1][1] == 'c')
 	{
 		crack();
-		return;
+		return 0;
 	}
 	printf("%f\n", getsum(argv[1],strlen(argv[1])));
-	return;
+	return 0;
 TEST:
 	struct INFO{
 		string str;
@@ -151,7 +151,7 @@ TEST:
 		if (stat)
 			ipoll.push_back(inf);
 	}
-	return;
+	return 0;
 
 }
 
