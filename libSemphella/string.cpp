@@ -143,3 +143,38 @@ API string upper_string(string str,bool upper)
 	}
 	return ret;
 }
+
+string UNITS[] = {
+	" B",
+	"KB",
+	"MB",
+	"GB",
+	"TB",
+	"EB",
+};
+
+int u_size = sizeof(UNITS) / sizeof(string);
+#include "math.h"
+
+inline string _t_mix(uint64_t value, int bs)
+{
+	string ret;
+	char buff[MAX_BUFF_SIZE];
+	sprintf(buff,"%uul", value);
+	ret = buff;
+	ret += UNITS[bs];
+	return ret;
+}
+
+API string human_read(uint64_t _in)
+{
+	if (_in < 1024)
+		return _t_mix(_in, 0);
+	else
+		for (int n = 1; n < u_size; n++)
+		{
+			if ((_in) / (1024 * n) < 1024)
+				return _t_mix((_in) / (1024 * n) < 1024, n);
+		}
+	
+}

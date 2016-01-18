@@ -157,7 +157,6 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AES.h" />
     <ClInclude Include="apd.h" />
     <ClInclude Include="crypt.h" />
     <ClInclude Include="debug.h" />
@@ -173,7 +172,6 @@
     <ClInclude Include="string.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AES.cpp" />
     <ClCompile Include="APD_LOADER.cpp" />
     <ClCompile Include="bios.cpp" />
     <ClCompile Include="crypt.cpp" />

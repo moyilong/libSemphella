@@ -18,12 +18,10 @@ using namespace std;
 #endif
 
 #include "debug.h"
-#include "AES.h"
 libDebug bios("libBIOS");
 
 char *check_string = CHECK_STRING;
 
-AES bscpt((unsigned char*)CHECK_STRING);
 
 BIOS::~BIOS()
 {
@@ -51,7 +49,8 @@ BIOS::BIOS(string file, string sign, bool create)
 
 #ifndef __WNO_BIOS_CRYPT
 		//crypt(buff, sizeof(BIOS_INFO), sign);
-        bscpt.Decrypt((unsigned char*)buff, sizeof(BIOS_INFO));
+       //xor_crypt( sizeof(BIOS_INFO),(unsigned char*)buff);
+		xor_crypt(CHECK_STRING, buff, sizeof(BIOS_INFO));
 #endif
 		memcpy(&info, buff, sizeof(BIOS_INFO));
 		bool stat = true;
@@ -106,7 +105,7 @@ void BIOS::write()
 		char buff[sizeof(BIOS_INFO)];
 		memcpy(buff, &info, sizeof(BIOS_INFO));
 #ifndef __WNO_BIOS_CRYPT
-        bscpt.Encrypt((unsigned char*)buff, sizeof(BIOS_INFO));
+		xor_crypt(CHECK_STRING, buff, sizeof(BIOS_INFO));
 #endif
 	}
 	else{

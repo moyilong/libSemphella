@@ -25,14 +25,12 @@ __inline int get_n(int max, int n)
 
 API char xor_crypt(string password,char *data,int len)
 {
-	char xsum = 0;
-	for (int n = 0; n < password.size(); n++)
-		xsum += password.at(n);
 #pragma omp parallel for
 	for (int n = 0; n < len; n++)
 	{
-		char xor_bit = xsum + n + password.at(get_n(password.size(), n)) + password.size() - len;
-		data[n] = data[n] ^ xor_bit;
+		int value = sin(n)*password.size();
+		value = abs(value);
+		data[n] = data[n] ^( ~password.at(value) + n );
 	}
 }
 

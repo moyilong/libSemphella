@@ -4,8 +4,6 @@
 #include "stdafx.h"
 #include <libSemphella/main.h>
 #include <libSemphella/crypt.h>
-#include <libSemphella/AES.h>
-#include "common.h"
 #include <libSemphella/sum.h>
 #define CHECK_STR	"ELONE_DRAGONOS_ABCDEF"
 
@@ -13,12 +11,11 @@ string password;
 string infile;
 string outfile;
 
-#define BLOCK_SIZE	4096
-AES aes;
+#define BLOCK_SIZE	8192
 bool enctype_stat = true;
 FILE *input;
 FILE *output;
-
+#include <time.h>
 unsigned char real_time_sha1[ZEN_SHA1_HASH_SIZE];
 
 inline void process(FILE *in, FILE *out, size_t plen)
@@ -26,10 +23,7 @@ inline void process(FILE *in, FILE *out, size_t plen)
 	unsigned char *read_buff = (unsigned char *)malloc(plen*sizeof(unsigned char));
 	memset(read_buff, 0, sizeof(read_buff));
 	fread(read_buff, sizeof(unsigned char), plen / sizeof(unsigned char), in);
-	if (enctype_stat)
-        aes.Encrypt(read_buff, plen);
-	else
-        aes.Decrypt(read_buff, plen);
+	xor_crypt(password, (char*)read_buff, plen);
     fwrite(read_buff, sizeof(unsigned char), plen / sizeof(unsigned char), out);
 	free(read_buff);
 }
@@ -74,12 +68,18 @@ int main(int argc, char *argv[])
 	len = ftell(input) - len;
 	fseek(input, 0, SEEK_SET);
 	long long count = 0;
-	cout << "Work Stat:" << hex<<len << " per " <<hex<< BLOCK_SIZE << endl;
+	cout << "Work Stat:" <<len << " per " << BLOCK_SIZE << endl;
 	cout << "Process " << infile << " => " << outfile << endl;
+	time_t start = time(0);
 	for (int n = 0; n +BLOCK_SIZE< len;n+=BLOCK_SIZE)
 	{
 		count++;
 		process(input, output, BLOCK_SIZE);
+		if (n / BLOCK_SIZE % 100 == 0 && time(0) - start>0)
+		{
+			uint64_t poss = n / (time(0) - start);
+			cout << (double)((double)n / (double)len) * 100 << "% " << (poss)<< "/S                \r";
+		}
 	}
 	if (count*BLOCK_SIZE < len)
 	{
