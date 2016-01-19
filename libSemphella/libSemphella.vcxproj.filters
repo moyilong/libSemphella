@@ -22,14 +22,14 @@
     <ClCompile Include="math.cpp">
       <Filter>代码</Filter>
     </ClCompile>
-    <ClCompile Include="license.cpp">
-      <Filter>代码</Filter>
-    </ClCompile>
     <ClCompile Include="kernel.cpp" />
     <ClCompile Include="sum.cpp">
       <Filter>代码</Filter>
     </ClCompile>
     <ClCompile Include="files.cpp">
+      <Filter>代码</Filter>
+    </ClCompile>
+    <ClCompile Include="frRSA.cpp">
       <Filter>代码</Filter>
     </ClCompile>
   </ItemGroup>
@@ -59,9 +59,6 @@
       <Filter>头</Filter>
     </ClInclude>
     <ClInclude Include="math.h">
-      <Filter>头</Filter>
-    </ClInclude>
-    <ClInclude Include="license.h">
       <Filter>头</Filter>
     </ClInclude>
     <ClInclude Include="kernel.h" />

@@ -15,4 +15,3 @@
 #include <libSemphella/main.h>
 #include <libSemphella/string.h>
 #include <libSemphella/crypt.h>
-#include <libSemphella/license.h>

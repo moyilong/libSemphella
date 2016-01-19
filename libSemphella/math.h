@@ -20,6 +20,3 @@ template<class T>inline T dZero(T n)
 		return 1;
 	return n;
 }
-
-
-#define INT_LEN	4096
