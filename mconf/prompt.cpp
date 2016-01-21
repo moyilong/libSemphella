@@ -14,6 +14,8 @@ void build_block(BLOCK_INFO blk)
 		string depends = "\tdepends on " + blk.depends;
 		str.push_back(depends);
 	}
+	string default_line = "\tdefault \"" + blk.default_val + "\"";
+	str.push_back(default_line);
 }
 
 void build_menu(MENU &menu)

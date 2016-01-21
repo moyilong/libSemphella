@@ -44,5 +44,11 @@
     <ClCompile Include="prompt.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="apply.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="get_config.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

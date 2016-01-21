@@ -11,6 +11,7 @@ struct BLOCK_INFO {
 	string section;			//菜单唯一标识符
 	string display;			//显示菜单名称
 	string father;			//母菜单标识符
+	string default_val;		//默认值
 	inline BLOCK_INFO()
 	{
 		uci_info = "";
@@ -58,3 +59,13 @@ inline bool operator ==(MENU a, MENU b)
 }
 
 inline bool operator !=(MENU a, MENU b) { return !(a == b); }
+
+struct CONFIG {
+	string name;
+	string data;
+};
+
+extern vector<CONFIG> confpoll;
+string get_config(string uci);
+string set_config(string uci, string value);
+void Apply(string input);

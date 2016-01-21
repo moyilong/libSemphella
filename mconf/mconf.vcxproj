@@ -152,7 +152,9 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="apply.cpp" />
     <ClCompile Include="compile_config.cpp" />
+    <ClCompile Include="get_config.cpp" />
     <ClCompile Include="mconf.cpp" />
     <ClCompile Include="menu_process.cpp" />
     <ClCompile Include="prompt.cpp" />

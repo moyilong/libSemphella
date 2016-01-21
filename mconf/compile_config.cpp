@@ -75,5 +75,7 @@ void compile(string filename)
 		CreateMenu(readd.section, readd.display, readd.father);
 	else
 		bpoll.push_back(readd);
+	for (long long n = 0; n < bpoll.size(); n++)
+		bpoll.at(n).default_val = get_config(bpoll.at(n).uci_info);
 	BuildMenu(bpoll);
 }

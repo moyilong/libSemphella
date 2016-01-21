@@ -28,7 +28,7 @@ MENU CreateMenu(string section, string display,string father)
 	if (getd == EMPTY_RET)
 	{
 		DEBUG << "Faild Create Menu form : " << father << endl;
-		exp(-1);
+		exit(-1);
 	}
 	MENU pushd;
 	pushd.section = section;
@@ -46,6 +46,6 @@ inline void BuildMenu(BLOCK_INFO blk)
 
 void BuildMenu(vector<BLOCK_INFO> blk)
 {
-	for (long long n = 0; n < blk.size(); n++)
+	for (unsigned long long n = 0; n < blk.size(); n++)
 		BuildMenu(blk.at(n));
 }
