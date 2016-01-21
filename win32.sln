@@ -23,6 +23,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libSemphella_CUDA", "libSem
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cryptutil", "cryptutil\cryptutil.vcxproj", "{4B46227E-D54C-43FB-BC1E-C5CB07150262}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mconf", "mconf\mconf.vcxproj", "{C47FE7FE-F475-4963-A570-C329708B33C1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Compile|Mixed Platforms = Compile|Mixed Platforms
@@ -214,6 +216,24 @@ Global
 		{4B46227E-D54C-43FB-BC1E-C5CB07150262}.Release|Win32.Build.0 = Release|Win32
 		{4B46227E-D54C-43FB-BC1E-C5CB07150262}.Release|x64.ActiveCfg = Release|x64
 		{4B46227E-D54C-43FB-BC1E-C5CB07150262}.Release|x64.Build.0 = Release|x64
+		{C47FE7FE-F475-4963-A570-C329708B33C1}.Compile|Mixed Platforms.ActiveCfg = Release|Win32
+		{C47FE7FE-F475-4963-A570-C329708B33C1}.Compile|Mixed Platforms.Build.0 = Release|Win32
+		{C47FE7FE-F475-4963-A570-C329708B33C1}.Compile|Win32.ActiveCfg = Release|Win32
+		{C47FE7FE-F475-4963-A570-C329708B33C1}.Compile|Win32.Build.0 = Release|Win32
+		{C47FE7FE-F475-4963-A570-C329708B33C1}.Compile|x64.ActiveCfg = Release|x64
+		{C47FE7FE-F475-4963-A570-C329708B33C1}.Compile|x64.Build.0 = Release|x64
+		{C47FE7FE-F475-4963-A570-C329708B33C1}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{C47FE7FE-F475-4963-A570-C329708B33C1}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{C47FE7FE-F475-4963-A570-C329708B33C1}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C47FE7FE-F475-4963-A570-C329708B33C1}.Debug|Win32.Build.0 = Debug|Win32
+		{C47FE7FE-F475-4963-A570-C329708B33C1}.Debug|x64.ActiveCfg = Debug|x64
+		{C47FE7FE-F475-4963-A570-C329708B33C1}.Debug|x64.Build.0 = Debug|x64
+		{C47FE7FE-F475-4963-A570-C329708B33C1}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{C47FE7FE-F475-4963-A570-C329708B33C1}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{C47FE7FE-F475-4963-A570-C329708B33C1}.Release|Win32.ActiveCfg = Release|Win32
+		{C47FE7FE-F475-4963-A570-C329708B33C1}.Release|Win32.Build.0 = Release|Win32
+		{C47FE7FE-F475-4963-A570-C329708B33C1}.Release|x64.ActiveCfg = Release|x64
+		{C47FE7FE-F475-4963-A570-C329708B33C1}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

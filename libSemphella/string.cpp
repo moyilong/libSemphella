@@ -178,3 +178,16 @@ API string human_read(uint64_t _in)
 		}
 	
 }
+
+API string space_fix(string str)
+{
+	string ret;
+	if (strfind(str.data(), '\t'))
+	{
+		return space_fix(strreplace(str.data(), "\t", " "));
+	}
+	for (int n = 0; n < str.size(); n++)
+		if (str.at(n) != ' ')
+			ret += str.at(n);
+	return ret;
+}

@@ -11,3 +11,5 @@ API char set_upper(const char bit, bool upper=true);
 API string upper_string(string str, bool upper=true);
 API bool is_str(const char bit);
 API string human_read(uint64_t in);
+
+template<class T> inline T get_procs(T type) { return type; }
