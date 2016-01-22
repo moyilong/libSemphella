@@ -1,5 +1,7 @@
 
-    #include "RSA.h"  
+#include "main.h"
+#include "main.h"
+#include "rsa.h"
       
     RSA::RSA()  
     {  
