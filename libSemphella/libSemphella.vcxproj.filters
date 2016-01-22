@@ -32,6 +32,9 @@
     <ClCompile Include="frRSA.cpp">
       <Filter>代码</Filter>
     </ClCompile>
+    <ClCompile Include="rsa.cpp">
+      <Filter>代码</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="crypt.h">
@@ -66,6 +69,9 @@
       <Filter>头</Filter>
     </ClInclude>
     <ClInclude Include="files.h">
+      <Filter>头</Filter>
+    </ClInclude>
+    <ClInclude Include="rsa.h">
       <Filter>头</Filter>
     </ClInclude>
   </ItemGroup>
