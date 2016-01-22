@@ -153,6 +153,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="apply.cpp" />
+    <ClCompile Include="CC.cpp" />
     <ClCompile Include="compile_config.cpp" />
     <ClCompile Include="get_config.cpp" />
     <ClCompile Include="mconf.cpp" />

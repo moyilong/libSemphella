@@ -22,6 +22,7 @@ struct BLOCK_INFO {
 		section = "";
 		display = "";
 		father = "main";
+		default_val = "";
 	}
 	inline void empty()
 	{
