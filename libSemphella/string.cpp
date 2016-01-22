@@ -194,5 +194,7 @@ API string space_fix(string str)
 
 API string & operator<<(string input, string x)
 {
-	return input + x;
+	string ret;
+	ret = input + x;
+	return ret;
 }
