@@ -12,10 +12,7 @@
 	*/
 #include "main.h"
 #include "libSemphella.h"
-    #include <ppl.h>  
-      
-    using namespace std;  
-    using namespace Concurrency;  
+
     //! MAX是数组的最大个数，LEN为结构体slink的占用内存空间大小 */  
     #define MAX 100  
     #define LEN sizeof(struct slink)  
