@@ -191,3 +191,8 @@ API string space_fix(string str)
 			ret += str.at(n);
 	return ret;
 }
+
+API string & operator<<(string input, string x)
+{
+	return input + x;
+}

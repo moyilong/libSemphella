@@ -1,6 +1,7 @@
 #pragma once
 #include "stdafx.h"
 
+#define MAPI_LEVEL	0xFF5B
 
 struct BLOCK_INFO {
 	string uci_info;		//UCIÖ¸Ïò
@@ -48,6 +49,9 @@ void BuildMenu(vector<BLOCK_INFO> blk);
 void BuildMenu(vector<BLOCK_INFO> blk);
 void Prompt(string filename);
 void compile(string filename);
+//Cache Option
+void Write(string filename);
+void Read(string filename);
 
 inline bool operator ==(MENU a, MENU b)
 {

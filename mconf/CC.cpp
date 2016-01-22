@@ -46,3 +46,75 @@ BLOCK_INFO ReadBlock(ifstream &in)
 	blk.default_val = ReadString(in);
 	return blk;
 }
+
+struct MENU_WRITE {
+	long long sub_menu_size;
+	long long data_size;
+};
+
+void WriteMenu(MENU menu,ofstream &out)
+{
+	MENU_WRITE target;
+	target.sub_menu_size = menu.mdata.size();
+	target.data_size = menu.data.size();
+	out.write((char*)&target, sizeof(MENU_WRITE));
+	WriteString(menu.section,out);
+	WriteString(menu.display_name, out);
+	for (int n = 0; n < menu.data.size(); n++)
+		WriteBlock(menu.data.at(n),out);
+	for (int n = 0; n < menu.mdata.size(); n++)
+		WriteMenu(menu.mdata.at(n), out);
+}
+
+MENU ReadMenu(ifstream &in)
+{
+	MENU temp;
+	MENU_WRITE target;
+	in.read((char*)&target, sizeof(MENU_WRITE));
+	temp.section = ReadString(in);
+	temp.display_name = ReadString(in);
+	for (int n = 0; n < target.data_size; n++)
+		temp.data.push_back(ReadBlock(in));
+	for (int n = 0; n < target.sub_menu_size; n++)
+		temp.mdata.push_back(ReadMenu(in));
+	return temp;
+}
+
+struct MCONF_CACHE {
+	char api = MAPI_LEVEL;
+};
+
+void Write(string filename)
+{
+	MCONF_CACHE head;
+	ofstream read;
+	read.open(filename.data());
+	if (!read.is_open())
+	{
+		DEBUG << "Open File Faild!" << endl;
+		exit(-1);
+	}
+	head.api = MAPI_LEVEL;
+	read.write((char*)&head, sizeof(MCONF_CACHE));
+	WriteMenu(main_menu, read);
+	read.close();
+}
+
+void Read(string filename)
+{
+	ifstream read;
+	read.open(filename.data());
+	if (!read.is_open())
+	{
+		DEBUG << "Open File Faild!" << endl;
+		exit(-1);
+	}
+	MCONF_CACHE head;
+	read.read((char*)&head, sizeof(MCONF_CACHE));
+	if (head.api != MAPI_LEVEL)
+	{
+		DEBUG << "Reading Cache's API is mismatch!" << endl;
+	}
+	main_menu = ReadMenu(read);
+	read.close();
+}

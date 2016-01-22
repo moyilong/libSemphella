@@ -45,6 +45,7 @@ void compile(string filename)
 				else
 					bpoll.push_back(readd);
 				readd.empty();
+				readd.name=getLine.substr(1, readd.name.size() - 2);
 			}
 			else
 				first = !first;
