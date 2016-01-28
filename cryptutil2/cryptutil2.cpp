@@ -37,6 +37,14 @@ int main(int argc, char *argv[])
 	if (decrypt)
 		len -= sizeof(HEAD);
 	uint64_t count = 0;
+	string check = output;
+	if (decrypt)
+		check = input;
+	if (check.substr(-4) != ".ert2")
+	{
+		cout << "Warring! File Name Secure Check Error!" << endl;
+		exit(-1);
+	}
 	ifstream in;
 	ofstream out;
 	in.open(input.data());
