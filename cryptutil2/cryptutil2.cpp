@@ -9,6 +9,15 @@
 vector<ARGMENT>poll;
 
 int64_t bs = 16384;
+bool decrypt = false;
+
+char matrix[MATRIX_LEN][MATRIX_LEN];
+
+
+struct HEAD {
+	int64_t bs = bs;
+	float sum;
+};
 
 int main(int argc, char *argv[])
 {
@@ -21,26 +30,43 @@ int main(int argc, char *argv[])
 		cout << "Argment Error!" << endl;
 		exit(-1);
 	}	
+	decrypt = HaveArgment("d", poll);
 	if (!HaveArgment("b", poll))
 		bs = atoi(GetValue("b", poll).data());
 	uint64_t len = get_file_len(input.data());
+	if (decrypt)
+		len -= sizeof(HEAD);
 	uint64_t count = 0;
 	ifstream in;
 	ofstream out;
 	in.open(input.data());
 	out.open(output.data());
+	HEAD head;
+	if (!decrypt)
+	out.write((char*)&head, sizeof(HEAD));
+	else
+	{
+		in.read((char*)&head, sizeof(HEAD));
+		bs = head.bs;
+	}
 	if (!in.is_open() || !out.is_open())
 	{
 		cout << "Open File Faild!" << endl;
 		exit(-1);
 	}
+	CreateMatrix(password, matrix);
+	float sum = 0;
 	for (uint64_t n = 0; n < len; n += bs)
 	{
 		count++;
 		char *buff = (char*)malloc(sizeof(char)*bs);
 		memset(buff, 0, sizeof(buff));
 		in.read(buff, bs);
-		xor_cryptV2(password, buff, bs, bs*count);
+		if (!decrypt)
+		sum += getsum(buff, bs);
+		xor_cryptV2(matrix, buff, bs, bs*count);
+		if (decrypt)
+			sum += getsum(buff, bs);
 		out.write(buff, bs);
 		free(buff);
 		if (n%bs == 100)
@@ -52,9 +78,25 @@ int main(int argc, char *argv[])
 		char *buff = (char*)malloc(fix);
 		memset(buff, 0, sizeof(buff));
 		in.read(buff, fix);
-		xor_cryptV2(password, buff, fix, bs*count);
+		if (!decrypt)
+		sum += getsum(buff, bs);
+		xor_cryptV2(matrix, buff, fix, bs*count);
+		if (decrypt)
+			sum += getsum(buff, bs);
 		out.write(buff, fix);
 		free(buff);
+	}
+	if (!decrypt)
+	{
+		out.seekp(0);
+		out.write((char*)&head, sizeof(HEAD));
+	}
+	else
+	{
+		if (sum != head.sum)
+		{
+			cout << "Checksum Faild!" << endl;
+		}
 	}
 	in.close();
 	out.close();
