@@ -55,7 +55,7 @@ void libDebug::display_log(string info)
            string stime="[";
            stime+=name;
 		   stime += "][";
-		   sprintf(cbuff, "%ul", KERNEL.get_start_time());
+		   sprintf(cbuff, "%lld", KERNEL.get_start_time());
 		   stime += cbuff;
 		   stime += "]" + buff;
           

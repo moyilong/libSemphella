@@ -88,7 +88,6 @@ int main(int argc, char *argv[])
 		cout << "Special Fix :" << len - (count*BLOCK_SIZE)<<endl;
 		process(input, output, len - (count*BLOCK_SIZE));
 	}
-exit:
 	fclose(input);
 	fclose(output);
 }

@@ -194,14 +194,13 @@ API string space_fix(string str)
 
 API string & operator<<(string input, string x)
 {
-	string ret;
-	ret = input + x;
-	return ret;
+	input += x;
+	return input;
 }
 
 API string ull2s(uint64_t value)
 {
 	char buff[MAX_BUFF_SIZE] = { 0x00 };
-	sprintf(buff, "%ull", value);
+	sprintf(buff, "%lld", value);
 	return buff;
 }
