@@ -12,7 +12,7 @@ bool decrypt = false;
 
 char matrix[MATRIX_LEN][MATRIX_LEN];
 
-#define DEBUG	cout<<__FILE__<<"@"<<__LINE__<<" ::"
+#define DEBUG if (false)	cout<<__FILE__<<"@"<<__LINE__<<" ::"
 
 struct HEAD {
 	int64_t bs = bs;
