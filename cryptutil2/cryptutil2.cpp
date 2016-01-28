@@ -127,6 +127,7 @@ int main(int argc, char *argv[])
 		out.write(buff, fix);
 		delete[]buff;
 	}
+	ShowProcessBar(1, "");
 	cout << endl;
 	if (!decrypt)
 	{
