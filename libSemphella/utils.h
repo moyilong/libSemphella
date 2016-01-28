@@ -6,7 +6,7 @@
 API void ShowProcessBar(double percent, string display, char finish = '*',char splite='>',char inprocess = '=',int bis=32);
 
 
-struct API ARGMENT {
+struct CAPI ARGMENT {
 	string name;
 	string value;
 	bool is_bool();
