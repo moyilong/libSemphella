@@ -1,3 +1,4 @@
+#pragma once
 #include <vector>
 
 template<class T> inline T emax(T a, T b)
