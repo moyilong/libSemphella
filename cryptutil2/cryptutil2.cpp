@@ -110,7 +110,7 @@ int main(int argc, char *argv[])
 			sum += getsumV2(buff, bs);
 		out.write(buff, bs);
 		free(buff);
-		//if (n/bs == 10)
+		if (n/bs == 10)
 			ShowProcessBar((double)count*bs / len, "");
 	}
 	if (len - bs*count > 0)
@@ -130,7 +130,8 @@ int main(int argc, char *argv[])
 	cout << endl;
 	if (!decrypt)
 	{
-		out.seekp(0);
+		head.sum = sum;
+		out.seekp(ios_base::beg);
 		out.write((char*)&head, sizeof(HEAD));
 	}
 	else
@@ -138,7 +139,7 @@ int main(int argc, char *argv[])
 		if (sum != head.sum)
 		{
 			cout << "Checksum Faild!" << endl;
-			cout << sum << " != " << head.sum << endl;
+			cout << hex<<sum << " != " <<hex<< head.sum << endl;
 		}
 	}
 	cout << "Checksum:" <<hex<< sum << endl;
