@@ -49,4 +49,4 @@ using namespace std;
 #define DEFAULT_WORD_BLACK_LIST "MUsXGH1bEgTYijNwdklm7ZIJaxSAVWPQtn2340FfOCDuvh8yz56cBoR9qrepKL"
 #endif
 
-#define API  CAPI
+#define API extern "C" CAPI
