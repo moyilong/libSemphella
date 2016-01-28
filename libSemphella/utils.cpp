@@ -6,7 +6,7 @@ API void ShowProcessBar(double percent, string display, char finish,char splite,
 	string inprocessd;
 	int fs = bis*percent;
 	int is = (1 - bis)*percent;
-	for (int n = 0; n < max(fs, is); n++)
+	for (int n = 0; n < (int)max(fs, is); n++)
 	{
 		if (n <= fs)
 			finishd += finish;

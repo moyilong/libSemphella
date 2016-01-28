@@ -1,13 +1,13 @@
 #include <vector>
 
-template<class T> inline T max(T a, T b)
+template<class T> inline T emax(T a, T b)
 {
 	if (a > b)
 		return a;
 	return b;
 }
 
-template<class T> inline T min(T a, T b)
+template<class T> inline T emin(T a, T b)
 {
 	if (a > b)
 		return b;
@@ -20,3 +20,6 @@ template<class T>inline T dZero(T n)
 		return 1;
 	return n;
 }
+
+#define min emin
+#define max emax
