@@ -4,8 +4,8 @@ API void ShowProcessBar(double percent, string display, char finish,char splite,
 {
 	string finishd;
 	string inprocessd;
-	double fs = bis*percent;
-	double is = (1 - bis)*percent;
+	int fs = bis*percent;
+	int is = (1 - bis)*percent;
 	for (int n = 0; n < max(fs, is); n++)
 	{
 		if (n <= fs)
