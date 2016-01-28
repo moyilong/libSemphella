@@ -77,10 +77,15 @@ int main(int argc, char *argv[])
 	out.open(output.data());
 	HEAD head;
 	if (!decrypt)
-	out.write((char*)&head, sizeof(HEAD));
+	{
+		head.bs = bs;
+		out.write((char*)&head, sizeof(HEAD));
+	}
 	else
 	{
-		in.read((char*)&head, sizeof(HEAD));
+		char buff[sizeof(HEAD)];
+		in.read(buff, sizeof(HEAD));
+		memcpy(&head, buff, sizeof(HEAD));
 		bs = head.bs;
 	}
 	if (!in.is_open() || !out.is_open())
