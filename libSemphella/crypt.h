@@ -44,3 +44,4 @@ inline void crypt(char *data, long long len, const string password)
 
 API char xor_crypt(string password, char *data, int len);
 API float getsum(const char *data, int len);
+API void xor_cryptV2(string password, char *data, int64_t len, int64_t bit_off);

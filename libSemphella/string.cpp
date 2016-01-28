@@ -198,3 +198,10 @@ API string & operator<<(string input, string x)
 	ret = input + x;
 	return ret;
 }
+
+API string ull2s(uint64_t value)
+{
+	char buff[MAX_BUFF_SIZE] = { 0x00 };
+	sprintf(buff, "%ull", value);
+	return buff;
+}

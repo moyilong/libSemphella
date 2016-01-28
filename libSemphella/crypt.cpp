@@ -34,6 +34,17 @@ API char xor_crypt(string password,char *data,int len)
 	}
 }
 
+API void xor_cryptV2(string password, char *data, int64_t len,int64_t bit_off)
+{
+#pragma omp parallel for
+	for (int64_t n = 0; n < len; n++)
+	{
+		int value = sin(n)*password.size();
+		value = abs(value);
+		data[n] = data[n] ^ (password.at(value) + n + bit_off);
+	}
+}
+
 API inline char xbit(const char *data,long long len,const char off)
 {
     char ret=off;

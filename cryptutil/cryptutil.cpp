@@ -6,6 +6,7 @@
 #include <libSemphella/crypt.h>
 #include <libSemphella/sum.h>
 #define CHECK_STR	"ELONE_DRAGONOS_ABCDEF"
+#include <libSemphella/utils.h>
 
 string password;
 string infile;
@@ -78,7 +79,8 @@ int main(int argc, char *argv[])
 		if (n / BLOCK_SIZE % 100 == 0 && time(0) - start>0)
 		{
 			uint64_t poss = n / (time(0) - start);
-			cout << (double)((double)n / (double)len) * 100 << "% " << (poss)<< "/S                \r";
+			//cout << (double)((double)n / (double)len) * 100 << "% " << (poss)<< "/S                \r";
+			ShowProcessBar(n / len, ull2s(poss)+"/S");
 		}
 	}
 	if (count*BLOCK_SIZE < len)

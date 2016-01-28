@@ -18,4 +18,4 @@ private:
 	time_t start_time;
 };
 
-API kernel KERNEL;
+extern "C" API kernel KERNEL;

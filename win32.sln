@@ -21,6 +21,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cryptutil", "cryptutil\cryp
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mconf", "mconf\mconf.vcxproj", "{C47FE7FE-F475-4963-A570-C329708B33C1}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cryptutil2", "cryptutil2\cryptutil2.vcxproj", "{1D5AAFC3-EA6A-4035-81AF-002D00894D3E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Compile|Mixed Platforms = Compile|Mixed Platforms
@@ -194,6 +196,24 @@ Global
 		{C47FE7FE-F475-4963-A570-C329708B33C1}.Release|Win32.Build.0 = Release|Win32
 		{C47FE7FE-F475-4963-A570-C329708B33C1}.Release|x64.ActiveCfg = Release|x64
 		{C47FE7FE-F475-4963-A570-C329708B33C1}.Release|x64.Build.0 = Release|x64
+		{1D5AAFC3-EA6A-4035-81AF-002D00894D3E}.Compile|Mixed Platforms.ActiveCfg = Release|Win32
+		{1D5AAFC3-EA6A-4035-81AF-002D00894D3E}.Compile|Mixed Platforms.Build.0 = Release|Win32
+		{1D5AAFC3-EA6A-4035-81AF-002D00894D3E}.Compile|Win32.ActiveCfg = Release|Win32
+		{1D5AAFC3-EA6A-4035-81AF-002D00894D3E}.Compile|Win32.Build.0 = Release|Win32
+		{1D5AAFC3-EA6A-4035-81AF-002D00894D3E}.Compile|x64.ActiveCfg = Release|x64
+		{1D5AAFC3-EA6A-4035-81AF-002D00894D3E}.Compile|x64.Build.0 = Release|x64
+		{1D5AAFC3-EA6A-4035-81AF-002D00894D3E}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{1D5AAFC3-EA6A-4035-81AF-002D00894D3E}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{1D5AAFC3-EA6A-4035-81AF-002D00894D3E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{1D5AAFC3-EA6A-4035-81AF-002D00894D3E}.Debug|Win32.Build.0 = Debug|Win32
+		{1D5AAFC3-EA6A-4035-81AF-002D00894D3E}.Debug|x64.ActiveCfg = Debug|x64
+		{1D5AAFC3-EA6A-4035-81AF-002D00894D3E}.Debug|x64.Build.0 = Debug|x64
+		{1D5AAFC3-EA6A-4035-81AF-002D00894D3E}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{1D5AAFC3-EA6A-4035-81AF-002D00894D3E}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{1D5AAFC3-EA6A-4035-81AF-002D00894D3E}.Release|Win32.ActiveCfg = Release|Win32
+		{1D5AAFC3-EA6A-4035-81AF-002D00894D3E}.Release|Win32.Build.0 = Release|Win32
+		{1D5AAFC3-EA6A-4035-81AF-002D00894D3E}.Release|x64.ActiveCfg = Release|x64
+		{1D5AAFC3-EA6A-4035-81AF-002D00894D3E}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
