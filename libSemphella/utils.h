@@ -4,7 +4,7 @@
 
 #include "math.h"
 
-inline void ShowProcessBar(double percent, string display, char finish='=', char splite='>', char inprocess=' ', int bis=32)
+inline void ShowProcessBar(double percent, string display, char finish='=', char splite='>', char inprocess='.', int bis=32)
 {
 	string finishd;
 	string inprocessd;
