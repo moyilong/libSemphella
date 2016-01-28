@@ -4,12 +4,12 @@
 
 #include "math.h"
 
-inline void ShowProcessBar(double percent, string display, char finish='=', char splite='>', char inprocess='.', int bis=32)
+inline void ShowProcessBar(double percent, string display, char finish='=', char splite='>', char inprocess='.', int bis=48)
 {
 	string finishd;
 	string inprocessd;
 	int fs = bis*percent;
-	int is = (1 - bis)*percent;
+	int is = bis-fs;
 	for (int n = 0; n < (int)max(fs, is); n++)
 	{
 		if (n <= fs)

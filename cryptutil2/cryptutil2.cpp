@@ -88,7 +88,7 @@ int main(int argc, char *argv[])
 		cout << "Open File Faild!" << endl;
 		exit(-1);
 	}
-	cout << input <<  "=> " << output << endl;
+	cout << input <<  " => " << output << endl;
 	cout << len << " of " << bs << endl;
 	CreateMatrix(password, matrix);
 	uint64_t sum = 0;
