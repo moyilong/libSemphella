@@ -16,7 +16,7 @@ char matrix[MATRIX_LEN][MATRIX_LEN];
 
 struct HEAD {
 	int64_t bs = bs;
-	float sum;
+	uint64_t sum;
 };
 
 int main(int argc, char *argv[])
@@ -63,7 +63,7 @@ int main(int argc, char *argv[])
 		exit(-1);
 	}
 	CreateMatrix(password, matrix);
-	float sum = 0;
+	uint64_t sum = 0;
 	for (uint64_t n = 0; n < len; n += bs)
 	{
 		count++;
@@ -71,10 +71,10 @@ int main(int argc, char *argv[])
 		memset(buff, 0, sizeof(buff));
 		in.read(buff, bs);
 		if (!decrypt)
-		sum += getsum(buff, bs);
+		sum += getsumV2(buff, bs);
 		xor_cryptV2(matrix, buff, bs, bs*count);
 		if (decrypt)
-			sum += getsum(buff, bs);
+			sum += getsumV2(buff, bs);
 		out.write(buff, bs);
 		free(buff);
 		if (n%bs == 100)
@@ -87,10 +87,10 @@ int main(int argc, char *argv[])
 		memset(buff, 0, sizeof(buff));
 		in.read(buff, fix);
 		if (!decrypt)
-		sum += getsum(buff, bs);
+		sum += getsumV2(buff, bs);
 		xor_cryptV2(matrix, buff, fix, bs*count);
 		if (decrypt)
-			sum += getsum(buff, bs);
+			sum += getsumV2(buff, bs);
 		out.write(buff, fix);
 		free(buff);
 	}

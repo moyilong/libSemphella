@@ -23,6 +23,14 @@ __inline int get_n(int max, int n)
 	return ret;
 }
 
+API uint64_t getsumV2(const char *data, int64_t len)
+{
+	uint64_t ret = 0;
+	for (int64_t n = 0; n < len; n++)
+		ret += ~data[n];
+	return ret;
+}
+
 API char xor_crypt(string password,char *data,int len)
 {
 #pragma omp parallel for
