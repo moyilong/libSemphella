@@ -97,7 +97,6 @@ int main(int argc, char *argv[])
 	cout << len << " of " << bs << endl;
 	CreateMatrix(password, matrix);
 	uint64_t sum = 0;
-	ShowProcessBar(0, "");
 	for (uint64_t n = 0; n+bs < len; n += bs)
 	{
 		count++;
@@ -111,7 +110,7 @@ int main(int argc, char *argv[])
 			sum += getsumV2(buff, bs);
 		out.write(buff, bs);
 		free(buff);
-		if (n/bs == 10)
+		if (count%5 == 0)
 			ShowProcessBar((double)count*bs / len, "");
 	}
 	if (len - bs*count > 0)
