@@ -138,6 +138,7 @@ int main(int argc, char *argv[])
 		if (sum != head.sum)
 		{
 			cout << "Checksum Faild!" << endl;
+			cout << sum << " != " << head.sum << endl;
 		}
 	}
 	cout << "Checksum:" <<hex<< sum << endl;
