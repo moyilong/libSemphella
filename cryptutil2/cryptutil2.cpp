@@ -97,6 +97,7 @@ int main(int argc, char *argv[])
 	cout << len << " of " << bs << endl;
 	CreateMatrix(password, matrix);
 	uint64_t sum = 0;
+	ShowProcessBar(0, "");
 	for (uint64_t n = 0; n+bs < len; n += bs)
 	{
 		count++;
