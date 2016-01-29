@@ -9,14 +9,26 @@
 
 int64_t bs = 16384;
 bool decrypt = false;
-
+bool crack = false;
 char matrix[MATRIX_LEN][MATRIX_LEN];
 
+uint64_t GetMatrixSum()
+{
+	uint64_t matrix_sum[MATRIX_LEN];
+#pragma omp parallel for
+	for (int n = 0; n < MATRIX_LEN; n++)
+		matrix_sum[n] = getsumV2(matrix[n], MATRIX_LEN*sizeof(uint64_t));
+	return getsumV2((char*)matrix_sum, sizeof(uint64_t)*MATRIX_LEN);
+}
+
 #define DEBUG if (false)	cout<<__FILE__<<"@"<<__LINE__<<" ::"
+#define MAX_PASSWORD_LEN	MAX_BUFF_SIZE
 
 struct HEAD {
 	int64_t bs = bs;
 	uint64_t sum;
+	uint64_t matrix_sum;
+	uint64_t password_sum;
 };
 
 int main(int argc, char *argv[])
@@ -71,6 +83,11 @@ int main(int argc, char *argv[])
 		cout << "Warring! File Name Secure Check Error!" << endl;
 		exit(-1);
 	}
+	if (password.size() > MAX_PASSWORD_LEN)
+	{
+		cout << "Password is too long!" << endl;
+		exit(-1);
+	}
 	ifstream in;
 	ofstream out;
 	in.open(input.data());
@@ -79,6 +96,7 @@ int main(int argc, char *argv[])
 	if (!decrypt)
 	{
 		head.bs = bs;
+		head.password_sum = getsumV2(password.data(), password.size());
 		out.write((char*)&head, sizeof(HEAD));
 	}
 	else
@@ -96,6 +114,14 @@ int main(int argc, char *argv[])
 	cout << input <<  " => " << output << endl;
 	cout << len << " of " << bs << endl;
 	CreateMatrix(password, matrix);
+	if (decrypt)
+	{
+		if (GetMatrixSum() != head.matrix_sum||getsumV2(password.data(),password.size())!=head.password_sum)
+		{
+			cout << "Password Correct!" << endl;
+			exit(-1);
+		}
+	}
 	uint64_t sum = 0;
 	for (uint64_t n = 0; n+bs < len; n += bs)
 	{
@@ -132,6 +158,7 @@ int main(int argc, char *argv[])
 	if (!decrypt)
 	{
 		head.sum = sum;
+		head.matrix_sum = GetMatrixSum();
 		out.seekp(ios_base::beg);
 		out.write((char*)&head, sizeof(HEAD));
 	}
@@ -143,7 +170,7 @@ int main(int argc, char *argv[])
 			cout << hex<<sum << " != " <<hex<< head.sum << endl;
 		}
 	}
-	cout << "Checksum:" <<hex<< sum << endl;
+	cout << "Done. Checksum:" <<hex<< sum << endl;
 	in.close();
 	out.close();
 }
