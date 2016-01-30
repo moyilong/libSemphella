@@ -18,7 +18,9 @@ using namespace std;
 #endif
 
 #include "debug.h"
-libDebug bios("libBIOS");
+//libDebug bios("libBIOS");
+
+#define bios debug<<"[BIOS Lib]"
 
 char *check_string = CHECK_STRING;
 

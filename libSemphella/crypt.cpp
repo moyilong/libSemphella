@@ -10,7 +10,9 @@ using namespace std;
 #include "math.h"
 #include "debug.h"
 #include "string.h"
-libDebug cpt("Semphella-CryptMod");
+//libDebug cpt("Semphella-CryptMod");
+
+#define cpt debug<<"[CryptModules]"
 
 __inline int get_n(int max, int n)
 {

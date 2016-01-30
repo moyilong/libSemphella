@@ -50,3 +50,5 @@ using namespace std;
 #endif
 
 #define API extern "C" CAPI
+
+#include <time.h>

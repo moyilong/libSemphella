@@ -10,7 +10,9 @@ using namespace std;
 #include "string.h"
 #include "debug.h"
 
-libDebug strr("stringlib");
+//libDebug strr("stringlib");
+
+#define strr debug<<"[StringLib]"
 
 API int strfind(const char *str,char find,bool wn)
 {
@@ -31,34 +33,6 @@ CAPI void strcpy(char *dest,const char *origin,long long cplen,long long r_off,l
 #pragma omp parallel for
     for (long long n=0;n<cplen;n++)
         dest[n+w_off]=origin[n+r_off];
-}
-
-
-API string strreplace(const char*origin, const char *replace, const char*value)
-{
-
-	string ret;
-	//strr << "Replace \"" << origin << "\" :\"" << replace << "\" => \"" << value << "\"" << endl;
-	for (int n = 0; n < strlen(origin); n++)
-	{
-		if (origin[n] == replace[0])
-		{
-			bool check = true;
-			for (int x = 0; x < strlen(replace)&&check; x++)
-				if (origin[n + x] != replace[x])
-					check = false;
-
-			if (check)
-			{
-				ret += value;
-				n += strlen(replace);
-			}
-			else
-				ret += origin[n];
-		}
-		ret += origin[n];
-	}
-	return ret;
 }
 
 API bool streval(const char *a, const char *b,bool over_len)
@@ -204,3 +178,4 @@ API string ull2s(uint64_t value)
 	sprintf(buff, "%lld", value);
 	return buff;
 }
+

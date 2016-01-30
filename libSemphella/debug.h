@@ -1,33 +1,17 @@
-#ifndef DEBUG_H
-#define DEBUG_H
-
-#include "libSemphella.h"
-#include <time.h>
-
-#define endl "\n"
-
-class CAPI libDebug
+#pragma once
+#include "kernel.h"
+inline void display_dump(const char *data, long long len, int x = 5)
 {
-public:
-    libDebug();
-    libDebug(string _name);
-    libDebug(string _name,string _filename);
-    ~libDebug();
-    void setname(string _name);
-    bool link_to_file(string filename);
-    void display_log(string info);
-	libDebug& operator<<(string info);
-	libDebug& operator<<(int info);
-	libDebug& operator<<(char* info);
-private:
-    string name;
-    unsigned long long outcount=0;
-    string buff;
-    bool log_to_file=false;
-    ofstream filelink;
-protected:
-};
+	for (int n = 0; n < len; n++)
+	{
+		char buff[MAX_BUFF_SIZE] = { 0x00 };
+		sprintf(buff, "%02X", data[n]);
+		cout << buff[strlen(buff) - 2] << buff[strlen(buff) - 1] << "  ";
+		if (n%x == 0)
+			cout << endl; 
+	}
+	cout << endl;
 
-API void display_dump(const char *data, long long len, int x = 5);
+}
 
-#endif // DEBUG_H
+#define debug if (KERNEL.GetDebugStat())cout<<"["<<__FILE__<<"]["<<__LINE__<<"]"

@@ -6,7 +6,9 @@
 #include <libSemphella/string.h>
 #include <omp.h>
 
-libDebug mpshell("MPShell");
+//libDebug mpshell("MPShell");
+
+#define mpshell debug<<"[MPShell][" << omp_get_thread_num()<<"]"
 
 vector<string>poll;
 
@@ -16,13 +18,7 @@ vector<string>poll;
 //			##MP_ID	OMPËæ»ú±àºÅ
 bool testmode = false;
 bool disable_nl = false;
-inline void exec(string command)
-{
-	DEBUG_LINE mpshell << "Exec:" << command << endl;
-	if (!testmode)
-	system(command.data());
-}
-
+vector<string> cmd;
 int main(int argc,char* argv[])
 {
 	mpshell << "Init MPShell" << endl << "Init Thread:" << omp_get_max_threads()<<endl;
@@ -87,6 +83,9 @@ int main(int argc,char* argv[])
 				 _s_step = atoi(argv[n]);
 				n++;
 				 _s_stop = atoi(argv[n])+1;
+				 if (_s_step == 0)
+					 KERNEL.error("Step is zero!");
+				 mpshell << _s_start << " + " << _s_step << " => " << _s_stop << endl;
 				for (int n = _s_start; n < _s_stop; n += _s_step)
 				{
 					
@@ -114,21 +113,23 @@ int main(int argc,char* argv[])
 	mpshell << "Command:" << command << endl;
 	mpshell << "poll size:" << poll.size() << endl;
 	//OMP_START
-#pragma omp parallel for 
+	omp_set_num_threads(1);
+//#pragma omp parallel for 
 	for (int n = 0; n < poll.size(); n++)
+		if (!(disable_nl == true && poll.at(n).empty()))
+		{
+			string getd = strreplace(command.data(), "##OMP", poll.at(n).data());
+			mpshell << "HaveCMD:" << getd << endl;
+			cmd.push_back(getd);
+		}
+#pragma omp parallel for
+	for (int n = 0; n < cmd.size(); n++)
 	{
-		if (disable_nl)
-			if (poll.at(n).empty())
-				continue;
-		string buff = strreplace(command.data(), "##OMP",poll.at(n).data());
-		char cbuff[MAX_BUFF_SIZE] = { 0x00 };
-		sprintf(cbuff, "%d", omp_get_thread_num());
-		buff = strreplace(buff.data(), "##MP_TN", cbuff);
-		memset(cbuff, 0, sizeof(cbuff));
-		sprintf(cbuff, "%d", abs(rand()*rand()*rand()));
-		buff = strreplace(buff.data(), "##MP_ID", cbuff);
-		mpshell<<"Working Number: "<<n<<" // "<<poll.size()<<endl;
-		exec(buff);
+		mpshell << "Execing:" << cmd.at(n) << endl;
+		if (testmode)
+			cout << "Exec:" << cmd.at(n) << endl;
+		else
+			system(cmd.at(n).data());
 	}
 	return 1;
 }

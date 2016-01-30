@@ -7,9 +7,6 @@
     <ClCompile Include="crypt.cpp">
       <Filter>代码</Filter>
     </ClCompile>
-    <ClCompile Include="debug.cpp">
-      <Filter>代码</Filter>
-    </ClCompile>
     <ClCompile Include="libSemphella.cpp">
       <Filter>代码</Filter>
     </ClCompile>

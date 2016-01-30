@@ -2,7 +2,7 @@
 #include "debug.h"
 #include "string.h"
 #include "crypt.h"
-libDebug apd("APD Framework");
+#define apd debug <<"[APD-Framework]"
 
 
 	APD::APD()
