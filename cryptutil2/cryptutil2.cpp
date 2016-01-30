@@ -155,6 +155,8 @@ int main(int argc, char *argv[])
 	}
 	ShowProcessBar(1, "");
 	cout << endl;
+	cout << "Flushing Cache..." << endl;
+	out.flush();
 	if (!decrypt)
 	{
 		head.sum = sum;
