@@ -165,7 +165,7 @@ int main(int argc, char *argv[])
 		cp2 << "updating head..." << endl;
 		head.sum = sum;
 		head.matrix_sum = GetMatrixSum();
-		out.seekp(ios_base::beg);
+		out.seekp(0);
 		out.write((char*)&head, sizeof(HEAD));
 		out.flush();
 		cp2 << "head is updated!" << endl;
