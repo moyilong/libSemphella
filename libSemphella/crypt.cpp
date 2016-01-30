@@ -27,9 +27,28 @@ __inline int get_n(int max, int n)
 
 API uint64_t getsumV2(const char *data, int64_t len)
 {
+	uint64_t dr = 0;
 	uint64_t ret = 0;
+	for (int x = 0; x < len; x++)
+		dr += data[x]+x;
 	for (int64_t n = 0; n < len; n++)
-		ret += ~data[n];
+	{
+		char now = data[n];
+		char nx;
+		if (n == 0)
+			nx = data[1];
+		else
+			nx = data[n - 1];
+		char bc = now + nx;
+		char lc = now - nx;
+		now *= 0xFF;
+		nx *= 0xFFFF;
+		bc *= 0xFFFFFF;
+		lc *= 0xFFFFFFFF;		
+		ret += (now + nx + nx ^ data[n] + now ^ len)+data[n]*0x5dd96aff;
+		ret += now + nx + lc + bc;
+		ret=(ret << 8) ^ dr + n;
+	}
 	return ret;
 }
 

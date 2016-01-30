@@ -55,39 +55,7 @@ bool strequal(const char *a, const char *b)
 			return false;
 	return true;
 }
-void crack()
-{
-	int count = 0;
-	int match = 0;
-	float last = 0;
-	float liops = 0;
-	clock_t clast = clock();
-	long long stop = pow(strlen(strtbl), MAX_BUFF_SIZE);
-	char str[MAX_BUFF_SIZE];
-	memset(str, '\0', MAX_BUFF_SIZE);
-	str[0] = strtbl[0];
-	cout << "Stop ad:" << stop << endl;
-	while (true)
-	{
-		if (getsum(str, strlen(str)) == 38.281021)
-		{
-			cout << "Crack! Password is " << str << endl;
-			match++;
-		}
-		if (count % 100000 == 0)
-		{
-			float now = ((float)match / (float)count)*(float)100;
-			float iops = 100000 / (float)(clock() - clast);
-			cout << "iLen:"<<strlen(str)<<" Count:" << count << " Match:" << match << " " << now << "% add:" << now - last << "%\tTimeout:" << clock() - clast << "\t " << iops << " IOPS\t" << liops - iops << endl;
-			last = now;
-			clast = clock();
-			liops = iops;
-		}
-		str_add(str);
-		count++;
-	}
-	return;
-}
+
 ofstream out("logdump.log");
 
 int main(int argc, char *argv[])
@@ -97,23 +65,19 @@ int main(int argc, char *argv[])
 		goto TEST;
 		return 0;
 	}
-	if (argv[1][0] == '-'&&argv[1][1] == 'c')
-	{
-		crack();
-		return 0;
-	}
-	printf("%f\n", getsum(argv[1],strlen(argv[1])));
+	printf("%lld\n", getsumV2(argv[1],strlen(argv[1])));
 	return 0;
 TEST:
 	struct INFO{
 		string str;
-		float data;
+		uint64_t data;
 		size_t match_size = 0;
 	};
 	vector<INFO>ipoll;
 	char str[MAX_BUFF_SIZE];
 	memset(str, '\0', MAX_BUFF_SIZE);
-	str[0] = strtbl[0];
+	for (int n = 0; n < 6; n++)
+		str[n] = strtbl[0];
 	int count = 0;
 	int match = 0;
 	float last = 0;
@@ -123,7 +87,7 @@ TEST:
 	{
 		INFO inf;
 		inf.str = str;
-		inf.data=getsum(inf.str.data(), inf.str.size());
+		inf.data=getsumV2(inf.str.data(), inf.str.size());
 		bool stat = true;
 #pragma omp parallel for
 		for (int n = 0; n < ipoll.size();n++)
@@ -133,7 +97,7 @@ TEST:
 				stat = false;
 				match++;
 				ipoll.at(n).match_size++;
-				cout << "FindN:" << inf.data <<" " <<inf.str <<"=="<<ipoll.at(n).str<<"  Match:"<<ipoll.at(n).match_size<<endl;
+				cout << "FindN:" <<hex<< inf.data<<oct <<" " <<inf.str <<"=="<<ipoll.at(n).str<<"  Match:"<<ipoll.at(n).match_size<<endl;
 				//out << "Find Equal!" << endl;
 				//out << n<<"Find At:" <<  "(" << inf.data << ") == " << ipoll.at(n).str << "(" << ipoll.at(n).data << ")" << endl;
 			}
