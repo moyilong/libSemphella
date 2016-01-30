@@ -159,6 +159,7 @@ int main(int argc, char *argv[])
 	out.flush();
 	if (!decrypt)
 	{
+		cout << "updating head..." << endl;
 		head.sum = sum;
 		head.matrix_sum = GetMatrixSum();
 		out.seekp(ios_base::beg);
