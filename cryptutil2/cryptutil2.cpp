@@ -61,6 +61,9 @@ int main(int argc, char *argv[])
 					n++;
 					bs = atoi(argv[n]);
 					break;
+				case 'I':
+					info_get = true;
+					break;
 				}
 	if (info_get)
 	{
