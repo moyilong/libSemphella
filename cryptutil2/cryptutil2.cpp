@@ -33,7 +33,7 @@ struct HEAD {
 	uint64_t matrix_sum;
 	uint64_t password_sum;
 };
-
+bool info_get = false;
 int main(int argc, char *argv[])
 {
 	string input;
@@ -62,6 +62,28 @@ int main(int argc, char *argv[])
 					bs = atoi(argv[n]);
 					break;
 				}
+	if (info_get)
+	{
+		if (input.empty())
+		{
+			cout << "Argment Error!" << endl;
+			ifstream in;
+			in.open(input.data());
+			if (!in.is_open())
+			{
+				cout << "Open File Faid!			}" << endl;
+				exit(-1);
+			}
+			HEAD head;
+			cout << hex;
+			in.read((char*)&head, sizeof(head));
+			cout << "Password Checksum:" << head.password_sum << endl;
+			cout << "Matrix Checksum:" << head.matrix_sum << endl;
+			cout << "Checksum:" << head.sum << endl;
+			cout << "Block size:" << head.bs << endl;
+
+		}
+	}
 	if (input.empty() || output.empty() || password.empty())
 	{
 		cout << "Argment Error!" << endl;
