@@ -164,9 +164,13 @@ int main(int argc, char *argv[])
 	{
 		cp2 << "updating head..." << endl;
 		head.sum = sum;
+		cp2 << "Caculating Matrix SUM" << endl;
 		head.matrix_sum = GetMatrixSum();
-		out.seekp(0);
+		cp2 << "Redirecting..." << endl;
+		out.seekp(ios_base::beg);
+		cp2 << "Writing Data..." << endl;
 		out.write((char*)&head, sizeof(HEAD));
+		cp2 << "Flushing..." << endl;
 		out.flush();
 		cp2 << "head is updated!" << endl;
 	}
