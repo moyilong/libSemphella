@@ -20,7 +20,7 @@ uint64_t GetMatrixSum()
 	uint64_t matrix_sum[MATRIX_LEN];
 #pragma omp parallel for
 	for (int n = 0; n < MATRIX_LEN; n++)
-		matrix_sum[n] = getsumV2(matrix[n], MATRIX_LEN*sizeof(uint64_t));
+		matrix_sum[n] = getsumV2(matrix[n], MATRIX_LEN*sizeof(char));
 	return getsumV2((char*)matrix_sum, sizeof(uint64_t)*MATRIX_LEN);
 }
 
