@@ -9,6 +9,7 @@
 #include <libSemphella/debug.h>
 #undef max
 #undef min
+#include <limits>
 int64_t bs = 16384;
 bool decrypt = false;
 bool crack = false;
