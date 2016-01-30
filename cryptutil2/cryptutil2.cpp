@@ -164,6 +164,8 @@ int main(int argc, char *argv[])
 		head.matrix_sum = GetMatrixSum();
 		out.seekp(ios_base::beg);
 		out.write((char*)&head, sizeof(HEAD));
+		out.flush();
+		cout << "head is updated!" << endl;
 	}
 	else
 	{
