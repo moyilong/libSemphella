@@ -86,6 +86,7 @@ int main(int argc, char *argv[])
 			cout << "Block size:" << head.bs << endl;
 
 		}
+		exit(0);
 	}
 	if (input.empty() || output.empty() || password.empty())
 	{
