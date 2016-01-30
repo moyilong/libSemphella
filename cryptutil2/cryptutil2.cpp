@@ -70,6 +70,8 @@ int main(int argc, char *argv[])
 		if (input.empty())
 		{
 			cout << "Argment Error!" << endl;
+		}
+		else{
 			ifstream in;
 			in.open(input.data());
 			if (!in.is_open())
