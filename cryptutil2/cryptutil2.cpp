@@ -6,11 +6,14 @@
 #include <libSemphella/files.h>
 #include <libSemphella/utils.h>
 #include <libSemphella/crypt.h>
+#include <libSemphella/debug.h>
 
 int64_t bs = 16384;
 bool decrypt = false;
 bool crack = false;
 char matrix[MATRIX_LEN][MATRIX_LEN];
+
+#define cp2 debug<<"[crypt2]"
 
 uint64_t GetMatrixSum()
 {
@@ -155,17 +158,17 @@ int main(int argc, char *argv[])
 	}
 	ShowProcessBar(1, "");
 	cout << endl;
-	cout << "Flushing Cache..." << endl;
+	cp2 << "Flushing Cache..." << endl;
 	out.flush();
 	if (!decrypt)
 	{
-		cout << "updating head..." << endl;
+		cp2 << "updating head..." << endl;
 		head.sum = sum;
 		head.matrix_sum = GetMatrixSum();
 		out.seekp(ios_base::beg);
 		out.write((char*)&head, sizeof(HEAD));
 		out.flush();
-		cout << "head is updated!" << endl;
+		cp2 << "head is updated!" << endl;
 	}
 	else
 	{
