@@ -8,6 +8,6 @@ struct PT_TIME {
 	time_t caculate_d_time;
 	time_t caculate_l_time;
 	time_t random;
-	time_t free;
+	time_t xfree;
 };
  PT_TIME PT();

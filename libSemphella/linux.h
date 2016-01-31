@@ -1,2 +1,3 @@
 #pragma once
-#define size_t unsigned long long 
+#include <inttypes.h>
+#define size_t uint64_t
