@@ -7,9 +7,7 @@ void build_block(BLOCK_INFO blk)
 {
 	string config_line = "config " + blk.name;
 	str.push_back(config_line);
-	string type_line = "\t" + blk.type;
-	str.push_back(type_line);
-	string prompt_line = "\tprompt \"" + blk.prompt + "\"";
+	string prompt_line = "\""+blk.type +" \"" + blk.prompt + "\"";
 	str.push_back(prompt_line);
 	if (!blk.depends.empty())
 	{
