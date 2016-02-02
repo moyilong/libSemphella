@@ -8,6 +8,11 @@ string conffile;
 string dot_config;
 string out_kconf;
 #include "loaddef.h"
+enum WORKMODE {
+	prompt,
+	dcfg,
+	apply,
+}MODE=prompt;
 int main(int argc, char *argv[])
 {
 	main_menu.section = "main";
@@ -20,15 +25,36 @@ int main(int argc, char *argv[])
 			case 'i':
 				conffile = argv[n] + 2;
 				break;
-			case 'd':
+			case 'f':
 				dot_config = argv[n] + 2;
 				break;
 			case 'o':
 				out_kconf = argv[n] + 2;
 				break;
+			case 'a':
+				MODE = apply;
+				break;
+			case 'p':
+				MODE = prompt;
+				break;
+			case 'd':
+				MODE = dcfg;
+				break;
 			}
-	compile(conffile);
-	Prompt(out_kconf);
+	switch (MODE)
+	{
+	case prompt:
+		compile(conffile);
+		Prompt(out_kconf);
+		break;
+	case apply:
+		Apply(dot_config);
+		break;
+	case dcfg:
+		Prompt_DotConfig(dot_config);
+		break;
+	}
+	return 0;
 
 }
 

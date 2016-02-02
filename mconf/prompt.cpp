@@ -43,3 +43,33 @@ void Prompt(string filename)
 	for (unsigned long long  n = 0; n < str.size(); n++)
 		out << str.at(n) << endl;
 }
+
+vector<string> dot_string;
+
+void read_block(BLOCK_INFO blk)
+{
+	dot_string.push_back(get_config(blk.uci_info));
+}
+
+void read_config(MENU &menu)
+{
+	string menu_start = "# Menu Configure of: " + menu.display_name;
+	dot_string.push_back(menu_start);
+	for (uint64_t n = 0; n < menu.mdata.size();n++)
+		read_config(menu.mdata.at(n));
+	for (uint64_t n = 0; n < menu.data.size(); n++)
+		read_block(menu.data.at(n));
+	string menu_end = "# End Menu Configure of: " + menu.display_name;
+	dot_string.push_back(menu_end);
+}
+
+void Prompt_DotConfig(string filename)
+{
+	ofstream out;
+	out.open(filename.data());
+	read_config(main_menu);
+	for (uint64_t n = 0; n < dot_string.size(); n++)
+		out << dot_string.at(n) << endl;
+	out.flush();
+	out.close();
+}

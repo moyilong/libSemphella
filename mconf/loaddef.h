@@ -13,6 +13,7 @@ struct BLOCK_INFO {
 	string display;			//显示菜单名称
 	string father;			//母菜单标识符
 	string default_val;		//默认值
+	string systemd;			//执行命令
 	inline BLOCK_INFO()
 	{
 		uci_info = "";
@@ -24,6 +25,7 @@ struct BLOCK_INFO {
 		display = "";
 		father = "main";
 		default_val = "";
+		systemd="";
 	}
 	inline void empty()
 	{
@@ -52,7 +54,7 @@ void compile(string filename);
 //Cache Option
 void Write(string filename);
 void Read(string filename);
-
+void Prompt_DotConfig(string filename);
 inline bool operator ==(MENU a, MENU b)
 {
 	if (!streval(a.section.data(),b.section.data()))

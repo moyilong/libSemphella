@@ -70,6 +70,12 @@ void compile(string filename)
 				readd.display = value;
 			else if (streval(name.data(), "father"))
 				readd.father = value;
+			else if (streval(name.data(), "exec"))
+				readd.systemd = value;
+			else {
+				cout << "Error: Unknow Label Append!" << endl;
+				cout << filename << "@" << count << endl;
+			}
 		}
 	}
 	if (streval(readd.type.data(), "menu"))

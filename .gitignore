@@ -1,3 +1,5 @@
+*.ert2
+*.cache
 *.o
 .DS_Store
 .*.swp
