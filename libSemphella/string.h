@@ -53,3 +53,5 @@ inline string strreplace(string orig, string replace, string value)
 	}
 	return ret;
 }
+
+API string strrm(const char* str, const char *rm_list);

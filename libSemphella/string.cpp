@@ -179,3 +179,18 @@ API string ull2s(uint64_t value)
 	return buff;
 }
 
+API string strrm(const char* str, const char *rm_list)
+{
+	string ret;
+	for (int n = 0; n < strlen(str); n++)
+	{
+		bool stat = true;
+#pragma omp parallel for
+		for (int x = 0; x < strlen(rm_list); x++)
+			if (str[n] == rm_list[x])
+				stat = false;
+		if (stat)
+			ret += str[n];
+	}
+	return ret;
+}

@@ -44,10 +44,11 @@ extern MENU NULL_MENU;
 
 extern MENU main_menu;
 
-MENU CreateMenu(string section, string display, string father);
-MENU GetProcAddr(string section, MENU &search_from);
+MENU *CreateMenu(string section, string display, string father);
+MENU *GetProcAddr(string section, MENU &search_from);
 void BuildMenu(vector<BLOCK_INFO> blk);
-#define EMPTY_RET NULL_MENU
+//#define EMPTY_RET NULL_MENU
+#define EMPTY_RET NULL
 void BuildMenu(vector<BLOCK_INFO> blk);
 void Prompt(string filename);
 void compile(string filename);

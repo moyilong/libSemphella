@@ -29,6 +29,7 @@ void compile(string filename)
 			compile(getLine.substr(1));
 			continue;
 		}
+		getLine = strrm(getLine.data(), " \n\r\t\"");
 		//getLine = space_fix(getLine);
 		bool empty_check = true;
 		for (int n = 0; n < getLine.size(); n++)
@@ -41,14 +42,26 @@ void compile(string filename)
 			if (!first)
 			{
 				if (streval(readd.type.data(), "menu"))
+				{
+					DEBUG << "Redisted menu:" << readd.section << " " << readd.display << " " << readd.father << endl;
 					CreateMenu(readd.section, readd.display, readd.father);
+				}
 				else
-					bpoll.push_back(readd);
+				{
+					static BLOCK_INFO info;
+					info = readd;
+					DEBUG << info.name <<"@"<<info.father<< " Was been reg!" << endl;
+					bpoll.push_back(info);
+				}
 				readd.empty();
-				readd.name=getLine.substr(1, readd.name.size() - 2);
 			}
 			else
+			{
 				first = !first;
+			}
+			readd.name = getLine.substr(1, getLine.size()-2);
+			DEBUG << "Start to process:" << readd.name << endl;
+
 		}
 		else {
 			string name;
@@ -56,6 +69,13 @@ void compile(string filename)
 			int eq = strfind(getLine.data(), '=', true);
 			name = getLine.substr(0, eq);
 			value = getLine.substr(eq + 1);
+			DEBUG << "get value:" << name << " = " << value << endl;
+			if (first)
+			{
+				if (streval(name.data(), "main_menu_name"))
+					main_menu.display_name = value;
+				continue;
+			}
 			if (streval(name.data(), "uci_info"))
 				readd.uci_info = value;
 			else if (streval(name.data(), "type"))
@@ -63,7 +83,7 @@ void compile(string filename)
 			else if (streval(name.data(), "depends"))
 				readd.depends = value;
 			else if (streval(name.data(), "prompt"))
-				readd.type = getLine.substr(eq + 1);
+				readd.prompt = getLine.substr(eq + 1);
 			else if (streval(name.data(), "section"))
 				readd.section = value;
 			else if (streval(name.data(), "display"))
@@ -72,9 +92,12 @@ void compile(string filename)
 				readd.father = value;
 			else if (streval(name.data(), "exec"))
 				readd.systemd = value;
+			else if (streval(name.data(), "default_val"))
+				readd.default_val = value;
 			else {
 				cout << "Error: Unknow Label Append!" << endl;
 				cout << filename << "@" << count << endl;
+				cout << getLine << endl<<endl;
 			}
 		}
 	}
@@ -82,7 +105,7 @@ void compile(string filename)
 		CreateMenu(readd.section, readd.display, readd.father);
 	else
 		bpoll.push_back(readd);
-	for (long long n = 0; n < bpoll.size(); n++)
-		bpoll.at(n).default_val = get_config(bpoll.at(n).uci_info);
+	DEBUG << "Splite Complete! Start Memory  Process..." << endl;
+	DEBUG << "Count of block:" << bpoll.size() << endl;
 	BuildMenu(bpoll);
 }

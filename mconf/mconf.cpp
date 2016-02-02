@@ -7,6 +7,7 @@
 string conffile;
 string dot_config;
 string out_kconf;
+string main_menu_name = "Main";
 #include "loaddef.h"
 enum WORKMODE {
 	prompt,
@@ -16,7 +17,6 @@ enum WORKMODE {
 int main(int argc, char *argv[])
 {
 	main_menu.section = "main";
-	main_menu.display_name = "Main";
 	DEBUG << "start!" << endl;
 	for (int n = 0; n < argc; n++)
 		if (argv[n][0]=='-')
@@ -40,7 +40,11 @@ int main(int argc, char *argv[])
 			case 'd':
 				MODE = dcfg;
 				break;
+			case 'n':
+				main_menu_name = argv[n] + 2;
+				break;
 			}
+	main_menu.display_name = main_menu_name;
 	switch (MODE)
 	{
 	case prompt:
