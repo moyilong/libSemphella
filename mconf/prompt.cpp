@@ -7,7 +7,7 @@ void build_block(BLOCK_INFO blk)
 {
 	string config_line = "config " + blk.name;
 	str.push_back(config_line);
-	string prompt_line = "\""+blk.type +" \"" + blk.prompt + "\"";
+	string prompt_line = blk.type +" \"" + blk.prompt + "\"";
 	str.push_back(prompt_line);
 	if (!blk.depends.empty())
 	{
@@ -24,8 +24,7 @@ void build_block(BLOCK_INFO blk)
 
 void build_menu(MENU &menu)
 {
-	str.push_back("menu");
-	string menubar = "prompt \"" + menu.display_name + "\"\n";
+	string menubar = "menu \"" + menu.display_name + "\"\n";
 	str.push_back(menubar);
 	cout << "Menu " << menu.display_name << " msize=" << menu.mdata.size() << " bsize=" << menu.data.size() << endl;
 	for (long long n = 0; n < menu.mdata.size();n++)
