@@ -48,5 +48,6 @@ API float getsum(const char *data, int len);
 #define MATRIX_LEN	4096
 
 API void xor_cryptV2(char matrix[MATRIX_LEN][MATRIX_LEN], char *data, int64_t len, int64_t bit_off);
+API void xor_cryptV2_1(char matrix[MATRIX_LEN][MATRIX_LEN], char *data, int64_t len, int64_t bit_off);
 API void CreateMatrix(string password, char matrix[MATRIX_LEN][MATRIX_LEN]);
 API uint64_t getsumV2(const char *data, int64_t len);

@@ -194,3 +194,44 @@ API string strrm(const char* str, const char *rm_list)
 	}
 	return ret;
 }
+
+
+
+API string strreplace(string orig, string replace, string value)
+{
+	display_dump(orig.data(), orig.size());
+	display_dump(replace.data(), replace.size());
+	string ret;
+
+	for (int n = 0; n < orig.size(); n++)
+	{
+		bool check = true;
+		if (orig.at(n) == replace.at(0))
+		{
+			for (int x = 0; x < replace.size(); x++)
+				if (n + x  < orig.size() + 1)
+				{
+					if (orig.at(n + x) != replace.at(x))
+					{
+						check = false;
+					}
+				}
+				else {
+					check = false;
+				}
+
+		}
+		else {
+			check = false;
+		}
+		if (check)
+		{
+			ret += value;
+			n += replace.size() + 1;
+		}
+		else {
+			ret += orig.at(n);
+		}
+	}
+	return ret;
+}

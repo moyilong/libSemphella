@@ -56,14 +56,6 @@ void str_add(char *g)
 }
 
 char matrix[MATRIX_LEN][MATRIX_LEN];
-inline uint64_t GetMatrixSum()
-{
-	uint64_t matrix_sum[MATRIX_LEN];
-#pragma omp parallel for
-	for (int n = 0; n < MATRIX_LEN; n++)
-		matrix_sum[n] = getsumV2(matrix[n], MATRIX_LEN*sizeof(char));
-	return getsumV2((char*)matrix_sum, sizeof(uint64_t)*MATRIX_LEN);
-}
 
 
 
@@ -71,14 +63,56 @@ inline uint64_t GetMatrixSum()
 #define MAX_PASSWORD_LEN	MAX_BUFF_SIZE
 
 struct HEAD {
-	int64_t bs = bs;
+	char account_level;
+	char algrthom=0;
 	uint64_t sum;
 	uint64_t matrix_sum;
 	uint64_t password_sum;
+	uint64_t bs = bs;
 };
+
+typedef void (*password_algrthom)(string password, char matrix[MATRIX_LEN][MATRIX_LEN]);
+typedef void(*crypt_algrthom)(char matrix[MATRIX_LEN][MATRIX_LEN], char *data, int64_t len, int64_t bit_off);
+typedef uint64_t(*sum_algrthom)(const char *data, int64_t len);
+
+struct ALGRHOM {
+	password_algrthom pa;
+	crypt_algrthom ca;
+	sum_algrthom sa;
+	inline ALGRHOM(password_algrthom p, crypt_algrthom c,sum_algrthom s)
+	{
+		pa = p;
+		ca = c;
+		sa = s;
+	}
+};
+
+
+ALGRHOM APOLL[] = {
+	//{PAM_1,CAM_1,SUM_1},
+	{CreateMatrix,xor_cryptV2_1,getsumV2},
+	{ CreateMatrix,xor_cryptV2,getsumV2 },
+
+};
+
+#define APOLL_SIZE	(sizeof(APOLL) / sizeof(ALGRHOM))
+#define APOLL_IDMAX	(APOLL_SIZE-1)
+
+uint64_t GetMatrixSum(HEAD head)
+{
+	uint64_t matrix_sum[MATRIX_LEN];
+#pragma omp parallel for
+	for (int n = 0; n < MATRIX_LEN; n++)
+		matrix_sum[n] = APOLL[head.algrthom].sa(matrix[n], MATRIX_LEN*sizeof(char));
+	return  APOLL[head.algrthom].sa((char*)matrix_sum, sizeof(uint64_t)*MATRIX_LEN);
+}
+
+
+
 #include "mpblock.h"
 bool crack_get = false;
 bool info_get = false;
+int alghtriom = 0;
 int main(int argc, char *argv[])
 {
 
@@ -88,7 +122,7 @@ int main(int argc, char *argv[])
 	for (int n = 0; n < argc; n++)
 			if (argv[n][0] == '-')
 				switch (argv[n][1]) {
-				case 'i':
+				case 'i': 
 					n++;
 					input = argv[n];
 					break;
@@ -114,6 +148,16 @@ int main(int argc, char *argv[])
 					info_get = true;
 					crack_get = true;
 					break;
+				case 'A':
+					n++;
+					int al = atoi(argv[n]);
+					if (al > APOLL_IDMAX)
+					{
+						cout << "Max Algorithm ID is " << APOLL_IDMAX << endl;
+						exit(-1);
+					}
+					alghtriom = al;
+					break;
 				}
 	if (info_get)
 	{
@@ -130,12 +174,16 @@ int main(int argc, char *argv[])
 				exit(-1);
 			}
 			HEAD head;
+			head.algrthom = alghtriom;
 			cout << hex;
 			in.read((char*)&head, sizeof(head));
 			cout << "Password Checksum:" << head.password_sum << endl;
 			cout << "Matrix Checksum:" << head.matrix_sum << endl;
 			cout << "Checksum:" << head.sum << endl;
 			cout << "Block size:" << head.bs << endl;
+#ifndef OLD_HEAD
+			cout << "Algorithm:" << head.algrthom << endl;
+#endif
 			if (crack_get)
 			{
 				//char str[MAX_BUFF_SIZE];
@@ -153,11 +201,11 @@ int main(int argc, char *argv[])
 						block[id].count++;
 						char str[MAX_BUFF_SIZE];
 						eitoa((uint64_t)n, str, strlen(strtbl), strtbl);
-						if (getsumV2(str, strlen(str)) == head.password_sum)
+						if (APOLL[head.algrthom].sa(str, strlen(str)) == head.password_sum)
 						{
 							cout << "Password Match! " << str << endl;
-							CreateMatrix(str, matrix);
-							uint64_t _matrix_sum = GetMatrixSum();
+							APOLL[head.algrthom].pa(str, matrix);
+							uint64_t _matrix_sum = GetMatrixSum(head);
 							if (_matrix_sum == head.matrix_sum)
 							{
 								cout << "Password is Found!" << endl;
@@ -241,7 +289,7 @@ int main(int argc, char *argv[])
 	if (!decrypt)
 	{
 		head.bs = bs;
-		head.password_sum = getsumV2(password.data(), password.size());
+		head.password_sum = APOLL[head.algrthom].sa(password.data(), password.size());
 		out.write((char*)&head, sizeof(HEAD));
 	}
 	else
@@ -258,10 +306,10 @@ int main(int argc, char *argv[])
 	}
 	cout << input <<  " => " << output << endl;
 	cout << len << " of " << bs << endl;
-	CreateMatrix(password, matrix);
+	APOLL[head.algrthom].pa(password, matrix);
 	if (decrypt)
 	{
-		if (GetMatrixSum() != head.matrix_sum||getsumV2(password.data(),password.size())!=head.password_sum)
+		if (GetMatrixSum(head) != head.matrix_sum|| APOLL[head.algrthom].sa(password.data(),password.size())!=head.password_sum)
 		{
 			cout << "Password Correct!" << endl;
 			exit(-1);
@@ -275,10 +323,10 @@ int main(int argc, char *argv[])
 		memset(buff, 0, sizeof(buff));
 		in.read(buff, bs);
 		if (!decrypt)
-		sum += getsumV2(buff, bs);
-		xor_cryptV2(matrix, buff, bs, bs*count);
+		sum += APOLL[head.algrthom].sa(buff, bs);
+		APOLL[head.algrthom].ca(matrix, buff, bs, bs*count);
 		if (decrypt)
-			sum += getsumV2(buff, bs);
+			sum += APOLL[head.algrthom].sa(buff, bs);
 		out.write(buff, bs);
 		free(buff);
 		if (count%5 == 0)
@@ -291,10 +339,10 @@ int main(int argc, char *argv[])
 		memset(buff, 0, sizeof(buff));
 		in.read(buff, fix);
 		if (!decrypt)
-		sum += getsumV2(buff, fix);
-		xor_cryptV2(matrix, buff, fix, bs*count);
+		sum += APOLL[head.algrthom].sa(buff, fix);
+		APOLL[head.algrthom].ca(matrix, buff, fix, bs*count);
 		if (decrypt)
-			sum += getsumV2(buff, fix);
+			sum += APOLL[head.algrthom].sa(buff, fix);
 		out.write(buff, fix);
 		delete[]buff;
 	}
@@ -307,7 +355,7 @@ int main(int argc, char *argv[])
 		cp2 << "updating head..." << endl;
 		head.sum = sum;
 		cp2 << "Caculating Matrix SUM" << endl;
-		head.matrix_sum = GetMatrixSum();
+		head.matrix_sum = GetMatrixSum(head);
 		cp2 << "Redirecting..." << endl;
 		out.seekp(ios_base::beg);
 		cp2 << "Writing Data..." << endl;
