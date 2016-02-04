@@ -18,6 +18,11 @@ kernel::kernel()
 }
 
 
+void kernel::LogoPrint()
+{
+	cout << "                 ___         ___                ___  \n               /      /     /   /   /\\    /   /      \n              /----  /     /   /   /  \\  /   /----   \n             /____  /___  /___/   /    \\/   /____    \n";
+}
+
 
 kernel::~kernel()
 {

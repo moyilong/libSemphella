@@ -57,18 +57,28 @@ void str_add(char *g)
 
 char matrix[MATRIX_LEN][MATRIX_LEN];
 
-
+const int level = 2;
+const int level_compact = 2;
 
 #define DEBUG if (false)	cout<<__FILE__<<"@"<<__LINE__<<" ::"
 #define MAX_PASSWORD_LEN	MAX_BUFF_SIZE
 
 struct HEAD {
-	char account_level;
+	char account_level=level;
 	char algrthom=0;
 	uint64_t sum;
 	uint64_t matrix_sum;
 	uint64_t password_sum;
 	uint64_t bs = bs;
+	inline void check()
+	{
+		if (account_level > level || account_level < level_compact)
+		{
+			cout << "Error: HEAD Protoco Check Faild!" << endl;
+			cout << "Unsupported Level:" << (int)account_level << endl;
+			cout << "Compact of:" << level_compact <<" max  "<<level<< endl;
+		}
+	}
 };
 
 typedef void (*password_algrthom)(string password, char matrix[MATRIX_LEN][MATRIX_LEN]);
@@ -115,7 +125,8 @@ bool info_get = false;
 int alghtriom = 0;
 int main(int argc, char *argv[])
 {
-
+	KERNEL.LogoPrint();
+	cout << "CryptUtils Version 2 "<<endl<<"Head Protoco Version:"<<level << endl;
 	string input;
 	string output;
 	string password;
@@ -174,16 +185,14 @@ int main(int argc, char *argv[])
 				exit(-1);
 			}
 			HEAD head;
-			head.algrthom = alghtriom;
 			cout << hex;
 			in.read((char*)&head, sizeof(head));
+			head.check();
 			cout << "Password Checksum:" << head.password_sum << endl;
 			cout << "Matrix Checksum:" << head.matrix_sum << endl;
 			cout << "Checksum:" << head.sum << endl;
 			cout << "Block size:" << head.bs << endl;
-#ifndef OLD_HEAD
-			cout << "Algorithm:" << head.algrthom << endl;
-#endif
+			cout << "Algorithm:" << (int)head.algrthom << endl;
 			if (crack_get)
 			{
 				//char str[MAX_BUFF_SIZE];
@@ -286,11 +295,14 @@ int main(int argc, char *argv[])
 	in.open(input.data());
 	out.open(output.data());
 	HEAD head;
+	head.account_level = level;
+	head.algrthom = alghtriom;
 	if (!decrypt)
 	{
 		head.bs = bs;
 		head.password_sum = APOLL[head.algrthom].sa(password.data(), password.size());
 		out.write((char*)&head, sizeof(HEAD));
+		head.check();
 	}
 	else
 	{
