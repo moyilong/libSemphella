@@ -68,6 +68,9 @@
     <ClInclude Include="utils.h">
       <Filter>头</Filter>
     </ClInclude>
+    <ClInclude Include="config.h">
+      <Filter>头</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />

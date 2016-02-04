@@ -18,43 +18,6 @@ bool crack = false;
 
 const char *strtbl = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz,/.<>?;':\"[] {}|\\-+*/";
 
-void str_add(char *g)
-{
-	bool nex_plus = true;
-	for (int n = 0; n < MAX_BUFF_SIZE; n++)
-	{
-		if (g[n] == '\0'&&nex_plus)
-		{
-			g[n] = strtbl[0];
-			nex_plus = false;
-			continue;
-		}
-		if (g[n] == '\0')
-			continue;
-		int now = -1;
-		for (int x = 0; x < strlen(strtbl); x++)
-			if (g[n] == strtbl[x])
-				now = x;
-		if (now == -1)
-			continue;
-		if (nex_plus)
-		{
-			if (g[n] == strtbl[strlen(strtbl) - 1])
-			{
-				nex_plus = true;
-				g[n] = strtbl[n];
-				continue;
-			}
-			else {
-				g[n] = strtbl[now + 1];
-				nex_plus = false;
-				continue;
-			}
-		}
-
-	}
-}
-
 char matrix[MATRIX_LEN][MATRIX_LEN];
 
 const int level = 2;
@@ -125,8 +88,9 @@ bool info_get = false;
 int alghtriom = 0;
 int main(int argc, char *argv[])
 {
+	
 	KERNEL.LogoPrint();
-	cout << "CryptUtils Version 2 "<<endl<<"Head Protoco Version:"<<level << endl;
+	cout << "CryptUtils Version 2.0.1 "<<endl<<"Head Protoco Version:"<<level << endl;
 	string input;
 	string output;
 	string password;

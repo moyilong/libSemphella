@@ -1,9 +1,20 @@
 #include "kernel.h"
 #include <time.h>
 #include "sum.h"
+#include "config.h"
 bool kernel_inited = false;
-bool debug_stat = true;
+bool debug_stat = __DEFAULT_DEBUG_STAT;
 kernel KERNEL;
+
+void kernel::SetDebugStat(bool stat,string file,int line)
+{
+#ifndef __ALLOW_DEBUG_STAT_CHANGE
+	message("Debug stat change was been disabled! Track from " + file);
+#else
+	debug_stat = stat;
+#endif
+}
+
 bool kernel::GetDebugStat()
 {
 	return debug_stat;
@@ -11,7 +22,7 @@ bool kernel::GetDebugStat()
 
 kernel::kernel()
 {
-	this->message("Kernel Start!");
+	message("Kernel Start!");
 	if (kernel_inited)
 		this->abort();
 	start_time = time(0);

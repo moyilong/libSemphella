@@ -159,6 +159,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="apd.h" />
+    <ClInclude Include="config.h" />
     <ClInclude Include="crypt.h" />
     <ClInclude Include="debug.h" />
     <ClInclude Include="files.h" />

@@ -17,6 +17,7 @@ public:
 	void message(string info, string file = __FILE__, int line = __LINE__);
 	void error(string info, string file = __FILE__, int line = __LINE__);
 	bool GetDebugStat();
+	void SetDebugStat(bool stat,string file=__FILE__,int line = __LINE__);
 	void LogoPrint();
 private:
 	time_t start_time;

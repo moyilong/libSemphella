@@ -1,6 +1,11 @@
 #pragma once
 #include "kernel.h"
+#include "config.h"
+#ifdef __ALLOW_DYMANIC_DEBUG
 #define DEBUG_LINE	if (KERNEL.GetDebugStat())
+#else
+#define DEBUG_LINE if(__DEFAULT_DEBUG_STAT)
+#endif
 #define debug DEBUG_LINE cout<<"["<<__FILE__<<"]["<<__LINE__<<"]"
 
 #define DEBUG_CALL_TRACK_ARGMENT	string __file_name=__FILE__ ,int __file_line=__LINE__
