@@ -4,5 +4,4 @@ SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}  -D__LINUX__ -std=c++11 -fpermissive -D
 INSTALL (TARGETS cryptutil2 DESTINATION bin)
 TARGET_LINK_LIBRARIES(cryptutil2 -lSemphella)
 INCLUDE_DIRECTORIES(..)
-ADD_DEPENDENCIES(cryptutil2 Semphella)
 
