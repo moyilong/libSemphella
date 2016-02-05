@@ -57,13 +57,36 @@ bool strequal(const char *a, const char *b)
 }
 
 ofstream out("logdump.log");
-
+#include <limits>
+#include <libSemphella/utils.h>
 int main(int argc, char *argv[])
 {
 	if (argv[1][0] == '-'&&argv[1][1] == 't')
 	{
 		goto TEST;
 		return 0;
+	}
+	if (argv[1][0] == '-' && argv[1][1] == 's')
+	{
+		const uint64_t stor = getsumV2(argv[2], strlen(argv[2]));
+#undef min
+#undef max
+		for (int n = numeric_limits<int>::min(); n < numeric_limits<int>::max(); n++)
+		{
+			if (stor != getsumV2(argv[2], strlen(argv[2])))
+			{
+				cout << "System is unsecured!" << endl;
+				cout << "Test Value:" << n << endl;
+				exit(-1);
+			}
+			if (n % 10 == 0)
+			{
+				long double val = (long)n / ((long)numeric_limits<int>::max() - (long)numeric_limits<int>::min());
+				val=abs(val);
+				ShowProcessBar(val, ull2s(getsumV2(argv[2],strlen(argv[2]))));
+			}
+		}
+		
 	}
 	printf("%lld\n", getsumV2(argv[1],strlen(argv[1])));
 	return 0;

@@ -3,7 +3,7 @@
 #include "string.h"
 
 
-API  void ShowProcessBar(double percent, string display, char finish , char splite , char inprocess , int bis )
+API  void ShowProcessBar( double percent, string display, char finish , char splite , char inprocess , int bis )
 {
 	string finishd;
 	string inprocessd;
@@ -16,6 +16,6 @@ API  void ShowProcessBar(double percent, string display, char finish , char spli
 	finishd += splite;
 	//char buff[16];
 	//sprintf(buff, "%d", (int)percent * 100);
-	string end = int2s((int)(percent*100)) + (string)"%[" + finishd + inprocessd + "] " + display + "      ";
+	string end = int2s(abs((int)(percent*100))) + (string)"%[" + finishd + inprocessd + "] " + display + "      ";
 	cout << end << "\r";
 }

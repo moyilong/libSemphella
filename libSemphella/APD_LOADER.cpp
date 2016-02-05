@@ -152,7 +152,6 @@
 				api(poll.at(n),n);
 		}
 
-	END:
 		omp_set_num_threads(omp_size);
 	}
 

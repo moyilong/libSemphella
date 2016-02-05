@@ -13,6 +13,8 @@ using namespace std;
 //libDebug strr("stringlib");
 
 #define strr debug<<"[StringLib]"
+API  string human_read_storage_str[] = { "B","KB","MB","GB","TB","PB","EB" };
+
 
 API int strfind(const char *str,char find,bool wn)
 {
@@ -118,39 +120,19 @@ API string upper_string(string str,bool upper)
 	return ret;
 }
 
-string UNITS[] = {
-	" B",
-	"KB",
-	"MB",
-	"GB",
-	"TB",
-	"EB",
-};
-
-int u_size = sizeof(UNITS) / sizeof(string);
-#include "math.h"
-
-inline string _t_mix(uint64_t value, int bs)
+API string human_read(uint64_t _in, string *unit, int step, int number_out_type)
 {
-	string ret;
-	char buff[MAX_BUFF_SIZE];
-	sprintf(buff,"%uul", value);
-	ret = buff;
-	ret += UNITS[bs];
-	return ret;
-}
-
-API string human_read(uint64_t _in)
-{
-	if (_in < 1024)
-		return _t_mix(_in, 0);
-	else
-		for (int n = 1; n < u_size; n++)
-		{
-			if ((_in) / (1024 * n) < 1024)
-				return _t_mix((_in) / (1024 * n) < 1024, n);
-		}
-	
+	uint64_t uint_id = 0;
+	uint64_t val = _in;
+	if (val >= step)
+		uint_id = -1;
+	while (val >= step)
+	{
+		val /= step;
+		uint_id++;
+	}
+	return eitoa(val,number_out_type) + unit[uint_id];
+		
 }
 
 API string space_fix(string str)

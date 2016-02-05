@@ -15,6 +15,7 @@ void kernel::SetDebugStat(bool stat,string file,int line)
 #endif
 }
 
+
 bool kernel::GetDebugStat()
 {
 	return debug_stat;

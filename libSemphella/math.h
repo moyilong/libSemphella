@@ -15,10 +15,10 @@ template<class T> inline T emin(T a, T b)
 	return a;
 }
 
-template<class T>inline T dZero(T n)
+template<class T>inline T dZero(T n,T def=1)
 {
 	if (n == 0)
-		return 1;
+		return def;
 	return n;
 }
 
