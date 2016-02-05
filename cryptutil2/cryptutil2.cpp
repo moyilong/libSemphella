@@ -88,6 +88,11 @@ bool info_get = false;
 int alghtriom = 0;
 int main(int argc, char *argv[])
 {
+	#ifndef __LINUX__
+	cout<<"Error:This Program is can't run in windows !"<<endl;
+	cout<<"      Please use linux version!"<<endl;
+	exit(-1);
+	#endif
 	
 	KERNEL.LogoPrint();
 	cout << "CryptUtils Version 2.0.1 "<<endl<<"Head Protoco Version:"<<level << endl;
@@ -309,9 +314,6 @@ int main(int argc, char *argv[])
 		if (count%5 == 0)
 		{
 			uint64_t cp_len = (n*bs) / dZero(time(0)-start);
-		#ifdef __LINUX__
-			cp_len /=1000;
-		#endif
 			ShowProcessBar((double)count*bs / len, human_read(cp_len,human_read_storage_str,1024,10)+ "/S");
 		}
 	}
