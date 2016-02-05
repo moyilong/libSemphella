@@ -82,7 +82,8 @@ int main(int argc, char *argv[])
 			if (n % 10 == 0)
 			{
 				long double val = (long)n / ((long)numeric_limits<int>::max() - (long)numeric_limits<int>::min());
-				val=abs(val);
+				if (val <0 )
+					val=-val;
 				ShowProcessBar(val, ull2s(getsumV2(argv[2],strlen(argv[2]))));
 			}
 		}
