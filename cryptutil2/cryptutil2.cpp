@@ -292,6 +292,7 @@ int main(int argc, char *argv[])
 		}
 	}
 	uint64_t sum = 0;
+	time_t start=time_t(0);
 	for (uint64_t n = 0; n+bs < len; n += bs)
 	{
 		count++;
@@ -306,7 +307,13 @@ int main(int argc, char *argv[])
 		out.write(buff, bs);
 		free(buff);
 		if (count%5 == 0)
-			ShowProcessBar((double)count*bs / len, "");
+		{
+			uint64_t cp_len = (n*bs) / dZero(time(0)-start);
+		#ifdef __LINUX__
+			cp_len /=1000;
+		#endif
+			ShowProcessBar((double)count*bs / len, human_read(cp_len,human_read_storage_str,1024,10)+ "/S");
+		}
 	}
 	if (len - bs*count > 0)
 	{
