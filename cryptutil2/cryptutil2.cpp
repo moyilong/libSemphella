@@ -100,7 +100,7 @@ int alghtriom = 0;
 string vp;
 int main(int argc, char *argv[])
 {
-#ifndef __LINUX
+#ifndef __LINUX__
 	cout << "ERROR: This Program in Windows in unSecured!" << endl;
 	exit(-1);
 #endif
