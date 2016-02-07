@@ -2,12 +2,10 @@
 #include "kernel.h"
 #include "config.h"
 
-#ifndef DEBUG_LINE
 #ifdef __ALLOW_DYMANIC_DEBUG
 #define DEBUG_LINE	if (KERNEL.GetDebugStat())
 #else
 #define DEBUG_LINE if(__DEFAULT_DEBUG_STAT)
-#endif
 #endif
 
 #define debug DEBUG_LINE cout<<"["<<__FILE__<<"]["<<__LINE__<<"]"
