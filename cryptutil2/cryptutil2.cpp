@@ -112,8 +112,6 @@ uint64_t GetMatrixSum(HEAD head)
 
 void FileProcess(HEAD head, file in, file out,uint64_t &sum,int len,uint64_t op_addr)
 {
-	cp2 << "Process File Len:" << len << endl;
-	cp2 << "Resetting Address..." << endl;
 	if (decrypt)
 	{
 		in.seekp(op_addr+sizeof(HEAD));
@@ -123,8 +121,6 @@ void FileProcess(HEAD head, file in, file out,uint64_t &sum,int len,uint64_t op_
 		in.seekp(op_addr);
 		out.seekp(op_addr + sizeof(HEAD));
 	}
-	cp2 << "Read From:" << in.tellp() << endl;
-	cp2 << "Write To:" << out.tellp() << endl;
 	char *buff = (char*)malloc(len);
 	in.read(buff, len);
 	uint64_t vsu = 0;
@@ -139,7 +135,6 @@ void FileProcess(HEAD head, file in, file out,uint64_t &sum,int len,uint64_t op_
 	if (decrypt)
 		vsu = APOLL[head.algrthom].sa(buff, len);
 	out.write(buff, len);
-	cp2 << "Processd Sum:" << vsu << endl;
 	sum += vsu;
 	free(buff);
 }
