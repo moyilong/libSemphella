@@ -1,4 +1,5 @@
 *.ert2
+*.ert
 *.cache
 *.o
 .DS_Store
