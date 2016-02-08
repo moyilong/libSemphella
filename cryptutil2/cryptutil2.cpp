@@ -100,7 +100,7 @@ const ALGRHOM APOLL[] = {
 
 #define APOLL_SIZE	(sizeof(APOLL) / sizeof(ALGRHOM))
 #define APOLL_IDMAX	(APOLL_SIZE-1)
-#define WHITE_CRYPT
+//#define WHITE_CRYPT
 uint64_t GetMatrixSum(HEAD head)
 {
 	uint64_t matrix_sum[MATRIX_LEN];
@@ -170,6 +170,7 @@ namespace SECURE_CHECK {
 bool crack_get = false;
 bool info_get = false;
 int alghtriom = 0;
+#define ALLOW_WINDOWS_RUN
 int main(int argc, char *argv[])
 {
 	KERNEL.LogoPrint();
