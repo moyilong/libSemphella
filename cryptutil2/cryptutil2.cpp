@@ -412,6 +412,7 @@ int main(int argc, char *argv[])
 	}
 	uint64_t step = len / head.bs;
 	uint64_t fix = len - (head.bs * step);
+	cp2 << "Resetting Address..." << endl;
 	if (decrypt)
 	{
 		in.seekp(sizeof(HEAD));
@@ -421,9 +422,17 @@ int main(int argc, char *argv[])
 		in.seekp(0);
 		out.seekp(sizeof(HEAD));
 	}
-	cp2 << "Resetting Address..." << endl;
+	double old_presend = 0;
 	for (uint64_t n = 0; n < step; n++)
-		FileProcess(head, in, out, sum,head.bs,n*head.bs);
+	{
+		FileProcess(head, in, out, sum, head.bs, n*head.bs);
+		double per = (n*head.bs) / len;
+		if (per != old_presend)
+		{
+			old_presend = per;
+			ShowProcessBar(per, ull2s((n* head.bs) / (time_t(0) - start)) + "/S");
+		}
+	}
 	FileProcess(head, in, out, sum, fix,step*head.bs);
 	cp2 << "Main Loop Over! SUM:" << sum << endl;
 	ShowProcessBar(1, "--");
