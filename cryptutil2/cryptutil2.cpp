@@ -417,11 +417,12 @@ int main(int argc, char *argv[])
 		in.seekp(0);
 		out.seekp(sizeof(HEAD));
 	}
-	double old_presend = 0;
+	long double old_presend = 0,posi,dlen=len;
 	for (uint64_t n = 0; n < step; n++)
 	{
+		posi = (long double)n*bs;
+		double per = posi / len;
 		FileProcess(head, in, out, sum, head.bs, n*head.bs);
-		double per = ((double)n*(double)head.bs) / (double)len;
 		if (per != old_presend)
 		{
 			old_presend = per;
