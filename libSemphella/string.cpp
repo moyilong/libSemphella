@@ -122,7 +122,7 @@ API string upper_string(string str,bool upper)
 
 API string human_read(uint64_t _in, string *unit, int step, int number_out_type)
 {
-	if (_in >= step)
+	if (_in < step)
 	{
 		return  ull2s(_in) + unit[0];
 	}
