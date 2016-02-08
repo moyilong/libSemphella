@@ -15,7 +15,7 @@ bool decrypt = false;
 bool crack = false;
 
 #define cp2 debug<<"[crypt2]"
-
+#define FILE_TYPE ".ert2"
 const char *strtbl = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz,/.<>?;':\"[] {}|\\-+*/";
 
 char matrix[MATRIX_LEN][MATRIX_LEN];
@@ -324,7 +324,7 @@ int main(int argc, char *argv[])
 	{
 		if (!decrypt)
 		{
-			output = input + ".ert2";
+			output = input + FILE_TYPE;
 		}
 		else {
 			cout << "Not define output file!" << endl;
@@ -336,7 +336,7 @@ int main(int argc, char *argv[])
 	if (decrypt)
 		check = input;
 	DEBUG << "Checking Name Secure" << endl;
-	if (check.substr(check.size() - 5) != ".ert2")
+	if (check.substr(check.size() - 5) != FILE_TYPE)
 	{
 		cout << "Warring! File Name Secure Check Error!" << endl;
 		exit(-1);
@@ -426,7 +426,7 @@ int main(int argc, char *argv[])
 		if (per != old_presend)
 		{
 			old_presend = per;
-			ShowProcessBar(per, ull2s((n* head.bs) / (time_t(0) - start)) + "/S");
+			ShowProcessBar(per, ull2s((n* head.bs) / dZero(time_t(0) - start)) + "/S");
 		}
 	}
 	FileProcess(head, in, out, sum, fix,step*head.bs);
