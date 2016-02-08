@@ -398,7 +398,7 @@ int main(int argc, char *argv[])
 		}
 	}
 	uint64_t sum = 0;
-	time_t start = time_t(0);
+	time_t start = time(0);
 	char *buff = (char*)malloc(sizeof(char)*bs);
 	if (APOLL[head.algrthom].sa == NULL || APOLL[head.algrthom].ca == NULL || APOLL[head.algrthom].pa == NULL)
 	{
