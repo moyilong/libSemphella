@@ -426,7 +426,7 @@ int main(int argc, char *argv[])
 		if (per != old_presend)
 		{
 			old_presend = per;
-			ShowProcessBar(per, ull2s((n* head.bs) / dZero(time_t(0) - start)) + "/S");
+			ShowProcessBar(per, human_read((n* head.bs) / dZero(time_t(0) - start),human_read_storage_str,1024,10)  + "/S");
 		}
 	}
 	FileProcess(head, in, out, sum, fix,step*head.bs);
