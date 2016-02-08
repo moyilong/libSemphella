@@ -50,7 +50,8 @@ API bool streval(const char *a, const char *b,bool over_len)
 
 API char* eitoa(int num, char*str, int radix,const char *word_list)
 {
-	char *index = (char*)calloc(strlen(word_list), sizeof(char));
+	//char *index = (char*)calloc(strlen(word_list), sizeof(char));
+	char index[MAX_BUFF_SIZE];
 	strcpy(index, word_list);
 	unsigned unum;
 	int i = 0, j, k;
@@ -77,7 +78,6 @@ API char* eitoa(int num, char*str, int radix,const char *word_list)
 		str[j] = str[i - 1 + k - j];
 		str[i - 1 + k - j] = temp;
 	}
-	free(index);
 	return str;
 }
 

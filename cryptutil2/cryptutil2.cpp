@@ -10,7 +10,7 @@
 #undef max
 #undef min
 #include <limits>
-int64_t bs = 1024;
+int64_t bs = 4096;
 bool decrypt = false;
 bool crack = false;
 
@@ -33,14 +33,31 @@ struct HEAD {
 	uint64_t matrix_sum;
 	uint64_t password_sum;
 	uint64_t bs = bs;
-	inline void check()
+	inline bool check()
 	{
+		cp2 << "Head Level:" << (int)account_level << endl;
+		cp2 << "Algrthom Type:" << (int)algrthom << endl;
+		cp2 << "File Check Sum:" << sum << endl;
+		cp2 << "Password Matrix Sum:" << matrix_sum << endl;
+		cp2 << "Password Check Sum:" << password_sum << endl;
+		cp2 << "Block Length:" << bs << endl;
 		if (account_level > level || account_level < level_compact)
 		{
 			cout << "Error: HEAD Protoco Check Faild!" << endl;
 			cout << "Unsupported Level:" << (int)account_level << endl;
 			cout << "Compact of:" << level_compact <<" max  "<<level<< endl;
+			return false;
 		}
+		return true;
+	}
+	inline HEAD()
+	{
+		account_level = level;
+		algrthom = 0;
+		sum = 0;
+		matrix_sum = 0;
+		password_sum = 0;
+		bs = 0;
 	}
 };
 
@@ -61,11 +78,9 @@ struct ALGRHOM {
 };
 
 
-ALGRHOM APOLL[] = {
-	//{PAM_1,CAM_1,SUM_1},
-	{CreateMatrix,xor_cryptV2_1,getsumV2},
+const ALGRHOM APOLL[] = {
 	{ CreateMatrix,xor_cryptV2,getsumV2 },
-
+	{CreateMatrix,xor_cryptV2_1,getsumV2},
 };
 
 #define APOLL_SIZE	(sizeof(APOLL) / sizeof(ALGRHOM))
@@ -80,7 +95,56 @@ uint64_t GetMatrixSum(HEAD head)
 	return  APOLL[head.algrthom].sa((char*)matrix_sum, sizeof(uint64_t)*MATRIX_LEN);
 }
 
+inline void FileProcess(HEAD head, file in, file out,uint64_t &sum,int len,uint64_t op_addr)
+{
+	cp2 << "Process File Len:" << len << endl;
+	cp2 << "Resetting Address..." << endl;
+	if (decrypt)
+	{
+		in.seekp(op_addr+sizeof(HEAD));
+		out.seekp(op_addr);
+	}
+	else {
+		in.seekp(op_addr);
+		out.seekp(op_addr + sizeof(HEAD));
+	}
+	cp2 << "Read From:" << in.tellp() << endl;
+	cp2 << "Write To:" << out.tellp() << endl;
+	char *buff = (char*)malloc(len);
+	in.read(buff, len);
+	if (!decrypt)
+		sum += APOLL[head.algrthom].sa(buff, len);
+	int doff = 0;
+	if (decrypt)
+		doff = sizeof(HEAD);
+	APOLL[head.algrthom].ca(matrix, buff, len, in.tellp() - len - doff);
+	if (decrypt)
+		sum += APOLL[head.algrthom].sa(buff, len);
+	out.write(buff, len);
+	free(buff);
+}
 
+namespace SECURE_CHECK {
+	char buff[MATRIX_LEN][MATRIX_LEN];
+	char data[MATRIX_LEN];
+	inline void SC()
+	{
+		CreateMatrix("test_test_tst", buff);
+#pragma omp parallel for
+		for (int n = 0; n < MATRIX_LEN; n++)
+			data[n] = rand();
+		uint64_t orig = getsumV2(data, MATRIX_LEN);
+		xor_cryptV2_1(buff, data, MATRIX_LEN, 0);
+		uint64_t cpd = getsumV2(data, MATRIX_LEN);
+		xor_cryptV2_1(buff, data, MATRIX_LEN, 0);
+		uint64_t dcp = getsumV2(data, MATRIX_LEN);
+		if (orig == cpd || dcp == cpd || orig != dcp)
+		{
+			cout << "Secure Check Faild!" << endl;
+			exit(-1);
+		}
+	}
+}
 
 #include "mpblock.h"
 bool crack_get = false;
@@ -88,7 +152,6 @@ bool info_get = false;
 int alghtriom = 0;
 int main(int argc, char *argv[])
 {
-	//KERNEL.SetDebugStat(false);
 	KERNEL.LogoPrint();
 	cout << "CryptUtils Version 2.0.1 " << endl << "Head Protoco Version:" << level << endl;
 #ifndef __LINUX__
@@ -96,6 +159,9 @@ int main(int argc, char *argv[])
 	cout << "      Please use linux version!" << endl;
 #ifdef ALLOW_WINDOWS_RUN
 	exit(-1);
+#else
+	cout << "Running Windows System Secure Check!" << endl;
+	SECURE_CHECK::SC();
 #endif
 #endif
 	int al;
@@ -239,7 +305,16 @@ int main(int argc, char *argv[])
 		exit(-1);
 	}
 	if (output.empty())
-		output = input + ".ert2";
+	{
+		if (!decrypt)
+		{
+			output = input + ".ert2";
+		}
+		else {
+			cout << "Not define output file!" << endl;
+			exit(-1);
+		}
+	}
 	uint64_t count = 0;
 	string check = output;
 	if (decrypt)
@@ -263,28 +338,40 @@ int main(int argc, char *argv[])
 	head.account_level = level;
 	head.algrthom = alghtriom;
 	uint64_t len = in.tell_len();
-	if (!decrypt)
-	{
-		head.bs = bs;
-		head.password_sum = APOLL[head.algrthom].sa(password.data(), password.size());
-		out.write((char*)&head, sizeof(HEAD));
-		head.check();
-	}
-	else
-	{
-		len -= sizeof(HEAD);
-		char buff[sizeof(HEAD)];
-		in.read(buff, sizeof(HEAD));
-		memcpy(&head, buff, sizeof(HEAD));
-		bs = head.bs;
-	}
 	if (!in.is_open() || !out.is_open())
 	{
 		cout << "Open File Faild!" << endl;
 		exit(-1);
 	}
+	if (!decrypt)
+	{
+		head.bs = bs;
+		head.password_sum = APOLL[head.algrthom].sa(password.data(), password.size());
+		out.write((char*)&head, sizeof(HEAD));
+	}
+	else
+	{
+		cp2 << "Reading Head...." << endl;
+		in.seekp(0);
+		len = len - sizeof(HEAD);
+		char buff[sizeof(HEAD)];
+		in.read(buff, sizeof(HEAD));
+		memcpy(&head, buff, sizeof(HEAD));
+		//in.read((char*)&head, sizeof(HEAD));
+		DEBUG_LINE display_dump(buff, sizeof(HEAD));
+		bs = head.bs;
+		cp2 << "HEAD is read!" << endl;
+		if (!head.check())
+		{
+			cout << "Protoco Secure Check Faild!" << endl;
+			cout << "Read Protoco Version:" << (unsigned int)head.account_level << endl;
+			cout << "Compact Protoco Version:" << (unsigned int)level << endl;
+			exit(-1);
+		}
+	}
 	cout << input << " => " << output << endl;
 	cout << len << " of " << bs << endl;
+	cp2 << "Creating Password Matrix..." << endl;
 	APOLL[head.algrthom].pa(password, matrix);
 	if (decrypt)
 	{
@@ -297,42 +384,28 @@ int main(int argc, char *argv[])
 	uint64_t sum = 0;
 	time_t start = time_t(0);
 	char *buff = (char*)malloc(sizeof(char)*bs);
-	for (uint64_t n = 0; n + bs < len; n += bs)
+	if (APOLL[head.algrthom].sa == NULL || APOLL[head.algrthom].ca == NULL || APOLL[head.algrthom].pa == NULL)
 	{
-		cp2 << "Redirecting..." << endl;
-		in.seekp(n);
-		count++;
-		memset(buff, 0, sizeof(buff));
-		in.read(buff, bs);
-		if (!decrypt)
-			sum += APOLL[head.algrthom].sa(buff, bs);
-		APOLL[head.algrthom].ca(matrix, buff, bs, bs*count);
-		if (decrypt)
-			sum += APOLL[head.algrthom].sa(buff, bs);
-		out.write(buff, bs);
-		if (count % 5 == 0)
-		{
-			uint64_t cp_len = (n*bs) / dZero(time(0) - start);
-			ShowProcessBar((double)count*bs / len, human_read(cp_len, human_read_storage_str, 1024, 10) + "/S");
-		}
+		cout << "Program PTR Check Error!" << endl;
+		exit(-1);
 	}
-	if (len - bs*count > 0)
+	uint64_t step = len / head.bs;
+	uint64_t fix = len - (head.bs * step);
+	if (decrypt)
 	{
-		cp2 << "Redirecting..." << endl;
-		in.seekp(bs*count);
-		uint64_t fix = len - bs*count;
-		char *buff = new char[bs];
-		memset(buff, 0, sizeof(buff));
-		in.read(buff, fix);
-		if (!decrypt)
-			sum += APOLL[head.algrthom].sa(buff, fix);
-		APOLL[head.algrthom].ca(matrix, buff, fix, bs*count);
-		if (decrypt)
-			sum += APOLL[head.algrthom].sa(buff, fix);
-		out.write(buff, fix);
-		delete[]buff;
+		in.seekp(sizeof(HEAD));
+		out.seekp(0);
 	}
-	ShowProcessBar(1, "");
+	else {
+		in.seekp(0);
+		out.seekp(sizeof(HEAD));
+	}
+	cp2 << "Resetting Address..." << endl;
+	for (uint64_t n = 0; n < step; n++)
+		FileProcess(head, in, out, sum,head.bs,n*head.bs);
+	FileProcess(head, in, out, sum, fix,step*head.bs);
+	cp2 << "Main Loop Over! SUM:" << sum << endl;
+	ShowProcessBar(1, "--");
 	cout << endl;
 	cp2 << "Flushing Cache..." << endl;
 	out.flush();
@@ -340,12 +413,17 @@ int main(int argc, char *argv[])
 	{
 		cp2 << "updating head..." << endl;
 		head.sum = sum;
+		head.algrthom = alghtriom;
+		head.account_level = level;
 		cp2 << "Caculating Matrix SUM" << endl;
 		head.matrix_sum = GetMatrixSum(head);
 		cp2 << "Redirecting..." << endl;
-		out.seekp(ios_base::beg);
+		out.seekp(0);
+		cp2 << "Redirect to " << out.tellp() << endl;
 		cp2 << "Writing Data..." << endl;
+		head.check();
 		out.write((char*)&head, sizeof(HEAD));
+		DEBUG_LINE display_dump((char*)&head, sizeof(HEAD));
 		cp2 << "Flushing..." << endl;
 		out.flush();
 		cp2 << "head is updated!" << endl;

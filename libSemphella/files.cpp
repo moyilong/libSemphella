@@ -6,8 +6,14 @@
 #include <stdlib.h>
 #include "crypt.h"
 #include "string.h"
+
+
+bool f2verbos = false;
+#define f2debug if (f2verbos) debug
+
 file::~file()
 {
+	fflush(fp);
 	close();
 }
 
@@ -15,7 +21,7 @@ void file::close()
 {
 	if (!opend)
 	{
-		debug << ioname << " is already closed!" << endl;
+		f2debug << ioname << " is already closed!" << endl;
 		return;
 	}
 	fflush(fp);
@@ -26,25 +32,16 @@ void file::close()
 void file::read(char *buff, uint64_t len)
 {
 	check();
-	debug << "Read form Address:" << ftell(fp) << endl;
-	uint64_t rlen = len / sizeof(char);
-	uint64_t rblk = sizeof(char);
-	uint64_t rsize = fread(buff, sizeof(char), len / sizeof(char), fp);
-	if (rsize != rlen)
-	{
-		debug << "Real read size:" << rsize << " need read size:" << rlen << endl;
-		KERNEL.error("Read Size Mismatch!");
-	}
-	debug << "Read Checksum:" << getsumV2(buff, len)<<endl;
+	fread(buff, sizeof(char), len / sizeof(char), fp);
+	f2debug << "Read Checksum:" << getsumV2(buff, len)<<endl;
 }
 
 void file::write(char *buff, uint64_t len)
 {
 	fflush(fp);
 	check();
-	debug << "Write Checksum:" << getsumV2(buff, len) << endl;
-	if (fwrite(buff, sizeof(char), len / sizeof(char), fp) != len)
-		KERNEL.error("Write Size Mismatch!");
+	fwrite(buff, sizeof(char), len / sizeof(char), fp);
+	f2debug << "Write Checksum:" << getsumV2(buff, len) << endl;
 }
 
 bool file::open(string filename, string mode)
@@ -62,7 +59,7 @@ bool file::open(string filename, string mode)
 		te = ftell(fp) - te;
 		len = te;
 		fseek(fp, 0, 0);
-		debug << "Setting File Len:" << len << endl;
+		f2debug << "Setting File Len:" << len << endl;
 	}
 	return true;
 }
@@ -83,15 +80,15 @@ void file::seekp(uint64_t off)
 {
 	check();
 	fseek(fp, off, 0);
-	debug << "Seek is redirect to " << ftell(fp) << endl;
+	f2debug << "Seek is redirect to " << ftell(fp) << endl;
 }
 
 void file::check()
 {
 	if (opend && fp == NULL)
 	{
-		debug << "Error Report!" << endl;
-		debug << "Status is open bug the status is ptr is null" << endl;
+		f2debug << "Error Report!" << endl;
+		f2debug << "Status is open bug the status is ptr is null" << endl;
 		abort();
 	}
 }

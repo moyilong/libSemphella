@@ -59,6 +59,7 @@ bool strequal(const char *a, const char *b)
 ofstream out("logdump.log");
 #include <limits>
 #include <libSemphella/utils.h>
+#include <libSemphella/files.h>
 int main(int argc, char *argv[])
 {
 	if (argv[1][0] == '-'&&argv[1][1] == 't')
