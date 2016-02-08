@@ -53,7 +53,7 @@ struct HEAD {
 	inline HEAD()
 	{
 		account_level = level;
-		algrthom = 0;
+		algrthom = 2;
 		sum = 0;
 		matrix_sum = 0;
 		password_sum = 0;
