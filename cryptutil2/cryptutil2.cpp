@@ -426,7 +426,7 @@ int main(int argc, char *argv[])
 		if (per != old_presend)
 		{
 			old_presend = per;
-			ulen = (n* head.bs) / dZero(time_t(0) - start);
+			ulen = (n* head.bs) / dZero(time(0) - start);
 			ShowProcessBar(per, human_read(ulen,human_read_storage_str,1024,10)  + "/S");
 		}
 	}
