@@ -13,7 +13,6 @@ bool f2verbos = false;
 
 file::~file()
 {
-	fflush(fp);
 	close();
 }
 
@@ -24,7 +23,6 @@ void file::close()
 		f2debug << ioname << " is already closed!" << endl;
 		return;
 	}
-	fflush(fp);
 	opend = false;
 	return;
 }
@@ -33,15 +31,12 @@ void file::read(char *buff, uint64_t len)
 {
 	check();
 	fread(buff, sizeof(char), len / sizeof(char), fp);
-	f2debug << "Read Checksum:" << getsumV2(buff, len)<<endl;
 }
 
 void file::write(char *buff, uint64_t len)
 {
-	fflush(fp);
 	check();
 	fwrite(buff, sizeof(char), len / sizeof(char), fp);
-	f2debug << "Write Checksum:" << getsumV2(buff, len) << endl;
 }
 
 bool file::open(string filename, string mode)

@@ -76,16 +76,31 @@ struct ALGRHOM {
 		sa = s;
 	}
 };
+string _stored_pwd;
+void CreateMatrix_NULL(string password, char matrix[MATRIX_LEN][MATRIX_LEN])
+{
+	_stored_pwd = password;
+#pragma omp parallel for
+	for (int n = 0; n < MATRIX_LEN; n++)
+		for (int x = 0; x < MATRIX_LEN; x++)
+			matrix[n][x] = 0;
+}
+
+void CryptAlgrthom(char matrix[MATRIX_LEN][MATRIX_LEN], char *data, int64_t len, int64_t bit_off)
+{
+	xor_crypt(_stored_pwd, data, len);
+}
 
 
 const ALGRHOM APOLL[] = {
+	{ CreateMatrix,xor_cryptV2_1,getsumV2 },
 	{ CreateMatrix,xor_cryptV2,getsumV2 },
-	{CreateMatrix,xor_cryptV2_1,getsumV2},
+	{ CreateMatrix_NULL,CryptAlgrthom,getsumV2 },
 };
 
 #define APOLL_SIZE	(sizeof(APOLL) / sizeof(ALGRHOM))
 #define APOLL_IDMAX	(APOLL_SIZE-1)
-
+#define WHITE_CRYPT
 uint64_t GetMatrixSum(HEAD head)
 {
 	uint64_t matrix_sum[MATRIX_LEN];
@@ -95,7 +110,7 @@ uint64_t GetMatrixSum(HEAD head)
 	return  APOLL[head.algrthom].sa((char*)matrix_sum, sizeof(uint64_t)*MATRIX_LEN);
 }
 
-inline void FileProcess(HEAD head, file in, file out,uint64_t &sum,int len,uint64_t op_addr)
+void FileProcess(HEAD head, file in, file out,uint64_t &sum,int len,uint64_t op_addr)
 {
 	cp2 << "Process File Len:" << len << endl;
 	cp2 << "Resetting Address..." << endl;
@@ -112,15 +127,20 @@ inline void FileProcess(HEAD head, file in, file out,uint64_t &sum,int len,uint6
 	cp2 << "Write To:" << out.tellp() << endl;
 	char *buff = (char*)malloc(len);
 	in.read(buff, len);
+	uint64_t vsu = 0;
 	if (!decrypt)
-		sum += APOLL[head.algrthom].sa(buff, len);
+		vsu = APOLL[head.algrthom].sa(buff, len);
 	int doff = 0;
 	if (decrypt)
 		doff = sizeof(HEAD);
+#ifndef WHITE_CRYPT
 	APOLL[head.algrthom].ca(matrix, buff, len, in.tellp() - len - doff);
+#endif
 	if (decrypt)
-		sum += APOLL[head.algrthom].sa(buff, len);
+		vsu = APOLL[head.algrthom].sa(buff, len);
 	out.write(buff, len);
+	cp2 << "Processd Sum:" << vsu << endl;
+	sum += vsu;
 	free(buff);
 }
 
@@ -407,8 +427,6 @@ int main(int argc, char *argv[])
 	cp2 << "Main Loop Over! SUM:" << sum << endl;
 	ShowProcessBar(1, "--");
 	cout << endl;
-	cp2 << "Flushing Cache..." << endl;
-	out.flush();
 	if (!decrypt)
 	{
 		cp2 << "updating head..." << endl;
@@ -424,8 +442,6 @@ int main(int argc, char *argv[])
 		head.check();
 		out.write((char*)&head, sizeof(HEAD));
 		DEBUG_LINE display_dump((char*)&head, sizeof(HEAD));
-		cp2 << "Flushing..." << endl;
-		out.flush();
 		cp2 << "head is updated!" << endl;
 	}
 	else
