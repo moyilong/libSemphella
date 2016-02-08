@@ -422,7 +422,7 @@ int main(int argc, char *argv[])
 	for (uint64_t n = 0; n < step; n++)
 	{
 		FileProcess(head, in, out, sum, head.bs, n*head.bs);
-		double per = (n*head.bs) / len;
+		double per = (double)((double)n*(double)head.bs) / (double)len;
 		if (per != old_presend)
 		{
 			old_presend = per;
