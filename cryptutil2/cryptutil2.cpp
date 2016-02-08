@@ -417,16 +417,17 @@ int main(int argc, char *argv[])
 		in.seekp(0);
 		out.seekp(sizeof(HEAD));
 	}
-	long double old_presend = 0,posi,dlen=len;
+	double old_presend = 0,posi,dlen=len;
+	uint64_t ulen = 0;
 	for (uint64_t n = 0; n < step; n++)
 	{
-		posi = (long double)n*bs;
-		double per = posi / len;
 		FileProcess(head, in, out, sum, head.bs, n*head.bs);
+		double per = (n*head.bs) / len;
 		if (per != old_presend)
 		{
 			old_presend = per;
-			ShowProcessBar(per, human_read((n* head.bs) / dZero(time_t(0) - start),human_read_storage_str,1024,10)  + "/S");
+			ulen = (n* head.bs) / dZero(time_t(0) - start);
+			ShowProcessBar(per, human_read(ulen,human_read_storage_str,1024,10)  + "/S");
 		}
 	}
 	FileProcess(head, in, out, sum, fix,step*head.bs);
