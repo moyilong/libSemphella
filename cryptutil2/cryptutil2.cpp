@@ -373,6 +373,7 @@ int main(int argc, char *argv[])
 			exit(-1);
 		}
 	}
+	cp2<<"Matrix is Created!"<<endl;
 	uint64_t sum = 0;
 	time_t start = time(0);
 	char *buff = (char*)malloc(sizeof(char)*bs);
