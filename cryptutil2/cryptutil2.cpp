@@ -139,28 +139,6 @@ void FileProcess(HEAD head, file in, file out,uint64_t &sum,int len,uint64_t op_
 	free(buff);
 }
 
-namespace SECURE_CHECK {
-	char buff[MATRIX_LEN][MATRIX_LEN];
-	char data[MATRIX_LEN];
-	inline void SC()
-	{
-		CreateMatrix("test_test_tst", buff);
-#pragma omp parallel for
-		for (int n = 0; n < MATRIX_LEN; n++)
-			data[n] = rand();
-		uint64_t orig = getsumV2(data, MATRIX_LEN);
-		xor_cryptV2_1(buff, data, MATRIX_LEN, 0);
-		uint64_t cpd = getsumV2(data, MATRIX_LEN);
-		xor_cryptV2_1(buff, data, MATRIX_LEN, 0);
-		uint64_t dcp = getsumV2(data, MATRIX_LEN);
-		if (orig == cpd || dcp == cpd || orig != dcp)
-		{
-			cout << "Secure Check Faild!" << endl;
-			exit(-1);
-		}
-	}
-}
-
 #include "mpblock.h"
 bool crack_get = false;
 bool info_get = false;
@@ -175,9 +153,6 @@ int main(int argc, char *argv[])
 	cout << "      Please use linux version!" << endl;
 #ifdef ALLOW_WINDOWS_RUN
 	exit(-1);
-#else
-	cout << "Running Windows System Secure Check!" << endl;
-	SECURE_CHECK::SC();
 #endif
 #endif
 	cp2<<"MAX Algrthon Type: 0~"<<APOLL_IDMAX<<endl;
