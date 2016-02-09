@@ -1,4 +1,3 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 3.2)
 ADD_EXECUTABLE(mconf apply.cpp CC.cpp compile_config.cpp get_config.cpp mconf.cpp menu_process.cpp prompt.cpp stdafx.cpp)
 SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}  -D__LINUX__ -std=c++11 -fpermissive -D_LINUX -O3 -fopenmp")
 INSTALL (TARGETS mconf DESTINATION bin)
