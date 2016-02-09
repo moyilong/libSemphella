@@ -69,10 +69,14 @@ API void CreateMatrix(string password, char matrix[MATRIX_LEN][MATRIX_LEN])
 	for (int64_t x = 0; x < MATRIX_LEN; x++)
 		for (int64_t y = 0; y < MATRIX_LEN; y++)
 		{
-			int value = sin(x + y)*password.size();
+			int value = sin(x + y)*(password.size());
 //			value = abs(value);
 			if (value<0)
 				value = - value;
+			if (value >= password.size()&& value != 0 )
+			{
+				value=0;
+			}
 			matrix[x][y] = password.at(value) + ~(value - x - y) +x -y;
 		}
 }
