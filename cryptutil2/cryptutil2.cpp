@@ -180,6 +180,7 @@ int main(int argc, char *argv[])
 	SECURE_CHECK::SC();
 #endif
 #endif
+	cp2<<"MAX Algrthon Type: 0~"<<APOLL_IDMAX<<endl;
 	int al;
 	string input;
 	string output;
