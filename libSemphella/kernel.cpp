@@ -61,9 +61,3 @@ void kernel::error(string info, string file, int line)
 	cout << "[ERROR][" << file << "][" << line << "]" << info << endl;
 	exit(-1);
 }
-
-struct ALLOC {
-	void *alloc;
-	char file[128];
-	int line;
-};

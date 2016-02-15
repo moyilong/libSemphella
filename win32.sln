@@ -13,8 +13,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mpshell", "mpshell\mpshell.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DragonEDGE", "DragonEDGE\DragonEDGE.vcxproj", "{6C8FC2DC-53D3-4266-AEE5-06F6FBCB29A8}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "flash_mix", "flash_mix\flash_mix.vcxproj", "{BB06D0F2-3F85-4C12-B2CA-9B83E026564D}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "s2s", "s2s\s2s.vcxproj", "{1538D703-5A9A-4C65-B1FA-208CFDA8DC90}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cryptutil", "cryptutil\cryptutil.vcxproj", "{4B46227E-D54C-43FB-BC1E-C5CB07150262}"
@@ -126,23 +124,6 @@ Global
 		{6C8FC2DC-53D3-4266-AEE5-06F6FBCB29A8}.Release|Win32.Build.0 = Release|Win32
 		{6C8FC2DC-53D3-4266-AEE5-06F6FBCB29A8}.Release|x64.ActiveCfg = Release|x64
 		{6C8FC2DC-53D3-4266-AEE5-06F6FBCB29A8}.Release|x64.Build.0 = Release|x64
-		{BB06D0F2-3F85-4C12-B2CA-9B83E026564D}.Compile|Mixed Platforms.ActiveCfg = Release|Win32
-		{BB06D0F2-3F85-4C12-B2CA-9B83E026564D}.Compile|Mixed Platforms.Build.0 = Release|Win32
-		{BB06D0F2-3F85-4C12-B2CA-9B83E026564D}.Compile|Win32.ActiveCfg = Release|Win32
-		{BB06D0F2-3F85-4C12-B2CA-9B83E026564D}.Compile|Win32.Build.0 = Release|Win32
-		{BB06D0F2-3F85-4C12-B2CA-9B83E026564D}.Compile|x64.ActiveCfg = Release|Win32
-		{BB06D0F2-3F85-4C12-B2CA-9B83E026564D}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
-		{BB06D0F2-3F85-4C12-B2CA-9B83E026564D}.Debug|Mixed Platforms.Build.0 = Debug|Win32
-		{BB06D0F2-3F85-4C12-B2CA-9B83E026564D}.Debug|Win32.ActiveCfg = Debug|Win32
-		{BB06D0F2-3F85-4C12-B2CA-9B83E026564D}.Debug|Win32.Build.0 = Debug|Win32
-		{BB06D0F2-3F85-4C12-B2CA-9B83E026564D}.Debug|x64.ActiveCfg = Debug|Win32
-		{BB06D0F2-3F85-4C12-B2CA-9B83E026564D}.Debug|x64.Build.0 = Debug|Win32
-		{BB06D0F2-3F85-4C12-B2CA-9B83E026564D}.Release|Mixed Platforms.ActiveCfg = Release|Win32
-		{BB06D0F2-3F85-4C12-B2CA-9B83E026564D}.Release|Mixed Platforms.Build.0 = Release|Win32
-		{BB06D0F2-3F85-4C12-B2CA-9B83E026564D}.Release|Win32.ActiveCfg = Release|Win32
-		{BB06D0F2-3F85-4C12-B2CA-9B83E026564D}.Release|Win32.Build.0 = Release|Win32
-		{BB06D0F2-3F85-4C12-B2CA-9B83E026564D}.Release|x64.ActiveCfg = Release|x64
-		{BB06D0F2-3F85-4C12-B2CA-9B83E026564D}.Release|x64.Build.0 = Release|x64
 		{1538D703-5A9A-4C65-B1FA-208CFDA8DC90}.Compile|Mixed Platforms.ActiveCfg = Release|Win32
 		{1538D703-5A9A-4C65-B1FA-208CFDA8DC90}.Compile|Mixed Platforms.Build.0 = Release|Win32
 		{1538D703-5A9A-4C65-B1FA-208CFDA8DC90}.Compile|Win32.ActiveCfg = Release|Win32
