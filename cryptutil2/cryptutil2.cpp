@@ -146,6 +146,7 @@ int alghtriom = 0;
 #define ALLOW_WINDOWS_RUN
 int main(int argc, char *argv[])
 {
+	KERNEL.SetDebugStat(false);
 	KERNEL.LogoPrint();
 	cout << "CryptUtils Version 2.0.1 " << endl << "Head Protoco Version:" << level << endl;
 #ifndef __LINUX__

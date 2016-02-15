@@ -21,6 +21,7 @@ bool disable_nl = false;
 vector<string> cmd;
 int main(int argc,char* argv[])
 {
+	KERNEL.SetDebugStat(false);
 	mpshell << "Init MPShell" << endl << "Init Thread:" << omp_get_max_threads()<<endl;
 	int cmdstart = -1;
 	ifstream input;
@@ -113,7 +114,7 @@ int main(int argc,char* argv[])
 	mpshell << "Command:" << command << endl;
 	mpshell << "poll size:" << poll.size() << endl;
 	//OMP_START
-	omp_set_num_threads(1);
+	DEBUG_LINE omp_set_num_threads(1);
 //#pragma omp parallel for 
 	for (int n = 0; n < poll.size(); n++)
 		if (!(disable_nl == true && poll.at(n).empty()))

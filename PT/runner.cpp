@@ -11,7 +11,7 @@ using namespace std;
 
 int main()
 {
-
+	KERNEL.SetDebugStat(false);
 	bool signal = false;
 	PT_TIME ret;
 
