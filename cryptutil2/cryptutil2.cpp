@@ -15,6 +15,7 @@ static bool decrypt = false;
 static bool crack = false;
 //static char matrix[MATRIX_LEN][MATRIX_LEN];
 static char **matrix;
+static bool std_out = false;
 #define cp2 debug<<"[crypt2]"
 #define FILE_TYPE ".ert2"
 //static const char *strtbl = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz,/.<>?;':\"[] {}|\\-+*/";
@@ -92,7 +93,7 @@ struct HEAD {
 		cp2 << "Block Length:" << bs << endl;
 		if (account_level > level || account_level < level_compact)
 		{
-			cout << "Error: HEAD Protoco Check Faild!" << endl;
+			cout << "Error: HEAD Protoco Check Fail d!" << endl;
 			cout << "Unsupported Level:" << (int)account_level << endl;
 			cout << "Compact of:" << level_compact <<" max  "<<level<< endl;
 			return false;
@@ -131,7 +132,8 @@ void FileProcess(HEAD head, file in, file out,uint64_t &sum,int len,uint64_t op_
 	if (decrypt)
 	{
 		in.seekp(op_addr+sizeof(HEAD));
-		out.seekp(op_addr);
+		if (!std_out)
+			out.seekp(op_addr);
 	}
 	else {
 		in.seekp(op_addr);
@@ -150,7 +152,10 @@ void FileProcess(HEAD head, file in, file out,uint64_t &sum,int len,uint64_t op_
 #endif
 	if (decrypt)
 		vsu = APOLL[head.algrthom].sa(buff, len);
-	out.write(buff, len);
+	if (!std_out)
+		out.write(buff, len);
+	else
+		cout.write(buff, len);
 	sum += vsu;
 	free(buff);
 }
@@ -164,7 +169,7 @@ int main(int argc, char *argv[])
 {
 	KERNEL.SetDebugStat(false);
 	KERNEL.LogoPrint();
-	cout << "CryptUtils Version 2.0.1 " << endl << "Head Protoco Version:" << level << endl;
+	cout << "CryptUtils Version 2.0.2 " << endl << "Head Protoco Version:" << level << endl;
 #ifndef __LINUX__
 	cout << "Error:This Program is can't run in windows !" << endl;
 	cout << "      Please use linux version!" << endl;
@@ -343,6 +348,16 @@ int main(int argc, char *argv[])
 			cout << "Not define output file!" << endl;
 			exit(-1);
 		}
+		if (output == "-")
+		{
+			if(decrypt)
+				std_out = true;
+			else
+			{
+				cout << "Error STD Out is unsupport in Crypt Method!" << endl;
+				return false;
+			}
+		}
 	}
 	uint64_t count = 0;
 	string check = output;
@@ -362,15 +377,21 @@ int main(int argc, char *argv[])
 	file in;
 	file out;
 	in.open(input.data(), "r");
-	out.open(output.data(), "w");
+	if (!std_out)
+		out.open(output.data(), "w");
 	HEAD head;
 	head.account_level = level;
 	head.algrthom = alghtriom;
 	uint64_t len = in.tell_len();
-	if (!in.is_open() || !out.is_open())
+	if (!in.is_open() )
 	{
-		cout << "Open File Faild!" << endl;
+		cout << "Input File Faild!" << endl;
 		exit(-1);
+	}
+	if (!std_out && !out.is_open())
+	{
+		cout << "Out File Faild!" << endl;
+		exit(false);
 	}
 	if (!decrypt)
 	{
@@ -425,6 +446,7 @@ int main(int argc, char *argv[])
 	if (decrypt)
 	{
 		in.seekp(sizeof(HEAD));
+		if (!std_out)
 		out.seekp(0);
 	}
 	else {
@@ -441,7 +463,7 @@ int main(int argc, char *argv[])
 		{
 			old_presend = per;
 			ulen = (n* head.bs) / dZero(time(0) - start);
-			ShowProcessBar(per, human_read(ulen,human_read_storage_str,1024,10)  + "/S");
+			ShowProcessBar(per, human_read(ulen,human_read_storage_str,1024,10)  + "PS");
 		}
 	}
 	FileProcess(head, in, out, sum, fix,step*head.bs);
@@ -475,5 +497,6 @@ int main(int argc, char *argv[])
 	}
 	cout << "Done. Checksum:" << hex << sum << endl;
 	in.close();
+	if (!std_out)
 	out.close();
 }
