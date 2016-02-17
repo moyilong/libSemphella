@@ -155,9 +155,16 @@ void FileProcess(HEAD head, file in, file out,uint64_t &sum,int len,uint64_t op_
 	if (!std_out)
 		out.write(buff, len);
 	else
-		cout.write(buff, len);
+//		cout<<buff;
+		fprintf(stdout,"%s",buff);
 	sum += vsu;
 	free(buff);
+}
+
+inline void logo()
+{
+	KERNEL.LogoPrint();
+	cout << "CryptUtils Version 2.0.2 " << endl << "Head Protoco Version:" << level << endl;
 }
 
 #include "mpblock.h"
@@ -168,9 +175,8 @@ int alghtriom = DEFAULT_ALGRTHOM_TYPE;
 int main(int argc, char *argv[])
 {
 	KERNEL.SetDebugStat(false);
-	KERNEL.LogoPrint();
-	cout << "CryptUtils Version 2.0.2 " << endl << "Head Protoco Version:" << level << endl;
 #ifndef __LINUX__
+	logo();
 	cout << "Error:This Program is can't run in windows !" << endl;
 	cout << "      Please use linux version!" << endl;
 #ifdef ALLOW_WINDOWS_RUN
@@ -231,6 +237,7 @@ int main(int argc, char *argv[])
 				KERNEL.SetDebugStat(true);
 				break;
 			case 'V':
+				logo();
 				cout<<"Max Algrthon Type: 0~"<<APOLL_IDMAX<<endl;
 				cout<<"Defined Block Size:"<<bs<<endl;
 				if (KERNEL.GetDebugStat())
@@ -335,7 +342,7 @@ int main(int argc, char *argv[])
 	}
 	if (input.empty() || password.empty())
 	{
-		cout << "Argment Error!" << endl;
+		cout << "Argment Error!" << endl<<"Input or Password Empty!"<<endl;
 		exit(-1);
 	}
 	if (output.empty())
@@ -348,15 +355,15 @@ int main(int argc, char *argv[])
 			cout << "Not define output file!" << endl;
 			exit(-1);
 		}
-		if (output == "-")
+	}
+	if (output == "-")
+	{
+		if(decrypt)
+			std_out = true;
+		else
 		{
-			if(decrypt)
-				std_out = true;
-			else
-			{
-				cout << "Error STD Out is unsupport in Crypt Method!" << endl;
-				return false;
-			}
+			cout << "Error STD Out is unsupport in Crypt Method!" << endl;
+			return false;
 		}
 	}
 	uint64_t count = 0;
@@ -364,7 +371,8 @@ int main(int argc, char *argv[])
 	if (decrypt)
 		check = input;
 	DEBUG << "Checking Name Secure" << endl;
-	if (check.substr(check.size() - 5) != FILE_TYPE)
+	if (check.size()>5 && check != "-")
+	if ((check.substr(check.size() - 5) != FILE_TYPE) || check.size()<=5)
 	{
 		cout << "Warring! File Name Secure Check Error!" << endl;
 		exit(-1);
@@ -419,8 +427,8 @@ int main(int argc, char *argv[])
 			exit(-1);
 		}
 	}
-	cout << input << " => " << output << endl;
-	cout << len << " of " << bs << endl;
+	if (!std_out)	cout << input << " => " << output << endl;
+	cp2 << len << " of " << bs << endl;
 	cp2 << "Creating Password Matrix..." << endl;
 	APOLL[head.algrthom].pa(password, matrix);
 	if (decrypt)
@@ -458,17 +466,20 @@ int main(int argc, char *argv[])
 	for (uint64_t n = 0; n < step; n++)
 	{
 		FileProcess(head, in, out, sum, head.bs, n*head.bs);
-		double per = (double)((double)n*(double)head.bs) / (double)len;
-		if (per != old_presend)
+		if (!std_out)
 		{
-			old_presend = per;
-			ulen = (n* head.bs) / dZero(time(0) - start);
-			ShowProcessBar(per, human_read(ulen,human_read_storage_str,1024,10)  + "PS");
+			double per = (double)((double)n*(double)head.bs) / (double)len;
+			if (per != old_presend)
+			{
+				old_presend = per;
+				ulen = (n* head.bs) / dZero(time(0) - start);
+				ShowProcessBar(per, human_read(ulen,human_read_storage_str,1024,10)  + "PS");
+			}
 		}
 	}
 	FileProcess(head, in, out, sum, fix,step*head.bs);
 	cp2 << "Main Loop Over! SUM:" << sum << endl;
-	ShowProcessBar(1, "--");
+	if (!std_out) ShowProcessBar(1, "--");
 	cout << endl;
 	if (!decrypt)
 	{
@@ -495,7 +506,7 @@ int main(int argc, char *argv[])
 			cout << hex << sum << " != " << hex << head.sum << endl;
 		}
 	}
-	cout << "Done. Checksum:" << hex << sum << endl;
+	if (!std_out) cout << "Done. Checksum:" << hex << sum << endl;
 	in.close();
 	if (!std_out)
 	out.close();
