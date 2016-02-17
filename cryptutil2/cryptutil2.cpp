@@ -55,7 +55,7 @@ struct HEAD {
 	inline HEAD()
 	{
 		account_level = level;
-		algrthom = 2;
+		algrthom = 3;
 		sum = 0;
 		matrix_sum = 0;
 		password_sum = 0;
@@ -98,6 +98,7 @@ const ALGRHOM APOLL[] = {
 	{ CreateMatrix,xor_cryptV2_1,getsumV2 },
 	{ CreateMatrix,xor_cryptV2,getsumV2 },
 	{ CreateMatrix_NULL,CryptAlgrthom,getsumV2 },
+	{CreateMatrixV2,xor_cryptV2_1,getsumV2},
 };
 
 #define APOLL_SIZE	(sizeof(APOLL) / sizeof(ALGRHOM))
