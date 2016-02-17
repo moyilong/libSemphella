@@ -10,20 +10,22 @@
 #undef max
 #undef min
 #include <limits>
-int64_t bs = 4096;
-bool decrypt = false;
-bool crack = false;
-
+static int64_t bs = 4096;
+static bool decrypt = false;
+static bool crack = false;
+//static char matrix[MATRIX_LEN][MATRIX_LEN];
+static char **matrix;
 #define cp2 debug<<"[crypt2]"
 #define FILE_TYPE ".ert2"
-const char *strtbl = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz,/.<>?;':\"[] {}|\\-+*/";
+//static const char *strtbl = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz,/.<>?;':\"[] {}|\\-+*/";
+#define strtbl "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
 
-char matrix[MATRIX_LEN][MATRIX_LEN];
+//static const int level = 2;
+//static const int level_compact = 2;
+#define level 2
+#define level_compact 2
 
-const int level = 2;
-const int level_compact = 2;
-
-#define DEBUG if (false)	cout<<__FILE__<<"@"<<__LINE__<<" ::"
+#define DEBUG debug
 #define MAX_PASSWORD_LEN	MAX_BUFF_SIZE
 
 struct HEAD {
@@ -61,8 +63,8 @@ struct HEAD {
 	}
 };
 
-typedef void (*password_algrthom)(string password, char matrix[MATRIX_LEN][MATRIX_LEN]);
-typedef void(*crypt_algrthom)(char matrix[MATRIX_LEN][MATRIX_LEN], char *data, int64_t len, int64_t bit_off);
+typedef void (*password_algrthom)(string password, char **matrix);
+typedef void(*crypt_algrthom)(char **matrix, char *data, int64_t len, int64_t bit_off);
 typedef uint64_t(*sum_algrthom)(const char *data, int64_t len);
 
 struct ALGRHOM {
@@ -77,7 +79,7 @@ struct ALGRHOM {
 	}
 };
 string _stored_pwd;
-void CreateMatrix_NULL(string password, char matrix[MATRIX_LEN][MATRIX_LEN])
+void CreateMatrix_NULL(string password, char **matrix)
 {
 	_stored_pwd = password;
 #pragma omp parallel for
@@ -86,7 +88,7 @@ void CreateMatrix_NULL(string password, char matrix[MATRIX_LEN][MATRIX_LEN])
 			matrix[n][x] = 0;
 }
 
-void CryptAlgrthom(char matrix[MATRIX_LEN][MATRIX_LEN], char *data, int64_t len, int64_t bit_off)
+void CryptAlgrthom(char **matrix, char *data, int64_t len, int64_t bit_off)
 {
 	xor_crypt(_stored_pwd, data, len);
 }
@@ -157,6 +159,10 @@ int main(int argc, char *argv[])
 #endif
 #endif
 	cp2<<"MAX Algrthon Type: 0~"<<APOLL_IDMAX<<endl;
+	matrix = (char**)malloc(sizeof(char*)*MATRIX_LEN);
+#pragma omp parallel for
+	for (int n = 0; n < MATRIX_LEN; n++)
+		matrix[n] = (char*)malloc(sizeof(char*)*MATRIX_LEN);
 	int al;
 	string input;
 	string output;
@@ -395,7 +401,7 @@ int main(int argc, char *argv[])
 		in.seekp(0);
 		out.seekp(sizeof(HEAD));
 	}
-	double old_presend = 0,posi,dlen=len;
+	double old_presend = 0,dlen=len;
 	uint64_t ulen = 0;
 	for (uint64_t n = 0; n < step; n++)
 	{

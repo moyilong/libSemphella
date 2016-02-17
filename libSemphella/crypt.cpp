@@ -63,7 +63,7 @@ API char xor_crypt(string password,char *data,int len)
 	}
 }
 
-API void CreateMatrix(string password, char matrix[MATRIX_LEN][MATRIX_LEN])
+API void CreateMatrix(string password, char **matrix)
 {
 #pragma omp parallel for
 	for (int64_t x = 0; x < MATRIX_LEN; x++)
@@ -76,7 +76,7 @@ API void CreateMatrix(string password, char matrix[MATRIX_LEN][MATRIX_LEN])
 			matrix[x][y] = password.at(value) + ~(value - x - y) +x -y;
 		}
 }
-API void xor_cryptV2(char matrix[MATRIX_LEN][MATRIX_LEN], char *data, int64_t len,int64_t bit_off)
+API void xor_cryptV2(char **matrix, char *data, int64_t len,int64_t bit_off)
 {
 #pragma omp parallel for
 	for (int64_t n = 0; n < len; n++)
@@ -88,7 +88,7 @@ API void xor_cryptV2(char matrix[MATRIX_LEN][MATRIX_LEN], char *data, int64_t le
 		data[n] = data[n] ^ (matrix[x][y] + n + bit_off);
 	}
 }
-API void xor_cryptV2_1(char matrix[MATRIX_LEN][MATRIX_LEN], char *data, int64_t len, int64_t bit_off)
+API void xor_cryptV2_1(char **matrix, char *data, int64_t len, int64_t bit_off)
 {
 #pragma omp parallel for
 	for (int64_t n = 0; n < len; n++)

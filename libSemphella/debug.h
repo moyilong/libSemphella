@@ -11,28 +11,16 @@
 #define debug DEBUG_LINE cout<<"["<<__FILE__<<"]["<<__LINE__<<"]"
 
 #define DEBUG_CALL_TRACK_ARGMENT	string __file_name=__FILE__ ,int __file_line=__LINE__
+#define DEBUG_CALL_TRACK_ARGMENT_FUNC	string __file_name,int __file_line
 
+API void __display_dump(const char *data, long long len, int x = 5, DEBUG_CALL_TRACK_ARGMENT);
 
-inline void __display_dump(const char *data, long long len, int x = 5,DEBUG_CALL_TRACK_ARGMENT)
-{
-	if (!KERNEL.GetDebugStat())
-		return;
-#define TRACK_COUT	 DEBUG_LINE cout<<"["<<__file_name<<"]["<<__file_line<<"][HEX DUMP]"
-	TRACK_COUT << endl;
-	TRACK_COUT;
-	for (int n = 0; n < len; n++)
-	{
-		char buff[MAX_BUFF_SIZE] = { 0x00 };
-		sprintf(buff, "%02X", data[n]);
-		cout << buff[strlen(buff) - 2] << buff[strlen(buff) - 1] << "  ";
-		if ((n+1)%x == 0 && n != 0)
-		{
-			cout << endl;
-			TRACK_COUT;
-		}
-	}
-	cout << endl;
-}
+API void *d_malloc(size_t len);
+API void d_free(void *ptr);
 
 
 #define display_dump DEBUG_LINE __display_dump
+#ifndef DISABLE_MALLOC_DEBUG
+#define malloc d_malloc
+#define free d_free
+#endif

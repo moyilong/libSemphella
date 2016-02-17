@@ -29,6 +29,9 @@
     <ClCompile Include="utils.cpp">
       <Filter>代码</Filter>
     </ClCompile>
+    <ClCompile Include="debug.cpp">
+      <Filter>代码</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="crypt.h">
