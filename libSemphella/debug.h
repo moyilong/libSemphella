@@ -15,12 +15,6 @@
 
 API void __display_dump(const char *data, long long len, int x = 5, DEBUG_CALL_TRACK_ARGMENT);
 
-API void *d_malloc(size_t len);
-API void d_free(void *ptr);
 
 
 #define display_dump DEBUG_LINE __display_dump
-#ifndef DISABLE_MALLOC_DEBUG
-#define malloc d_malloc
-#define free d_free
-#endif
