@@ -54,7 +54,7 @@ void kernel::abort()
 }
 void kernel::message(string info, string file, int line)
 {
-	cout << "[" << file << "][" << line << "]" << info << endl;
+	if (debug_stat) cout << "[" << file << "][" << line << "]" << info << endl;
 }
 void kernel::error(string info, string file, int line)
 {
