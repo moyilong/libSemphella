@@ -25,43 +25,14 @@ static char **matrix;
 #define level 2
 #define level_compact 2
 
+#ifdef LOW_PERFORMANCE_DEVICE
+#define DEFAULT_ALGRTHOM_TYPE	2
+#else
+#define DEFAULT_ALGRTHOM_TYPE	3
+#endif
+
 #define DEBUG debug
 #define MAX_PASSWORD_LEN	MAX_BUFF_SIZE
-
-struct HEAD {
-	char account_level=level;
-	char algrthom=0;
-	uint64_t sum;
-	uint64_t matrix_sum;
-	uint64_t password_sum;
-	uint64_t bs = bs;
-	inline bool check()
-	{
-		cp2 << "Head Level:" << (int)account_level << endl;
-		cp2 << "Algrthom Type:" << (int)algrthom << endl;
-		cp2 << "File Check Sum:" << sum << endl;
-		cp2 << "Password Matrix Sum:" << matrix_sum << endl;
-		cp2 << "Password Check Sum:" << password_sum << endl;
-		cp2 << "Block Length:" << bs << endl;
-		if (account_level > level || account_level < level_compact)
-		{
-			cout << "Error: HEAD Protoco Check Faild!" << endl;
-			cout << "Unsupported Level:" << (int)account_level << endl;
-			cout << "Compact of:" << level_compact <<" max  "<<level<< endl;
-			return false;
-		}
-		return true;
-	}
-	inline HEAD()
-	{
-		account_level = level;
-		algrthom = 3;
-		sum = 0;
-		matrix_sum = 0;
-		password_sum = 0;
-		bs = 0;
-	}
-};
 
 typedef void (*password_algrthom)(string password, char **matrix);
 typedef void(*crypt_algrthom)(char **matrix, char *data, int64_t len, int64_t bit_off);
@@ -101,8 +72,50 @@ const ALGRHOM APOLL[] = {
 	{CreateMatrixV2,xor_cryptV2_1,getsumV2},
 };
 
+
 #define APOLL_SIZE	(sizeof(APOLL) / sizeof(ALGRHOM))
 #define APOLL_IDMAX	(APOLL_SIZE-1)
+struct HEAD {
+	char account_level=level;
+	char algrthom;
+	uint64_t sum;
+	uint64_t matrix_sum;
+	uint64_t password_sum;
+	uint64_t bs = bs;
+	inline bool check()
+	{
+		cp2 << "Head Level:" << (int)account_level << endl;
+		cp2 << "Algrthom Type:" << (int)algrthom << endl;
+		cp2 << "File Check Sum:" << sum << endl;
+		cp2 << "Password Matrix Sum:" << matrix_sum << endl;
+		cp2 << "Password Check Sum:" << password_sum << endl;
+		cp2 << "Block Length:" << bs << endl;
+		if (account_level > level || account_level < level_compact)
+		{
+			cout << "Error: HEAD Protoco Check Faild!" << endl;
+			cout << "Unsupported Level:" << (int)account_level << endl;
+			cout << "Compact of:" << level_compact <<" max  "<<level<< endl;
+			return false;
+		}
+		if (algrthom>APOLL_IDMAX)
+		{
+			cout<<"Error: HEAD Protoco Define unexist Algrthom!"<<endl;
+			cout<<(int)algrthom<<"is not exist!"<<endl;
+			return false;
+		}
+		return true;
+	}
+	inline HEAD()
+	{
+		account_level = level;
+		algrthom = 0;
+		sum = 0;
+		matrix_sum = 0;
+		password_sum = 0;
+		bs = 0;
+	}
+};
+
 //#define WHITE_CRYPT
 uint64_t GetMatrixSum(HEAD head)
 {
@@ -145,7 +158,7 @@ void FileProcess(HEAD head, file in, file out,uint64_t &sum,int len,uint64_t op_
 #include "mpblock.h"
 bool crack_get = false;
 bool info_get = false;
-int alghtriom = 0;
+int alghtriom = DEFAULT_ALGRTHOM_TYPE;
 #define ALLOW_WINDOWS_RUN
 int main(int argc, char *argv[])
 {
@@ -160,6 +173,7 @@ int main(int argc, char *argv[])
 #endif
 #endif
 	cp2<<"MAX Algrthon Type: 0~"<<APOLL_IDMAX<<endl;
+	cp2<<"Deafult Algrthom ID "<<DEFAULT_ALGRTHOM_TYPE<<endl;
 	matrix = (char**)malloc(sizeof(char*)*MATRIX_LEN);
 #pragma omp parallel for
 	for (int n = 0; n < MATRIX_LEN; n++)
@@ -200,6 +214,7 @@ int main(int argc, char *argv[])
 			case 'A':
 				n++;
 				al = atoi(argv[n]);
+				cp2<<"Resetting Algorithm ID "<<alghtriom <<" => "<<al<<endl;
 				if (al > APOLL_IDMAX)
 				{
 					cout << "Max Algorithm ID is " << APOLL_IDMAX << endl;
@@ -210,6 +225,15 @@ int main(int argc, char *argv[])
 			case 'v':
 				KERNEL.SetDebugStat(true);
 				break;
+			case 'V':
+				cout<<"Max Algrthon Type: 0~"<<APOLL_IDMAX<<endl;
+				cout<<"Defined Block Size:"<<bs<<endl;
+				if (KERNEL.GetDebugStat())
+					cout<<"Verbos is Enabled!"<<endl;
+				cout<<"Deafult Algrthom ID "<<DEFAULT_ALGRTHOM_TYPE<<endl;
+				return true;
+				break;
+				
 			}
 	if (info_get)
 	{
@@ -218,6 +242,11 @@ int main(int argc, char *argv[])
 			cout << "Argment Error!" << endl;
 		}
 		else {
+			if (input.substr(input.size()-5)!=".ert2")
+			{
+				cout<<"File Name Secure Check Faild!"<<endl;
+				return false;
+			}
 			ifstream in;
 			in.open(input.data());
 			if (!in.is_open())
