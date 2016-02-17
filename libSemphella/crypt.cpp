@@ -76,6 +76,27 @@ API void CreateMatrix(string password, char **matrix)
 			matrix[x][y] = password.at(value) + ~(value - x - y) +x -y;
 		}
 }
+API void CreateMatrixV2(const char * data, size_t dlen, char ** matrix)
+{
+	char visual_poll[MATRIX_LEN] = { 0x00 };
+#pragma omp parallel for
+	for (int n = 0; n < MATRIX_LEN; n++)
+		visual_poll[n] = data[get_n(dlen, n >> 8)] ^ (data[get_n(dlen, n >> 4)] >> 4);
+#pragma omp parallel for
+	for (int x = 0; x < MATRIX_LEN; x++)
+		for (int y = 0; y < MATRIX_LEN; y++)
+		{
+			int xa = x^y;
+			int xb = x | y;
+			int xc = x & y;
+			int xd = x*y;
+			int xma = (xa + xb - xc + xd) ^ (xa >>8 + xb <<8 + xc >>4 + xd <<4);
+			matrix[x][y] = data[get_n(dlen, xma ^ xa + xd)] ^ xma >> 8 - x + y;
+			matrix[x][y] = matrix[x][y] ^ xa ^ xb;
+			matrix[x][y] = matrix[x][y] >> 8;
+		}
+
+}
 API void xor_cryptV2(char **matrix, char *data, int64_t len,int64_t bit_off)
 {
 #pragma omp parallel for
