@@ -2,8 +2,6 @@
 #include "main.h"
 API void sZero(void *dest, int value, int len);
 
-#define DEBUG_LINE if (true)
-
 #ifdef __LINUX__
 #define esleep(ms) usleep(ms*1000)
 #else

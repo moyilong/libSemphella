@@ -13,8 +13,10 @@
 #define DEBUG_CALL_TRACK_ARGMENT	string __file_name=__FILE__ ,int __file_line=__LINE__
 
 
-inline void display_dump(const char *data, long long len, int x = 5,DEBUG_CALL_TRACK_ARGMENT)
+inline void __display_dump(const char *data, long long len, int x = 5,DEBUG_CALL_TRACK_ARGMENT)
 {
+	if (!KERNEL.GetDebugStat())
+		return;
 #define TRACK_COUT	 DEBUG_LINE cout<<"["<<__file_name<<"]["<<__file_line<<"][HEX DUMP]"
 	TRACK_COUT << endl;
 	TRACK_COUT;
@@ -31,3 +33,6 @@ inline void display_dump(const char *data, long long len, int x = 5,DEBUG_CALL_T
 	}
 	cout << endl;
 }
+
+
+#define display_dump DEBUG_LINE __display_dump
