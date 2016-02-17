@@ -19,13 +19,3 @@ API void __display_dump(const char * data, long long len, int x, DEBUG_CALL_TRAC
 	}
 	cout << endl;
 }
-
-API void * d_malloc(size_t len)
-{
-	return malloc(len);
-}
-
-API void d_free(void * ptr)
-{
-	free(ptr);
-}
