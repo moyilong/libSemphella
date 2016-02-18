@@ -78,10 +78,6 @@ API void CreateMatrix(string password, char **matrix)
 }
 API void CreateMatrixV2(const char * data, size_t dlen, char ** matrix)
 {
-	char visual_poll[MATRIX_LEN] = { 0x00 };
-#pragma omp parallel for
-	for (int n = 0; n < MATRIX_LEN; n++)
-		visual_poll[n] = data[get_n(dlen, n >> 8)] ^ (data[get_n(dlen, n >> 4)] >> 4);
 #pragma omp parallel for
 	for (int x = 0; x < MATRIX_LEN; x++)
 		for (int y = 0; y < MATRIX_LEN; y++)
@@ -121,7 +117,27 @@ API void xor_cryptV2_1(char **matrix, char *data, int64_t len, int64_t bit_off)
 		data[n] = data[n] ^ (matrix[x][y] + n + bit_off);
 	}
 }
-
+API void xor_cryptV2_1_MATRIX_V2_LMEM(string password, char * data, int64_t len, int64_t bitoff)
+{
+#pragma omp parallel for
+	for (int64_t n = 0; n < len; n++)
+	{
+		int x = sin(n + bitoff)*MATRIX_LEN;
+		int y = sin(~(n + bitoff))*MATRIX_LEN;
+		x = abs(x);
+		y = abs(y);
+		char matrix_value = 0;
+		int xa = x^y;
+		int xb = x | y;
+		int xc = x & y;
+		int xd = x*y;
+		int xma = (xa + xb - xc + xd) ^ (xa >> 8 + xb << 8 + xc >> 4 + xd << 4);
+		matrix_value= data[get_n(password.size(), xma ^ xa + xd)] ^ xma >> 8 - x + y;
+		matrix_value = matrix_value^xa ^xb;
+		matrix_value = matrix_value >> 8;
+		data[n] = data[n] ^ (matrix_value + n + bitoff);
+	}
+}
 API inline char xbit(const char *data,long long len,const char off)
 {
     char ret=off;

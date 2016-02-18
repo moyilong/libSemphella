@@ -51,6 +51,7 @@ API void xor_cryptV2(char **matrix, char *data, int64_t len, int64_t bit_off);
 API void xor_cryptV2_1(char **matrix, char *data, int64_t len, int64_t bit_off);
 API void CreateMatrix(string password, char **matrix);
 API void CreateMatrixV2(const char *data, size_t dlen, char **matrix);
+API void xor_cryptV2_1_MATRIX_V2_LMEM(string password, char *data, int64_t len, int64_t bitoff);
 inline void CreateMatrixV2(string password, char **matrix)
 {
 	CreateMatrixV2(password.data(), password.size(), matrix);

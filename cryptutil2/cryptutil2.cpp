@@ -65,12 +65,18 @@ void CryptAlgrthom(char **matrix, char *data, int64_t len, int64_t bit_off)
 	xor_crypt(_stored_pwd, data, len);
 }
 
+void LOW_MEM_ALGRTHOM(char **matrix, char *data, int64_t len, int64_t bit_off)
+{
+	xor_cryptV2_1_MATRIX_V2_LMEM(_stored_pwd, data, len, bit_off);
+}
+
 
 const ALGRHOM APOLL[] = {
 	{ CreateMatrix,xor_cryptV2_1,getsumV2 },
 	{ CreateMatrix,xor_cryptV2,getsumV2 },
 	{ CreateMatrix_NULL,CryptAlgrthom,getsumV2 },
 	{CreateMatrixV2,xor_cryptV2_1,getsumV2},
+	{CreateMatrix_NULL,LOW_MEM_ALGRTHOM,getsumV2},
 };
 
 
