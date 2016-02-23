@@ -34,5 +34,6 @@ int trans_id(int id)
 	_cached_trans_to = ret;
 	if (ret == -1)
 		debug << "Try to Access a un exist alg! ID=" << id << endl;
+	debug << "Trans ID " << id << " => " << ret << endl;
 	return ret;
 }
