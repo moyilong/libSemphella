@@ -19,11 +19,11 @@ void ssl_password_prepare(string password)
 		 PEM_read_RSAPrivateKey(key, &rsa,NULL,NULL);
 	else
 		 PEM_read_RSAPublicKey(key,&rsa,NULL,NULL);
-	if (rsa == NULL)
+	/*if (rsa == NULL)
 	{
 		cout << "RSA Key Faild!" << endl;
 		exit(-1);
-	}
+	}*/
 }
 
 void ssl_crypt_algrthom(char *data, int64_t len, int64_t bit)
