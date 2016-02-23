@@ -45,4 +45,4 @@ void ssl_crypt_algrthom(char *data, int64_t len, int64_t bit)
 	free(wback);
 }
 
-ALGORTHIM ssl_aes(ssl_password_prepare, ssl_crypt_algrthom, getsumV2, 5);
+ALGORTHIM ssl_aes(ssl_password_prepare, ssl_crypt_algrthom, getsumV2, 5,normally_status);

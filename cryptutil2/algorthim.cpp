@@ -2,7 +2,7 @@
 
 #define STD_DBU	debug<<"[Alghrthim]"
 
-ALGHRTHIM::ALGHRTHIM(password_algrthom p, crypt_algrthom c, sum_algrthom s, int xid)
+ALGHRTHIM::ALGHRTHIM(password_algrthom p, crypt_algrthom c, sum_algrthom s, int xid,get_password_checksum pc)
 {
 	id = xid;
 	pa = p;

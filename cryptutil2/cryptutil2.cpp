@@ -45,6 +45,11 @@ struct MP_BLOCK {
 	double per;
 };
 
+string password;
+uint64_t password_type()
+{
+	return getsumV2(password.data(),password.size());
+}
 
 /*
 const ALGRHOM APOLL[] = {
@@ -168,7 +173,6 @@ int main(int argc, char *argv[])
 	int al;
 	string input;
 	string output;
-	string password;
 	for (int n = 0; n < argc; n++)
 		if (argv[n][0] == '-')
 			switch (argv[n][1]) {
@@ -265,7 +269,7 @@ int main(int argc, char *argv[])
 					block[id].count++;
 					char str[MAX_BUFF_SIZE];
 					eitoa((uint64_t)n, str, strlen(strtbl), strtbl);
-					if (APOLL[trans_id(head.algrthom)].sa(str, strlen(str)) == head.password_sum)
+					if (APOLL[trans_id(head.algrthom)].px() == head.password_sum)
 					{
 						cout << "Password Match! " << str << endl;
 						APOLL[trans_id(head.algrthom)].pa(str);
@@ -380,7 +384,7 @@ int main(int argc, char *argv[])
 	if (!decrypt)
 	{
 		head.bs = bs;
-		head.password_sum = APOLL[trans_id(head.algrthom)].sa(password.data(), password.size());
+		head.password_sum = APOLL[trans_id(head.algrthom)].px();
 		out.write((char*)&head, sizeof(HEAD));
 	}
 	else
@@ -409,7 +413,7 @@ int main(int argc, char *argv[])
 	APOLL[trans_id(head.algrthom)].pa(password);
 	if (decrypt)
 	{
-		if (GetMatrixSum(head) != head.matrix_sum || APOLL[trans_id(head.algrthom)].sa(password.data(), password.size()) != head.password_sum)
+		if (GetMatrixSum(head) != head.matrix_sum || APOLL[trans_id(head.algrthom)].px() != head.password_sum)
 		{
 			cout << "Password Correct!" << endl;
 			exit(-1);

@@ -4,11 +4,12 @@
 #include <libSemphella/utils.h>
 #include <libSemphella/crypt.h>
 #include <libSemphella/debug.h>
-
+uint64_t password_type();
+uint64_t normally_status();
 typedef void(*password_algrthom)(string password);
 typedef void(*crypt_algrthom)(char *data, int64_t len, int64_t bit_off);
 typedef uint64_t(*sum_algrthom)(const char *data, int64_t len);
-
+typedef uint64_t(*get_password_checksum)();
 
 extern  bool decrypt;
 
@@ -17,7 +18,8 @@ struct ALGHRTHIM {
 	crypt_algrthom ca;
 	int id;
 	sum_algrthom sa;
-	ALGHRTHIM::ALGHRTHIM(password_algrthom p, crypt_algrthom c, sum_algrthom s, int xid);
+	get_password_checksum px;
+	ALGHRTHIM::ALGHRTHIM(password_algrthom p, crypt_algrthom c, sum_algrthom s, int xid, get_password_checksum pc=password_type);
 };
 
 
@@ -26,4 +28,5 @@ struct ALGHRTHIM {
 extern vector<ALGHRTHIM> APOLL;
 
 int trans_id(int id);
+
 
