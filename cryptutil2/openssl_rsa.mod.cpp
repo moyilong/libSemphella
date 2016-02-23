@@ -35,11 +35,11 @@ void ssl_crypt_algrthom(char *data, int64_t len, int64_t bit)
 	int stat;
 	if (decrypt)
 	{
-		stat=RSA_private_decrypt(len, (unsigned char*)data, (unsigned char*)wback, rsa, RSA_PKCS1_OAEP_PADDING);
+		stat=RSA_private_decrypt(len, (unsigned char*)data, (unsigned char*)wback, rsa, RSA_NO_PADDING);
 	}
 	else
 	{
-		stat = RSA_public_encrypt(len, (unsigned char*)data, (unsigned char*)wback, rsa, RSA_PKCS1_OAEP_PADDING);
+		stat = RSA_public_encrypt(len, (unsigned char*)data, (unsigned char*)wback, rsa, RSA_NO_PADDING);
 	}
 	if (stat < 0)
 	{
