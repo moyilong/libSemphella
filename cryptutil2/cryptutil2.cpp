@@ -411,6 +411,7 @@ int main(int argc, char *argv[])
 		if (GetMatrixSum(head) != head.matrix_sum || APOLL.at(trans_id(head.algrthom)).px(password) != head.password_sum)
 		{
 			cout << "Password Correct!" << endl;
+			cout << "Maybe Crypt in old Version!" << endl;
 			if (!force)
 				exit(-1);
 		}
