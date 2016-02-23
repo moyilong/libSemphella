@@ -7,6 +7,8 @@
 
 FILE *key;
 RSA *rsa;
+int rsa_len;
+char *xrsa;
 void ssl_password_prepare(string password)
 {
 	key = fopen(password.data(),"r");
@@ -24,6 +26,9 @@ void ssl_password_prepare(string password)
 		cout << "RSA Key Faild!" << endl;
 		exit(-1);
 	}
+	rsa_len = RSA_size(rsa);
+	xrsa = (char*)malloc(rsa_len + 1);
+	memset(xrsa,0,rsa_len + 1);
 }
 
 void ssl_crypt_algrthom(char *data, int64_t len, int64_t bit)
