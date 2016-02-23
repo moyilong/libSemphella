@@ -29,7 +29,7 @@ int trans_id(int id)
 	for (int n = 0; n < APOLL.size(); n++)
 		if (APOLL.at(n).id == id)
 		{
-			ret = id;
+			ret = n;
 			debug << "Trans ID " << id << " => " << ret << endl;
 			_cached_trans_from = id;
 			_cached_trans_to = ret;
