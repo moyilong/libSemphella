@@ -380,8 +380,10 @@ int main(int argc, char *argv[])
 	DEBUG << "preparing data...." << endl;
 	if (!decrypt)
 	{
+		DEBUG << "Caculating Information.." << endl;
 		head.bs = bs;
 		head.password_sum = APOLL[trans_id(head.algrthom)].px(password);
+		DEBUG << "Alloc File Space" << endl;
 		out.write((char*)&head, sizeof(HEAD));
 	}
 	else
