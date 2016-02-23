@@ -44,6 +44,7 @@ void ssl_crypt_algrthom(char *data, int64_t len, int64_t bit)
 	if (stat < 0)
 	{
 		cout << "RSA Crypt/Decrypt Funcation Error!" << endl;
+		cout << "Return Value:" << stat << endl;
 		exit(-1);
 	}
 #pragma omp parallel for
