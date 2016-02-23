@@ -8,6 +8,7 @@
 uint64_t password_type(string passwd);
 
 
+
 typedef void(*password_algrthom)(string password);
 typedef void(*crypt_algrthom)(char *data, int64_t len, int64_t bit_off);
 typedef uint64_t(*sum_algrthom)(const char *data, int64_t len);
