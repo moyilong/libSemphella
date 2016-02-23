@@ -10,11 +10,12 @@
 #undef max
 #undef min
 #include <limits>
+#include "algorthim.h"
 static int64_t bs = 4096;
-static bool decrypt = false;
+ bool decrypt = false;
 static bool crack = false;
 //static char matrix[MATRIX_LEN][MATRIX_LEN];
-static char **matrix;
+
 static bool std_out = false;
 #define cp2 debug<<"[crypt2]"
 #define FILE_TYPE ".ert2"
@@ -35,52 +36,29 @@ static bool std_out = false;
 #define DEBUG debug
 #define MAX_PASSWORD_LEN	MAX_BUFF_SIZE
 
-typedef void (*password_algrthom)(string password, char **matrix);
-typedef void(*crypt_algrthom)(char **matrix, char *data, int64_t len, int64_t bit_off);
-typedef uint64_t(*sum_algrthom)(const char *data, int64_t len);
-
-struct ALGRHOM {
-	password_algrthom pa;
-	crypt_algrthom ca;
-	sum_algrthom sa;
-	inline ALGRHOM(password_algrthom p, crypt_algrthom c,sum_algrthom s)
-	{
-		pa = p;
-		ca = c;
-		sa = s;
-	}
+struct MP_BLOCK {
+	int ilen;
+	double iops;
+	uint64_t count = 0;
+	string temp;
+	uint64_t n = 0;
+	double per;
 };
-string _stored_pwd;
-void CreateMatrix_NULL(string password, char **matrix)
-{
-	_stored_pwd = password;
-#pragma omp parallel for
-	for (int n = 0; n < MATRIX_LEN; n++)
-		for (int x = 0; x < MATRIX_LEN; x++)
-			matrix[n][x] = 0;
-}
-
-void CryptAlgrthom(char **matrix, char *data, int64_t len, int64_t bit_off)
-{
-	xor_crypt(_stored_pwd, data, len);
-}
-
-void LOW_MEM_ALGRTHOM(char **matrix, char *data, int64_t len, int64_t bit_off)
-{
-	xor_cryptV2_1_MATRIX_V2_LMEM(_stored_pwd, data, len, bit_off);
-}
 
 
+/*
 const ALGRHOM APOLL[] = {
 	{ CreateMatrix,xor_cryptV2_1,getsumV2 },
 	{ CreateMatrix,xor_cryptV2,getsumV2 },
 	{ CreateMatrix_NULL,CryptAlgrthom,getsumV2 },
 	{CreateMatrixV2,xor_cryptV2_1,getsumV2},
 	{CreateMatrix_NULL,LOW_MEM_ALGRTHOM,getsumV2},
-};
+};*/
+
+vector<ALGHRTHIM> APOLL;
 
 
-#define APOLL_SIZE	(sizeof(APOLL) / sizeof(ALGRHOM))
+#define APOLL_SIZE	(APOLL.size())
 #define APOLL_IDMAX	(APOLL_SIZE-1)
 struct HEAD {
 	char account_level=level;
@@ -126,11 +104,7 @@ struct HEAD {
 //#define WHITE_CRYPT
 uint64_t GetMatrixSum(HEAD head)
 {
-	uint64_t matrix_sum[MATRIX_LEN];
-#pragma omp parallel for
-	for (int n = 0; n < MATRIX_LEN; n++)
-		matrix_sum[n] = APOLL[head.algrthom].sa(matrix[n], MATRIX_LEN*sizeof(char));
-	return  APOLL[head.algrthom].sa((char*)matrix_sum, sizeof(uint64_t)*MATRIX_LEN);
+	return NULL;
 }
 
 void FileProcess(HEAD head, file in, file out,uint64_t &sum,int len,uint64_t op_addr)
@@ -149,15 +123,15 @@ void FileProcess(HEAD head, file in, file out,uint64_t &sum,int len,uint64_t op_
 	in.read(buff, len);
 	uint64_t vsu = 0;
 	if (!decrypt)
-		vsu = APOLL[head.algrthom].sa(buff, len);
+		vsu = APOLL[trans_id(head.algrthom)].sa(buff, len);
 	int doff = 0;
 	if (decrypt)
 		doff = sizeof(HEAD);
 #ifndef WHITE_CRYPT
-	APOLL[head.algrthom].ca(matrix, buff, len, in.tellp() - len - doff);
+	APOLL[trans_id(head.algrthom)].ca( buff, len, in.tellp() - len - doff);
 #endif
 	if (decrypt)
-		vsu = APOLL[head.algrthom].sa(buff, len);
+		vsu = APOLL[trans_id(head.algrthom)].sa(buff, len);
 	if (!std_out)
 		out.write(buff, len);
 	else
@@ -173,11 +147,10 @@ inline void logo()
 	cout << "CryptUtils Version 2.0.2 " << endl << "Head Protoco Version:" << level << endl;
 }
 
-#include "mpblock.h"
 bool crack_get = false;
 bool info_get = false;
 int alghtriom = DEFAULT_ALGRTHOM_TYPE;
-#define ALLOW_WINDOWS_RUN
+//#define ALLOW_WINDOWS_RUN
 int main(int argc, char *argv[])
 {
 	KERNEL.SetDebugStat(false);
@@ -191,10 +164,7 @@ int main(int argc, char *argv[])
 #endif
 	cp2<<"MAX Algrthon Type: 0~"<<APOLL_IDMAX<<endl;
 	cp2<<"Deafult Algrthom ID "<<DEFAULT_ALGRTHOM_TYPE<<endl;
-	matrix = (char**)malloc(sizeof(char*)*MATRIX_LEN);
-#pragma omp parallel for
-	for (int n = 0; n < MATRIX_LEN; n++)
-		matrix[n] = (char*)malloc(sizeof(char*)*MATRIX_LEN);
+
 	int al;
 	string input;
 	string output;
@@ -232,9 +202,9 @@ int main(int argc, char *argv[])
 				n++;
 				al = atoi(argv[n]);
 				cp2<<"Resetting Algorithm ID "<<alghtriom <<" => "<<al<<endl;
-				if (al > APOLL_IDMAX)
+				if (trans_id(al) == -1)
 				{
-					cout << "Max Algorithm ID is " << APOLL_IDMAX << endl;
+					cout << "Warrong ID!" << endl;
 					exit(-1);
 				}
 				alghtriom = al;
@@ -295,10 +265,10 @@ int main(int argc, char *argv[])
 					block[id].count++;
 					char str[MAX_BUFF_SIZE];
 					eitoa((uint64_t)n, str, strlen(strtbl), strtbl);
-					if (APOLL[head.algrthom].sa(str, strlen(str)) == head.password_sum)
+					if (APOLL[trans_id(head.algrthom)].sa(str, strlen(str)) == head.password_sum)
 					{
 						cout << "Password Match! " << str << endl;
-						APOLL[head.algrthom].pa(str, matrix);
+						APOLL[trans_id(head.algrthom)].pa(str);
 						uint64_t _matrix_sum = GetMatrixSum(head);
 						if (_matrix_sum == head.matrix_sum)
 						{
@@ -410,7 +380,7 @@ int main(int argc, char *argv[])
 	if (!decrypt)
 	{
 		head.bs = bs;
-		head.password_sum = APOLL[head.algrthom].sa(password.data(), password.size());
+		head.password_sum = APOLL[trans_id(head.algrthom)].sa(password.data(), password.size());
 		out.write((char*)&head, sizeof(HEAD));
 	}
 	else
@@ -436,10 +406,10 @@ int main(int argc, char *argv[])
 	if (!std_out)	cout << input << " => " << output << endl;
 	cp2 << len << " of " << bs << endl;
 	cp2 << "Creating Password Matrix..." << endl;
-	APOLL[head.algrthom].pa(password, matrix);
+	APOLL[trans_id(head.algrthom)].pa(password);
 	if (decrypt)
 	{
-		if (GetMatrixSum(head) != head.matrix_sum || APOLL[head.algrthom].sa(password.data(), password.size()) != head.password_sum)
+		if (GetMatrixSum(head) != head.matrix_sum || APOLL[trans_id(head.algrthom)].sa(password.data(), password.size()) != head.password_sum)
 		{
 			cout << "Password Correct!" << endl;
 			exit(-1);
@@ -449,7 +419,7 @@ int main(int argc, char *argv[])
 	uint64_t sum = 0;
 	time_t start = time(0);
 	char *buff = (char*)malloc(sizeof(char)*bs);
-	if (APOLL[head.algrthom].sa == NULL || APOLL[head.algrthom].ca == NULL || APOLL[head.algrthom].pa == NULL)
+	if (APOLL[trans_id(head.algrthom)].sa == NULL || APOLL[trans_id(head.algrthom)].ca == NULL || APOLL[trans_id(head.algrthom)].pa == NULL)
 	{
 		cout << "Program PTR Check Error!" << endl;
 		exit(-1);
