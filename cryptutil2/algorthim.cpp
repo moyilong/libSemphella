@@ -8,6 +8,7 @@ ALGHRTHIM::ALGHRTHIM(password_algrthom p, crypt_algrthom c, sum_algrthom s, int 
 	pa = p;
 	ca = c;
 	sa = s;
+	px = pc;
 	STD_DBU << "Insert Alghrthim " << id << " @ " << APOLL.size() << endl;
 	APOLL.push_back(*this);
 }
