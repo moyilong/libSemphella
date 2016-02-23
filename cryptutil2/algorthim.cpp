@@ -25,7 +25,7 @@ int trans_id(int id)
 {
 	if (_cached_trans_from == id)
 		return _cached_trans_to;
-	char ret = -1;
+	int ret = -1;
 	for (int n = 0; n < APOLL.size(); n++)
 		if (APOLL.at(n).id == id)
 			ret = id;
