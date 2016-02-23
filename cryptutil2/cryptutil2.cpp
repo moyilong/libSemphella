@@ -357,6 +357,7 @@ int main(int argc, char *argv[])
 		cout << "Password is too long!" << endl;
 		exit(-1);
 	}
+	DEBUG << "Try to Open File!" << endl;
 	file in;
 	file out;
 	in.open(input.data(), "r");
@@ -376,6 +377,7 @@ int main(int argc, char *argv[])
 		cout << "Out File Faild!" << endl;
 		exit(false);
 	}
+	DEBUG << "preparing data...." << endl;
 	if (!decrypt)
 	{
 		head.bs = bs;
