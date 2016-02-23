@@ -45,15 +45,6 @@ struct MP_BLOCK {
 	double per;
 };
 
-/*
-const ALGRHOM APOLL[] = {
-	{ CreateMatrix,xor_cryptV2_1,getsumV2 },
-	{ CreateMatrix,xor_cryptV2,getsumV2 },
-	{ CreateMatrix_NULL,CryptAlgrthom,getsumV2 },
-	{CreateMatrixV2,xor_cryptV2_1,getsumV2},
-	{CreateMatrix_NULL,LOW_MEM_ALGRTHOM,getsumV2},
-};*/
-
 vector<ALGHRTHIM> APOLL;
 
 
@@ -122,15 +113,15 @@ void FileProcess(HEAD head, file in, file out,uint64_t &sum,int len,uint64_t op_
 	in.read(buff, len);
 	uint64_t vsu = 0;
 	if (!decrypt)
-		vsu = APOLL[trans_id(head.algrthom)].sa(buff, len);
+		vsu = APOLL.at(trans_id(head.algrthom)).sa(buff, len);
 	int doff = 0;
 	if (decrypt)
 		doff = sizeof(HEAD);
 #ifndef WHITE_CRYPT
-	APOLL[trans_id(head.algrthom)].ca( buff, len, in.tellp() - len - doff);
+	APOLL.at(trans_id(head.algrthom)).ca( buff, len, in.tellp() - len - doff);
 #endif
 	if (decrypt)
-		vsu = APOLL[trans_id(head.algrthom)].sa(buff, len);
+		vsu = APOLL.at(trans_id(head.algrthom)).sa(buff, len);
 	if (!std_out)
 		out.write(buff, len);
 	else
@@ -264,10 +255,10 @@ int main(int argc, char *argv[])
 					block[id].count++;
 					char str[MAX_BUFF_SIZE];
 					eitoa((uint64_t)n, str, strlen(strtbl), strtbl);
-					if (APOLL[trans_id(head.algrthom)].px(password) == head.password_sum)
+					if (APOLL.at(trans_id(head.algrthom)).px(password) == head.password_sum)
 					{
 						cout << "Password Match! " << str << endl;
-						APOLL[trans_id(head.algrthom)].pa(str);
+						APOLL.at(trans_id(head.algrthom)).pa(str);
 						uint64_t _matrix_sum = GetMatrixSum(head);
 						if (_matrix_sum == head.matrix_sum)
 						{
@@ -382,7 +373,7 @@ int main(int argc, char *argv[])
 	{
 		DEBUG << "Caculating Information.." << endl;
 		head.bs = bs;
-		head.password_sum = APOLL[trans_id(head.algrthom)].px(password);
+		head.password_sum = APOLL.at(trans_id(head.algrthom)).px(password);
 		DEBUG << "Alloc File Space" << endl;
 		out.write((char*)&head, sizeof(HEAD));
 	}
@@ -409,10 +400,10 @@ int main(int argc, char *argv[])
 	if (!std_out)	cout << input << " => " << output << endl;
 	cp2 << len << " of " << bs << endl;
 	cp2 << "Creating Password Matrix..." << endl;
-	APOLL[trans_id(head.algrthom)].pa(password);
+	APOLL.at(trans_id(head.algrthom)).pa(password);
 	if (decrypt)
 	{
-		if (GetMatrixSum(head) != head.matrix_sum || APOLL[trans_id(head.algrthom)].px(password) != head.password_sum)
+		if (GetMatrixSum(head) != head.matrix_sum || APOLL.at(trans_id(head.algrthom)).px(password) != head.password_sum)
 		{
 			cout << "Password Correct!" << endl;
 			exit(-1);
@@ -422,7 +413,7 @@ int main(int argc, char *argv[])
 	uint64_t sum = 0;
 	time_t start = time(0);
 	char *buff = (char*)malloc(sizeof(char)*bs);
-	if (APOLL[trans_id(head.algrthom)].sa == NULL || APOLL[trans_id(head.algrthom)].ca == NULL || APOLL[trans_id(head.algrthom)].pa == NULL)
+	if (APOLL.at(trans_id(head.algrthom)).sa == NULL || APOLL.at(trans_id(head.algrthom)).ca == NULL || APOLL.at(trans_id(head.algrthom)).pa == NULL)
 	{
 		cout << "Program PTR Check Error!" << endl;
 		exit(-1);
