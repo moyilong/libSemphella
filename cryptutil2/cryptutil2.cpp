@@ -36,6 +36,8 @@ static bool std_out = false;
 #define DEBUG debug
 #define MAX_PASSWORD_LEN	MAX_BUFF_SIZE
 
+bool force = false;
+
 struct MP_BLOCK {
 	int ilen;
 	double iops;
@@ -176,6 +178,9 @@ int main(int argc, char *argv[])
 				break;
 			case 'd':
 				decrypt = true;
+				break;
+			case 'f':
+				force = true;
 				break;
 			case 'b':
 				n++;
@@ -406,7 +411,8 @@ int main(int argc, char *argv[])
 		if (GetMatrixSum(head) != head.matrix_sum || APOLL.at(trans_id(head.algrthom)).px(password) != head.password_sum)
 		{
 			cout << "Password Correct!" << endl;
-			exit(-1);
+			if (!force)
+				exit(-1);
 		}
 	}
 	cp2<<"Matrix is Created!"<<endl;
