@@ -1,5 +1,8 @@
 #include "api.h"
 
+#define FALSE false
+#define TRUE true
+
 int set_Parity(int fd,int databits,int stopbits,int parity)
 
 {
