@@ -412,8 +412,6 @@ int main(int argc, char *argv[])
 		{
 			cout << "Password Correct!" << endl;
 			cout << "Maybe Crypt in old Version!" << endl;
-			if (!force)
-				exit(-1);
 		}
 	}
 	cp2<<"Matrix is Created!"<<endl;
