@@ -7,8 +7,6 @@
 
 FILE *key;
 RSA *rsa;
-int rsa_len;
-unsigned char *p_de;
 void ssl_password_prepare(string password)
 {
 	key = fopen(password.data(),"r");
@@ -26,9 +24,6 @@ void ssl_password_prepare(string password)
 		cout << "RSA Key Faild!" << endl;
 		exit(-1);
 	}
-	rsa_len = RSA_size(rsa);
-	p_de = (unsigned char *)malloc(rsa_len + 1);
-	memset(p_de, 0, rsa_len);
 }
 
 void ssl_crypt_algrthom(char *data, int64_t len, int64_t bit)
@@ -38,7 +33,7 @@ void ssl_crypt_algrthom(char *data, int64_t len, int64_t bit)
 	if (decrypt)
 		RSA_private_decrypt(len, (unsigned char*)data, (unsigned char*)wback, rsa, RSA_NO_PADDING);
 	else
-		RSA_public_encrypt(len, (unsigned char*)data, wback, rsa, RSA_NO_PADDING);
+		RSA_public_encrypt(len, (unsigned char*)data, wback, rsa,RSA_NO_PADDING);
 #pragma omp parallel for
 	for (int64_t n = 0; n < len; n++)
 		data[n] = (char)wback[n];
