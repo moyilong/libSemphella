@@ -18,9 +18,9 @@ void ssl_password_prepare(string password)
 		exit(-1);
 	}
 	if (decrypt)
-		rsa = PEM_read_RSAPrivateKey(key, NULL, NULL, NULL);
+		 PEM_read_RSAPrivateKey(key, &rsa,NULL,NULL);
 	else
-		rsa = PEM_read_RSAPublicKey(key, NULL, NULL, NULL);
+		 PEM_read_RSAPublicKey(key,&rsa,NULL,NULL);
 	if (rsa == NULL)
 	{
 		cout << "RSA Key Faild!" << endl;
