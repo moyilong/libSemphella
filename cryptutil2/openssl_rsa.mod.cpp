@@ -31,9 +31,9 @@ void ssl_crypt_algrthom(char *data, int64_t len, int64_t bit)
 	unsigned char *wback = (unsigned char *)malloc(len);
 	memset(wback, 0, len);
 	if (decrypt)
-		RSA_private_decrypt(len, (unsigned char*)data, wback, rsa, RSA_NO_PADDING);
+		RSA_private_decrypt(len, (unsigned char*)data, wback, rsa, RSA_PKCS1_OAEP_PADDING);
 	else
-		RSA_public_encrypt(len, (unsigned char*)data, wback, rsa,RSA_NO_PADDING);
+		RSA_public_encrypt(len, (unsigned char*)data, wback, rsa, RSA_PKCS1_OAEP_PADDING);
 #pragma omp parallel for
 	for (int64_t n = 0; n < len; n++)
 		data[n] = (char)wback[n];
