@@ -1,5 +1,5 @@
 #pragma once
-#ifndef __LINUX__
+#ifndef __LINUX
 #define IO_TYPE	HANDLE
 #else
 #include <stdio.h>
