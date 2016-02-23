@@ -28,11 +28,13 @@ int trans_id(int id)
 	int ret = -1;
 	for (int n = 0; n < APOLL.size(); n++)
 		if (APOLL.at(n).id == id)
+		{
 			ret = id;
-	_cached_trans_from = id;
-	_cached_trans_to = ret;
-	if (ret == -1)
-		debug << "Try to Access a un exist alg! ID=" << id << endl;
-	debug << "Trans ID " << id << " => " << ret << endl;
-	return ret;
+			debug << "Trans ID " << id << " => " << ret << endl;
+			_cached_trans_from = id;
+			_cached_trans_to = ret;
+			return ret;
+		}
+
+	return -1;
 }
