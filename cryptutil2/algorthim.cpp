@@ -16,6 +16,11 @@ ALGHRTHIM::ALGHRTHIM(password_algrthom p, crypt_algrthom c, sum_algrthom s, int 
 char _cached_trans_from = -1;
 char _cached_trans_to = -1;
 
+uint64_t password_type(string passwd)
+{
+	return getsumV2(passwd.data(), passwd.size());
+}
+
 int trans_id(int id)
 {
 	if (_cached_trans_from == id)

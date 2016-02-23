@@ -4,12 +4,14 @@
 #include <libSemphella/utils.h>
 #include <libSemphella/crypt.h>
 #include <libSemphella/debug.h>
-uint64_t password_type();
-uint64_t normally_status();
+
+uint64_t password_type(string passwd);
+
+
 typedef void(*password_algrthom)(string password);
 typedef void(*crypt_algrthom)(char *data, int64_t len, int64_t bit_off);
 typedef uint64_t(*sum_algrthom)(const char *data, int64_t len);
-typedef uint64_t(*get_password_checksum)();
+typedef uint64_t(*get_password_checksum)(string passwd);
 
 extern  bool decrypt;
 
