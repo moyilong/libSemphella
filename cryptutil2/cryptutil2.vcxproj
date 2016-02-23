@@ -162,7 +162,6 @@
     <ClCompile Include="algorthim.cpp" />
     <ClCompile Include="cryptutil2.cpp" />
     <ClCompile Include="basic.mod.cpp" />
-    <ClCompile Include="openssl_rsa.mod.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\libSemphella\libSemphella.vcxproj">
