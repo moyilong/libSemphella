@@ -164,6 +164,7 @@
     <ClInclude Include="crypt.h" />
     <ClInclude Include="debug.h" />
     <ClInclude Include="files.h" />
+    <ClInclude Include="license.h" />
     <ClInclude Include="sum.h" />
     <ClInclude Include="kernel.h" />
     <ClInclude Include="libbios.h" />
@@ -180,6 +181,7 @@
     <ClCompile Include="crypt.cpp" />
     <ClCompile Include="debug.cpp" />
     <ClCompile Include="files.cpp" />
+    <ClCompile Include="license.cpp" />
     <ClCompile Include="sum.cpp" />
     <ClCompile Include="kernel.cpp" />
     <ClCompile Include="libSemphella.cpp" />

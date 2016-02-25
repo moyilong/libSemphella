@@ -1,19 +1,7 @@
 #pragma once
 #include <vector>
-
-template<class T> inline T emax(T a, T b)
-{
-	if (a > b)
-		return a;
-	return b;
-}
-
-template<class T> inline T emin(T a, T b)
-{
-	if (a > b)
-		return b;
-	return a;
-}
+#include <cmath>
+#include <math.h>
 
 template<class T>inline T dZero(T n,T def=1)
 {
@@ -22,5 +10,18 @@ template<class T>inline T dZero(T n,T def=1)
 	return n;
 }
 
-#define min emin
-#define max emax
+template<class T>inline T emax(const T a, const T b)
+{
+	if (a > b)
+		return a;
+	else
+		return b;
+}
+
+template<class T>inline T emin(const T a, const T b)
+{
+	if (a < b)
+		return a;
+	else
+		return b;
+}

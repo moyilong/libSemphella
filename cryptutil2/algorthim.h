@@ -9,10 +9,10 @@ uint64_t password_type(string passwd);
 
 
 
-typedef void(*password_algrthom)(string password);
-typedef void(*crypt_algrthom)(char *data, int64_t len, int64_t bit_off);
-typedef uint64_t(*sum_algrthom)(const char *data, int64_t len);
-typedef uint64_t(*get_password_checksum)(string passwd);
+typedef void(*password_algrthom)(string password);	//初始化密码
+typedef void(*crypt_algrthom)(char *data, int64_t len, int64_t bit_off);	//加密算法
+typedef uint64_t(*sum_algrthom)(const char *data, int64_t len);	//校验和算法
+typedef uint64_t(*get_password_checksum)(string passwd);	//密码校验算法
 
 extern  bool decrypt;
 

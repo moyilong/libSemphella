@@ -24,6 +24,9 @@
     <ClInclude Include="algorthim.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="cryptutil2.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cryptutil2.cpp">
@@ -33,6 +36,15 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="algorthim.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="license_algr.mod.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="info.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="crypt.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

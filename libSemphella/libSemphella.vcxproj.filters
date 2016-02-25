@@ -32,6 +32,9 @@
     <ClCompile Include="debug.cpp">
       <Filter>代码</Filter>
     </ClCompile>
+    <ClCompile Include="license.cpp">
+      <Filter>代码</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="crypt.h">
@@ -72,6 +75,9 @@
       <Filter>头</Filter>
     </ClInclude>
     <ClInclude Include="config.h">
+      <Filter>头</Filter>
+    </ClInclude>
+    <ClInclude Include="license.h">
       <Filter>头</Filter>
     </ClInclude>
   </ItemGroup>

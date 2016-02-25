@@ -156,12 +156,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="algorthim.h" />
+    <ClInclude Include="cryptutil2.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="algorthim.cpp" />
+    <ClCompile Include="crypt.cpp" />
     <ClCompile Include="cryptutil2.cpp" />
     <ClCompile Include="basic.mod.cpp" />
+    <ClCompile Include="info.cpp" />
+    <ClCompile Include="license_algr.mod.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\libSemphella\libSemphella.vcxproj">

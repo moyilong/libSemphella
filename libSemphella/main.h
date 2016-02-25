@@ -1,7 +1,7 @@
 #pragma once
-
+#include "config.h"
 #define MAX_BUFF_SIZE   4096
-#define API_VER         128
+#define API_VER         130
 #define CORE_NAME       "libSemphella-Core"
 
 #ifndef _WNO_CPP
@@ -18,8 +18,6 @@ using namespace std;
 #ifndef _WNO_OMP
 #include <omp.h>
 #endif
-
-#define DEFAULT_DEBUG_STAT  true
 
 #ifdef __LINUX__
 #include <string.h>

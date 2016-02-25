@@ -21,8 +21,9 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{6C8FC2DC-53D3-4266-AEE5-06F6FBCB29A8}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>DragonEDGE</RootNamespace>
+    <RootNamespace>SerialPortutils</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <ProjectName>SerialPortUtils</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -160,6 +161,11 @@
     <ClCompile Include="DragonEDGE.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="windows.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\libSemphella\libSemphella.vcxproj">
+      <Project>{4a7e309d-d699-4583-9d5a-1042f9f6f893}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
