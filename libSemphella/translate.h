@@ -7,9 +7,6 @@ struct TRANSLATE_BLOCK {
 	string trans;
 };
 
-
-API vector<TRANSLATE_BLOCK> tpoll;
-
 API bool LoadFromFile(string filename);
 API void Register(TRANSLATE_BLOCK tblock);
 inline void Register(TRANSLATE_BLOCK *tblock, int size)
