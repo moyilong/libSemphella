@@ -29,9 +29,11 @@ public:
 
 
 #define ALGORTHIM static ALGHRTHIM
+#define MAX_SIZE	8
+//extern vector<ALGHRTHIM> APOLL;
+extern ALGHRTHIM APOLL[MAX_SIZE];
 
-extern vector<ALGHRTHIM> APOLL;
-
+extern int xsize;
 int trans_id(int id);
 
 

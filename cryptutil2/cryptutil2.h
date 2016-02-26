@@ -39,8 +39,8 @@ struct MP_BLOCK {
 #define DEBUG debug
 #define MAX_PASSWORD_LEN	MAX_BUFF_SIZE
 
-#define APOLL_SIZE	(APOLL.size())
-#define APOLL_IDMAX	(APOLL_SIZE-1)
+#define APOLL_SIZE	xsize
+#define APOLL_IDMAX	xsize
 
 struct HEAD {
 	char account_level = level;

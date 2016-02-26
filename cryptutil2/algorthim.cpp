@@ -1,5 +1,7 @@
 #include "algorthim.h"
 
+ALGHRTHIM APOLL[MAX_SIZE];
+int xsize = 0;
 
 ALGHRTHIM::ALGHRTHIM(password_algrthom p, crypt_algrthom c, sum_algrthom s, int xid,get_password_checksum pc)
 {
@@ -8,8 +10,9 @@ ALGHRTHIM::ALGHRTHIM(password_algrthom p, crypt_algrthom c, sum_algrthom s, int 
 	ca = c;
 	sa = s;
 	px = pc;
-	debug << "Insert Alghrthim " << id << " @ " << APOLL.size() << endl;
-	APOLL.push_back(*this);
+	debug << "Insert Alghrthim " << id << " @ " << xsize<< endl;
+	//APOLL.push_back(*this);
+	APOLL[xsize++] = *this;
 }
 
 
@@ -26,8 +29,8 @@ int trans_id(int id)
 	if (_cached_trans_from == id)
 		return _cached_trans_to;
 	int ret = -1;
-	for (int n = 0; n < APOLL.size(); n++)
-		if (APOLL.at(n).id == id)
+	for (int n = 0; n < xsize; n++)
+		if (APOLL[n].id == id)
 		{
 			ret = n;
 			debug << "Trans ID " << id << " => " << ret << endl;

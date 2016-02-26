@@ -44,7 +44,7 @@ int information_process()
 				block[id].count++;
 				char str[MAX_BUFF_SIZE];
 				eitoa((uint64_t)n, str, strlen(strtbl), strtbl);
-				if (APOLL.at(trans_id(head.algrthom)).px(password) == head.password_sum)
+				if (APOLL[trans_id(head.algrthom)].px(password) == head.password_sum)
 				{
 					cout << "Password is Found!" << endl;
 					cout << str << endl;

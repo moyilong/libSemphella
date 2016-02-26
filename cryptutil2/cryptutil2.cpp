@@ -10,9 +10,7 @@
  bool crack = false;
  bool std_out = false;
 
-
-bool force = false;
-vector<ALGHRTHIM> APOLL;
+ bool force = false;
 bool license_create = false;
 bool crack_get = false;
 bool info_get = false;
