@@ -40,11 +40,6 @@ API void Register(TRANSLATE_BLOCK tblock)
 
 }
 
-API void Register(TRANSLATE_BLOCK *tblock, int size)
-{
-	for (int n = 0; n < size; n++)
-		Register(tblock[n]);
-}
 
 API string SearchStr(string orig)
 {
