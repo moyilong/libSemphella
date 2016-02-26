@@ -43,5 +43,7 @@ API void Register(TRANSLATE_BLOCK tblock)
 
 API string SearchStr(string orig)
 {
-
+	for (int n = 0; n < tpoll.size(); n++)
+		if (streval(tpoll.at(n).orig.data(), orig.data()))
+			return tpoll.at(n).trans;
 }
