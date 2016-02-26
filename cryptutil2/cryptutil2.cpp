@@ -25,7 +25,7 @@ string password;
 void logo()
 {
 	KERNEL.LogoPrint();
-	cout << "CryptUtils Version 3.0.0-Alpha " << endl << "Head Protoco Version:" << level << endl;
+	cout << "CryptUtils Version 3.0.5-Beta " << endl << "Head Protoco Version:" << level << endl;
 	cout << CORE_NAME << endl << "API Level:" << ull2s(API_VER) << endl << "Max Buff Size:" << ull2s(MAX_BUFF_SIZE) << endl;
 }
 
