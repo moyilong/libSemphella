@@ -22,7 +22,7 @@ struct ALGHRTHIM {
 	int id;
 	sum_algrthom sa;
 	get_password_checksum px;
-	ALGHRTHIM::ALGHRTHIM(password_algrthom p, crypt_algrthom c, sum_algrthom s, int xid, get_password_checksum pc=password_type);
+	ALGHRTHIM(password_algrthom p, crypt_algrthom c, sum_algrthom s, int xid, get_password_checksum pc=password_type);
 };
 
 
