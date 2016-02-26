@@ -1,7 +1,11 @@
 #pragma once
 #include "config.h"
-#define MAX_BUFF_SIZE   4096
-#define API_VER         131
+#ifndef __ALLOW_LOWMEM_PREFER
+#define MAX_BUFF_SIZE   512
+#else
+#define MAX_BUFF_SIZE	4096
+#endif
+#define API_VER         140
 #define CORE_NAME       "libSemphella-Core"
 
 #ifndef _WNO_CPP
@@ -51,7 +55,7 @@ using namespace std;
 
 #include <time.h>
 
-#ifndef __LINUX__
+#ifndef __LINUX
 #include <amp.h>
 #include <amp_math.h>
 using namespace concurrency;

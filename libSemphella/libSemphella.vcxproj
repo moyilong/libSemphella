@@ -174,6 +174,7 @@
     <ClInclude Include="main.h" />
     <ClInclude Include="math.h" />
     <ClInclude Include="string.h" />
+    <ClInclude Include="translate.h" />
     <ClInclude Include="utils.h" />
   </ItemGroup>
   <ItemGroup>
@@ -189,6 +190,7 @@
     <ClCompile Include="libSemphella.cpp" />
     <ClCompile Include="math.cpp" />
     <ClCompile Include="string.cpp" />
+    <ClCompile Include="translate.cpp" />
     <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

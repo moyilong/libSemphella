@@ -219,3 +219,46 @@ API string strreplace(string orig, string replace, string value)
 	}
 	return ret;
 }
+
+API string convert_process(const char *data)
+{
+	string fin;
+	for (int n = 0; n < strlen(data); n++)
+	{
+		if (data[n] == '\\'&& n != strlen(data)-1)
+		{
+			n++;
+			switch (data[n])
+			{
+			case 't':
+				fin += '\t'; break;
+			case 'a':
+				fin += '\a'; break;
+			case 'b':
+				fin += '\b'; break;
+			case 'f':
+				fin += '\f'; break;
+			case 'n':
+				fin += '\n'; break;
+			case 'r':
+				fin += '\r'; break;
+			case 'v':
+				fin += '\v'; break;
+			case '\\':
+				fin += '\\'; break;
+			case '\'':
+				fin += '\''; break;
+			case '\"':
+				fin += '\"'; break;
+			case '\?':
+				fin += '\?'; break;
+			default:
+				fin += data[n];
+				break;
+			}
+		}
+		else
+			fin +=data[n];
+	}
+	return fin;
+}

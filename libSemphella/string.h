@@ -15,6 +15,7 @@ inline string int2s(int value) { return ull2s(value); }
 template<class T> inline T get_procs(T type) { return type; }
 API string strreplace(string orig, string replace, string value);
 API string strrm(const char* str, const char *rm_list);
+API string convert_process(const char *data);
 
 API string human_read(uint64_t _in, string *unit, int step,int number_out_type);
 API string human_read_storage_str[];
