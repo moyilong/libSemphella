@@ -23,11 +23,11 @@ void argment::load(int argc, char * argv[])
 {
 	debug << "Import Argment:" << argc << endl;
 	for (int n = 0; n < argc; n++)
-		if (argv[n][0] == '/' || argv[n][0] == '-')
+		if (argv[n][0] == '-')
 		{
 			CONFIG_BLOCK blk;
 			blk.name = argv[n]+1;
-			if (n == argc - 1 || argv[n + 1][0] == '/' || argv[n + 1][0] == '-')
+			if (n == argc - 1 ||  argv[n + 1][0] == '-')
 				blk.value = "def";
 			else
 			{
