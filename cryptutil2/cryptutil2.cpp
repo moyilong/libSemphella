@@ -33,9 +33,14 @@ void logo()
 
 bool file_name_check(string filename)
 {
+	cp2 << "Check File Name\"" << filename << "\"" << endl;
 	if (filename.size() <= strlen(".ert3"))
 		return false;
-	return (filename.substr(filename.size() - 5) == ".ert2") || (filename.substr(filename.size() - 5) == ".ert3");
+	if (filename.substr(filename.size() - 5) == ".ert2")
+		return true;
+	if (filename.substr(filename.size() - 5) == ".ert3")
+		return true;
+	return false;
 }
 
 bool HEAD::check()
