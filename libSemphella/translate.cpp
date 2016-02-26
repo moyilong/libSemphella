@@ -1,6 +1,6 @@
 #include "translate.h"
 #include "string.h"
-API vector<TRANSLATE_BLOCK> tpoll;
+vector<TRANSLATE_BLOCK> tpoll;
 
 API bool LoadFromFile(string filename)
 {
