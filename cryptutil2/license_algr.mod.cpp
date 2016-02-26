@@ -19,4 +19,4 @@
 			data[n] = data[n] ^ ArgmentGetValue(lic, n, bit);
 	}
 
-	ALGORTHIM LIC(LoadLicense, LCrypt, getsumV2, 6, pwd_sum);
+	ALGORTHIM LIC(LoadLicense, LCrypt, getsumV2, 5, pwd_sum);
