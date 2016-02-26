@@ -110,6 +110,7 @@ int crypt_process()
 	{
 		DEBUG << "Caculating Information.." << endl;
 		head.bs = bs;
+		DEBUG << "Calcing PSUM..." << endl;
 		head.password_sum = APOLL.at(trans_id(head.algrthom)).px(password);
 		DEBUG << "Alloc File Space" << endl;
 		out.write((char*)&head, sizeof(HEAD));
