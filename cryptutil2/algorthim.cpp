@@ -36,6 +36,7 @@ int trans_id(int id)
 			_cached_trans_to = ret;
 			return ret;
 		}
-
+	debug << "Id not found!" << endl;
+	cout << "ID was not exist!" << endl;
 	return -1;
 }

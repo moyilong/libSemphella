@@ -18,7 +18,8 @@ struct MP_BLOCK {
 	double per;
 };
 
-#define cp2 debug<<"[crypt2]"
+
+
 #define FILE_TYPE ".ert2"
 //static const char *strtbl = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz,/.<>?;':\"[] {}|\\-+*/";
 #define strtbl "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
@@ -34,6 +35,7 @@ struct MP_BLOCK {
 #define DEFAULT_ALGRTHOM_TYPE	3
 #endif
 
+#define cp2 debug
 #define DEBUG debug
 #define MAX_PASSWORD_LEN	MAX_BUFF_SIZE
 
