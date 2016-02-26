@@ -1,6 +1,5 @@
 #include "algorthim.h"
 
-#define STD_DBU	debug<<"[Alghrthim]"
 
 ALGHRTHIM::ALGHRTHIM(password_algrthom p, crypt_algrthom c, sum_algrthom s, int xid,get_password_checksum pc)
 {
@@ -9,7 +8,7 @@ ALGHRTHIM::ALGHRTHIM(password_algrthom p, crypt_algrthom c, sum_algrthom s, int 
 	ca = c;
 	sa = s;
 	px = pc;
-	STD_DBU << "Insert Alghrthim " << id << " @ " << APOLL.size() << endl;
+	debug << "Insert Alghrthim " << id << " @ " << APOLL.size() << endl;
 	APOLL.push_back(*this);
 }
 

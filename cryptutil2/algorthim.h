@@ -16,12 +16,14 @@ typedef uint64_t(*get_password_checksum)(string passwd);	//√‹¬Î–£—ÈÀ„∑®
 
 extern  bool decrypt;
 
-struct ALGHRTHIM {
+class ALGHRTHIM {
+public:
 	password_algrthom pa;
 	crypt_algrthom ca;
 	int id;
 	sum_algrthom sa;
 	get_password_checksum px;
+	inline ALGHRTHIM() {};
 	ALGHRTHIM(password_algrthom p, crypt_algrthom c, sum_algrthom s, int xid, get_password_checksum pc=password_type);
 };
 
