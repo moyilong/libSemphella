@@ -8,7 +8,7 @@ int information_process()
 		cout << "Argment Error!" << endl;
 	}
 	else {
-		if (file_name_check(input))
+		if (!file_name_check(input))
 		{
 			cout << "File Name Secure Check Faild!" << endl;
 			cout << "The ERT File last name is must be .ert2 or .ert3" << endl;

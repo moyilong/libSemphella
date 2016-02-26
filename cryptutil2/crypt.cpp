@@ -74,7 +74,7 @@ int crypt_process()
 		check = input;
 	DEBUG << "Checking Name Secure" << endl;
 	if (check.size()>5 && check != "-")
-		if (file_name_check(check) || check.size() <= 5)
+		if (!file_name_check(check) || check.size() <= 5)
 		{
 			cout << "Warring! File Name Secure Check Error!" << endl;
 			cout << "The ERT File last name is must be .ert2 or .ert3" << endl;

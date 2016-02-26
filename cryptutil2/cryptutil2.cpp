@@ -34,7 +34,7 @@ void logo()
 bool file_name_check(string filename)
 {
 	cp2 << "Check File Name \"" << filename << "\"" << endl;
-	cp2 << "Sub Name Is:" << filename.substr(filename.size() - 5);
+	cp2 << "Sub Name Is:" << filename.substr(filename.size() - 5)<<endl;
 	if (filename.size() <= strlen(".ert3"))
 		return false;
 	if (streval(filename.substr(filename.size() - 5).data(), ".ert2"))
