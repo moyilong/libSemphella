@@ -26,14 +26,10 @@ struct MP_BLOCK {
 
 //static const int level = 2;
 //static const int level_compact = 2;
-#define level 2
+#define level 3
 #define level_compact 2
 
-#ifdef LOW_PERFORMANCE_DEVICE
-#define DEFAULT_ALGRTHOM_TYPE	2
-#else
 #define DEFAULT_ALGRTHOM_TYPE	3
-#endif
 
 #define cp2 debug
 #define DEBUG debug
