@@ -36,9 +36,9 @@ bool file_name_check(string filename)
 	cp2 << "Check File Name\"" << filename << "\"" << endl;
 	if (filename.size() <= strlen(".ert3"))
 		return false;
-	if (filename.substr(filename.size() - 5) == ".ert2")
+	if (streval(filename.substr(filename.size() - 5).data(), ".ert2"))
 		return true;
-	if (filename.substr(filename.size() - 5) == ".ert3")
+	if (streval(filename.substr(filename.size() - 5).data() , ".ert3"))
 		return true;
 	return false;
 }
