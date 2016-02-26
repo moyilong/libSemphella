@@ -37,6 +37,7 @@ int trans_id(int id)
 			return ret;
 		}
 	debug << "Id not found!" << endl;
+	debug << "Founted ID:" << id << endl;
 	cout << "ID was not exist!" << endl;
 	return -1;
 }
