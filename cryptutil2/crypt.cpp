@@ -216,6 +216,6 @@ int crypt_process()
 	in.close();
 	if (!std_out)
 		out.close();
-	return true;
+	return 0;
 }
 

@@ -12,7 +12,7 @@ int information_process()
 		{
 			cout << "File Name Secure Check Faild!" << endl;
 			cout << "The ERT File last name is must be .ert2 or .ert3" << endl;
-			return false;
+			return -1;
 		}
 		ifstream in;
 		in.open(input.data());
@@ -88,5 +88,5 @@ int information_process()
 		}
 		exit(0);
 	}
-	return true;
+	return 0;
 }

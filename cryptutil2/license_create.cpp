@@ -23,5 +23,5 @@ int create_license()
 	LICENSE licc = CreateLicense(seed, bs);
 	string str = licc.operator=(licc);
 	out.write(str.data(),str.size());
-	return true;
+	return 0;
 }
