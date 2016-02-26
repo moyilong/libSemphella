@@ -55,7 +55,7 @@ using namespace std;
 
 #include <time.h>
 
-#ifndef __LINUX
+#ifndef __LINUX__
 #include <amp.h>
 #include <amp_math.h>
 using namespace concurrency;
