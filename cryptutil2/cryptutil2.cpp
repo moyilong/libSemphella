@@ -13,7 +13,7 @@
 
 bool force = false;
 vector<ALGHRTHIM> APOLL;
-
+bool license_create = false;
 bool crack_get = false;
 bool info_get = false;
 int alghtriom = DEFAULT_ALGRTHOM_TYPE;
@@ -119,28 +119,37 @@ void config_read(string name, string value)
 				cout << "Deafult Algrthom ID " << DEFAULT_ALGRTHOM_TYPE << endl;
 				exit(0);
 				break;
+			case 'l':
+				license_create = true;
+				break;
 
 			}
 }
 
 int main(int argc, char *argv[])
 {
-	KERNEL.SetDebugStat(false);
+	//KERNEL.SetDebugStat(false);
 #ifndef __LINUX__
 	logo();
 	cout << "Error:This Program is can't run in windows !" << endl;
 	cout << "      Please use linux version!" << endl;
 #ifdef ALLOW_WINDOWS_RUN
 	exit(-1);
+#else
+	cout << "Program is alloed be run!" << endl;
 #endif
 #endif
 	cp2<<"MAX Algrthon Type: 0~"<<APOLL_IDMAX<<endl;
 	cp2<<"Deafult Algrthom ID "<<DEFAULT_ALGRTHOM_TYPE<<endl;
 
 	argment config_load;
+	cp2 << "Import Argment..." << endl;
 	config_load.load(argc, argv);
+	cp2 << "Process Argment by foreach" << endl;
 	config_load.for_each(config_read);
-
+	cp2 << "Init Funcation" << endl;
+	if (license_create)
+		return create_license();
 	if (info_get)
 		return information_process();
 	return crypt_process();

@@ -1,8 +1,16 @@
 #include "license.h"
 
-LICENSE LICENSE::operator =(string str)
+#define ALL_ALLOWED_STRING	"~bcdefgRuvwxyz`{}|Shijklmn!@#$#34OPQTUVopqrst;5$%^&*()a6789LMN':\",.<>WX*-+\\FGABCDE-=_+[]?012HIJKYZ"
+
+LICENSE LICENSE::operator =(string _str)
 {
 	LICENSE lic;
+	string str;
+	for (int n = 0; n < _str.size(); n++)
+		if (_str.at(n) == '\n')
+			continue;
+		else
+			str += _str.at(n);
 	int u = -1;
 	for (int n = 0; n < str.size() && u == -1; n++)
 		if (str.at(n) == '/')
@@ -24,7 +32,15 @@ LICENSE LICENSE::operator =(string str)
 
 string LICENSE::operator =(LICENSE lic)
 {
-	return lic.main + "/" + lic.check;
+	string temp=lic.main + "/" + lic.check;
+	string ret;
+	for (int n = 0; n < temp.size(); n++)
+	{
+		ret += temp.at(n);
+		if ((n+1) % 64 == 0)
+			ret += "\n";
+	}
+	return ret;
 }
 
 string MainToCheck(string lmain)
@@ -43,11 +59,11 @@ string MainToCheck(string lmain)
 	string str;
 	for (int n = 0; n < sizeof(uint64_t) * 8; n++)
 	{
-		int value = sin(buff[n])*strlen(DEFAULT_WORD_BLACK_LIST);
+		int value = sin(buff[n])*strlen(ALL_ALLOWED_STRING);
 		value = abs(value);
-		str += DEFAULT_WORD_BLACK_LIST[value];
+		str += ALL_ALLOWED_STRING[value];
 	}
-
+	return str;
 }
 
 API char ArgmentGetValue(LICENSE lic, uint64_t arg1, uint64_t arg2)
@@ -65,16 +81,21 @@ API char ArgmentGetValue(LICENSE lic, uint64_t arg1, uint64_t arg2)
 	return ret;
 }
 
+
+
 API LICENSE CreateLicense(uint64_t _seed,uint64_t leng_bit)
 {
 	LICENSE ret;
 	for (int n = 0; n < leng_bit; n++)
 	{
-		uint64_t x = rand()*n + ~_seed;
+		uint64_t x = n + _seed + leng_bit - time(0);
 		x = x << 8;
-		int value = sin(x)*strlen(DEFAULT_WORD_BLACK_LIST);
+		x += leng_bit ^ _seed - rand();
+		x += rand() ^ 0x44;
+		x += time(0) - clock();
+		int value = sin(x)*strlen(ALL_ALLOWED_STRING);
 		value = abs(value);
-		ret.main += DEFAULT_WORD_BLACK_LIST[value];
+		ret.main += ALL_ALLOWED_STRING[value];
 	}
 	ret.check = MainToCheck(ret.main);
 	return ret;

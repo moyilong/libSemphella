@@ -5,10 +5,13 @@
 inline string __debug_strgetfilename(string filename)
 {
 	int last = 0;
-	for (int n = 0; n < filename.size(); n++)
+	for (int n = filename.size()-1; n >0; n--)
 		if (filename.at(n) == '\\' || filename.at(n) == '/')
+		{
 			last = n;
-	return filename.substr(last);
+			break;
+		}
+	return filename.substr(last+1);
 }
 
 #ifdef __ALLOW_DYMANIC_DEBUG

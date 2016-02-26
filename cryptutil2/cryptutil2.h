@@ -68,3 +68,4 @@ extern string password;
 
 int crypt_process();
 int information_process();
+int create_license();
