@@ -33,7 +33,7 @@ void logo()
 
 bool file_name_check(string filename)
 {
-	return input.substr(input.size() - 5) != ".ert2"&&input.substr(input.size() - 5) != ".ert3";
+	return (input.substr(input.size() - 5) == ".ert2") || (input.substr(input.size() - 5) == ".ert3");
 }
 
 bool HEAD::check()
