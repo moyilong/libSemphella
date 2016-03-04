@@ -1,6 +1,20 @@
 #include "translate.h"
 #include "string.h"
+
+bool reg_exit_call = true;
+
+
 vector<TRANSLATE_BLOCK> tpoll;
+
+#undef cout
+
+void TranslateDump()
+{
+	ofstream dump;
+	dump.open("dump.txt");
+	for (int n = 0; n < tpoll.size(); n++)
+		dump << tpoll.at(n).orig << "=:" << endl;
+}
 
 API bool LoadFromFile(string filename)
 {
@@ -24,6 +38,7 @@ API bool LoadFromFile(string filename)
 		//tpoll.push_back(tblock);
 		Register(tblock);
 	}
+	return true;
 }
 
 API void Register(TRANSLATE_BLOCK tblock)
@@ -34,16 +49,21 @@ API void Register(TRANSLATE_BLOCK tblock)
 		if (streval(tpoll.at(n).orig.data(), tblock.orig.data()))
 			check_stat = false;
 	if (!check_stat)
-		cout << "Warring: " << tblock.orig << " => " << tblock.trans << " insert faild! is already exist!" << endl;
+		std::cout << "Warring: " << tblock.orig << " => " << tblock.trans << " insert faild! is already exist!" << endl;
 	else
 		tpoll.push_back(tblock);
-
 }
 
 
 API string SearchStr(string orig)
 {
+	if (!reg_exit_call)
+	{
+		KERNEL.Register(INEXIT, TranslateDump);
+		reg_exit_call = true;
+	}
 	for (int n = 0; n < tpoll.size(); n++)
 		if (streval(tpoll.at(n).orig.data(), orig.data()))
 			return tpoll.at(n).trans;
 }
+

@@ -7,6 +7,13 @@ enum KTYPE {
 	WINDOWS,
 };
 
+enum REG_TYPE {
+	INIT,
+	INEXIT,
+};
+
+typedef void(*KSAPI)();
+
 class CAPI kernel
 {
 public:
@@ -19,8 +26,11 @@ public:
 	bool GetDebugStat();
 	void SetDebugStat(bool stat,string file=__FILE__,int line = __LINE__);
 	void LogoPrint();
+	void Register(REG_TYPE reg, KSAPI api);
 private:
 	time_t start_time;
+	vector<KSAPI> init_call;
+	vector<KSAPI> exit_call;
 };
 
 extern "C" API kernel KERNEL;

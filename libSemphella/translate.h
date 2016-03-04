@@ -9,17 +9,22 @@ struct TRANSLATE_BLOCK {
 
 API bool LoadFromFile(string filename);
 API void Register(TRANSLATE_BLOCK tblock);
+API string SearchStr(string orig);
+
 inline void Register(TRANSLATE_BLOCK *tblock, int size)
 {
 	for (int n = 0; n < size; n++)
 		Register(tblock[n]);
 }
-API string SearchStr(string orig);
 
-class translate {
+class CAPI translate {
 public:
 	inline void operator<<(string str)
 	{
-		cout << SearchStr(str);
+		std::cout << SearchStr(str);
 	}
+	inline translate() {};
 };
+
+
+#define cout translate

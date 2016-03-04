@@ -27,6 +27,8 @@ kernel::kernel()
 	if (kernel_inited)
 		this->abort();
 	start_time = time(0);
+	for (int n = 0; n < init_call.size(); n++)
+		init_call.at(n)();
 }
 
 
@@ -35,10 +37,24 @@ void kernel::LogoPrint()
 	cout << "                 ___         ___                ___  \n               /      /     /   /   /\\    /   /      \n              /----  /     /   /   /  \\  /   /----   \n             /____  /___  /___/   /    \\/   /____    \n";
 }
 
+void kernel::Register(REG_TYPE reg, KSAPI api)
+{
+	switch (reg)
+	{
+	case INIT:
+		init_call.push_back(api);
+		break;
+	case INEXIT:
+		exit_call.push_back(api);
+		break;
+	}
+}
+
 
 kernel::~kernel()
 {
-
+	for (int n = 0; n < exit_call.size(); n++)
+		exit_call.at(n)();
 
 }
 
