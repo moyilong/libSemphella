@@ -4,10 +4,9 @@
 #include <libSemphella/utils.h>
 #include <libSemphella/crypt.h>
 #include <libSemphella/debug.h>
+#include "cryptutil2.h"
 
 uint64_t password_type(string passwd);
-
-
 
 typedef void(*password_algrthom)(string password);	//初始化密码
 typedef void(*crypt_algrthom)(char *data, int64_t len, int64_t bit_off);	//加密算法
@@ -26,12 +25,11 @@ public:
 	inline ALGHRTHIM() {};
 	ALGHRTHIM(password_algrthom p, crypt_algrthom c, sum_algrthom s, int xid, get_password_checksum pc=password_type);
 };
-
+#define AMAX	16
 
 #define ALGORTHIM static ALGHRTHIM
-#define MAX_SIZE	8
 //extern vector<ALGHRTHIM> APOLL;
-extern ALGHRTHIM APOLL[MAX_SIZE];
+extern ALGHRTHIM APOLL[AMAX];
 
 extern int xsize;
 int trans_id(int id);

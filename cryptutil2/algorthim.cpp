@@ -1,6 +1,6 @@
 #include "algorthim.h"
 
-ALGHRTHIM APOLL[MAX_SIZE];
+ALGHRTHIM APOLL[AMAX];
 int xsize = 0;
 
 ALGHRTHIM::ALGHRTHIM(password_algrthom p, crypt_algrthom c, sum_algrthom s, int xid,get_password_checksum pc)

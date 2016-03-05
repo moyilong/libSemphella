@@ -20,34 +20,46 @@ struct MP_BLOCK {
 
 
 
-#define FILE_TYPE ".ert2"
+#define FILE_TYPE ".ert3"
 //static const char *strtbl = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz,/.<>?;':\"[] {}|\\-+*/";
 #define strtbl "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
 
 //static const int level = 2;
 //static const int level_compact = 2;
-#define level 3
+#define level 4
 #define level_compact 2
-
+#define ext_support_lab	(char)0xB9
+#define DEFAULT_FHANDLE 0
 #define DEFAULT_ALGRTHOM_TYPE	3
 
 #define cp2 debug
 #define DEBUG debug
 #define MAX_PASSWORD_LEN	MAX_BUFF_SIZE
-
 #define APOLL_SIZE	xsize
 #define APOLL_IDMAX	xsize
+
+#define EXT_SIZE	sizeof(uint64_t)
+
+#define WHITE_CRYPT
 
 struct HEAD {
 	char account_level = level;
 	char algrthom;
 	uint64_t sum;
-	uint64_t matrix_sum;
+	//uint64_t matrix_sum;
+	char ext[EXT_SIZE];
 	uint64_t password_sum;
 	uint64_t bs = bs;
 	bool check();
 	HEAD();
+	void reset_ext();
 };
+
+#define EXT_SUPPORT	0
+#define EXT_FHANDLE	1
+
+const char default_ext[EXT_SIZE] = { ext_support_lab,EXT_FHANDLE,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF };
+
 
 void logo();
 bool file_name_check(string filename);
@@ -59,6 +71,7 @@ extern bool force;
 extern bool crack_get;
 extern bool info_get;;
 extern int alghtriom;;
+extern int fhand;
 extern int al;
 extern string input;
 extern string output;

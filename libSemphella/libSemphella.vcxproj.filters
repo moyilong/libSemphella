@@ -39,6 +39,9 @@
       <Filter>代码</Filter>
     </ClCompile>
     <ClCompile Include="translate.cpp" />
+    <ClCompile Include="data_recovery.cpp">
+      <Filter>代码</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="crypt.h">
@@ -88,6 +91,9 @@
       <Filter>头</Filter>
     </ClInclude>
     <ClInclude Include="translate.h" />
+    <ClInclude Include="data_recovery.h">
+      <Filter>头</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />

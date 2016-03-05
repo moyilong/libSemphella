@@ -26,10 +26,10 @@ int information_process()
 		in.read((char*)&head, sizeof(head));
 		head.check();
 		cout << "Password Checksum:" << head.password_sum << endl;
-		cout << "Matrix Checksum:" << head.matrix_sum << endl;
 		cout << "Checksum:" << head.sum << endl;
 		cout << "Block size:" << head.bs << endl;
 		cout << "Algorithm:" << (int)head.algrthom << endl;
+		cout << "FHandle:" << (int)head.ext[EXT_FHANDLE] << endl;
 		if (crack_get)
 		{
 			uint64_t count = 0;

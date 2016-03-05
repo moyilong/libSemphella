@@ -1,44 +1,7 @@
 
 #include "cryptutil2.h"
-
-
-void FileProcess(HEAD head, file in, file out, uint64_t &sum, int len, uint64_t op_addr)
-{
-	if (decrypt)
-	{
-		in.seekp(op_addr + sizeof(HEAD));
-		if (!std_out)
-			out.seekp(op_addr);
-	}
-	else {
-		in.seekp(op_addr);
-		out.seekp(op_addr + sizeof(HEAD));
-	}
-	char *buff = (char*)malloc(len);
-	in.read(buff, len);
-	uint64_t vsu = 0;
-	if (!decrypt)
-		vsu = APOLL[trans_id(head.algrthom)].sa(buff, len);
-	int doff = 0;
-	if (decrypt)
-		doff = sizeof(HEAD);
-#ifndef WHITE_CRYPT
-	APOLL[trans_id(head.algrthom)].ca(buff, len, in.tellp() - len - doff);
-#endif
-	if (decrypt)
-		vsu = APOLL[trans_id(head.algrthom)].sa(buff, len);
-	if (!std_out)
-		out.write(buff, len);
-	else
-		//		cout<<buff;
-		fprintf(stdout, "%s", buff);
-	sum += vsu;
-	free(buff);
-}
-
-
-
-
+#include "fhandle.h"
+#include "algorthim.h"
 int crypt_process()
 {
 
@@ -94,6 +57,7 @@ int crypt_process()
 	HEAD head;
 	head.account_level = level;
 	head.algrthom = alghtriom;
+	head.ext[EXT_FHANDLE] = fhand;
 	uint64_t len = in.tell_len();
 	if (!in.is_open())
 	{
@@ -114,6 +78,7 @@ int crypt_process()
 		head.password_sum = APOLL[trans_id(head.algrthom)].px(password);
 		DEBUG << "Alloc File Space" << endl;
 		out.write((char*)&head, sizeof(HEAD));
+		DEBUG << "Read File Handle:" << (int)head.ext[EXT_FHANDLE] << endl;
 	}
 	else
 	{
@@ -137,7 +102,6 @@ int crypt_process()
 	}
 	if (!std_out)	cout << input << " => " << output << endl;
 	cp2 << len << " of " << bs << endl;
-	cp2 << "Creating Password Matrix..." << endl;
 	APOLL[trans_id(head.algrthom)].pa(password);
 	if (decrypt)
 	{
@@ -147,7 +111,6 @@ int crypt_process()
 			exit(0);
 		}
 	}
-	cp2 << "Matrix is Created!" << endl;
 	uint64_t sum = 0;
 	time_t start = time(0);
 	char *buff = (char*)malloc(sizeof(char)*bs);
@@ -171,9 +134,10 @@ int crypt_process()
 	}
 	double old_presend = 0, dlen = len;
 	uint64_t ulen = 0;
+	cp2 << "Using File Handle:" << (int)head.ext[EXT_FHANDLE] << endl;
 	for (uint64_t n = 0; n < step; n++)
 	{
-		FileProcess(head, in, out, sum, head.bs, n*head.bs);
+		get_fhandle(head.ext[EXT_FHANDLE])(head, in, out, sum, head.bs, n*head.bs);
 		if (!std_out)
 		{
 			double per = (double)((double)n*(double)head.bs) / (double)len;
@@ -185,7 +149,7 @@ int crypt_process()
 			}
 		}
 	}
-	FileProcess(head, in, out, sum, fix, step*head.bs);
+	get_fhandle(head.ext[EXT_FHANDLE])(head, in, out, sum, fix, step*head.bs);
 	cp2 << "Main Loop Over! SUM:" << sum << endl;
 	if (!std_out) ShowProcessBar(1, "--");
 	cout << endl;
@@ -194,6 +158,7 @@ int crypt_process()
 		cp2 << "updating head..." << endl;
 		head.sum = sum;
 		head.algrthom = alghtriom;
+		head.ext[EXT_FHANDLE] = fhand;
 		head.account_level = level;
 		cp2 << "Redirecting..." << endl;
 		out.seekp(0);

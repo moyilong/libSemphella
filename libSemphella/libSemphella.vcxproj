@@ -176,12 +176,14 @@
     <ClInclude Include="string.h" />
     <ClInclude Include="translate.h" />
     <ClInclude Include="utils.h" />
+    <ClInclude Include="data_recovery.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="APD_LOADER.cpp" />
     <ClCompile Include="argment.cpp" />
     <ClCompile Include="bios.cpp" />
     <ClCompile Include="crypt.cpp" />
+    <ClCompile Include="data_recovery.cpp" />
     <ClCompile Include="debug.cpp" />
     <ClCompile Include="files.cpp" />
     <ClCompile Include="license.cpp" />

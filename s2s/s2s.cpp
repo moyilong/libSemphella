@@ -7,7 +7,7 @@
 #include <time.h>
 #include <math.h>
 const char *strtbl = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz~`!@#$%^&*()-=_+{}[]\\|;':\",.<>/?/+*-";
-
+#include <libSemphella/sum.h>
 
 void str_add(char *g)
 {
@@ -90,7 +90,13 @@ int main(int argc, char *argv[])
 		}
 		
 	}
-	printf("%lld\n", getsumV2(argv[1],strlen(argv[1])));
+	printf("ELONE-Compact Sum:%lld\n", getsumV2(argv[1],strlen(argv[1])));
+	unsigned char md5_data[ZEN_MD5_HASH_SIZE] = { 0x00 };
+	ZEN_LIB::md5((const unsigned char *)argv[1], strlen(argv[1]), md5_data);
+	unsigned char sha1_data[ZEN_SHA1_HASH_SIZE] = { 0x00 };
+	ZEN_LIB::sha1((const unsigned char *)argv[1], strlen(argv[1]), sha1_data);
+	cout << "Normally MD5 SUM:" << ZEN_LIB::md5_string(md5_data) << endl;
+	cout << "Normally SHA1 SUM:" << ZEN_LIB::sha1_string(sha1_data) << endl;
 	return 0;
 TEST:
 	struct INFO{

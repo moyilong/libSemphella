@@ -313,3 +313,20 @@ API float getsum(const char *data, int len)
 	return ret;
 }
 
+#include "sum.h"
+
+API uint64_t md5_SUM(const char *data, uint64_t len)
+{
+	unsigned char result[ZEN_MD5_HASH_SIZE];
+	memset(result, 0, sizeof(result));
+	ZEN_LIB::md5((const unsigned char *)data, len, result);
+	return getsumV2((char*)result, ZEN_MD5_HASH_SIZE);
+}
+
+API uint64_t sha1_SUM(const char *data, uint64_t len)
+{
+	unsigned char result[ZEN_SHA1_HASH_SIZE];
+	memset(result, 0, sizeof(result));
+	ZEN_LIB::sha1((const unsigned char *)data, len, result);
+	return getsumV2((char*)result, ZEN_SHA1_HASH_SIZE);
+}

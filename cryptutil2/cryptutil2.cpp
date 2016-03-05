@@ -15,17 +15,18 @@ bool license_create = false;
 bool crack_get = false;
 bool info_get = false;
 int alghtriom = DEFAULT_ALGRTHOM_TYPE;
+extern int fhand=DEFAULT_FHANDLE;
 //#define ALLOW_WINDOWS_RUN
 
 int al;
 string input;
 string output;
 string password;
-
+#include "fhandle.h"
 void logo()
 {
 	KERNEL.LogoPrint();
-	cout << "CryptUtils Version 3.0.5-Beta " << endl << "Head Protoco Version:" << level << endl;
+	cout << "CryptUtils Version 3.2.5-Beta " << endl << "Head Protoco Version:" << level << endl;
 	cout << CORE_NAME << endl << "API Level:" << ull2s(API_VER) << endl << "Max Buff Size:" << ull2s(MAX_BUFF_SIZE) << endl;
 }
 
@@ -46,10 +47,11 @@ bool HEAD::check()
 {
 	cp2 << "Head Level:" << (int)account_level << endl;
 	cp2 << "Algrthom Type:" << (int)algrthom << endl;
+	cp2 << "File Handle Type:" << (int)ext[EXT_FHANDLE] << endl;
 	cp2 << "File Check Sum:" << sum << endl;
-	//cp2 << "Password Matrix Sum:" << matrix_sum << endl;
 	cp2 << "Password Check Sum:" << password_sum << endl;
 	cp2 << "Block Length:" << bs << endl;
+	cp2 << "Extenision Table Size:" << EXT_SIZE << endl;
 	if (account_level > level || account_level < level_compact)
 	{
 		cout << "Error: HEAD Protoco Check Fail d!" << endl;
@@ -63,16 +65,31 @@ bool HEAD::check()
 		cout << (int)algrthom << "is not exist!" << endl;
 		return false;
 	}
+	if  (ext[EXT_SUPPORT] != ext_support_lab)
+	{
+		cout << "Warring: HEAD Protoco Extend Table Check Faild!" << endl;
+		cout << " Convert to Default Status!" << endl;
+		cout << hex << "CheckLab:" << (int)ext_support_lab << " != " << (int)ext[EXT_SUPPORT]<<endl<<oct;
+		reset_ext();
+	}
 	return true;
+}
+
+void HEAD::reset_ext()
+{
+	//memcpy(ext, default_ext, EXT_SIZE);
+	for (int n = 0; n < EXT_SIZE; n++)
+		ext[n] = default_ext[n];
+	ext[EXT_SUPPORT] = ext_support_lab;
 }
 HEAD::HEAD()
 {
 	account_level = level;
 	algrthom = 0;
 	sum = 0;
-	matrix_sum = 0;
 	password_sum = 0;
 	bs = 0;
+	reset_ext();
 }
 
 void config_read(string name, string value)
@@ -118,15 +135,38 @@ void config_read(string name, string value)
 				break;
 			case 'V':
 				logo();
-				cout << "Max Algrthon Type: 0~" << APOLL_IDMAX << endl;
 				cout << "Defined Block Size:" << bs << endl;
 				if (KERNEL.GetDebugStat())
 					cout << "Verbos is Enabled!" << endl;
 				cout << "Deafult Algrthom ID " << DEFAULT_ALGRTHOM_TYPE << endl;
+				cout << "Extenision Table Size:" << EXT_SIZE << endl;
+				cout << "Fhandle Size:" << fsize +1<< endl;
+				cout << "Default Fhandle Size:" << DEFAULT_FHANDLE << endl;
+				cout << "Alloed Fhandle ID:" << endl;
+				for (int n = 0; n < fsize; n++)
+					cout << FPOLL[n].id << "\t";
+				cout << endl << "Allowed Algrthom ID:" << endl;
+				for (int n = 0; n < xsize; n++)
+					cout << APOLL[n].id << "\t";
+				cout << endl;
 				exit(0);
 				break;
 			case 'l':
 				license_create = true;
+				break;
+			case 'F':
+				al = atoi(value.data());
+				bool stat = false;
+				for (int x = 0; x < fsize; x++)
+					if (FPOLL[x].id == al)
+						stat = true;
+				if (!stat)
+				{
+					cout << "File Handle Not Exist!" << endl;
+					exit(0);
+				}
+				cp2 << "Resetting File Handle" << fhand << " => " << al << endl;
+				fhand = al;
 				break;
 
 			}

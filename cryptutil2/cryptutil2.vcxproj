@@ -157,13 +157,17 @@
   <ItemGroup>
     <ClInclude Include="algorthim.h" />
     <ClInclude Include="cryptutil2.h" />
+    <ClInclude Include="fhandle.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="algorthim.cpp" />
+    <ClCompile Include="basic.fhand.cpp" />
     <ClCompile Include="crypt.cpp" />
     <ClCompile Include="cryptutil2.cpp" />
     <ClCompile Include="basic.mod.cpp" />
+    <ClCompile Include="fhandle.cpp" />
+    <ClCompile Include="frecovery.fhand.cpp" />
     <ClCompile Include="info.cpp" />
     <ClCompile Include="license_algr.mod.cpp" />
     <ClCompile Include="license_create.cpp" />
