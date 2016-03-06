@@ -1,16 +1,45 @@
 #include "data_recovery.h"
 #include "crypt.h"
 #include <limits>
+
+#define STR "RECDATA_BEG"
+#define END	"RECDATA_END"
+
+
 struct REC_HEAD {
-	char a = 'S';
+	char a[sizeof(STR)] = STR;
 	uint64_t checksum;
-	int64_t block_len;
-	char b = 'E';
+	int x = 0;
+	int y = 0;
+	char b[sizeof(END)] = END;
+	inline REC_HEAD()
+	{
+		strcpy(a, STR);
+		strcpy(b, END);
+	}
 };
+
+void GetN(int64_t len, REC_HEAD &head)
+{
+	int div = 1;
+	for (int x = 64; x > 0; x++)
+		if (len %x == 0)
+		{
+			div = x;
+			break;
+		}
+	head.x = div;
+	head.y = len / div;
+	debug << "Divison " << len << " Return " << head.x << " * " << head.y << endl;
+}
 
 API int64_t get_block_len(int64_t data_len)
 {
-	return (data_len / 2) + sizeof(REC_HEAD);
+	REC_HEAD head;
+	GetN(data_len, head);
+	int64_t le=sizeof(REC_HEAD) + head.x + head.y+1;
+	debug << "Return Len:" << le << endl;
+	return le;
 }
 
 struct _TBLOCK {
@@ -22,106 +51,100 @@ struct _TBLOCK {
 vector<_TBLOCK> cache_data;
 char CACHE_STAT = -1;
 
-API void init_cache()
-{
-#undef min 
-#undef max
-	const int char_min = numeric_limits<char>::min();
-	const int char_max = numeric_limits<char>::max();
-
-	if (CACHE_STAT != 1)
-	{
-		if (CACHE_STAT == -1)
-		{
-			CACHE_STAT = 0;
-			for (int x = char_min; x < char_max; x++)
-				for (int y = char_min; y < char_max; y++)
-				{
-					_TBLOCK temp = {
-						x,y,x^y
-					};
-					cache_data.push_back(temp);
-
-				}
-			CACHE_STAT = 1;
-		}
-		while (CACHE_STAT == 1)
-			esleep(1);
-	}
-}
-
-STAT try_block(const char a, const char b, const char c, char &wa, char &wb)
-{
-	if (a^b == c)
-		return OK;
-	init_cache();
-	vector<_TBLOCK> maybe;
-#pragma omp parallel for
-	for (int n = 0; n < cache_data.size(); n++)
-	{
-		if (cache_data.at(n).c == c &&
-			(cache_data.at(n).a == a || (cache_data.at(n).b == b)))
-			maybe.push_back(cache_data.at(n));
-	}
-	if (maybe.size() > 1)
-		return MultiMatch;
-	else
-		if (maybe.size() == 0)
-			return NoMatch;
-	wa = maybe.at(0).a;
-	wb = maybe.at(0).b;
-	return Fixed;
-
-}
 
 API void CaculateRecovery(const char * data, int64_t len, char * ret)
 {
-	int64_t ret_len = get_block_len(len);
-	int64_t splite = len / 2;
-#pragma omp parallel for
-	for (int64_t n = 0; n < splite; n++)
-	{
-		ret[n + sizeof(REC_HEAD)] = data[n] ^ data[n + splite];
-	}
 	REC_HEAD head;
-	head.block_len = len;
-	head.checksum = getsumV2(ret + sizeof(REC_HEAD), splite);
+	GetN(len, head);
+	char *fix_data = (char*)malloc(sizeof(char)*(head.x + head.y));
+#pragma omp parallel for
+	for (int n = 0; n < head.x; n++)
+	{
+		fix_data[n] = 0;
+		for (int y = 0; y < head.y; y++)
+			fix_data[n] ^= data[head.y*n + y];
+	}
+#pragma omp parallel for
+	for (int n = 0; n < head.y ; n++)
+	{
+		fix_data[n+head.x] = 0;
+		for (int x = 0; x < head.x; x++)
+			fix_data[n+head.x] ^= data[head.x*n + x];
+	}
+	memcpy(ret + sizeof(REC_HEAD), fix_data, sizeof(char)*(head.x + head.y));
+	head.checksum = getsumV2(ret + sizeof(REC_HEAD), get_block_len(len)-sizeof(REC_HEAD));
 	memcpy(ret, &head, sizeof(REC_HEAD));
-
+	ret[get_block_len(len) - 1] = 'B';
 }
 
-API STAT Recovery(const char * data, int64_t len, const char * rec)
+API STAT Recovery(char * data, int64_t len, const char * rec)
 {
-	STAT ret = OK;
 	REC_HEAD head;
 	memcpy(&head, rec, sizeof(REC_HEAD));
-	int64_t splite = len / 2;
-	if (getsumV2(rec + sizeof(REC_HEAD), splite) != head.checksum)
-		return OK;
+	char *read_data = (char*)malloc(sizeof(char)*(head.x + head.y));
+	memcpy(read_data, rec + sizeof(REC_HEAD), head.x + head.y);
+	int warring = -1;
+	bool stat_ok = true;
 #pragma omp parallel for
-	for (int64_t n = 0; n < len; n++)
+	for (int n = 0; n < head.x; n++)
 	{
-		if (ret != OK)
+		char bit = 0;
+		for (int x = 0; x < head.x; x++)
+			for (int y = 0; y < head.y; y++)
+				bit ^= data[head.y*x + y];
+		if (bit != read_data[n])
 		{
-			if (rec[n + sizeof(REC_HEAD)] != data[n] ^ data[n + splite])
-			{
-				ret = FAILD;
-				char a, b, c;
-				STAT stat = try_block(data[n], data[n + splite], rec[n + sizeof(REC_HEAD)], a, b);
-				switch (stat)
-				{
-				case NoMatch:
-				case MultiMatch:
-					ret = stat;
-					break;
-				case Fixed:
-					break;
-				}
+			if (warring != -1)
+				stat_ok = false;
+			else
+				warring = n;
+		}
 
-			}
+	}
+	if (!stat_ok)
+		return FAILD;
+	if (warring == -1)
+		return OK;
+	int y_warring = -1;
+#pragma omp parallel for
+	for (int n = 0; n < head.y; n++)
+	{
+		char bit = 0;
+		for (int y = 0; y < head.y; y++)
+			for (int x = 0; x < head.x; x++)
+				bit ^= data[head.x*y + x];
+		if (bit != read_data[head.x + n])
+		{
+			if (y_warring == -1)
+				y_warring = n;
+			else
+				y_warring == -2;
 		}
 	}
-	return ret;
+	if (y_warring == -1 || y_warring == -2)
+		return FAILD;
+	int64_t off = warring*head.x + y_warring;
+	char fix_data = 0;
+	bool fix = false;
+#pragma omp parallel for
+	for (int b = CHAR_MIN; b < CHAR_MAX; b++)
+	{
+		char cx = 0;
+		char cy = 0;
+		for (int y = 0; y < head.y; y++)
+			cx ^= data[head.y*warring + y];
+		for (int x = 0; x < head.x; x++)
+			cy ^= data[head.x*y_warring + x];
+		if (cx == read_data[warring] && cy == read_data[y_warring + head.x])
+		{
+			fix = true;
+			fix_data = b;
+		}
+	}
+	if (!fix)
+		return FAILD;
+	data[off] = fix_data;
+	return Fixed;
 }
 
 API STAT VerifyRecoveryData(const char * rec, int64_t len)
@@ -129,7 +152,7 @@ API STAT VerifyRecoveryData(const char * rec, int64_t len)
 	REC_HEAD head;
 	memcpy(&head, rec, sizeof(REC_HEAD));
 	int64_t splite = len / 2;
-	if (getsumV2(rec + sizeof(REC_HEAD), splite) != head.checksum)
+	if (getsumV2(rec +sizeof(REC_HEAD) , get_block_len(len) - sizeof(REC_HEAD)) != head.checksum)
 		return FAILD;
 	return OK;
 }

@@ -62,3 +62,5 @@ using namespace concurrency;
 using namespace concurrency::fast_math;
 #define __USE_CPP_AMP__
 #endif
+
+#include "translate.h"

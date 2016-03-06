@@ -3,6 +3,7 @@
 
 bool reg_exit_call = true;
 
+translate template_x;
 
 vector<TRANSLATE_BLOCK> tpoll;
 

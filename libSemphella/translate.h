@@ -19,12 +19,25 @@ inline void Register(TRANSLATE_BLOCK *tblock, int size)
 
 class CAPI translate {
 public:
-	inline void operator<<(string str)
+	inline void operator<<(const string str)
+	{
+
+		std::cout << SearchStr(str);
+	}
+	inline void operator<<(const char *str)
 	{
 		std::cout << SearchStr(str);
+	}
+	inline void operator<<(const uint64_t val)
+	{
+		std::cout << val;
+	}
+	inline void operator<<(const int64_t val)
+	{
+		std::cout << val;
 	}
 	inline translate() {};
 };
 
-
-#define cout translate
+extern translate template_x;
+#define endl "\n"

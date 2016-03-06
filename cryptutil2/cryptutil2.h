@@ -28,7 +28,8 @@ struct MP_BLOCK {
 //static const int level_compact = 2;
 #define level 4
 #define level_compact 2
-#define ext_support_lab	(char)0xB9
+#define ext_support_lab	(char)'S'
+#define ext_end_lab	(char)'E'
 #define DEFAULT_FHANDLE 0
 #define DEFAULT_ALGRTHOM_TYPE	3
 
@@ -40,7 +41,7 @@ struct MP_BLOCK {
 
 #define EXT_SIZE	sizeof(uint64_t)
 
-#define WHITE_CRYPT
+//#define WHITE_CRYPT
 
 struct HEAD {
 	char account_level = level;
@@ -57,8 +58,9 @@ struct HEAD {
 
 #define EXT_SUPPORT	0
 #define EXT_FHANDLE	1
+#define EXT_ENDFLAG	EXT_SIZE-1
 
-const char default_ext[EXT_SIZE] = { ext_support_lab,EXT_FHANDLE};
+const char default_ext[EXT_SIZE] = { ext_support_lab,EXT_FHANDLE,00,00,00,00,00,ext_end_lab};
 
 
 void logo();

@@ -81,6 +81,7 @@ void HEAD::reset_ext()
 	for (int n = 0; n < EXT_SIZE; n++)
 		ext[n] = default_ext[n];
 	ext[EXT_SUPPORT] = ext_support_lab;
+	ext[EXT_ENDFLAG] = ext_end_lab;
 }
 HEAD::HEAD()
 {

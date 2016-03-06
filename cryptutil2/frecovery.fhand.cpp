@@ -8,6 +8,7 @@ void Rechandle(HEAD head, file in, file out, uint64_t &sum, int len, uint64_t op
 	char *recdata = (char*)malloc(rclen); 
 	uint64_t mov_in = 0, mov_out = 0;
 	uint64_t rec_off = xcount*get_block_len(bs);
+	cp2 << "Setting Recovery Offset:" << rec_off << endl;
 	if (decrypt)
 	{
 		mov_in=op_addr + sizeof(HEAD)+rec_off;
@@ -40,7 +41,9 @@ void Rechandle(HEAD head, file in, file out, uint64_t &sum, int len, uint64_t op
 		}
 	}
 	else {
+#ifndef WHITE_CRYPT
 		APOLL[trans_id(head.algrthom)].ca(recdata, rclen, 0);
+#endif
 		cp2 << "Caculating Recovery Data... ("<<rclen<<")" << endl;
 		CaculateRecovery(buff, len, recdata);
 	}
@@ -62,7 +65,9 @@ void Rechandle(HEAD head, file in, file out, uint64_t &sum, int len, uint64_t op
 		fprintf(stdout, "%s", buff);
 	if (!decrypt)
 	{
+#ifndef WHITE_CRYPT
 		APOLL[trans_id(head.algrthom)].ca(recdata, rclen, 0);
+#endif
 		cp2 << "Recovery data is writed!" << endl;
 		if (!std_out)
 			out.write(recdata, rclen);
@@ -72,8 +77,7 @@ void Rechandle(HEAD head, file in, file out, uint64_t &sum, int len, uint64_t op
 	sum += vsu;
 	free(buff);
 	free(recdata);
-	if (len != bs)
-		xcount++;
+	xcount++;
 }
 
 XFHANDLE RechandleX1(Rechandle, 1);
