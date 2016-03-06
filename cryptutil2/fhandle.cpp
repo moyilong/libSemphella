@@ -14,6 +14,7 @@ CFHANDLE get_fhandle(int n)
 	for (int x = 0; x < fsize; x++)
 		if (FPOLL[x].id == n)
 			return FPOLL[x].hand;
+	cout << "Handle " << n << " is not exist!" << endl;
 	KERNEL.error("Try to Use a unexist fhandle!");
 	return NULL;
 }
