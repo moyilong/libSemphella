@@ -42,14 +42,6 @@ API int64_t get_block_len(int64_t data_len)
 	return le;
 }
 
-struct _TBLOCK {
-	char a;
-	char b;
-	char c;
-};
-
-vector<_TBLOCK> cache_data;
-char CACHE_STAT = -1;
 
 
 API void CaculateRecovery(const char * data, int64_t len, char * ret)
@@ -118,7 +110,7 @@ API STAT Recovery(char * data, int64_t len, const char * rec)
 			if (y_warring == -1)
 				y_warring = n;
 			else
-				y_warring == -2;
+				y_warring = -2;
 		}
 	}
 	if (y_warring == -1 || y_warring == -2)
@@ -126,8 +118,10 @@ API STAT Recovery(char * data, int64_t len, const char * rec)
 	int64_t off = warring*head.x + y_warring;
 	char fix_data = 0;
 	bool fix = false;
+#undef min
+#undef max
 #pragma omp parallel for
-	for (int b = CHAR_MIN; b < CHAR_MAX; b++)
+	for (int b = numeric_limits<char>::min(); b < numeric_limits<char>::max(); b++)
 	{
 		char cx = 0;
 		char cy = 0;
