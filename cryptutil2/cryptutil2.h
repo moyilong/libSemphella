@@ -58,7 +58,7 @@ struct HEAD {
 #define EXT_SUPPORT	0
 #define EXT_FHANDLE	1
 
-const char default_ext[EXT_SIZE] = { ext_support_lab,EXT_FHANDLE,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF };
+const char default_ext[EXT_SIZE] = { ext_support_lab,EXT_FHANDLE};
 
 
 void logo();
