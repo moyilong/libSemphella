@@ -18,6 +18,8 @@ int alghtriom = DEFAULT_ALGRTHOM_TYPE;
 extern int fhand=DEFAULT_FHANDLE;
 //#define ALLOW_WINDOWS_RUN
 
+extern const char default_ext[EXT_SIZE] = { ext_support_lab,EXT_FHANDLE,00,00,00,00,00,ext_end_lab};
+
 int al;
 string input;
 string output;

@@ -60,7 +60,7 @@ struct HEAD {
 #define EXT_FHANDLE	1
 #define EXT_ENDFLAG	EXT_SIZE-1
 
-const char default_ext[EXT_SIZE] = { ext_support_lab,EXT_FHANDLE,00,00,00,00,00,ext_end_lab};
+extern const char default_ext[EXT_SIZE];
 
 
 void logo();
