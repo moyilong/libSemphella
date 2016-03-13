@@ -69,7 +69,7 @@ bool HEAD::check()
 	{
 		cout << "Warring: HEAD Protoco Extend Table Check Faild!" << endl;
 		cout << " Convert to Default Status!" << endl;
-		cout << hex << "CheckLab:" << (int)ext_support_lab << " != " << (int)ext[EXT_SUPPORT]<<endl<<oct;
+		cout << hex << "CheckLab:" << (int)(char)ext_support_lab << " != " << (int)(char)ext[EXT_SUPPORT]<<endl<<oct;
 		reset_ext();
 	}
 	return true;
