@@ -7,11 +7,11 @@
 
 
 struct REC_HEAD {
-	char a[sizeof(STR)] = STR;
+	char a[sizeof(STR)];
 	uint64_t checksum;
 	int x = 0;
 	int y = 0;
-	char b[sizeof(END)] = END;
+	char b[sizeof(END)];
 	inline REC_HEAD()
 	{
 		strcpy(a, STR);
