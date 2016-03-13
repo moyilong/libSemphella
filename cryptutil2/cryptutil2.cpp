@@ -65,7 +65,7 @@ bool HEAD::check()
 		cout << (int)algrthom << "is not exist!" << endl;
 		return false;
 	}
-	if  (ext[EXT_SUPPORT] != ext_support_lab)
+	if  (ext[EXT_SUPPORT] != ext_support_lab || ext[EXT_ENDFLAG] != ext_end_lab)
 	{
 		cout << "Warring: HEAD Protoco Extend Table Check Faild!" << endl;
 		cout << " Convert to Default Status!" << endl;
@@ -78,6 +78,7 @@ bool HEAD::check()
 void HEAD::reset_ext()
 {
 	//memcpy(ext, default_ext, EXT_SIZE);
+	memset(ext,0,sizeof(ext));
 	for (int n = 0; n < EXT_SIZE; n++)
 		ext[n] = default_ext[n];
 	ext[EXT_SUPPORT] = ext_support_lab;
