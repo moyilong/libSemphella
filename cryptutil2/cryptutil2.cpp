@@ -18,8 +18,6 @@ int alghtriom = DEFAULT_ALGRTHOM_TYPE;
 extern int fhand=DEFAULT_FHANDLE;
 //#define ALLOW_WINDOWS_RUN
 
-extern const char default_ext[EXT_SIZE] = { ext_support_lab,EXT_FHANDLE,00,00,00,00,00,ext_end_lab};
-
 int al;
 string input;
 string output;
@@ -79,12 +77,13 @@ bool HEAD::check()
 
 void HEAD::reset_ext()
 {
-	memcpy(ext, default_ext, EXT_SIZE);
-/*	memset(ext,0,sizeof(ext));
-	for (int n = 0; n < EXT_SIZE; n++)
-		ext[n] = default_ext[n];
+	cp2 << "Resetting Extension Table..."<<endl;
+	memset(ext,0,sizeof(ext));
+//	for (int n = 0; n < EXT_SIZE; n++)
+//		ext[n] = default_ext[n];
+	ext[EXT_FHANDLE] = DEFAULT_FHANDLE;
 	ext[EXT_SUPPORT] = ext_support_lab;
-	ext[EXT_ENDFLAG] = ext_end_lab;*/
+	ext[EXT_ENDFLAG] = ext_end_lab;
 }
 HEAD::HEAD()
 {

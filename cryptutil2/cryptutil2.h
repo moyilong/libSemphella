@@ -60,9 +60,6 @@ struct HEAD {
 #define EXT_FHANDLE	1
 #define EXT_ENDFLAG	EXT_SIZE-1
 
-extern const char default_ext[EXT_SIZE];
-
-
 void logo();
 bool file_name_check(string filename);
 
