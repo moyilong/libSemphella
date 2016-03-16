@@ -19,7 +19,6 @@
     <ClCompile Include="math.cpp">
       <Filter>代码</Filter>
     </ClCompile>
-    <ClCompile Include="kernel.cpp" />
     <ClCompile Include="sum.cpp">
       <Filter>代码</Filter>
     </ClCompile>
@@ -38,8 +37,13 @@
     <ClCompile Include="argment.cpp">
       <Filter>代码</Filter>
     </ClCompile>
-    <ClCompile Include="translate.cpp" />
     <ClCompile Include="data_recovery.cpp">
+      <Filter>代码</Filter>
+    </ClCompile>
+    <ClCompile Include="translate.cpp">
+      <Filter>代码</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel.cpp">
       <Filter>代码</Filter>
     </ClCompile>
   </ItemGroup>
@@ -71,7 +75,6 @@
     <ClInclude Include="math.h">
       <Filter>头</Filter>
     </ClInclude>
-    <ClInclude Include="kernel.h" />
     <ClInclude Include="sum.h">
       <Filter>头</Filter>
     </ClInclude>
@@ -90,8 +93,13 @@
     <ClInclude Include="argment.h">
       <Filter>头</Filter>
     </ClInclude>
-    <ClInclude Include="translate.h" />
     <ClInclude Include="data_recovery.h">
+      <Filter>头</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel.h">
+      <Filter>头</Filter>
+    </ClInclude>
+    <ClInclude Include="translate.h">
       <Filter>头</Filter>
     </ClInclude>
   </ItemGroup>

@@ -34,3 +34,5 @@ private:
 };
 
 extern "C" API kernel KERNEL;
+
+#define EVENT_CALL (type) KERNEL.Register(type,func)

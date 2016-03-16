@@ -19,6 +19,8 @@ public:
 	{
 		fflush(fp);
 	}
+	template<class type> void read(type *buff, uint64_t block_size);
+	template<class type> void write(type *buff, uint64_t block_size);
 private:
 	FILE *fp;
 	string ioname;
@@ -28,3 +30,14 @@ private:
 protected:
 	void check();
 };
+
+template<class type>
+inline void file::read(type * buff, uint64_t block_size)
+{
+
+}
+
+template<class type>
+inline void file::write(type * buff, uint64_t block_size)
+{
+}

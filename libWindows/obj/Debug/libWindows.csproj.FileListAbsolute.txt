@@ -1,0 +1,7 @@
+E:\libSemphella\libWindows\bin\Debug\libWindows.dll
+E:\libSemphella\libWindows\bin\Debug\libWindows.pdb
+E:\libSemphella\libWindows\obj\Debug\libWindows.csprojResolveAssemblyReference.cache
+E:\libSemphella\libWindows\obj\Debug\libWindows.libDebugWindows.resources
+E:\libSemphella\libWindows\obj\Debug\libWindows.csproj.GenerateResource.Cache
+E:\libSemphella\libWindows\obj\Debug\libWindows.dll
+E:\libSemphella\libWindows\obj\Debug\libWindows.pdb
