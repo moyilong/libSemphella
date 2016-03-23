@@ -55,3 +55,12 @@ out/
 *.pch
 *.exp
 Releases/
+*CMakeLists.text.*
+CMakeCache*
+CMakeCCompile
+CMakeFiles
+*.cmake
+*.so
+install_manifest.txt
+Makefile
+CMakeLists.txt.user

@@ -43,27 +43,36 @@ string LICENSE::operator =(LICENSE lic)
 	return ret;
 }
 
+#ifndef LICENSE_VIRFY_DEEP
+#define LICENSE_VIRFY_DEEP  128
+#endif
+
 string MainToCheck(string lmain)
 {
-	uint64_t value = getsumV2(lmain.data(), lmain.size());
-	char buff[sizeof(uint64_t)*8];
+    uint64_t buff[LICENSE_VIRFY_DEEP];
+    char str_buff[sizeof(uint64_t)*LICENSE_VIRFY_DEEP];
 #pragma omp parallel for
-	for (int n = 0; n < 8; n++)
-	{
-		char tmp[sizeof(uint64_t)];
-		uint64_t templ = value * n;
-		templ = templ >> 8;
-		memcpy(tmp, &templ, sizeof(uint64_t));
-		memcpy(buff + n*sizeof(uint64_t), tmp, sizeof(int));
-	}
-	string str;
-	for (int n = 0; n < sizeof(uint64_t) * 8; n++)
-	{
-		int value = sin(buff[n])*strlen(ALL_ALLOWED_STRING);
-		value = abs(value);
-		str += ALL_ALLOWED_STRING[value];
-	}
-	return str;
+    for (int n=0; n<LICENSE_VIRFY_DEEP;n++)
+    {
+        buff[n]=getsumV2(lmain.data(),lmain.size());
+        buff[n]<<8;
+        buff[n] += n;
+        memcpy(str_buff+sizeof(uint64_t)*n,&buff[n],sizeof(uint64_t));
+    }
+    string ret;
+    for (int n=0;n<LICENSE_VIRFY_DEEP;n++)
+    {
+        int x;
+        char val;
+        x=LICENSE_VIRFY_DEEP * n;
+        x=sin(x)*LICENSE_VIRFY_DEEP;
+        x=abs(x);
+        val=str_buff[x];
+        val=sin(val)*strlen(ALL_ALLOWED_STRING);
+        val=abs(val);
+        ret+=ALL_ALLOWED_STRING[val];
+    }
+    return ret;
 }
 
 API char ArgmentGetValue(LICENSE lic, uint64_t arg1, uint64_t arg2)

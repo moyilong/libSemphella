@@ -27,3 +27,5 @@ inline string eitoa(int num, int radix,const char *word_list=DEFAULT_WORD_WHITE_
 	eitoa(num, buff,radix, word_list);
 	return buff;
 }
+
+API string AddressGetFileName(string filename);
