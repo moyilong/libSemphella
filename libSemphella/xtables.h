@@ -57,14 +57,14 @@ inline DATA xtables<DATA, INDEX>::search(INDEX idx)
 				id = n;
 	if (id == -1)
 		return NULL;
-	return data.at(n).data;
+	return data.at(id).data;
 }
 
 template<class DATA, class INDEX>
 inline void xtables<DATA, INDEX>::memtest(void * a, void * b, uint64_t len)
 {
 	for (int n = 0;n < len;n++)
-		if (a[n] != b[n])
+		if ((char)a[n] != (char)b[n])
 			return false;
 	return true;
 }
