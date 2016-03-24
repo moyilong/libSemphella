@@ -46,6 +46,7 @@
     <ClCompile Include="kernel.cpp">
       <Filter>代码</Filter>
     </ClCompile>
+    <ClCompile Include="xtables.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="crypt.h">
@@ -102,6 +103,7 @@
     <ClInclude Include="translate.h">
       <Filter>头</Filter>
     </ClInclude>
+    <ClInclude Include="xtables.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
