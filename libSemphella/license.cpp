@@ -67,6 +67,8 @@ string MainToCheck(string lmain)
         x=LICENSE_VIRFY_DEEP * n;
         x=sin(x)*LICENSE_VIRFY_DEEP;
         x=abs(x);
+		 x << 8;
+		 x = ~x ^ n;
         val=str_buff[x];
         val=sin(val)*strlen(ALL_ALLOWED_STRING);
         val=abs(val);
@@ -95,6 +97,9 @@ API char ArgmentGetValue(LICENSE lic, uint64_t arg1, uint64_t arg2)
 API LICENSE CreateLicense(uint64_t _seed,uint64_t leng_bit)
 {
 	LICENSE ret;
+	char *buff = (char*)malloc(leng_bit);
+	memset(buff, 0, sizeof(buff));
+#pragma omp parallel for
 	for (int n = 0; n < leng_bit; n++)
 	{
 		uint64_t x = n + _seed + leng_bit - time(0);
@@ -104,8 +109,11 @@ API LICENSE CreateLicense(uint64_t _seed,uint64_t leng_bit)
 		x += time(0) - clock();
 		int value = sin(x)*strlen(ALL_ALLOWED_STRING);
 		value = abs(value);
-		ret.main += ALL_ALLOWED_STRING[value];
+		//ret.main += ALL_ALLOWED_STRING[value];
+		buff[n] = ALL_ALLOWED_STRING[value];
 	}
+	ret.main = buff;
+	free(buff);
 	ret.check = MainToCheck(ret.main);
 	return ret;
 }

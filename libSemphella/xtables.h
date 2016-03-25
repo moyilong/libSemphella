@@ -1,7 +1,7 @@
 #pragma once
 #include "main.h"
 #include "libSemphella.h"
-
+#include "crypt.h"
 template<class DATA,class INDEX>class xtables
 {
 public:
@@ -20,6 +20,26 @@ public:
 	inline void clear()
 	{
 		data.clear();
+	}
+	inline uint64_t get_hash()
+	{
+		uint64_t *mem = (uint64_t *)malloc(sizeof(uint64_t)*data.size());
+#pragma omp parallel for
+		for (int64_t n = 0;n < data.size();n++)
+			mem[n] = getsumV2((char*)data.at(n).data, sizeof(data));
+		uint64_t re = 0;
+		for (int64_t n = 0;n < data.size();n++)
+			ret += mem[n];
+		free(mem);
+		return ret << 8;
+	}
+	inline DATA at(uint64_t size)
+	{
+		return data.at(size).data;
+	}
+	inline IDX idx(uint64_t size)
+	{
+		return data.at(size);
 	}
 private:
 	vector<IDX>data;
