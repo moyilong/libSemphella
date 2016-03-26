@@ -58,6 +58,7 @@ void error()
 	{
 		err_rst++;
 		cout << "System will be reboot!" << endl;
+		esleep(500);
 		init();
 		loop();
 	}
