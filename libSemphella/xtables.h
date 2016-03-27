@@ -83,8 +83,10 @@ inline DATA xtables<DATA, INDEX>::search(INDEX idx)
 template<class DATA, class INDEX>
 inline void xtables<DATA, INDEX>::memtest(void * a, void * b, uint64_t len)
 {
+	char *prt_a=a;
+	char *ptr_b=b;
 	for (int n = 0;n < len;n++)
-		if ((char)a[n] != (char)b[n])
+		if ((ptr_a[n]!=ptr_b[n])
 			return false;
 	return true;
 }
