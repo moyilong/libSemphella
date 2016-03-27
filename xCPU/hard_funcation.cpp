@@ -12,6 +12,7 @@ ASSIGN_TYPE err_code = 0;
 ASSIGN_TYPE rst = -1;
 ASSIGN_TYPE auto_rst = 0;
 ASSIGN_TYPE mem_rst = 0;
+ASSIGN_TYPE cloop = 0;
 vector<CMD> program;
 char memory[ALLOW_SIZE];
 
@@ -75,6 +76,7 @@ void reset()
 	mem_buff = 0;
 	arg_buff = 0;
 	arg2_buff = 0;
+	cloop = 0;
 	cout << "Resetting Secure Zone.." << endl;
 	for (int n = 0; n < SECURE_ZONE_SIZE; n++)
 		memory[n+MEM_SIZE] = 0;

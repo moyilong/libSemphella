@@ -155,6 +155,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="emx.cpp" />
     <ClCompile Include="feature.cpp" />
     <ClCompile Include="hard_funcation.cpp" />
     <ClCompile Include="stdafx.cpp">

@@ -18,6 +18,7 @@ extern ASSIGN_TYPE err_code;
 extern ASSIGN_TYPE auto_rst;
 extern ASSIGN_TYPE rst;
 extern ASSIGN_TYPE mem_rst;
+extern ASSIGN_TYPE loop;
 
 struct CMD {
 	ASSIGN_TYPE type;

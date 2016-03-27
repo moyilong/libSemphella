@@ -3,6 +3,9 @@
 #define SIGNED_TYPE	int64_t
 #define ARCH_LENGTH	sizeof(ASSIGN_TYPE)
 
+#define ATYPE_MAX	numeric_limits<ASSIGN_TYPE>::max()
+#define ATYPE_MIN	numeric_limits<ASSIGN_TYPE>::min()
+
 
 #define KB	1024
 #define MB	KB*1024
