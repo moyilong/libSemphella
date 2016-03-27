@@ -27,7 +27,7 @@ public:
 #pragma omp parallel for
 		for (int64_t n = 0;n < data.size();n++)
 			mem[n] = getsumV2((char*)data.at(n).data, sizeof(data));
-		uint64_t re = 0;
+		uint64_t ret = 0;
 		for (int64_t n = 0;n < data.size();n++)
 			ret += mem[n];
 		free(mem);
