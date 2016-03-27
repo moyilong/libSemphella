@@ -86,7 +86,7 @@ inline void xtables<DATA, INDEX>::memtest(void * a, void * b, uint64_t len)
 	char *ptr_a=a;
 	char *ptr_b=b;
 	for (int n = 0;n < len;n++)
-		if ((ptr_a[n]!=ptr_b[n])
+		if (ptr_a[n]!=ptr_b[n])
 			return false;
 	return true;
 }
