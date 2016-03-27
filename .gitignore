@@ -11,6 +11,7 @@
 /.config
 /.config.old
 /bin
+*.elic
 /build_dir
 /staging_dir
 /tmp

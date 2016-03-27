@@ -1,6 +1,14 @@
 #include "license.h"
 
 #define ALL_ALLOWED_STRING	"~bcdefgRuvwxyz`{}|Shijklmn!@#$#34OPQTUVopqrst;5$%^&*()a6789LMN':\",.<>WX*-+\\FGABCDE-=_+[]?012HIJKYZ"
+#define HEAD_STR "ELIC_VERTEX_1_1::"
+
+inline uint64_t limitRandom(uint64_t max,uint64_t _seed)
+{
+	uint64_t seed = time(0) ^ max ^ clock() ^ _seed;
+	seed = sin(seed<<8)*max;
+	return seed;
+}
 
 LICENSE LICENSE::operator =(string _str)
 {
@@ -92,25 +100,34 @@ API char ArgmentGetValue(LICENSE lic, uint64_t arg1, uint64_t arg2)
 	return ret;
 }
 
-
+#define EXT_BIT	128
 
 API LICENSE CreateLicense(uint64_t _seed,uint64_t leng_bit)
 {
 	LICENSE ret;
 	char *buff = (char*)malloc(leng_bit);
 	memset(buff, 0, sizeof(buff));
+	uint64_t tbuff[EXT_BIT] = { 0 };
 #pragma omp parallel for
-	for (int n = 0; n < leng_bit; n++)
+	for (int n = 0; n < EXT_BIT; n++)
+	{
+		tbuff[n] = ~(time(0) ^ n)+ rand()<<8 ;
+		tbuff[n] ^= _seed;
+	}
+	strcpy(buff, HEAD_STR);
+#pragma omp parallel for
+	for (int n = strlen(HEAD_STR); n < leng_bit; n++)
 	{
 		uint64_t x = n + _seed + leng_bit - time(0);
 		x = x << 8;
 		x += leng_bit ^ _seed - rand();
 		x += rand() ^ 0x44;
 		x += time(0) - clock();
+		x = x << 3;
+		x = x ^ tbuff[limitRandom((unsigned long long)EXT_BIT,~n+~x)];
 		int value = sin(x)*strlen(ALL_ALLOWED_STRING);
 		value = abs(value);
-		//ret.main += ALL_ALLOWED_STRING[value];
-		buff[n] = ALL_ALLOWED_STRING[value];
+		buff[n]= ALL_ALLOWED_STRING[value];
 	}
 	ret.main = buff;
 	free(buff);
