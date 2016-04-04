@@ -262,15 +262,3 @@ API string convert_process(const char *data)
 	}
 	return fin;
 }
-
-API string AddressGetFileName(string filename)
-{
-    int last = 0;
-    for (int n = filename.size()-1; n >0; n--)
-        if (filename.at(n) == '\\' || filename.at(n) == '/')
-        {
-            last = n;
-            break;
-        }
-    return filename.substr(last+1);
-}
