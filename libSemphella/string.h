@@ -28,14 +28,4 @@ inline string eitoa(int num, int radix,const char *word_list=DEFAULT_WORD_WHITE_
 	return buff;
 }
 
-inline string AddressGetFileName(string filename)
-{
-	int last = 0;
-	for (int n = filename.size() - 1; n >0; n--)
-		if (filename.at(n) == '\\' || filename.at(n) == '/')
-		{
-			last = n;
-			break;
-		}
-	return filename.substr(last + 1);
-}
+API string AddressGetFileName(string filename);

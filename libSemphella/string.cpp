@@ -16,6 +16,20 @@ using namespace std;
 API  string human_read_storage_str[] = { "B","KB","MB","GB","TB","PB","EB" };
 
 
+API string AddressGetFileName(string filename)
+{
+	int last = 0;
+	for (int n = filename.size() - 1; n >0; n--)
+		if (filename.at(n) == '\\' || filename.at(n) == '/')
+		{
+			last = n;
+			break;
+		}
+	return filename.substr(last + 1);
+}
+
+
+
 API int strfind(const char *str,char find,bool wn)
 {
     int ret=0;
