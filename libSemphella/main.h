@@ -55,12 +55,4 @@ using namespace std;
 
 #include <time.h>
 
-#ifndef __LINUX__
-#include <amp.h>
-#include <amp_math.h>
-using namespace concurrency;
-using namespace concurrency::fast_math;
-#define __USE_CPP_AMP__
-#endif
-
 #include "translate.h"
