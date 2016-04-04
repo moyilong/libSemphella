@@ -3,7 +3,7 @@
 #include <cmath>
 #include <math.h>
 
-template<class T>inline T dZero(T n,T def=1)
+template<class T>inline T dZero(T n, T def = 1)
 {
 	if (n == 0)
 		return def;
@@ -15,7 +15,7 @@ inline bool isZero(void *prt, size_t len)
 	char *ptr = (char*)prt;
 	bool ret = true;
 #pragma omp parallel for
-	for (int n = 0;n < len;n++)
+	for (int n = 0; n < len; n++)
 		if ((char)ptr[n] != 0)
 			ret = false;
 	return ret;

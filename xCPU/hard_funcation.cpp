@@ -1,10 +1,12 @@
 #include "stdafx.h"
 #include "feature.h"
-ASSIGN_TYPE cmd_ptr=0;
+#include <libSemphella/main.h>
+
+ASSIGN_TYPE cmd_ptr = 0;
 ASSIGN_TYPE mem_ptr = 0;
 ASSIGN_TYPE tmp_code = 0;
 ASSIGN_TYPE err_rst = 0;
-ASSIGN_TYPE mem_buff=0;
+ASSIGN_TYPE mem_buff = 0;
 ASSIGN_TYPE cmd_buff = 0;
 ASSIGN_TYPE arg_buff = 0;
 ASSIGN_TYPE arg2_buff = 0;
@@ -31,10 +33,8 @@ void info()
 	disp_st(auto_rst, "AutoReset");
 	disp_st(mem_rst, "Resetting Memory");
 	disp_st(err_rst, "Error Reset Count");
-	cout << "MemSize:" << human_read(ALLOW_SIZE, human_read_storage_str,1024,10)<<endl;
-
+	cout << "MemSize:" << human_read(ALLOW_SIZE, human_read_storage_str, 1024, 10) << endl;
 }
-
 
 void poweroff()
 {
@@ -59,7 +59,7 @@ void error()
 	{
 		err_rst++;
 		cout << "System will be reboot!" << endl;
-		esleep(500);
+		esleep(5000);
 		init();
 		loop();
 	}
@@ -79,7 +79,7 @@ void reset()
 	cloop = 0;
 	cout << "Resetting Secure Zone.." << endl;
 	for (int n = 0; n < SECURE_ZONE_SIZE; n++)
-		memory[n+MEM_SIZE] = 0;
+		memory[n + MEM_SIZE] = 0;
 	cout << "Parallel Resetting Memory!" << endl;
 	if (mem_rst == 0)
 	{
@@ -139,7 +139,7 @@ void loadmem(ASSIGN_TYPE ptr, void *rptr)
 		err_code = 0xCCCC0001;
 		return;
 	}
-	memcpy(rptr, memory+ptr, ARCH_LENGTH);
+	memcpy(rptr, memory + ptr, ARCH_LENGTH);
 }
 
 void setmem(ASSIGN_TYPE ptr, void *rptr)

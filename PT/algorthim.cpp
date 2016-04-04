@@ -1,48 +1,94 @@
 #include "define.h"
 #include <libSemphella/utils.h>
+#include <math.h>
+#include <stdlib.h>
 int iops;
 bool quiet = false;
-bool Run(XPOINT point, int steps)
+uint64_t cc_count = 0;
+uint64_t xc_count = 0;
+bool status = true;
+
+bool subRun(XPOINT point, int steps)
 {
-#pragma omp parallel for
 	for (int dg_step = 0; dg_step < DGST_STEP; dg_step++)
 	{
 		float dgst = (360 / DGST_STEP)*dg_step;
-#pragma omp parallel for
 		for (int len_step = 0; len_step < STEPS; len_step++)
 		{
 			XPOINT target = VectorPoint(point, dgst, steps);
 			if (steps <= STEPS && inPoint(target))
-				Run(target, min(0,steps) + 1);
+				subRun(target, steps + 1);
+			else
+			{
+				char bit_data = chess[(int)point.x][(int)point.y];
+				char bit_data2 = chess[(int)point.y][(int)point.x];
+				bit_data ^ bit_data2;
+			}
+			cc_count++;
+		}
+	}
+	return false;
+}
+time_t beg;
+void ThreadMonitor()
+{
+	if (quiet)
+		return;
+	while (true)
+	{
+		esleep(1000);
+		double precent = (double)xc_count / (double)(AREA_MAX*AREA_MAX*LOOP_ADD);
+		iops = (iops + (xc_count / (time(0) - beg))) / 2;
+
+		ShowProcessBar(precent, ull2s(iops / 1000) + " KIPS");
+		printf("\r");
+		if (!status)
+		{
+			ShowProcessBar(1, "Finish                 \n");
+			return;
 		}
 	}
 }
 
-
+void _Run()
+{
+	beg = time(0);
+	for (int n = 0; n < LOOP_ADD; n++)
+	{
+#pragma omp parallel for
+		for (int x = 0; x < AREA_MAX; x++)
+			for (int y = 0; y < AREA_MAX; y++)
+			{
+				xc_count++;
+				subRun(XPOINT(x, y), 0);
+			}
+	}
+	status = false;
+}
+#include <thread>
 void Run()
 {
-	char buff[MAX_BUFF_SIZE];
 	cout << endl << endl;
-	uint64_t count = 0;
-	time_t beg = time(0);
-	for_each
+	beg = time(0);
+	//omp_set_num_threads(2);
+/*#pragma omp parallel for
+	for (int n = 0; n < 2; n++)
 	{
-		count++;
-		Run(XPOINT(x,y),0);
-		double precent = (double)count / (double)(AREA_MAX*AREA_MAX);
-		if (count % 20 == 0&&!quiet)
-	if ((int)precent % AREA_MAX == 0)
-	{
-		if (time(0) != beg)
-			iops = (iops + (count / (time(0) - beg))) / 2;
-		memset(buff, 0, sizeof(buff));
-		sprintf(buff, " %dIOPS",iops);
-		ShowProcessBar(precent, buff);
-
-	}
-	}
-		if (time(0) == beg)
-			iops = -1;
+		cout << "TID:" << n << endl;
+		if (n == 0)
+			_Run();
 		else
-			iops = (iops + (count / (time(0) - beg))) / 2;
+			ThreadMonitor();
+	}*/
+	thread ca(_Run);
+	thread mo(ThreadMonitor);
+	ca.join();
+	if (!quiet)
+		mo.join();
+	if (time(0) == beg)
+	{
+		cout << "System Append an Error: MAXED_OUT" << endl;
+	}
+	else
+		iops = (iops + (xc_count / (time(0) - beg))) / 2;
 }
