@@ -1,5 +1,5 @@
 ADD_EXECUTABLE(PT  algorthim.cpp entry.cpp stdafx.cpp utils.cpp vector.cpp)
 SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}  -D__LINUX__ -std=c++11 -fpermissive -D_LINUX -O3 -fopenmp")
 INSTALL (TARGETS PT DESTINATION bin)
-INCLUDE_DIRECTORIES(..)
 TARGET_LINK_LIBRARIES(PT -lSemphella)
+INCLUDE_DIRECTORIES(..)
