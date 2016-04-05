@@ -11,17 +11,23 @@ int create_license()
 		return false;
 	}
 	ofstream out;
-	out.open(output.data());
-	if (!out.is_open())
+	if (!std_out)
 	{
-		cout << "Open File Faild!" << endl;
-		return false;
+		out.open(output.data());
+		if (!out.is_open())
+		{
+			cout << "Open File Faild!" << endl;
+			return false;
+		}
 	}
 	cp2 << "Creating License..." << endl;
 	uint64_t seed = rand()*time(0);
 	cp2 << "License Seed:" << seed << endl;
 	LICENSE licc = CreateLicense(seed, bs);
 	string str = licc.operator=(licc);
-	out.write(str.data(),str.size());
+	if (std_out)
+		cout << str << endl;
+	else
+		out.write(str.data(), str.size());
 	return 0;
 }

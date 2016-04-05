@@ -78,6 +78,11 @@ void file::seekp(uint64_t off)
 	f2debug << "Seek is redirect to " << ftell(fp) << endl;
 }
 
+bool file::is_eof()
+{
+	return feof(fp);
+}
+
 void file::check()
 {
 	if (opend && fp == NULL)
@@ -86,4 +91,9 @@ void file::check()
 		f2debug << "Status is open bug the status is ptr is null" << endl;
 		abort();
 	}
+}
+
+API void fs_verbos(bool stat)
+{
+	f2verbos = stat;
 }

@@ -138,7 +138,7 @@ API void xor_cryptV2_1_MATRIX_V2_LMEM(string password, char * data, int64_t len,
 		data[n] = data[n] ^ (matrix_value + n + bitoff);
 	}
 }
-API inline char xbit(const char *data,long long len,const char off)
+inline char xbit(const char *data,long long len,const char off)
 {
     char ret=off;
     for (long long n=0;n<len;n++)

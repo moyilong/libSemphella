@@ -9,147 +9,45 @@
 const char *strtbl = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz~`!@#$%^&*()-=_+{}[]\\|;':\",.<>/?/+*-";
 #include <libSemphella/sum.h>
 
-void str_add(char *g)
-{
-	bool nex_plus = true;
-	for (int n = 0; n < MAX_BUFF_SIZE; n++)
-	{
-		if (g[n] == '\0'&&nex_plus)
-		{
-			g[n] = strtbl[0];
-			nex_plus = false;
-			continue;
-		}
-		if (g[n] == '\0')
-			continue;
-		int now = -1;
-		for (int x = 0; x < strlen(strtbl); x++)
-			if (g[n] == strtbl[x])
-				now = x;
-		if (now == -1)
-			continue;
-		if (nex_plus)
-		{
-			if (g[n] == strtbl[strlen(strtbl) - 1])
-			{
-				nex_plus = true;
-				g[n] = strtbl[n];
-				continue;
-			}
-			else{
-				g[n] = strtbl[now + 1];
-				nex_plus = false;
-				continue;
-			}
-		}
-
-	}
-}
-
-bool strequal(const char *a, const char *b)
-{
-	if (strlen(a) != strlen(b))
-		return false;
-	for (int n = 0; n < strlen(a); n++)
-		if (a[n] != b[n])
-			return false;
-	return true;
-}
-
 ofstream out("logdump.log");
 #include <limits>
 #include <libSemphella/utils.h>
 #include <libSemphella/files.h>
+#include <libSemphella/argment.h>
+
 int main(int argc, char *argv[])
 {
-	if (argv[1][0] == '-'&&argv[1][1] == 't')
+	if (streval("-f", argv[1]))
 	{
-		goto TEST;
+		file load;
+		load.open(argv[2], "r");
+		if (!load.is_open())
+		{
+			cout << "Open File Faild!" << endl;
+			return -1;
+		}
+		uint64_t len = load.tell_len();
+		uint64_t steps = len / MAX_BUFF_SIZE;
+		uint64_t mix = len - steps*MAX_BUFF_SIZE;
+		uint64_t sum = 0;
+		char buff[MAX_BUFF_SIZE];
+		for (uint64_t n = 0;n < steps;n++)
+		{
+			memset(buff, 0, MAX_BUFF_SIZE);
+			load.read(buff, MAX_BUFF_SIZE);
+			sum += getsumV2(buff, MAX_BUFF_SIZE);
+		}
+		memset(buff, 0, MAX_BUFF_SIZE);
+		load.read(buff, mix);
+		sum += getsumV2(buff, mix);
+		printf("%08ull", sum);
+		load.close();
 		return 0;
 	}
-	if (argv[1][0] == '-' && argv[1][1] == 's')
-	{
-		const uint64_t stor = getsumV2(argv[2], strlen(argv[2]));
-#undef min
-#undef max
-		for (int n = numeric_limits<int>::min(); n < numeric_limits<int>::max(); n++)
-		{
-			if (stor != getsumV2(argv[2], strlen(argv[2])))
-			{
-				cout << "System is unsecured!" << endl;
-				cout << "Test Value:" << n << endl;
-				exit(-1);
-			}
-			if (n % 10 == 0)
-			{
-				long double val = (long)n / ((long)numeric_limits<int>::max() - (long)numeric_limits<int>::min());
-				if (val <0 )
-					val=-val;
-				ShowProcessBar(val, ull2s(getsumV2(argv[2],strlen(argv[2]))));
-			}
-		}
-		
-	}
-	printf("ELONE-Compact Sum:%lld\n", getsumV2(argv[1],strlen(argv[1])));
-	unsigned char md5_data[ZEN_MD5_HASH_SIZE];
-	ZEN_LIB::md5((const unsigned char *)argv[1], strlen(argv[1]), md5_data);
-	unsigned char sha1_data[ZEN_SHA1_HASH_SIZE];
-	memset(sha1_data,0,sizeof(sha1_data));
-	memset(md5_data,0,sizeof(md5_data));
-	ZEN_LIB::sha1((const unsigned char *)argv[1], strlen(argv[1]), sha1_data);
-	cout << "Normally MD5 SUM:" << ZEN_LIB::md5_string(md5_data) << endl;
-	cout << "Normally SHA1 SUM:" << ZEN_LIB::sha1_string(sha1_data) << endl;
+	string arg_t;
+	for (int n = 0;n < argc;n++)
+		arg_t += argv[n];
+	uint64_t ret = getsumV2(arg_t.data(), arg_t.size());
+	printf("%08ull", ret);
 	return 0;
-TEST:
-	struct INFO{
-		string str;
-		uint64_t data;
-		size_t match_size = 0;
-	};
-	vector<INFO>ipoll;
-	char str[MAX_BUFF_SIZE];
-	memset(str, '\0', MAX_BUFF_SIZE);
-	for (int n = 0; n < 6; n++)
-		str[n] = strtbl[0];
-	int count = 0;
-	int match = 0;
-	float last = 0;
-	float liops = 0;
-	clock_t clast = clock();
-	while (true)
-	{
-		INFO inf;
-		inf.str = str;
-		inf.data=getsumV2(inf.str.data(), inf.str.size());
-		bool stat = true;
-#pragma omp parallel for
-		for (int n = 0; n < ipoll.size();n++)
-			if (stat)
-			if (ipoll.at(n).data == inf.data&&!strequal(inf.str.data(), ipoll.at(n).str.data()))
-			{
-				stat = false;
-				match++;
-				ipoll.at(n).match_size++;
-				cout << "FindN:" <<hex<< inf.data<<oct <<" " <<inf.str <<"=="<<ipoll.at(n).str<<"  Match:"<<ipoll.at(n).match_size<<endl;
-				//out << "Find Equal!" << endl;
-				//out << n<<"Find At:" <<  "(" << inf.data << ") == " << ipoll.at(n).str << "(" << ipoll.at(n).data << ")" << endl;
-			}
-		str_add(str);
-		if (count % 1000 == 0)
-		{
-			float now = ((float)match / (float)count)*(float)100;
-			float iops = 1000 / (float)(clock() - clast);
-			cout << "Count:" << count << " Match:" << match << " " << now << "% add:" << now - last << "%\tTimeout:" << clock() - clast << "\t " << iops <<" IOPS\t"<<liops-iops<<endl;
-			last = now;
-			clast = clock();
-			liops = iops;
-		}
-		count++;
-		if (stat)
-			ipoll.push_back(inf);
-	}
-	return 0;
-
 }
-
-

@@ -1,5 +1,0 @@
-ADD_EXECUTABLE(bios  bios.cpp)
-SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}  -D__LINUX__ -std=c++11 -fpermissive -D_LINUX -O3 -fopenmp")
-INSTALL (TARGETS bios DESTINATION bin)
-TARGET_LINK_LIBRARIES(bios -lSemphella)
-INCLUDE_DIRECTORIES(..)

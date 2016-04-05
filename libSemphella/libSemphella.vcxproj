@@ -170,7 +170,6 @@
     <ClInclude Include="license.h" />
     <ClInclude Include="sum.h" />
     <ClInclude Include="kernel.h" />
-    <ClInclude Include="libbios.h" />
     <ClInclude Include="libsemphella.h" />
     <ClInclude Include="linux.h" />
     <ClInclude Include="main.h" />
@@ -184,7 +183,6 @@
   <ItemGroup>
     <ClCompile Include="APD_LOADER.cpp" />
     <ClCompile Include="argment.cpp" />
-    <ClCompile Include="bios.cpp" />
     <ClCompile Include="crypt.cpp" />
     <ClCompile Include="data_recovery.cpp" />
     <ClCompile Include="debug.cpp" />

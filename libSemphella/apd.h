@@ -1,7 +1,7 @@
 #include "libSemphella.h"
 
 
-	typedef 	long long COUNT_TYPE;
+	typedef 	int64_t COUNT_TYPE;
 	
 	struct label{
 		string name;

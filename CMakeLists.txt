@@ -7,9 +7,6 @@ ADD_DEPENDENCIES(s2s Semphella)
 ADD_SUBDIRECTORY(mpshell)
 ADD_DEPENDENCIES(mpshell Semphella)
 
-ADD_SUBDIRECTORY(bios)
-ADD_DEPENDENCIES(bios Semphella)
-
 ADD_SUBDIRECTORY(cryptutil2)
 ADD_DEPENDENCIES(cryptutil2 Semphella)
 

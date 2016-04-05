@@ -5,7 +5,7 @@
 #else
 #define MAX_BUFF_SIZE	4096
 #endif
-#define API_VER         147
+#define API_VER         149
 #define CORE_NAME       "libSemphella-Core"
 
 #ifndef _WNO_CPP

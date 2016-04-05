@@ -79,8 +79,6 @@ void HEAD::reset_ext()
 {
 	cp2 << "Resetting Extension Table..."<<endl;
 	memset(ext,0,sizeof(ext));
-//	for (int n = 0; n < EXT_SIZE; n++)
-//		ext[n] = default_ext[n];
 	ext[EXT_FHANDLE] = DEFAULT_FHANDLE;
 	ext[EXT_SUPPORT] = ext_support_lab;
 	ext[EXT_ENDFLAG] = ext_end_lab;
