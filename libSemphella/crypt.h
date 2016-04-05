@@ -8,26 +8,21 @@ API char get_off();
 
 #define count_t unsigned  long long
 
-API char xbit(const char *data,long long len,const char off=_EL_CPYOFF);
-CAPI void crypt(char* data,long long len,const char *password);
+API char xbit(const char *data, long long len, const char off = _EL_CPYOFF);
+CAPI void crypt(char* data, long long len, const char *password);
 
-
-
-CAPI void word_list_convert( char *str,const char *word_white_list=DEFAULT_WORD_WHITE_LIST
+CAPI void word_list_convert(char *str, const char *word_white_list = DEFAULT_WORD_WHITE_LIST
 	, const char *word_balck_list = DEFAULT_WORD_BLACK_LIST);
 
-
-
-API bool word_list_check(const char *word_white_list,const  char *word_black_list);
-CAPI void crypt_t(char *data, long long len,const char *password, const char *la= DEFAULT_WORD_WHITE_LIST, const char *lb= DEFAULT_WORD_BLACK_LIST);
-
+API bool word_list_check(const char *word_white_list, const  char *word_black_list);
+CAPI void crypt_t(char *data, long long len, const char *password, const char *la = DEFAULT_WORD_WHITE_LIST, const char *lb = DEFAULT_WORD_BLACK_LIST);
 
 API void dymanic_code(const char *license, long long license_len, string password, string &ret);
 API void half_dymanic_code(const char *license, long long license_len, string password, string &ret, count_t now);
 
 //inline feature
 
-inline void crypt_t(char *data, long long len, string password, const char *la= DEFAULT_WORD_WHITE_LIST, const char *lb= DEFAULT_WORD_BLACK_LIST)
+inline void crypt_t(char *data, long long len, string password, const char *la = DEFAULT_WORD_WHITE_LIST, const char *lb = DEFAULT_WORD_BLACK_LIST)
 {
 	crypt_t(data, len, password.data(), la, lb);
 }
@@ -57,3 +52,5 @@ inline void CreateMatrixV2(string password, char **matrix)
 	CreateMatrixV2(password.data(), password.size(), matrix);
 }
 API uint64_t getsumV2(const char *data, int64_t len);
+
+#define anySUM(ptr) getsumV2((char*)ptr,sizeof(ptr));
