@@ -54,3 +54,5 @@ inline void CreateMatrixV2(string password, char **matrix)
 API uint64_t getsumV2(const char *data, int64_t len);
 
 #define anySUM(ptr) getsumV2((char*)ptr,sizeof(ptr));
+
+API void fastCrypt(char *data, uint64_t len, string password);

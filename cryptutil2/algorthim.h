@@ -17,13 +17,18 @@ extern  bool decrypt;
 
 class ALGHRTHIM {
 public:
+	bool can_be_pt = true;
+	//密码初始化算法
 	password_algrthom pa;
+	//加密算法
 	crypt_algrthom ca;
 	int id;
+	//校验值算法
 	sum_algrthom sa;
+	//密码校验算法
 	get_password_checksum px;
 	inline ALGHRTHIM() {};
-	ALGHRTHIM(password_algrthom p, crypt_algrthom c, sum_algrthom s, int xid, get_password_checksum pc=password_type);
+	ALGHRTHIM(password_algrthom p, crypt_algrthom c, sum_algrthom s, int xid, get_password_checksum pc = password_type, bool _can_be_pt = true);
 };
 #define AMAX	16
 
@@ -33,5 +38,3 @@ extern ALGHRTHIM APOLL[AMAX];
 
 extern int xsize;
 int trans_id(int id);
-
-

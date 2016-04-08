@@ -3,18 +3,18 @@
 ALGHRTHIM APOLL[AMAX];
 int xsize = 0;
 
-ALGHRTHIM::ALGHRTHIM(password_algrthom p, crypt_algrthom c, sum_algrthom s, int xid,get_password_checksum pc)
+ALGHRTHIM::ALGHRTHIM(password_algrthom p, crypt_algrthom c, sum_algrthom s, int xid, get_password_checksum pc, bool _can_be_pt)
 {
 	id = xid;
 	pa = p;
 	ca = c;
 	sa = s;
 	px = pc;
-	debug << "Insert Alghrthim " << id << " @ " << xsize<< endl;
+	debug << "Insert Alghrthim " << id << " @ " << xsize << endl;
 	//APOLL.push_back(*this);
+	can_be_pt = _can_be_pt;
 	APOLL[xsize++] = *this;
 }
-
 
 char _cached_trans_from = -1;
 char _cached_trans_to = -1;

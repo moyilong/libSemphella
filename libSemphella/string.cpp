@@ -15,11 +15,19 @@ using namespace std;
 #define strr debug<<"[StringLib]"
 API  string human_read_storage_str[] = { "B","KB","MB","GB","TB","PB","EB" };
 
+API string StrLimit(string str, int len)
+{
+	if (len <= 8)
+		KERNEL.error("StrLimit is too short!");
+	if (str.size() <= len)
+		return str;
+	return str.substr(0, len - 6) + "..." + str.substr(str.size() - 3);
+}
 
 API string AddressGetFileName(string filename)
 {
 	int last = 0;
-	for (int n = filename.size() - 1; n >0; n--)
+	for (int n = filename.size() - 1; n > 0; n--)
 		if (filename.at(n) == '\\' || filename.at(n) == '/')
 		{
 			last = n;
@@ -28,30 +36,26 @@ API string AddressGetFileName(string filename)
 	return filename.substr(last + 1);
 }
 
-
-
-API int strfind(const char *str,char find,bool wn)
+API int strfind(const char *str, char find, bool wn)
 {
-    int ret=0;
+	int ret = 0;
 	for (int n = 0; n < strlen(str); n++)
 		if (str[n] == find)
 			if (wn)
 				return n;
 			else
 				ret++;
-    return ret;
+	return ret;
 }
 
-
-
-CAPI void strcpy(char *dest,const char *origin,long long cplen,long long r_off,long long w_off)
+CAPI void strcpy(char *dest, const char *origin, long long cplen, long long r_off, long long w_off)
 {
 #pragma omp parallel for
-    for (long long n=0;n<cplen;n++)
-        dest[n+w_off]=origin[n+r_off];
+	for (long long n = 0;n < cplen;n++)
+		dest[n + w_off] = origin[n + r_off];
 }
 
-API bool streval(const char *a, const char *b,bool over_len)
+API bool streval(const char *a, const char *b, bool over_len)
 {
 	if (strlen(a) != strlen(b))
 		if (!over_len)
@@ -62,7 +66,7 @@ API bool streval(const char *a, const char *b,bool over_len)
 	return true;
 }
 
-API char* eitoa(int num, char*str, int radix,const char *word_list)
+API char* eitoa(int num, char*str, int radix, const char *word_list)
 {
 	//char *index = (char*)calloc(strlen(word_list), sizeof(char));
 	char index[MAX_BUFF_SIZE];
@@ -70,13 +74,13 @@ API char* eitoa(int num, char*str, int radix,const char *word_list)
 	unsigned unum;
 	int i = 0, j, k;
 
-	if (radix == 10 && num<0)
+	if (radix == 10 && num < 0)
 	{
 		unum = (unsigned)-num;
 		str[i++] = '-';
 	}
 	else unum = (unsigned)num;
-							  
+
 	do {
 		str[i++] = index[unum % (unsigned)radix];
 		unum /= radix;
@@ -121,7 +125,7 @@ API char set_upper(const char bit, bool upper)
 		return bit - ('a' - 'A');
 }
 
-API string upper_string(string str,bool upper)
+API string upper_string(string str, bool upper)
 {
 	string ret;
 	for (int n = 0; n < str.size(); n++)
@@ -147,8 +151,7 @@ API string human_read(uint64_t _in, string *unit, int step, int number_out_type)
 		val /= step;
 		uint_id++;
 	}
-	return eitoa(val,number_out_type) + unit[uint_id];
-		
+	return eitoa(val, number_out_type) + unit[uint_id];
 }
 
 API string space_fix(string str)
@@ -193,8 +196,6 @@ API string strrm(const char* str, const char *rm_list)
 	return ret;
 }
 
-
-
 API string strreplace(string orig, string replace, string value)
 {
 	display_dump(orig.data(), orig.size());
@@ -207,7 +208,7 @@ API string strreplace(string orig, string replace, string value)
 		if (orig.at(n) == replace.at(0))
 		{
 			for (int x = 0; x < replace.size(); x++)
-				if (n + x  < orig.size() + 1)
+				if (n + x < orig.size() + 1)
 				{
 					if (orig.at(n + x) != replace.at(x))
 					{
@@ -217,7 +218,6 @@ API string strreplace(string orig, string replace, string value)
 				else {
 					check = false;
 				}
-
 		}
 		else {
 			check = false;
@@ -239,7 +239,7 @@ API string convert_process(const char *data)
 	string fin;
 	for (int n = 0; n < strlen(data); n++)
 	{
-		if (data[n] == '\\'&& n != strlen(data)-1)
+		if (data[n] == '\\'&& n != strlen(data) - 1)
 		{
 			n++;
 			switch (data[n])
@@ -272,7 +272,7 @@ API string convert_process(const char *data)
 			}
 		}
 		else
-			fin +=data[n];
+			fin += data[n];
 	}
 	return fin;
 }

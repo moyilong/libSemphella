@@ -10,6 +10,12 @@
 
 #define mpshell debug<<"[MPShell][" << omp_get_thread_num()<<"]"
 
+struct exec_info {
+	string cmd;
+	int retval;
+	string vale;
+};
+
 vector<string>poll;
 
 //USEAGE:	mpshell <args> -c <shell>
@@ -18,7 +24,7 @@ vector<string>poll;
 //			##MP_ID	OMPËæ»ú±àºÅ
 bool testmode = false;
 bool disable_nl = false;
-vector<string> cmd;
+vector<exec_info> cmd;
 int main(int argc, char* argv[])
 {
 	KERNEL.SetDebugStat(false);
@@ -29,6 +35,7 @@ int main(int argc, char* argv[])
 	int _s_stop;
 	int _s_step;
 	char buff[MAX_BUFF_SIZE] = { 0x00 };
+	char xbuff[MAX_BUFF_SIZE] = { 0x00 };
 	string sbuff;
 	mpshell << "Init Option" << endl;
 	for (int n = 1; n < argc; n++)
@@ -87,6 +94,24 @@ int main(int argc, char* argv[])
 					poll.push_back(buff);
 				}
 				break;
+			case 'L':
+				n++;
+				_s_start = atoi(argv[n]);
+				n++;
+				_s_step = atoi(argv[n]);
+				n++;
+				_s_stop = atoi(argv[n]);
+				n++;
+				strcpy(buff, argv[n]);
+				if (_s_step == 0)
+					KERNEL.error("Steps is Zero!");
+				for (int n = _s_start;n < _s_stop;n += _s_step)
+				{
+					sprintf(xbuff, buff, n);
+					poll.push_back(xbuff);
+					memset(xbuff, 0, sizeof(sbuff));
+				}
+				break;
 			case 'l':
 				n++;
 				_s_start = atoi(argv[n]);
@@ -128,18 +153,24 @@ int main(int argc, char* argv[])
 	for (int n = 0; n < poll.size(); n++)
 		if (!(disable_nl == true && poll.at(n).empty()))
 		{
-			string getd = strreplace(command.data(), "##OMP", poll.at(n).data());
-			mpshell << "HaveCMD:" << getd << endl;
-			cmd.push_back(getd);
+			exec_info temp;
+			temp.cmd = strreplace(command.data(), "##OMP", poll.at(n).data());
+			mpshell << "HaveCMD:" << temp.cmd << endl;
+			temp.vale = poll.at(n);
+			cmd.push_back(temp);
 		}
 #pragma omp parallel for
 	for (int n = 0; n < cmd.size(); n++)
 	{
-		mpshell << "Execing:" << cmd.at(n) << endl;
+		mpshell << "Execing:" << cmd.at(n).cmd << endl;
 		if (testmode)
-			cout << "Exec:" << cmd.at(n) << endl;
+			cout << "Exec:" << cmd.at(n).cmd << endl;
 		else
-			system(cmd.at(n).data());
+			cmd.at(n).retval = system(cmd.at(n).cmd.data());
+	}
+	cout << "===================RESULT================" << endl;
+	for (int n = 0;n < cmd.size();n++)
+	{
 	}
 	return 1;
 }

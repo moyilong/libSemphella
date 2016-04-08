@@ -5,17 +5,17 @@
 #include "cryptutil2.h"
 #include <libSemphella/argment.h>
 
- int64_t bs = 4096;
- bool decrypt = false;
- bool crack = false;
- bool std_out = false;
+int64_t bs = 4096;
+bool decrypt = false;
+bool crack = false;
+bool std_out = false;
 
- bool force = false;
+bool force = false;
 bool license_create = false;
 bool crack_get = false;
 bool info_get = false;
 int alghtriom = DEFAULT_ALGRTHOM_TYPE;
-extern int fhand=DEFAULT_FHANDLE;
+extern int fhand = DEFAULT_FHANDLE;
 //#define ALLOW_WINDOWS_RUN
 
 int al;
@@ -33,12 +33,12 @@ void logo()
 bool file_name_check(string filename)
 {
 	cp2 << "Check File Name \"" << filename << "\"" << endl;
-	cp2 << "Sub Name Is:" << filename.substr(filename.size() - 5)<<endl;
+	cp2 << "Sub Name Is:" << filename.substr(filename.size() - 5) << endl;
 	if (filename.size() <= strlen(".ert3"))
 		return false;
 	if (streval(filename.substr(filename.size() - 5).data(), ".ert2"))
 		return true;
-	if (streval(filename.substr(filename.size() - 5).data() , ".ert3"))
+	if (streval(filename.substr(filename.size() - 5).data(), ".ert3"))
 		return true;
 	return false;
 }
@@ -59,17 +59,17 @@ bool HEAD::check()
 		cout << "Compact of:" << level_compact << " max  " << level << endl;
 		return false;
 	}
-	if (algrthom>APOLL_IDMAX)
+	if (algrthom > APOLL_IDMAX)
 	{
 		cout << "Error: HEAD Protoco Define unexist Algrthom!" << endl;
 		cout << (int)algrthom << "is not exist!" << endl;
 		return false;
 	}
-	if  (ext[EXT_SUPPORT] != ext_support_lab || ext[EXT_ENDFLAG] != ext_end_lab)
+	if (ext[EXT_SUPPORT] != ext_support_lab || ext[EXT_ENDFLAG] != ext_end_lab)
 	{
 		cout << "Warring: HEAD Protoco Extend Table Check Faild!" << endl;
 		cout << " Convert to Default Status!" << endl;
-		cout << hex << "CheckLab:" << (int)(char)ext_support_lab << " != " << (int)(char)ext[EXT_SUPPORT]<<endl<<oct;
+		cout << hex << "CheckLab:" << (int)(char)ext_support_lab << " != " << (int)(char)ext[EXT_SUPPORT] << endl << oct;
 		reset_ext();
 	}
 	return true;
@@ -77,8 +77,8 @@ bool HEAD::check()
 
 void HEAD::reset_ext()
 {
-	cp2 << "Resetting Extension Table..."<<endl;
-	memset(ext,0,sizeof(ext));
+	cp2 << "Resetting Extension Table..." << endl;
+	memset(ext, 0, sizeof(ext));
 	ext[EXT_FHANDLE] = DEFAULT_FHANDLE;
 	ext[EXT_SUPPORT] = ext_support_lab;
 	ext[EXT_ENDFLAG] = ext_end_lab;
@@ -95,82 +95,85 @@ HEAD::HEAD()
 
 void config_read(string name, string value)
 {
-		switch (name.at(0)) {
-			case 'i':
-				input = value;
-				break;
-			case 'o':
-				output = value;
-				break;
-			case 'p':
-				password = value;
-				break;
-			case 'd':
-				decrypt = true;
-				break;
-			case 'f':
-				force = true;
-				break;
-			case 'b':
-				bs = atoi(value.data());
-				break;
-			case 'I':
-				info_get = true;
-				break;
-			case 'C':
-				info_get = true;
-				crack_get = true;
-				break;
-			case 'A':
-				al = atoi(value.data());
-				cp2 << "Resetting Algorithm ID " << alghtriom << " => " << al << endl;
-				if (trans_id(al) == -1)
-				{
-					cout << "Warrong ID!" << endl;
-					exit(-1);
-				}
-				alghtriom = al;
-				break;
-			case 'v':
-				KERNEL.SetDebugStat(true);
-				break;
-			case 'V':
-				logo();
-				cout << "Defined Block Size:" << bs << endl;
-				if (KERNEL.GetDebugStat())
-					cout << "Verbos is Enabled!" << endl;
-				cout << "Deafult Algrthom ID " << DEFAULT_ALGRTHOM_TYPE << endl;
-				cout << "Extenision Table Size:" << EXT_SIZE << endl;
-				cout << "Fhandle Size:" << fsize +1<< endl;
-				cout << "Default Fhandle Size:" << DEFAULT_FHANDLE << endl;
-				cout << "Alloed Fhandle ID:" << endl;
-				for (int n = 0; n < fsize; n++)
-					cout << FPOLL[n].id << "\t";
-				cout << endl << "Allowed Algrthom ID:" << endl;
-				for (int n = 0; n < xsize; n++)
-					cout << APOLL[n].id << "\t";
-				cout << endl;
-				exit(0);
-				break;
-			case 'l':
-				license_create = true;
-				break;
-			case 'F':
-				al = atoi(value.data());
-				bool stat = false;
-				for (int x = 0; x < fsize; x++)
-					if (FPOLL[x].id == al)
-						stat = true;
-				if (!stat)
-				{
-					cout << "File Handle Not Exist!" << endl;
-					exit(0);
-				}
-				cp2 << "Resetting File Handle" << fhand << " => " << al << endl;
-				fhand = al;
-				break;
-
-			}
+	switch (name.at(0)) {
+	case 'i':
+		input = value;
+		break;
+	case 'o':
+		output = value;
+		break;
+	case 'p':
+		password = value;
+		break;
+	case 'd':
+		decrypt = true;
+		break;
+	case 'f':
+		force = true;
+		break;
+	case 'P':
+		PerformanceTest();
+		exit(0);
+		break;
+	case 'b':
+		bs = atoi(value.data());
+		break;
+	case 'I':
+		info_get = true;
+		break;
+	case 'C':
+		info_get = true;
+		crack_get = true;
+		break;
+	case 'A':
+		al = atoi(value.data());
+		cp2 << "Resetting Algorithm ID " << alghtriom << " => " << al << endl;
+		if (trans_id(al) == -1)
+		{
+			cout << "Warrong ID!" << endl;
+			exit(-1);
+		}
+		alghtriom = al;
+		break;
+	case 'v':
+		KERNEL.SetDebugStat(true);
+		break;
+	case 'V':
+		logo();
+		cout << "Defined Block Size:" << bs << endl;
+		if (KERNEL.GetDebugStat())
+			cout << "Verbos is Enabled!" << endl;
+		cout << "Deafult Algrthom ID " << DEFAULT_ALGRTHOM_TYPE << endl;
+		cout << "Extenision Table Size:" << EXT_SIZE << endl;
+		cout << "Fhandle Size:" << fsize + 1 << endl;
+		cout << "Default Fhandle Size:" << DEFAULT_FHANDLE << endl;
+		cout << "Alloed Fhandle ID:" << endl;
+		for (int n = 0; n < fsize; n++)
+			cout << FPOLL[n].id << "\t";
+		cout << endl << "Allowed Algrthom ID:" << endl;
+		for (int n = 0; n < xsize; n++)
+			cout << APOLL[n].id << "\t";
+		cout << endl;
+		exit(0);
+		break;
+	case 'l':
+		license_create = true;
+		break;
+	case 'F':
+		al = atoi(value.data());
+		bool stat = false;
+		for (int x = 0; x < fsize; x++)
+			if (FPOLL[x].id == al)
+				stat = true;
+		if (!stat)
+		{
+			cout << "File Handle Not Exist!" << endl;
+			exit(0);
+		}
+		cp2 << "Resetting File Handle" << fhand << " => " << al << endl;
+		fhand = al;
+		break;
+	}
 }
 
 int main(int argc, char *argv[])
@@ -186,8 +189,8 @@ int main(int argc, char *argv[])
 	cout << "Program is alloed be run!" << endl;
 #endif
 #endif
-	cp2<<"MAX Algrthon Type: 0~"<<APOLL_IDMAX<<endl;
-	cp2<<"Deafult Algrthom ID "<<DEFAULT_ALGRTHOM_TYPE<<endl;
+	cp2 << "MAX Algrthon Type: 0~" << APOLL_IDMAX << endl;
+	cp2 << "Deafult Algrthom ID " << DEFAULT_ALGRTHOM_TYPE << endl;
 
 	argment config_load;
 	cp2 << "Import Argment..." << endl;

@@ -20,7 +20,6 @@ inline bool isZero(void *prt, size_t len)
 	return ret;
 }
 
-
 template<class T>inline T emax(const T a, const T b)
 {
 	if (a > b)
@@ -40,6 +39,12 @@ template<class T>inline T emin(const T a, const T b)
 #ifndef MTYPE
 #define MTYPE	float
 #endif
+
+enum CST_TYPE {
+	X,
+	Y,
+	Z
+};
 
 struct XPOINT {
 	MTYPE x;
@@ -64,4 +69,16 @@ API XPOINT VectorPoint2D(XPOINT orig, MTYPE _dgst, MTYPE len);
 #define MT_MAX	numeric_limits<MTYPE>::max();
 #define MT_MIN	numeric_limits<MTYPE>::min();
 
-API XPOINT PointMove(XPOINT orig, XPOINT diff);
+API XPOINT ShadowX(XPOINT point, CST_TYPE type);
+
+struct LINE {
+	MTYPE k = 1;
+	MTYPE b = 0;
+	inline LINE(MTYPE xk, MTYPE xb)
+	{
+		k = xk;
+		b = xb;
+	}
+};
+
+API XPOINT LineGetPoint(MTYPE x, const LINE line);

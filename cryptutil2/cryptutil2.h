@@ -18,8 +18,6 @@ struct MP_BLOCK {
 	double per;
 };
 
-
-
 #define FILE_TYPE ".ert3"
 //static const char *strtbl = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz,/.<>?;':\"[] {}|\\-+*/";
 #define strtbl "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
@@ -79,3 +77,4 @@ extern string password;
 int crypt_process();
 int information_process();
 int create_license();
+void PerformanceTest();
