@@ -55,7 +55,6 @@ API void Register(TRANSLATE_BLOCK tblock)
 		tpoll.push_back(tblock);
 }
 
-
 API string SearchStr(string orig)
 {
 	if (!reg_exit_call)
@@ -67,4 +66,3 @@ API string SearchStr(string orig)
 		if (streval(tpoll.at(n).orig.data(), orig.data()))
 			return tpoll.at(n).trans;
 }
-

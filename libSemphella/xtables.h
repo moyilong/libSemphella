@@ -2,7 +2,7 @@
 #include "main.h"
 #include "libSemphella.h"
 #include "crypt.h"
-template<class DATA,class INDEX>class xtables
+template<class DATA, class INDEX>class xtables
 {
 public:
 	struct IDX {
@@ -25,10 +25,10 @@ public:
 	{
 		uint64_t *mem = (uint64_t *)malloc(sizeof(uint64_t)*data.size());
 #pragma omp parallel for
-		for (int64_t n = 0;n < data.size();n++)
+		for (int64_t n = 0; n < data.size(); n++)
 			mem[n] = getsumV2((char*)data.at(n).data, sizeof(data));
 		uint64_t ret = 0;
-		for (int64_t n = 0;n < data.size();n++)
+		for (int64_t n = 0; n < data.size(); n++)
 			ret += mem[n];
 		free(mem);
 		return ret << 8;
@@ -71,9 +71,9 @@ inline DATA xtables<DATA, INDEX>::search(INDEX idx)
 {
 	int id = -1;
 #pragma omp parallel for
-	for (int64_t n = 0;n < data.size();n++)
+	for (int64_t n = 0; n < data.size(); n++)
 		if (sizeof(idx) == sizeof(data.at(n).idx))
-			if (memtest(data.at(n).idx, idx,sizeof(idx) ))
+			if (memtest(data.at(n).idx, idx, sizeof(idx)))
 				id = n;
 	if (id == -1)
 		return NULL;
@@ -83,10 +83,10 @@ inline DATA xtables<DATA, INDEX>::search(INDEX idx)
 template<class DATA, class INDEX>
 inline void xtables<DATA, INDEX>::memtest(void * a, void * b, uint64_t len)
 {
-	char *ptr_a=a;
-	char *ptr_b=b;
-	for (int n = 0;n < len;n++)
-		if (ptr_a[n]!=ptr_b[n])
+	char *ptr_a = a;
+	char *ptr_b = b;
+	for (int n = 0; n < len; n++)
+		if (ptr_a[n] != ptr_b[n])
 			return false;
 	return true;
 }

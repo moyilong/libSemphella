@@ -3,7 +3,6 @@
 
 #include "stdafx.h"
 
-
 string conffile;
 string dot_config;
 string out_kconf;
@@ -13,13 +12,13 @@ enum WORKMODE {
 	prompt,
 	dcfg,
 	apply,
-}MODE=prompt;
+}MODE = prompt;
 int main(int argc, char *argv[])
 {
 	main_menu.section = "main";
 	DEBUG << "start!" << endl;
 	for (int n = 0; n < argc; n++)
-		if (argv[n][0]=='-')
+		if (argv[n][0] == '-')
 			switch (argv[n][1])
 			{
 			case 'i':
@@ -59,6 +58,4 @@ int main(int argc, char *argv[])
 		break;
 	}
 	return 0;
-
 }
-

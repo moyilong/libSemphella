@@ -6,7 +6,7 @@ vector<CONFIG> confpoll;
 CONFIG search(string name)
 {
 	long long uid = -1;
-#pragma omp parallel for 
+#pragma omp parallel for
 	for (long long n = 0; n < confpoll.size(); n++)
 	{
 		if (confpoll.at(n).name == name)
@@ -43,7 +43,7 @@ void Apply(string input)
 		string temp;
 		getline(in, temp);
 		CONFIG xtemp;
-		if (temp.at(0) == '#' && streval(temp.substr(0-strlen(NOT_SET)).data(), NOT_SET))
+		if (temp.at(0) == '#' && streval(temp.substr(0 - strlen(NOT_SET)).data(), NOT_SET))
 		{
 			xtemp.name = temp.substr(2, temp.size() - 2 - strlen(NOT_SET));
 			xtemp.data = "0";
@@ -54,7 +54,7 @@ void Apply(string input)
 			else
 			{
 				int eq = strfind(temp.data(), '=', true);
-				xtemp.name = temp.substr(0,eq);
+				xtemp.name = temp.substr(0, eq);
 				xtemp.data = temp.substr(eq + 1);
 				if (xtemp.data == "y")
 					xtemp.data = "1";
@@ -64,6 +64,4 @@ void Apply(string input)
 		confpoll.push_back(xtemp);
 	}
 	apply_menu(main_menu);
-
-
 }

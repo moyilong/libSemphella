@@ -5,9 +5,8 @@ void poweroff();
 void reset();
 void loop();
 
-
-extern ASSIGN_TYPE cmd_ptr ;
-extern ASSIGN_TYPE mem_ptr ;
+extern ASSIGN_TYPE cmd_ptr;
+extern ASSIGN_TYPE mem_ptr;
 extern ASSIGN_TYPE tmp_code;
 extern ASSIGN_TYPE err_rst;
 extern ASSIGN_TYPE mem_buff;

@@ -16,12 +16,10 @@ typedef struct md5_ctx
 	uint32_t  hash_[4];
 } md5_ctx;
 
-
 #define ROTL32(dword, n) ((dword) << (n) ^ ((dword) >> (32 - (n))))
 #define ROTR32(dword, n) ((dword) >> (n) ^ ((dword) << (32 - (n))))
 #define ROTL64(qword, n) ((qword) << (n) ^ ((qword) >> (64 - (n))))
 #define ROTR64(qword, n) ((qword) >> (n) ^ ((qword) << (64 - (n))))
-
 
 //将一个（字符串）数组，拷贝到另外一个uint32_t数组，同时每个uint32_t反字节序
 inline void *swap_uint32_memcpy(void *to, const void *from, size_t length)
@@ -96,7 +94,6 @@ static void zen_md5_init(md5_ctx *ctx)
          (a) += (b); \
      }
 
-
 /*!
 @brief      内部函数，将64个字节，16个uint32_t的数组进行摘要（杂凑）处理，处理的数据自己序是小头数据
 @param      state 存放处理的hash数据结果
@@ -120,7 +117,6 @@ static void zen_md5_process_block(uint32_t state[4], const uint32_t block[ZEN_MD
 	swap_uint32_memcpy(swap_block, block, 64);
 	x = swap_block;
 #endif
-
 
 	MD5_ROUND1(a, b, c, d, x[0], 7, 0xd76aa478);
 	MD5_ROUND1(d, a, b, c, x[1], 12, 0xe8c7b756);
@@ -196,7 +192,6 @@ static void zen_md5_process_block(uint32_t state[4], const uint32_t block[ZEN_MD
 	state[3] += d;
 }
 
-
 /*!
 @brief      内部函数，处理数据的前面部分(>64字节的部分)，每次组成一个64字节的block就进行杂凑处理
 @param[out] ctx  算法的context，用于记录一些处理的上下文和结果
@@ -218,7 +213,6 @@ static void zen_md5_update(md5_ctx *ctx, const unsigned char *buf, size_t size)
 
 	ctx->unprocessed_ = size;
 }
-
 
 /*!
 @brief      内部函数，处理数据的末尾部分，我们要拼出最后1个（或者两个）要处理的BLOCK，加上0x80，加上长度进行处理
@@ -282,9 +276,7 @@ static void zen_md5_final(md5_ctx *ctx, const unsigned char *buf, size_t size, u
 #else
 	swap_uint32_memcpy(result, &ctx->hash_, ZEN_MD5_HASH_SIZE);
 #endif
-
 }
-
 
 //计算一个内存数据的MD5值
 unsigned char CAPI *ZEN_LIB::md5(const unsigned char *buf,
@@ -300,9 +292,6 @@ unsigned char CAPI *ZEN_LIB::md5(const unsigned char *buf,
 	return result;
 }
 
-
-
-
 //================================================================================================
 //SHA1的算法
 
@@ -312,7 +301,6 @@ static const size_t ZEN_SHA1_BLOCK_SIZE = 64;
 //SHA1算法的上下文，保存一些状态，中间数据，结果
 typedef struct sha1_ctx
 {
-
 	//处理的数据的长度
 	uint64_t length_;
 	//还没有处理的数据长度
@@ -333,7 +321,6 @@ static void zen_sha1_init(sha1_ctx *ctx)
 	ctx->hash_[3] = 0x10325476;
 	ctx->hash_[4] = 0xc3d2e1f0;
 }
-
 
 /*!
 @brief      内部函数，对一个64bit内存块进行摘要(杂凑)处理，
@@ -416,7 +403,6 @@ static void zen_sha1_process_block(uint32_t hash[5],
 	hash[4] += e;
 }
 
-
 /*!
 @brief      内部函数，处理数据的前面部分(>64字节的部分)，每次组成一个64字节的block就进行杂凑处理
 @param      ctx  算法的上下文，记录中间数据，结果等
@@ -441,7 +427,6 @@ static void zen_sha1_update(sha1_ctx *ctx,
 	ctx->unprocessed_ = size;
 }
 
-
 /*!
 @brief      内部函数，处理数据的最后部分，添加0x80,补0，增加长度信息
 @param      ctx    算法的上下文，记录中间数据，结果等
@@ -453,7 +438,6 @@ static void zen_sha1_final(sha1_ctx *ctx,
 	size_t size,
 	unsigned char *result)
 {
-
 	uint32_t message[ZEN_SHA1_BLOCK_SIZE / 4];
 
 	//保存剩余的数据，我们要拼出最后1个（或者两个）要处理的块，前面的算法保证了，最后一个块肯定小于64个字节
@@ -509,8 +493,6 @@ static void zen_sha1_final(sha1_ctx *ctx,
 #endif
 }
 
-
-
 //计算一个内存数据的SHA1值
 unsigned char CAPI *ZEN_LIB::sha1(const unsigned char *msg,
 	size_t size,
@@ -530,8 +512,8 @@ string common_convert(const unsigned char *data, size_t len)
 	string ret;
 	for (int n = 0; n < len; n++)
 	{
-        int value = sin(data[n]);
-              value *=strlen(DEFAULT_WORD_WHITE_LIST);
+		int value = sin(data[n]);
+		value *= strlen(DEFAULT_WORD_WHITE_LIST);
 		if (value < 0)
 			value = -value;
 		ret += DEFAULT_WORD_WHITE_LIST[value];

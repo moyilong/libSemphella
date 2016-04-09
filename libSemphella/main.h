@@ -31,7 +31,7 @@ using namespace std;
 
 #ifdef __LINUX__
 
-#define CAPI 
+#define CAPI
 
 #else
 

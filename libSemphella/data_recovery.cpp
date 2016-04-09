@@ -5,7 +5,6 @@
 #define STR "RECDATA_BEG"
 #define END	"RECDATA_END"
 
-
 struct REC_HEAD {
 	char a[sizeof(STR)];
 	uint64_t checksum;
@@ -37,12 +36,10 @@ API int64_t get_block_len(int64_t data_len)
 {
 	REC_HEAD head;
 	GetN(data_len, head);
-	int64_t le=sizeof(REC_HEAD) + head.x + head.y+1;
+	int64_t le = sizeof(REC_HEAD) + head.x + head.y + 1;
 	debug << "Return Len:" << le << endl;
 	return le;
 }
-
-
 
 API void CaculateRecovery(const char * data, int64_t len, char * ret)
 {
@@ -57,14 +54,14 @@ API void CaculateRecovery(const char * data, int64_t len, char * ret)
 			fix_data[n] ^= data[head.y*n + y];
 	}
 #pragma omp parallel for
-	for (int n = 0; n < head.y ; n++)
+	for (int n = 0; n < head.y; n++)
 	{
-		fix_data[n+head.x] = 0;
+		fix_data[n + head.x] = 0;
 		for (int x = 0; x < head.x; x++)
-			fix_data[n+head.x] ^= data[head.x*n + x];
+			fix_data[n + head.x] ^= data[head.x*n + x];
 	}
 	memcpy(ret + sizeof(REC_HEAD), fix_data, sizeof(char)*(head.x + head.y));
-	head.checksum = getsumV2(ret + sizeof(REC_HEAD), get_block_len(len)-sizeof(REC_HEAD));
+	head.checksum = getsumV2(ret + sizeof(REC_HEAD), get_block_len(len) - sizeof(REC_HEAD));
 	memcpy(ret, &head, sizeof(REC_HEAD));
 	ret[get_block_len(len) - 1] = 'B';
 }
@@ -91,7 +88,6 @@ API STAT Recovery(char * data, int64_t len, const char * rec)
 			else
 				warring = n;
 		}
-
 	}
 	if (!stat_ok)
 		return FAILD;
@@ -146,7 +142,7 @@ API STAT VerifyRecoveryData(const char * rec, int64_t len)
 	REC_HEAD head;
 	memcpy(&head, rec, sizeof(REC_HEAD));
 	int64_t splite = len / 2;
-	if (getsumV2(rec +sizeof(REC_HEAD) , get_block_len(len) - sizeof(REC_HEAD)) != head.checksum)
+	if (getsumV2(rec + sizeof(REC_HEAD), get_block_len(len) - sizeof(REC_HEAD)) != head.checksum)
 		return FAILD;
 	return OK;
 }

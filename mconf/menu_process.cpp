@@ -1,9 +1,7 @@
 #include "stdafx.h"
 #include "loaddef.h"
 
-
-
-MENU* GetProcAddr(string section,MENU &search_from)
+MENU* GetProcAddr(string section, MENU &search_from)
 {
 	DEBUG << "Search " << section << " from " << search_from.section << endl;
 	if (streval(section.data(), "main"))
@@ -13,7 +11,7 @@ MENU* GetProcAddr(string section,MENU &search_from)
 	}
 	if (streval(section.data(), search_from.section.data()))
 		return &search_from;
-	MENU *ret= EMPTY_RET;
+	MENU *ret = EMPTY_RET;
 #pragma omp parallel for
 	for (long long n = 0; n < search_from.mdata.size(); n++)
 	{
@@ -24,9 +22,9 @@ MENU* GetProcAddr(string section,MENU &search_from)
 	return ret;
 }
 
-MENU* CreateMenu(string section, string display,string father)
+MENU* CreateMenu(string section, string display, string father)
 {
-	if (streval(father.data() , "main"))
+	if (streval(father.data(), "main"))
 	{
 		DEBUG << "main menu is direct ret" << endl;
 		return &main_menu;
@@ -50,7 +48,7 @@ MENU* CreateMenu(string section, string display,string father)
 
 inline void BuildMenu(BLOCK_INFO blk)
 {
-	DEBUG << "Building:" << blk.name << " => \"" << blk.father<<"\"" << endl;
+	DEBUG << "Building:" << blk.name << " => \"" << blk.father << "\"" << endl;
 	MENU *menu = GetProcAddr(blk.father, main_menu);
 	if (menu == EMPTY_RET)
 	{

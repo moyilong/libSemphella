@@ -7,7 +7,6 @@
 #include "crypt.h"
 #include "string.h"
 
-
 bool f2verbos = false;
 #define f2debug if (f2verbos) debug
 
@@ -64,7 +63,6 @@ uint64_t file::tellp()
 	check();
 	return ftell(fp);
 }
-
 
 uint64_t file::tell_len()
 {

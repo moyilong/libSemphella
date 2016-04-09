@@ -19,7 +19,7 @@ string  ReadString(ifstream &in)
 	return ret;
 }
 
-void WriteBlock(BLOCK_INFO blk,ofstream &out)
+void WriteBlock(BLOCK_INFO blk, ofstream &out)
 {
 	WriteString(blk.uci_info, out);
 	WriteString(blk.prompt, out);
@@ -29,7 +29,7 @@ void WriteBlock(BLOCK_INFO blk,ofstream &out)
 	WriteString(blk.section, out);
 	WriteString(blk.display, out);
 	WriteString(blk.father, out);
-	WriteString(blk.default_val, out);	
+	WriteString(blk.default_val, out);
 }
 
 BLOCK_INFO ReadBlock(ifstream &in)
@@ -52,16 +52,16 @@ struct MENU_WRITE {
 	long long data_size;
 };
 
-void WriteMenu(MENU menu,ofstream &out)
+void WriteMenu(MENU menu, ofstream &out)
 {
 	MENU_WRITE target;
 	target.sub_menu_size = menu.mdata.size();
 	target.data_size = menu.data.size();
 	out.write((char*)&target, sizeof(MENU_WRITE));
-	WriteString(menu.section,out);
+	WriteString(menu.section, out);
 	WriteString(menu.display_name, out);
 	for (int n = 0; n < menu.data.size(); n++)
-		WriteBlock(menu.data.at(n),out);
+		WriteBlock(menu.data.at(n), out);
 	for (int n = 0; n < menu.mdata.size(); n++)
 		WriteMenu(menu.mdata.at(n), out);
 }

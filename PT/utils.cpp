@@ -1,6 +1,5 @@
 #include "define.h"
 
-
 char chess[AREA_MAX][AREA_MAX];
 
 void init()

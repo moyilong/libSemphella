@@ -61,7 +61,7 @@ int main(int argc, char* argv[])
 				cout << "-T test Mode" << endl;
 				exit(0);
 			case 's':
-				for (int x = n + 1;x < argc;x++)
+				for (int x = n + 1; x < argc; x++)
 					if (argv[x][0] == '-')
 						break;
 					else
@@ -105,7 +105,7 @@ int main(int argc, char* argv[])
 				strcpy(buff, argv[n]);
 				if (_s_step == 0)
 					KERNEL.error("Steps is Zero!");
-				for (int n = _s_start;n < _s_stop;n += _s_step)
+				for (int n = _s_start; n < _s_stop; n += _s_step)
 				{
 					sprintf(xbuff, buff, n);
 					poll.push_back(xbuff);
@@ -169,7 +169,7 @@ int main(int argc, char* argv[])
 			cmd.at(n).retval = system(cmd.at(n).cmd.data());
 	}
 	cout << "===================RESULT================" << endl;
-	for (int n = 0;n < cmd.size();n++)
+	for (int n = 0; n < cmd.size(); n++)
 	{
 	}
 	return 1;

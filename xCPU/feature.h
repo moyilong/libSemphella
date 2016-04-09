@@ -1,8 +1,6 @@
 #pragma once
 
-
 typedef void(*API_CALL)();
-
 
 class _feature {
 public:
@@ -10,7 +8,6 @@ public:
 	ASSIGN_TYPE reg;
 	string name;
 	API_CALL api;
-
 };
 
 extern vector<_feature> cmd_poll;

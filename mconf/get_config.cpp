@@ -4,9 +4,7 @@
 #include "local_uci_head/uci.h"
 #else
 #include <uci.h>
-#endif 
-
-
+#endif
 
 string get_config(string uci)
 {
@@ -34,13 +32,13 @@ string get_config(string uci)
 	uci_foreach_element(&pkg->sections, X)
 	{
 		uci_section *s = uci_to_section(X);
-		ret=uci_lookup_option_string(context, s, option.data());
+		ret = uci_lookup_option_string(context, s, option.data());
 	}
 	return ret;
 #endif
 }
 
-string set_config(string uci,string value)
+string set_config(string uci, string value)
 {
 #ifndef __LINUX
 	DEBUG << "Setting Configure:" << uci << "=" << value << endl;
@@ -52,7 +50,7 @@ string set_config(string uci,string value)
 	for (int n = 0; n < uci.size(); n++)
 		if (uci[n] == '.')
 			dot[g++] = n;
-	string file=uci.substr(0,dot[0]);
+	string file = uci.substr(0, dot[0]);
 	string package = uci.substr(dot[0] + 1, dot[1]);
 	string section = uci.substr(dot[1] + 1, dot[2]);
 	string option = uci.substr(dot[3] + 1);

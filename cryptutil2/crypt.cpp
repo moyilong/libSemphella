@@ -1,10 +1,8 @@
-
 #include "cryptutil2.h"
 #include "fhandle.h"
 #include "algorthim.h"
 int crypt_process()
 {
-
 	if (input.empty() || password.empty())
 	{
 		cout << "Argment Error!" << endl << "Input or Password Empty!" << endl;
@@ -36,7 +34,7 @@ int crypt_process()
 	if (decrypt)
 		check = input;
 	DEBUG << "Checking Name Secure" << endl;
-	if (check.size()>5 && check != "-")
+	if (check.size() > 5 && check != "-")
 		if (!file_name_check(check) || check.size() <= 5)
 		{
 			cout << "Warring! File Name Secure Check Error!" << endl;
@@ -183,4 +181,3 @@ int crypt_process()
 		out.close();
 	return 0;
 }
-

@@ -55,7 +55,7 @@ string MainToCheck(string lmain)
 	uint64_t buff[LICENSE_VIRFY_DEEP];
 	char str_buff[sizeof(uint64_t)*LICENSE_VIRFY_DEEP];
 #pragma omp parallel for
-	for (int n = 0; n < LICENSE_VIRFY_DEEP;n++)
+	for (int n = 0; n < LICENSE_VIRFY_DEEP; n++)
 	{
 		buff[n] = ~getsumV2(lmain.data(), lmain.size()) + 8;
 		buff[n] << 8;
@@ -63,7 +63,7 @@ string MainToCheck(string lmain)
 		memcpy(str_buff + sizeof(uint64_t)*n, &buff[n], sizeof(uint64_t));
 	}
 	string ret;
-	for (int n = 0;n < LICENSE_VIRFY_DEEP;n++)
+	for (int n = 0; n < LICENSE_VIRFY_DEEP; n++)
 	{
 		int x;
 		char val;

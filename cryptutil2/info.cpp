@@ -1,6 +1,5 @@
 #include "cryptutil2.h"
 
-
 int information_process()
 {
 	if (input.empty())

@@ -25,7 +25,7 @@ struct BLOCK_INFO {
 		display = "";
 		father = "main";
 		default_val = "";
-		systemd="";
+		systemd = "";
 	}
 	inline void empty()
 	{
@@ -58,7 +58,7 @@ void Read(string filename);
 void Prompt_DotConfig(string filename);
 inline bool operator ==(MENU a, MENU b)
 {
-	if (!streval(a.section.data(),b.section.data()))
+	if (!streval(a.section.data(), b.section.data()))
 		return false;
 
 	if (!streval(a.display_name.data(), b.display_name.data()))

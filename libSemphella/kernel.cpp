@@ -6,7 +6,7 @@ bool kernel_inited = false;
 bool debug_stat = __DEFAULT_DEBUG_STAT;
 kernel KERNEL;
 
-void kernel::SetDebugStat(bool stat,string file,int line)
+void kernel::SetDebugStat(bool stat, string file, int line)
 {
 #ifndef __ALLOW_DEBUG_STAT_CHANGE
 	message("Debug stat change was been disabled! Track from " + file);
@@ -14,7 +14,6 @@ void kernel::SetDebugStat(bool stat,string file,int line)
 	debug_stat = stat;
 #endif
 }
-
 
 bool kernel::GetDebugStat()
 {
@@ -30,7 +29,6 @@ kernel::kernel()
 	for (int n = 0; n < init_call.size(); n++)
 		init_call.at(n)();
 }
-
 
 void kernel::LogoPrint()
 {
@@ -50,12 +48,10 @@ void kernel::Register(REG_TYPE reg, KSAPI api)
 	}
 }
 
-
 kernel::~kernel()
 {
 	for (int n = 0; n < exit_call.size(); n++)
 		exit_call.at(n)();
-
 }
 
 time_t kernel::get_start_time()

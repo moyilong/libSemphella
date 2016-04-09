@@ -15,7 +15,7 @@
 #define INVALID_HANDLE_VALUE	-1
 #endif
 
-struct DEVICE_STAT{
+struct DEVICE_STAT {
 	bool parity = false;
 	int speed = 115200;
 	int byte_size = 8;
@@ -25,4 +25,4 @@ struct DEVICE_STAT{
 IO_TYPE pinit(string port, DEVICE_STAT stat);
 void pclose(IO_TYPE port);
 int pread(IO_TYPE io, char *buff, size_t read_len);
-int pwrite(IO_TYPE io,const char *buff, size_t send_len);
+int pwrite(IO_TYPE io, const char *buff, size_t send_len);

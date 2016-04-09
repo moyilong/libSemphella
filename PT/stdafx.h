@@ -13,7 +13,6 @@
 #include <tchar.h>
 #endif
 
-
 #include <libSemphella/string.h>
 #include <libSemphella/math.h>
 #include <libSemphella/crypt.h>

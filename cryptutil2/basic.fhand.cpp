@@ -1,6 +1,5 @@
 #include "fhandle.h"
 
-
 void FileProcess(HEAD head, file in, file out, uint64_t &sum, int len, uint64_t op_addr)
 {
 	if (decrypt)
@@ -34,7 +33,5 @@ void FileProcess(HEAD head, file in, file out, uint64_t &sum, int len, uint64_t 
 	sum += vsu;
 	free(buff);
 }
-
-
 
 XFHANDLE BasicProcess(FileProcess, 0);

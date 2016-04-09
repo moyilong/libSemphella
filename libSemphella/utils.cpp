@@ -2,7 +2,6 @@
 #include "math.h"
 #include "string.h"
 
-
 API  void ShowProcessBar(double percent, string display, char finish, char splite, char inprocess, int bis)
 {
 	int proceed = bis*percent;
@@ -16,9 +15,9 @@ API  void ShowProcessBar(double percent, string display, char finish, char split
 	cout << "]  " << display << "       " << "\r";
 }
 
-API void ShowProcessBarEx(int all, int st_1, int st_2,string display, char st1_ch, char st2_ch, char st3_ch)
+API void ShowProcessBarEx(int all, int st_1, int st_2, string display, char st1_ch, char st2_ch, char st3_ch)
 {
-	string finished="[";
+	string finished = "[";
 	for (int n = 0; n < all; n++)
 	{
 		if (n <= st_1)
@@ -30,5 +29,4 @@ API void ShowProcessBarEx(int all, int st_1, int st_2,string display, char st1_c
 	}
 	finished += "]" + display;
 	cout << finished << endl;
-
 }

@@ -7,7 +7,7 @@ void build_block(BLOCK_INFO blk)
 {
 	string config_line = "config " + blk.name;
 	str.push_back(config_line);
-	string prompt_line = blk.type +" \"" + blk.prompt + "\"";
+	string prompt_line = blk.type + " \"" + blk.prompt + "\"";
 	str.push_back(prompt_line);
 	if (!blk.depends.empty())
 	{
@@ -27,7 +27,7 @@ void build_menu(MENU &menu)
 	string menubar = "menu \"" + menu.display_name + "\"\n";
 	str.push_back(menubar);
 	cout << "Menu " << menu.display_name << " msize=" << menu.mdata.size() << " bsize=" << menu.data.size() << endl;
-	for (long long n = 0; n < menu.mdata.size();n++)
+	for (long long n = 0; n < menu.mdata.size(); n++)
 	{
 		build_menu(menu.mdata.at(n));
 	}
@@ -44,7 +44,7 @@ void Prompt(string filename)
 	out.open(filename.data());
 	build_menu(main_menu);
 	out << "#\n#\n# This Documents is Create by DragonOS mconf utils\n# Do not Edit !\n#\n#\n\n\n";
-	for (unsigned long long  n = 0; n < str.size(); n++)
+	for (unsigned long long n = 0; n < str.size(); n++)
 		out << str.at(n) << endl;
 }
 
@@ -59,7 +59,7 @@ void read_config(MENU &menu)
 {
 	string menu_start = "# Menu Configure of: " + menu.display_name;
 	dot_string.push_back(menu_start);
-	for (uint64_t n = 0; n < menu.mdata.size();n++)
+	for (uint64_t n = 0; n < menu.mdata.size(); n++)
 		read_config(menu.mdata.at(n));
 	for (uint64_t n = 0; n < menu.data.size(); n++)
 		read_block(menu.data.at(n));

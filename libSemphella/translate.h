@@ -21,7 +21,6 @@ class CAPI translate {
 public:
 	inline void operator<<(const string str)
 	{
-
 		std::cout << SearchStr(str);
 	}
 	inline void operator<<(const char *str)

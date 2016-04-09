@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
 		uint64_t mix = len - steps*MAX_BUFF_SIZE;
 		uint64_t sum = 0;
 		char buff[MAX_BUFF_SIZE];
-		for (uint64_t n = 0;n < steps;n++)
+		for (uint64_t n = 0; n < steps; n++)
 		{
 			memset(buff, 0, MAX_BUFF_SIZE);
 			load.read(buff, MAX_BUFF_SIZE);
@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
 		return 0;
 	}
 	string arg_t;
-	for (int n = 0;n < argc;n++)
+	for (int n = 0; n < argc; n++)
 		arg_t += argv[n];
 	uint64_t ret = getsumV2(arg_t.data(), arg_t.size());
 	printf("%08ull", ret);

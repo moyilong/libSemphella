@@ -6,7 +6,6 @@
 #include "crypt.h"
 #include "string.h"
 
-
 struct CAPI LICENSE {
 	string main;
 	string check;

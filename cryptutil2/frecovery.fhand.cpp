@@ -3,20 +3,19 @@
 uint64_t xcount = 0;
 void Rechandle(HEAD head, file in, file out, uint64_t &sum, int len, uint64_t op_addr)
 {
-	
 	int rclen = get_block_len(len);
-	char *recdata = (char*)malloc(rclen); 
+	char *recdata = (char*)malloc(rclen);
 	uint64_t mov_in = 0, mov_out = 0;
 	uint64_t rec_off = xcount*get_block_len(bs);
 	cp2 << "Setting Recovery Offset:" << rec_off << endl;
 	if (decrypt)
 	{
-		mov_in=op_addr + sizeof(HEAD)+rec_off;
+		mov_in = op_addr + sizeof(HEAD) + rec_off;
 		mov_out = op_addr;
 	}
 	else {
 		mov_in = op_addr;
-		mov_out = op_addr + sizeof(HEAD)+rec_off;
+		mov_out = op_addr + sizeof(HEAD) + rec_off;
 	}
 	in.seekp(mov_in);
 	out.seekp(mov_out);
@@ -30,7 +29,7 @@ void Rechandle(HEAD head, file in, file out, uint64_t &sum, int len, uint64_t op
 			cout << "Error: VerifyData Error!" << endl;
 			exit(-1);
 		}
-		STAT rcstat=Recovery(buff, len, recdata);
+		STAT rcstat = Recovery(buff, len, recdata);
 		if (rcstat != OK && rcstat != Fixed)
 		{
 			cout << "Error: Unexpect Error @ " << op_addr << endl;
@@ -44,7 +43,7 @@ void Rechandle(HEAD head, file in, file out, uint64_t &sum, int len, uint64_t op
 #ifndef WHITE_CRYPT
 		APOLL[trans_id(head.algrthom)].ca(recdata, rclen, 0);
 #endif
-		cp2 << "Caculating Recovery Data... ("<<rclen<<")" << endl;
+		cp2 << "Caculating Recovery Data... (" << rclen << ")" << endl;
 		CaculateRecovery(buff, len, recdata);
 	}
 	uint64_t vsu = 0;

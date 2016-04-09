@@ -50,7 +50,7 @@ void compile(string filename)
 				{
 					static BLOCK_INFO info;
 					info = readd;
-					DEBUG << info.name <<"@"<<info.father<< " Was been reg!" << endl;
+					DEBUG << info.name << "@" << info.father << " Was been reg!" << endl;
 					bpoll.push_back(info);
 				}
 				readd.empty();
@@ -59,9 +59,8 @@ void compile(string filename)
 			{
 				first = !first;
 			}
-			readd.name = getLine.substr(1, getLine.size()-2);
+			readd.name = getLine.substr(1, getLine.size() - 2);
 			DEBUG << "Start to process:" << readd.name << endl;
-
 		}
 		else {
 			string name;
@@ -97,7 +96,7 @@ void compile(string filename)
 			else {
 				cout << "Error: Unknow Label Append!" << endl;
 				cout << filename << "@" << count << endl;
-				cout << getLine << endl<<endl;
+				cout << getLine << endl << endl;
 			}
 		}
 	}

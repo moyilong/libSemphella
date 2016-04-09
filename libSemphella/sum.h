@@ -29,7 +29,6 @@
      (((x) & 0x000000000000ff00) << 40 ) | (((x) & 0x00000000000000ff) <<  56))
 #endif
 
-
 ///MD5的结果数据长度
 //const CAPI size_t ZEN_MD5_HASH_SIZE = 16;
 #define ZEN_MD5_HASH_SIZE	16
@@ -37,12 +36,8 @@
 //const CAPI size_t ZEN_SHA1_HASH_SIZE = 20;
 #define ZEN_SHA1_HASH_SIZE	20
 
-
-
 namespace  ZEN_LIB
 {
-
-
 	/*!
 	@brief      求某个内存块的MD5，
 	@return     unsigned char* 返回的的结果，
@@ -53,7 +48,6 @@ namespace  ZEN_LIB
 	unsigned char CAPI *md5(const unsigned char *buf,
 		size_t size,
 		unsigned char result[ZEN_MD5_HASH_SIZE]);
-
 
 	/*!
 	@brief      求内存块BUFFER的SHA1值
@@ -69,4 +63,3 @@ namespace  ZEN_LIB
 	string CAPI sha1_string(const unsigned char result[ZEN_SHA1_HASH_SIZE]);
 	string CAPI md5_string(const unsigned char result[ZEN_SHA1_HASH_SIZE]);
 };
-

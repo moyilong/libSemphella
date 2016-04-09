@@ -3,7 +3,6 @@
 #include "config.h"
 #include "string.h"
 
-
 #ifdef __ALLOW_DYMANIC_DEBUG
 #define DEBUG_LINE	if (KERNEL.GetDebugStat())
 #else
@@ -16,7 +15,5 @@
 #define DEBUG_CALL_TRACK_ARGMENT_FUNC	string __file_name,int __file_line
 
 API void __display_dump(const char *data, long long len, int x = 5, DEBUG_CALL_TRACK_ARGMENT);
-
-
 
 #define display_dump DEBUG_LINE __display_dump

@@ -12,7 +12,6 @@ typedef void(*for_each_fun)(string value, string data);
 
 class CAPI argment
 {
-
 public:
 	argment();
 	~argment();
@@ -26,5 +25,3 @@ public:
 private:
 	vector<CONFIG_BLOCK>block;
 };
-
-
