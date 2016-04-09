@@ -54,9 +54,6 @@
     <ClCompile Include="basic.mod.cpp">
       <Filter>Algorthim</Filter>
     </ClCompile>
-    <ClCompile Include="license_algr.mod.cpp">
-      <Filter>Algorthim</Filter>
-    </ClCompile>
     <ClCompile Include="algorthim.cpp">
       <Filter>源文件</Filter>
     </ClCompile>

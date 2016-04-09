@@ -170,7 +170,6 @@
     <ClCompile Include="fhandle.cpp" />
     <ClCompile Include="frecovery.fhand.cpp" />
     <ClCompile Include="info.cpp" />
-    <ClCompile Include="license_algr.mod.cpp" />
     <ClCompile Include="license_create.cpp" />
     <ClCompile Include="performance_test.cpp" />
   </ItemGroup>
