@@ -13,10 +13,6 @@ ALGHRTHIM::ALGHRTHIM(password_algrthom p, crypt_algrthom c, sum_algrthom s, int 
 	debug << "Insert Alghrthim " << id << " @ " << xsize << endl;
 	//APOLL.push_back(*this);
 	can_be_pt = _can_be_pt;
-	if (!can_be_pt)
-	{
-		debug << "Algorthim " << id << " is not supported basic performance test" << endl;
-	}
 	APOLL[xsize++] = *this;
 }
 
