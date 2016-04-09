@@ -139,7 +139,7 @@ API void xor_cryptV2_1_MATRIX_V2_LMEM(string password, char * data, int64_t len,
 inline char xbit(const char *data, long long len, const char off)
 {
 	char ret = off;
-	for (long long n = 0; n < len; n++)
+	for (long long n = 0;n < len;n++)
 		ret += data[n] + off;
 	return ret;
 }
@@ -193,10 +193,10 @@ CAPI void word_list_convert(char *str, const char *word_white_list, const char *
 	if (!word_list_check(word_white_list, word_balck_list))
 		cpt << "Warring:word list dict is unsecure" << endl;
 #pragma omp parallel for
-	for (int n = 0; n < strlen(str); n++)
+	for (int n = 0;n < strlen(str);n++)
 	{
 		char swap = str[n];
-		for (int y = 0; y < strlen(word_white_list); y++)
+		for (int y = 0;y < strlen(word_white_list);y++)
 			if (word_white_list[y] == str[n])
 			{
 				swap = word_balck_list[y];
@@ -326,24 +326,24 @@ API uint64_t sha1_SUM(const char *data, uint64_t len)
 	ZEN_LIB::sha1((const unsigned char *)data, len, result);
 	return getsumV2((char*)result, ZEN_SHA1_HASH_SIZE);
 }
-#define PMLEN	4
+#define PMLEN	sizeof(uint64_t)
 API void fastCrypt(char *data, uint64_t len, string password)
 {
 	char password_mutex[PMLEN];
-	for (int n = 0; n < PMLEN; n++)
+	for (int n = 0;n < PMLEN;n++)
 	{
 		password_mutex[n] = 0;
 #pragma omp parallel for
-		for (int x = 0; x < password.size(); x++)
+		for (int x = 0;x < password.size();x++)
 			password_mutex[n] = (password_mutex[n] << 8) + password.at(x) ^ n;
 	}
 	uint64_t value_data = getsumV2(password.data(), password.size()) ^ getsumV2(password_mutex, PMLEN);
 #undef max
 #pragma omp parallel for
-	for (int64_t n = 0; n < len; n++)
+	for (int64_t n = 0;n < len;n++)
 	{
 		char seek = len;
-		for (int x = 0; x < PMLEN; x++)
+		for (int x = 0; x < PMLEN;x++)
 			seek = (~seek << 4) + password_mutex[x] ^ (n ^ (~value_data));
 		data[n] = data[n] ^ seek;
 	}

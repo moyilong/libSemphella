@@ -33,7 +33,7 @@ API string AddressGetFileName(string filename)
 			last = n;
 			break;
 		}
-	return filename.substr(last);
+	return filename.substr(last + 1);
 }
 
 API int strfind(const char *str, char find, bool wn)
@@ -51,7 +51,7 @@ API int strfind(const char *str, char find, bool wn)
 CAPI void strcpy(char *dest, const char *origin, long long cplen, long long r_off, long long w_off)
 {
 #pragma omp parallel for
-	for (long long n = 0; n < cplen; n++)
+	for (long long n = 0;n < cplen;n++)
 		dest[n + w_off] = origin[n + r_off];
 }
 
