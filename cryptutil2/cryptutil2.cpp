@@ -103,6 +103,9 @@ void config_read(string name, string value)
 		output = value;
 		break;
 	case 'p':
+		password = ull2s(getsumV2(value.data(), value.size()));
+		break;
+	case 'n':
 		password = value;
 		break;
 	case 'd':
@@ -178,7 +181,7 @@ void config_read(string name, string value)
 
 int main(int argc, char *argv[])
 {
-	KERNEL.SetDebugStat(false);
+	//KERNEL.SetDebugStat(false);
 #ifndef __LINUX__
 	logo();
 	cout << "Error:This Program is can't run in windows !" << endl;

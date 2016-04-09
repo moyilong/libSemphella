@@ -29,7 +29,7 @@ struct MP_BLOCK {
 #define ext_support_lab	(char)'S'
 #define ext_end_lab	(char)'E'
 #define DEFAULT_FHANDLE 0
-#define DEFAULT_ALGRTHOM_TYPE	3
+#define DEFAULT_ALGRTHOM_TYPE	6
 
 #define cp2 debug
 #define DEBUG debug
@@ -49,6 +49,8 @@ struct HEAD {
 	char ext[EXT_SIZE];
 	uint64_t password_sum;
 	uint64_t bs = bs;
+
+	//Program Funcation
 	bool check();
 	HEAD();
 	void reset_ext();

@@ -82,3 +82,5 @@ struct LINE {
 };
 
 API XPOINT LineGetPoint(MTYPE x, const LINE line);
+API	MTYPE PointToPoint(XPOINT a, XPOINT b);
+API MTYPE LINE_2D_K(XPOINT a, XPOINT b);

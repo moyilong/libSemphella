@@ -39,3 +39,18 @@ API XPOINT PointMove(XPOINT orig, XPOINT diff)
 {
 	return XPOINT(orig.x + diff.x, orig.y + diff.y, orig.z + diff.z);
 }
+
+API	MTYPE PointToPoint(XPOINT a, XPOINT b)
+{
+	MTYPE dx = abs(a.x - b.x);
+	MTYPE dy = abs(a.y - b.y);
+	MTYPE dz = abs(a.z - b.z);
+	return sqrt(dx*dx + dy*dy + dz*dz);
+}
+
+API MTYPE LINE_2D_K(XPOINT a, XPOINT b)
+{
+	if (a.y - b.y == 0 || a.x - b.x == 0)
+		return 0;
+	return abs(a.y - b.y) / abs(a.x - b.x);
+}
