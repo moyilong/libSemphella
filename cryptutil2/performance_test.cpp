@@ -9,15 +9,6 @@ struct SCORE_T {
 #define TEST_LOOPS	128
 SCORE_T runOnce(int id)
 {
-	if (!APOLL[id].can_be_pt)
-	{
-		debug << "ID " << id << " define un_PT" << endl;
-		SCORE_T temp;
-		temp.timeout = 0;
-		temp.time_out = 0;
-		temp.all_count = 0;
-		temp.id = APOLL[id].id;
-	}
 	debug << "Prepering for Test:" << APOLL[id].id << endl;
 	char buff[MAX_BUFF_SIZE];
 	uint64_t hash = getsumV2(buff, MAX_BUFF_SIZE);
