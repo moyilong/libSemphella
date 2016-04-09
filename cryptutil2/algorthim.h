@@ -17,7 +17,6 @@ extern  bool decrypt;
 
 class ALGHRTHIM {
 public:
-	typedef void(*proc)(ALGHRTHIM *self);			//初始化函数
 	bool can_be_pt = true;
 	//密码初始化算法
 	password_algrthom pa;
@@ -30,7 +29,6 @@ public:
 	get_password_checksum px;
 	inline ALGHRTHIM() {};
 	ALGHRTHIM(password_algrthom p, crypt_algrthom c, sum_algrthom s, int xid, get_password_checksum pc = password_type, bool _can_be_pt = true);
-	ALGHRTHIM(proc initfunc);
 };
 #define AMAX	16
 
