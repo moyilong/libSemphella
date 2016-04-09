@@ -20,6 +20,12 @@ ALGHRTHIM::ALGHRTHIM(password_algrthom p, crypt_algrthom c, sum_algrthom s, int 
 	APOLL[xsize++] = *this;
 }
 
+ALGHRTHIM::ALGHRTHIM(proc initfunc)
+{
+	initfunc(this);
+	APOLL[xsize++] = *this;
+}
+
 char _cached_trans_from = -1;
 char _cached_trans_to = -1;
 

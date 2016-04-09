@@ -81,7 +81,7 @@ void PerformanceTest()
 			if (sct[n].time_out < sct[n + 1].time_out)
 			{
 				SCORE_T temp = sct[n + 1];
-				sct[n + 1] = sct[n];
+				//sct[n + 1] = sct[n];
 				sct[n] = temp;
 				stat = true;
 			}
