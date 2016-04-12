@@ -8,7 +8,7 @@ uint64_t cc_count = 0;
 uint64_t xc_count = 0;
 bool status = true;
 #undef max
-uint64_t tout = numeric_limits<uint64_t>::max();
+uint64_t tout = -1;
 
 bool subRun(XPOINT point, int steps)
 {
@@ -55,7 +55,7 @@ void ThreadMonitor()
 void _Run()
 {
 	beg = time(0);
-	for (int n = 0; n < LOOP_ADD && time(0)-beg<tout; n++)
+	for (int n = 0; n < LOOP_ADD && (time(0) - beg < tout || tout == -1); n++)
 	{
 #pragma omp parallel for
 		for (int x = 0; x < AREA_MAX; x++)
