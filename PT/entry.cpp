@@ -19,7 +19,11 @@ int main(int argc, char *argv[])
 			case 't':
 				n += 1;
 				tout = atoi(argv[n]);
+				cout << "Setting Timeout:" << tout << endl;
 				break;
+			default:
+				cout << "Unknow Options:" << argv[n];
+				exit(-1);
 			}
 		}
 	cout << "Running Memory Write Test...";
