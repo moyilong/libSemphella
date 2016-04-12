@@ -18,3 +18,5 @@ void init();
 void Run();
 
 #define MT7620_PERFORMANCE	1500
+
+extern uint64_t tout;
