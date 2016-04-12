@@ -34,13 +34,21 @@ bool subRun(XPOINT point, int steps)
 time_t beg;
 void ThreadMonitor()
 {
+	double precent;
 	if (quiet)
 		return;
 	while (true)
 	{
-		esleep(1000);
-		double precent = (double)xc_count / (double)(AREA_MAX*AREA_MAX*LOOP_ADD);
-		iops = (iops + (xc_count / (time(0) - beg))) / 2;
+		
+		esleep(100);
+		try {
+			precent = (double)xc_count / (double)(AREA_MAX*AREA_MAX*LOOP_ADD);
+		}
+		catch (...)
+		{
+			precent = -1;
+		}
+		iops = (iops + (cc_count / (time(0) - beg))) / 2;
 
 		ShowProcessBar(precent, ull2s(iops / 1000) + " KIPS");
 		printf("\r");
