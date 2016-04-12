@@ -45,7 +45,7 @@ void ThreadMonitor()
 		precent = (double)xc_count / (double)(AREA_MAX*AREA_MAX*LOOP_ADD);
 		iops = (iops + (cc_count / dZero(time_out))) / 2;
 
-		ShowProcessBar(precent, ull2s(iops / 1000) + " KIPS");
+		ShowProcessBar(precent, ull2s(iops / 1000) + " KIPS Start " + ull2s(time_out) + " second");
 		printf("\r");
 		if (!status)
 		{
