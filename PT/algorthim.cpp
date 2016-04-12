@@ -32,6 +32,7 @@ bool subRun(XPOINT point, int steps)
 	return false;
 }
 time_t beg;
+time_t time_out;
 void ThreadMonitor()
 {
 	double precent;
@@ -39,16 +40,10 @@ void ThreadMonitor()
 		return;
 	while (true)
 	{
-		
 		esleep(100);
-		try {
-			precent = (double)xc_count / (double)(AREA_MAX*AREA_MAX*LOOP_ADD);
-		}
-		catch (...)
-		{
-			precent = -1;
-		}
-		iops = (iops + (cc_count / (time(0) - beg))) / 2;
+		time_out = time(0) - beg;
+		precent = (double)xc_count / (double)(AREA_MAX*AREA_MAX*LOOP_ADD);
+		iops = (iops + (cc_count / dZero(time_out))) / 2;
 
 		ShowProcessBar(precent, ull2s(iops / 1000) + " KIPS");
 		printf("\r");
@@ -62,8 +57,9 @@ void ThreadMonitor()
 
 void _Run()
 {
+	tout = 0;
 	beg = time(0);
-	for (int n = 0; n < LOOP_ADD && (time(0) - beg < tout || tout == -1); n++)
+	for (int n = 0; n < LOOP_ADD && (time_out < tout || tout == -1); n++)
 	{
 #pragma omp parallel for
 		for (int x = 0; x < AREA_MAX; x++)
