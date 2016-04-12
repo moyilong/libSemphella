@@ -4,8 +4,8 @@
 #define AREA_MAX	1024
 #define STEPS		128
 #define STEP_DIVID	1
-#define DGST_STEP	8
-#define LOOP_ADD	8
+#define DGST_STEP	4
+#define LOOP_ADD	4
 extern char chess[AREA_MAX][AREA_MAX];
 extern uint64_t cc_count;
 extern uint64_t xc_count;
