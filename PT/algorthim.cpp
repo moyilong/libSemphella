@@ -59,7 +59,7 @@ void _Run()
 {
 	tout = 0;
 	beg = time(0);
-	for (int n = 0; n < LOOP_ADD && (time_out < tout || tout == -1); n++)
+	for (int n = 0; n < LOOP_ADD && (time_out < tout || tout == -1 && tout!=0); n++)
 	{
 #pragma omp parallel for
 		for (int x = 0; x < AREA_MAX; x++)
