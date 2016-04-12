@@ -57,8 +57,8 @@ void ThreadMonitor()
 
 void _Run()
 {
-	tout = 0;
 	beg = time(0);
+	time_out = 0;
 	for (int n = 0; n < LOOP_ADD && (time_out < tout || tout == -1 && tout!=0); n++)
 	{
 #pragma omp parallel for
