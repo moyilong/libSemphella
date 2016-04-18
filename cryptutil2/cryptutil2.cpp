@@ -4,7 +4,7 @@
 #include "stdafx.h"
 #include "cryptutil2.h"
 #include <libSemphella/argment.h>
-
+extern int timeout;
 int64_t bs = 4096;
 bool decrypt = false;
 bool crack = false;
@@ -95,6 +95,8 @@ HEAD::HEAD()
 
 void config_read(string name, string value)
 {
+	string temp;
+	bool stat = false;
 	switch (name.at(0)) {
 	case 'i':
 		input = value;
@@ -164,7 +166,6 @@ void config_read(string name, string value)
 		break;
 	case 'F':
 		al = atoi(value.data());
-		bool stat = false;
 		for (int x = 0; x < fsize; x++)
 			if (FPOLL[x].id == al)
 				stat = true;
@@ -176,12 +177,22 @@ void config_read(string name, string value)
 		cp2 << "Resetting File Handle" << fhand << " => " << al << endl;
 		fhand = al;
 		break;
+	case '-':
+		temp = name.substr(1);
+		if (streval(temp.data(), "timeout"))
+			timeout = atoi(value.data());
+		if (streval(temp.data(), "thread"))
+		{
+			debug << "setting thread number:" << atoi(value.data());
+			omp_set_num_threads(atoi(value.data()));
+		}
+		break;
 	}
 }
 
 int main(int argc, char *argv[])
 {
-	//KERNEL.SetDebugStat(false);
+	KERNEL.SetDebugStat(false);
 #ifndef __LINUX__
 	logo();
 	cout << "Error:This Program is can't run in windows !" << endl;

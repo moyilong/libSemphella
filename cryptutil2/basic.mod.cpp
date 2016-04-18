@@ -56,9 +56,16 @@ void xor_2(char *data, int64_t len, int64_t bit)
 	xor_cryptV2(matrix, data, len, bit);
 }
 
+void not_crypt(char *data, int64_t len, int64_t bit)
+{
+
+}
+#ifndef LOW_PERFORMANCE_DEVICE
 ALGORTHIM basic_xor_V2_1(M1, xor_2_1, getsumV2, 0);
 ALGORTHIM basic_xor_V2(M1, xor_2, getsumV2, 1);
-ALGORTHIM basic_old_alg(CreateMatrix_NULL, CryptAlgrthom, getsumV2, 2);
 ALGORTHIM basic_matrix_v2(M2, xor_2_1, getsumV2, 3);
+#endif
+ALGORTHIM basic_old_alg(CreateMatrix_NULL, CryptAlgrthom, getsumV2, 2);
 ALGORTHIM basic_lowmem(CreateMatrix_NULL, LOW_MEM_ALGRTHOM, getsumV2, 4);
 ALGORTHIM basic_fast(CreateMatrix_NULL, fastCrypt_ALGRTHOM, getsumV2, 6);
+ALGORTHIM basic_none(CreateMatrix_NULL, not_crypt, getsumV2, 5);

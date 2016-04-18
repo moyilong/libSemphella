@@ -42,6 +42,7 @@ bool file::open(string filename, string mode)
 {
 	if (opend)
 		return false;
+	debug << "OpenFile:" << filename << " by " << mode << endl;
 	fp = fopen(filename.data(), mode.data());
 	if (fp == NULL)
 		return false;
@@ -55,6 +56,7 @@ bool file::open(string filename, string mode)
 		fseek(fp, 0, 0);
 		f2debug << "Setting File Len:" << len << endl;
 	}
+	debug << "File:" << filename << " was been opend!" << endl;
 	return true;
 }
 

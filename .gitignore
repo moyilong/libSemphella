@@ -1,4 +1,5 @@
 PT_INSTALL/GroupPackages
+UpgradeLog.htm
 *.lic
 *.ert2
 *.ert
@@ -42,6 +43,7 @@ git-src
 *.idb
 *.pdb
 *.obj
+*.VC.db
 *.log
 *.tlog
 *.ilk

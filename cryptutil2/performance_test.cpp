@@ -6,6 +6,7 @@ struct SCORE_T {
 	uint64_t all_count;
 	uint64_t timeout;
 };
+int timeout = 4;
 #define TEST_LOOPS	128
 SCORE_T runOnce(int id)
 {
@@ -19,7 +20,7 @@ SCORE_T runOnce(int id)
 	uint64_t t_hash_1, t_hash_2;
 	uint64_t count = 0;
 	time_t start = time(0);
-	while (time(0) - start <= 4)
+	while (time(0) - start <= timeout)
 	{
 		count++;
 		APOLL[id].pa(pwd);
@@ -78,7 +79,7 @@ void PerformanceTest()
 			}
 		}
 	}
-	cout << "=======================Restult====================" << endl;
+	cout << "=======================Result====================" << endl;
 	for (int n = 0; n < poll.size(); n++)
 	{
 		if (n == 0)
