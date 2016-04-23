@@ -4,11 +4,13 @@ void FileProcess(HEAD head, file in, file out, uint64_t &sum, int len, uint64_t 
 {
 	if (decrypt)
 	{
+		debug << "in decrypt mode" << endl;
 		in.seekp(op_addr + sizeof(HEAD));
 		if (!std_out)
 			out.seekp(op_addr);
 	}
 	else {
+		debug << "in crypt mode" << endl;
 		in.seekp(op_addr);
 		out.seekp(op_addr + sizeof(HEAD));
 	}
