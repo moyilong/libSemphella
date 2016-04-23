@@ -13,6 +13,7 @@ void FileProcess(HEAD head, file in, file out, uint64_t &sum, int len, uint64_t 
 		debug << "in crypt mode" << endl;
 		in.seekp(op_addr);
 		out.seekp(op_addr + sizeof(HEAD));
+
 	}
 	char *buff = (char*)malloc(len);
 	in.read(buff, len);
