@@ -73,10 +73,10 @@ uint64_t file::tell_len()
 
 void file::seekp(uint64_t off)
 {
-	uint16_t orig = tellp();
 	check();
+	f2debug << "Redirect " << tellp() << " => " << off << endl;
 	fseek(fp, off, 0);
-	f2debug << "Redirect " << orig << " => " << tellp()<<endl;
+	
 }
 
 bool file::is_eof()
