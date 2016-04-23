@@ -276,3 +276,10 @@ API string convert_process(const char *data)
 	}
 	return fin;
 }
+
+API string f2s(float value)
+{
+	char buff[MAX_BUFF_SIZE];
+	sprintf(buff,"%f", value);
+	return buff;
+}

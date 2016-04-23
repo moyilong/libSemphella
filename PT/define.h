@@ -17,6 +17,6 @@ bool inPoint(XPOINT point);
 void init();
 void Run();
 
-#define MT7620_PERFORMANCE	1500
+#define MT7620_PERFORMANCE	7500
 
 extern uint64_t tout;

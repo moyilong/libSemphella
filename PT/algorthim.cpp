@@ -9,12 +9,13 @@ uint64_t xc_count = 0;
 bool status = true;
 #undef max
 uint64_t tout = -1;
+int steps = -1;
 
 bool subRun(XPOINT point, int steps)
 {
 	for (int dg_step = 0; dg_step < DGST_STEP; dg_step++)
 	{
-		float dgst = (360 / DGST_STEP)*dg_step;
+		MTYPE dgst = (360 / DGST_STEP)*dg_step;
 		for (int len_step = 0; len_step < STEPS; len_step++)
 		{
 			XPOINT target = VectorPoint(point, dgst, steps);
@@ -36,16 +37,18 @@ time_t time_out;
 void ThreadMonitor()
 {
 	double precent;
+	double all = AREA_MAX*AREA_MAX*LOOP_ADD;
 	if (quiet)
 		return;
 	while (true)
 	{
 		esleep(100);
 		time_out = time(0) - beg;
-		precent = (double)xc_count / (double)(AREA_MAX*AREA_MAX*LOOP_ADD);
+		precent = (double)xc_count / all;
+		
 		iops = (iops + (cc_count / dZero(time_out))) / 2;
 
-		ShowProcessBar(precent, ull2s(iops / 1000) + " KIPS Start " + ull2s(time_out) + " second");
+		ShowProcessBar(precent, ull2s(iops / 1000) + " KIPS in " + ull2s(time_out) + " s");
 		printf("\r");
 		if (!status)
 		{
@@ -59,7 +62,7 @@ void _Run()
 {
 	beg = time(0);
 	time_out = 0;
-	for (int n = 0; n < LOOP_ADD && (time_out < tout || tout == -1 && tout!=0); n++)
+	for (int n = 0; n < LOOP_ADD && (time_out < tout || tout == -1 && tout!=0) && (steps==-1 || steps>n); n++)
 	{
 #pragma omp parallel for
 		for (int x = 0; x < AREA_MAX; x++)
@@ -76,16 +79,6 @@ void Run()
 {
 	cout << endl << endl;
 	beg = time(0);
-	//omp_set_num_threads(2);
-/*#pragma omp parallel for
-	for (int n = 0; n < 2; n++)
-	{
-		cout << "TID:" << n << endl;
-		if (n == 0)
-			_Run();
-		else
-			ThreadMonitor();
-	}*/
 	thread ca(_Run);
 	thread mo(ThreadMonitor);
 	ca.join();

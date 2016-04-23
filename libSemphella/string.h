@@ -30,3 +30,4 @@ inline string eitoa(int num, int radix, const char *word_list = DEFAULT_WORD_WHI
 }
 
 API string AddressGetFileName(string filename);
+API string f2s(float value);

@@ -2,7 +2,8 @@
 #include "define.h"
 time_t memTest;
 time_t algorthimTest;
-
+extern int steps;
+bool signal = false;
 int main(int argc, char *argv[])
 {
 	for (int n = 0; n < argc; n++)
@@ -14,6 +15,7 @@ int main(int argc, char *argv[])
 				quiet = true;
 				break;
 			case 's':
+				signal = true;
 				omp_set_num_threads(1);
 				break;
 			case 't':
@@ -21,11 +23,19 @@ int main(int argc, char *argv[])
 				tout = atoi(argv[n]);
 				cout << "Setting Timeout:" << tout << endl;
 				break;
+			case'n':
+				steps = atoi(argv[n + 1]);
+				n += 1;
+				break;
 			default:
 				cout << "Unknow Options:" << argv[n];
 				exit(-1);
 			}
 		}
+	if (!signal)
+	{
+		omp_set_num_threads(omp_get_max_threads() - 1);
+	}
 	cout << "Running Memory Write Test...";
 	memTest = time(0);
 	init();
@@ -38,11 +48,17 @@ int main(int argc, char *argv[])
 	if (algorthimTest == 0)
 		algorthimTest = 1;
 	cout << endl << endl;
-	cout << "Main Algorthim Performance:" << xc_count / algorthimTest / 1000 << " KIPS" << endl;
-	cout << "All Mainline Caclulate Size:" << xc_count / 1000 << " KIO" << endl;
-	cout << "Caculate Thread Performance : " << cc_count / algorthimTest / 1000000 << " MIPS" << endl;
-	cout << "All Subline Caculate Size:" << cc_count / 1000000 << " MIO" << endl;
+	double mt_per = xc_count / algorthimTest / (double)1000;
+	double mt_all = xc_count / (double)1000;
+	double al_per = cc_count / algorthimTest / (double)1000000;
+	double al_all = cc_count / (double)1000000;
+	double final_per = cc_count / algorthimTest / (double)1000;
+	double div = cc_count / algorthimTest / MT7620_PERFORMANCE;
+	cout << "主线程性能:" <<mt_per << " 千步每秒" << endl;
+	cout << "主线程步数:" << mt_all << " 千步" << endl;
+	cout << "整体性能: " << al_per << " 十万步每秒" << endl;
+	cout << "整体步数:" << al_all << " 十万步" << endl;
 	cout << "=======================================================" << endl;
-	cout << "Final Score:" << cc_count / algorthimTest / 1000 << " KIPS" << endl;
-	cout << "for MT7620N (580MHZ 128MB DDR2 1500IOPS):" << cc_count / algorthimTest / MT7620_PERFORMANCE << endl;
+	cout << "最终成绩:" << final_per << " 千步每秒" << endl;
+	cout << "对比MT7620(580MHZ 128MB DDR2 7.5千步每秒):" << div <<" 倍"<< endl;
 }
