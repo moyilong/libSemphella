@@ -142,6 +142,7 @@ void config_read(string name, string value)
 		break;
 	case 'v':
 		KERNEL.SetDebugStat(true);
+		fs_verbos(true);
 		break;
 	case 'V':
 		logo();
