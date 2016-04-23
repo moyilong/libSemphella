@@ -187,6 +187,11 @@ void config_read(string name, string value)
 			debug << "setting thread number:" << atoi(value.data());
 			omp_set_num_threads(atoi(value.data()));
 		}
+		if (streval(temp.data(), "fctest"))
+		{
+			fcTest();
+			exit(0);
+		}
 		break;
 	}
 }

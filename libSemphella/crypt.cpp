@@ -326,25 +326,61 @@ API uint64_t sha1_SUM(const char *data, uint64_t len)
 	ZEN_LIB::sha1((const unsigned char *)data, len, result);
 	return getsumV2((char*)result, ZEN_SHA1_HASH_SIZE);
 }
-#define PMLEN	4
-API void fastCrypt(char *data, uint64_t len, string password)
+API void fastCrypt(char *data, int64_t len, string password,int PMLEN)
 {
-	char password_mutex[PMLEN];
+	char seed = 0;
+	for (int n = 0; n < password.size(); n++)
+		seed ^= password.at(n);
+	char *pm = (char*)malloc(PMLEN);
+#pragma omp parallel for
 	for (int n = 0; n < PMLEN; n++)
 	{
-		password_mutex[n] = 0;
-#pragma omp parallel for
-		for (int x = 0; x < password.size(); x++)
-			password_mutex[n] = (password_mutex[n] << 8) + password.at(x) ^ n;
+		pm[n] = n;
+		for (uint64_t x = 0; x < password.size(); x++)
+			pm[n] ^= password.at(x) +x +n +seed+PMLEN;
 	}
-	uint64_t value_data = getsumV2(password.data(), password.size()) ^ getsumV2(password_mutex, PMLEN);
-#undef max
 #pragma omp parallel for
-	for (int64_t n = 0; n < len; n++)
+	for (int64_t n=0;n<len;n++)
 	{
-		char seek = len;
+		char stuffix = n;
 		for (int x = 0; x < PMLEN; x++)
-			seek = (~seek << 4) + password_mutex[x] ^ (n ^ (~value_data));
-		data[n] = data[n] ^ seek;
+			stuffix ^= pm[x] + (char)x + (char)n;
+		data[n] ^= stuffix + len + seed;
+	}
+}
+
+API void fcTest()
+{
+#define TEST_LEN 32
+	char buff[TEST_LEN];
+	char shadow[TEST_LEN];
+	char decrypt[TEST_LEN];
+	for (int n = 0; n < TEST_LEN; n++)
+	{
+		buff[n] = time(0)+rand();
+		shadow[n] = buff[n];
+	}
+	fastCrypt(buff, TEST_LEN, "moyilong");
+	char temp[16];
+	string swap;
+	cout << "Black:";
+	for (int n = 0; n < TEST_LEN; n++)
+	{
+		sprintf(temp,"%+02x", buff[n]);
+		cout << temp + strlen(temp) - 2 << " ";
+	}
+	cout << endl << "White:";
+	for (int n = 0; n < TEST_LEN; n++)
+	{
+		sprintf(temp, "%+02x",shadow[n]);
+		cout << temp + strlen(temp) - 2 << " ";
+	}
+	memcpy(decrypt, buff, TEST_LEN);
+	fastCrypt(decrypt, TEST_LEN, "moyilong");
+	cout << endl << "Decpt:";
+	for (int n = 0; n < TEST_LEN; n++)
+	{
+		sprintf(temp, "%+02x", decrypt[n]);
+		cout << temp + strlen(temp) - 2 << " ";
 	}
 }
