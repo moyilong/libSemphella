@@ -24,7 +24,7 @@ kernel::kernel()
 {
 	message("Kernel Start!");
 	if (kernel_inited)
-		this->abort();
+		abort();
 	start_time = time(0);
 	for (int n = 0; n < init_call.size(); n++)
 		init_call.at(n)();

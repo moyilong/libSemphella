@@ -1,3 +1,4 @@
+#pragma once
 #include "libSemphella.h"
 
 typedef 	int64_t COUNT_TYPE;

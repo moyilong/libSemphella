@@ -47,6 +47,7 @@ void init()
 	if (rst != 0)
 		reset();
 	info();
+	cout << "Init Complete!" << endl;
 }
 
 void error()
@@ -89,7 +90,9 @@ void reset()
 			ASSIGN_TYPE ptr = n;
 			memory[ptr] = 0;
 			if (n % 1024 == 0)
-				cout << "Restting Memory:" << ull2s(n) << "\r";
+			{
+				printf("Resetting Memory 0x%-16x => 0x%-16x\r", n,MEM_SIZE);
+			}
 		}
 		cout << endl;
 		mem_rst = 1;

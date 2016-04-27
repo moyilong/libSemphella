@@ -6,9 +6,7 @@
 #include <stdlib.h>
 #include "crypt.h"
 #include "string.h"
-
-bool f2verbos = false;
-#define f2debug if (f2verbos) debug
+#define f2debug  debug
 
 file::~file()
 {
@@ -90,11 +88,11 @@ void file::check()
 	{
 		f2debug << "Error Report!" << endl;
 		f2debug << "Status is open bug the status is ptr is null" << endl;
-		abort();
+		KERNEL.abort();
 	}
 }
 
 API void fs_verbos(bool stat)
 {
-	f2verbos = stat;
+	KERNEL.SetDebugStat(stat);
 }

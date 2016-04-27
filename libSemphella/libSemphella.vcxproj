@@ -178,7 +178,6 @@
     <ClInclude Include="translate.h" />
     <ClInclude Include="utils.h" />
     <ClInclude Include="data_recovery.h" />
-    <ClInclude Include="xtables.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="APD_LOADER.cpp" />
@@ -195,7 +194,6 @@
     <ClCompile Include="string.cpp" />
     <ClCompile Include="translate.cpp" />
     <ClCompile Include="utils.cpp" />
-    <ClCompile Include="xtables.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
