@@ -214,6 +214,7 @@ int crypt_process()
 	{
 		cout << "External Data Was Be Writed!" << endl;
 		cout << "CheckSum:" << ex.checksum << endl;
+		cout << "Length:" << ex.length << endl;
 	}
 
 	return 0;
