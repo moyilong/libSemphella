@@ -112,6 +112,7 @@ HEAD::HEAD()
 	bs = 0;
 	reset_ext();
 }
+bool load_ext_info = false;
 char *buff = nullptr;
 void config_read(string name, string value)
 {
@@ -142,6 +143,9 @@ void config_read(string name, string value)
 		break;
 	case 'b':
 		bs = atoi(value.data());
+		break;
+	case 'E':
+		load_ext_info = true;
 		break;
 	case 'e':
 		load_ext_data(value);
@@ -241,6 +245,11 @@ int main(int argc, char *argv[])
 	cp2 << "Process Argment by foreach" << endl;
 	config_load.for_each(config_read);
 	cp2 << "Init Funcation" << endl;
+	if (load_ext_info)
+	{
+		ext_dump();
+		exit(0);
+	}
 	if (license_create)
 		return create_license();
 	if (info_get)

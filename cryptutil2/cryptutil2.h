@@ -88,3 +88,4 @@ int crypt_process();
 int information_process();
 int create_license();
 void PerformanceTest();
+void ext_dump();
