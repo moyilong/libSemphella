@@ -34,6 +34,10 @@ void ext_dump()
 		exit(0);
 	}
 	ext_data = (char*)malloc(ex.length);
+	memset(ext_data,0,sizeof(ex.length));
 	in.read(ext_data, ex.length);
+	debug<<"Data was been find!"<<endl;
+	debug<<"Find "<<ex.length<<"@"<<ex.checksum<<endl;
+	mask(ext_data,ex.length);
 	cout << ext_data;
 }
