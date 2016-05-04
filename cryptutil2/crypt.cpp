@@ -210,5 +210,11 @@ int crypt_process()
 	in.close();
 	if (!std_out)
 		out.close();
+	if (!std_out&&ex.length != 0 && ex.checksum != 0)
+	{
+		cout << "External Data Was Be Writed!" << endl;
+		cout << "CheckSum:" << ex.checksum << endl;
+	}
+
 	return 0;
 }
