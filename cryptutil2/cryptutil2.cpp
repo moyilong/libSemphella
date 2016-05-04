@@ -38,6 +38,7 @@ void load_ext_data(string filename)
 	ext_data = (char*)malloc(ex.length);
 	memset(ext_data, 0, sizeof(ext_data));
 	ext.read(ext_data, ex.length);
+	ex.checksum = getsumV2(ext_data, ex.length);
 	ext.close();
 }
 
