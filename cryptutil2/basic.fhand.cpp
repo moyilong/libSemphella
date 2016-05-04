@@ -2,17 +2,22 @@
 
 void FileProcess(HEAD head, file in, file out, uint64_t &sum, int len, uint64_t op_addr)
 {
+	int external_size = 0;
+	if (head.ext[EXT_EXTABLE] == 1)
+	{
+		external_size += ex.length+sizeof(EXT);
+	}
 	if (decrypt)
 	{
 		debug << "in decrypt mode" << endl;
-		in.seekp(op_addr + sizeof(HEAD));
+		in.seekp(op_addr + sizeof(HEAD)+external_size);
 		if (!std_out)
 			out.seekp(op_addr);
 	}
 	else {
 		debug << "in crypt mode" << endl;
 		in.seekp(op_addr);
-		out.seekp(op_addr + sizeof(HEAD));
+		out.seekp(op_addr + sizeof(HEAD)+external_size);
 
 	}
 	char *buff = (char*)malloc(len);

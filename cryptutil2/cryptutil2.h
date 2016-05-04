@@ -24,7 +24,7 @@ struct MP_BLOCK {
 
 //static const int level = 2;
 //static const int level_compact = 2;
-#define level 4
+#define level 5
 #define level_compact 2
 #define ext_support_lab	(char)'S'
 #define ext_end_lab	(char)'E'
@@ -56,13 +56,21 @@ struct HEAD {
 	void reset_ext();
 };
 
+#define DESIGN_KEEP_SIZE	4096
+
+struct EXT {
+	uint64_t length;
+	uint64_t checksum;
+	char buff[DESIGN_KEEP_SIZE-sizeof(uint64_t)*2];
+};
 #define EXT_SUPPORT	0
 #define EXT_FHANDLE	1
+#define EXT_EXTABLE	2
 #define EXT_ENDFLAG	EXT_SIZE-1
-
+extern char*ext_data;
 void logo();
 bool file_name_check(string filename);
-
+extern EXT ex;
 extern int64_t bs;
 extern bool crack;
 extern bool std_out;

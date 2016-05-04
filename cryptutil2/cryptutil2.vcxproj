@@ -167,6 +167,7 @@
     <ClCompile Include="crypt.cpp" />
     <ClCompile Include="cryptutil2.cpp" />
     <ClCompile Include="basic.mod.cpp" />
+    <ClCompile Include="extdump.cpp" />
     <ClCompile Include="fhandle.cpp" />
     <ClCompile Include="frecovery.fhand.cpp" />
     <ClCompile Include="info.cpp" />

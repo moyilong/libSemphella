@@ -384,3 +384,13 @@ API void fcTest()
 		cout << temp + strlen(temp) - 2 << " ";
 	}
 }
+
+API void mask(char *buff, int64_t len)
+{
+#pragma omp parallel for
+	for (int64_t n = 0; n < len; n++)
+	{
+		char value = n + 2;
+		buff[n] ^= value;
+	}
+}

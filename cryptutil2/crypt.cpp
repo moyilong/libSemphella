@@ -1,6 +1,7 @@
 #include "cryptutil2.h"
 #include "fhandle.h"
 #include "algorthim.h"
+char *ext_data = nullptr;
 int crypt_process()
 {
 	if (input.empty() || password.empty())
@@ -77,6 +78,21 @@ int crypt_process()
 		DEBUG << "Alloc File Space" << endl;
 		out.write((char*)&head, sizeof(HEAD));
 		DEBUG << "Read File Handle:" << (int)head.ext[EXT_FHANDLE] << endl;
+		DEBUG << "Updating External Table" << endl;
+		if (ext_data == nullptr)
+		{
+			ex.checksum = 0;
+			ex.length = 0;
+			out.seekp(sizeof(HEAD));
+			out.write(&ex, 1);
+		}
+		else {
+			mask(ext_data, ex.length);
+			ex.checksum = getsumV2(ext_data, ex.length);
+			out.seekp(sizeof(HEAD));
+			out.write(&ex, 1);
+			out.write(ext_data, ex.length);
+		}
 	}
 	else
 	{
@@ -96,6 +112,21 @@ int crypt_process()
 			cout << "Read Protoco Version:" << (unsigned int)head.account_level << endl;
 			cout << "Compact Protoco Version:" << (unsigned int)level << endl;
 			exit(-1);
+		}
+		if (head.ext[EXT_EXTABLE] == 1)
+		{
+			in.seekp(sizeof(HEAD));
+			char buff[sizeof(EXT)];
+			memset(buff, 0, sizeof(buff));
+			in.read(buff, sizeof(EXT));
+			ext_data = (char*)malloc(ex.length);
+			in.read(ext_data, ex.length);
+			mask(ext_data, ex.length);
+			if (ex.checksum != getsumV2(ext_data, ex.length))
+			{
+				cout << "External Data Checksum Faild!";
+				exit(-1);
+			}
 		}
 	}
 	if (!std_out)	cout << input << " => " << output << endl;

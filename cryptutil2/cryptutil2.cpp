@@ -23,6 +23,25 @@ string input;
 string output;
 string password;
 #include "fhandle.h"
+#define MAX_EXDATA_SIZE	16384
+
+void load_ext_data(string filename)
+{
+	file ext;
+	ext.open(filename,"r");
+	if (ext.tell_len() > MAX_EXDATA_SIZE)
+	{
+		cout << "Error: External File is too large!" << endl;
+		exit(-1);
+	}
+	ex.length = ext.tell_len();
+	ext_data = (char*)malloc(ex.length);
+	memset(ext_data, 0, sizeof(ext_data));
+	ext.read(ext_data, ex.length);
+	ext.close();
+}
+
+
 void logo()
 {
 	KERNEL.LogoPrint();
@@ -74,13 +93,14 @@ bool HEAD::check()
 	}
 	return true;
 }
-
+EXT ex;
 void HEAD::reset_ext()
 {
 	cp2 << "Resetting Extension Table..." << endl;
 	memset(ext, 0, sizeof(ext));
 	ext[EXT_FHANDLE] = DEFAULT_FHANDLE;
 	ext[EXT_SUPPORT] = ext_support_lab;
+	ext[EXT_EXTABLE] = 1;
 	ext[EXT_ENDFLAG] = ext_end_lab;
 }
 HEAD::HEAD()
@@ -92,7 +112,7 @@ HEAD::HEAD()
 	bs = 0;
 	reset_ext();
 }
-
+char *buff = nullptr;
 void config_read(string name, string value)
 {
 	string temp;
@@ -122,6 +142,9 @@ void config_read(string name, string value)
 		break;
 	case 'b':
 		bs = atoi(value.data());
+		break;
+	case 'e':
+		load_ext_data(value);
 		break;
 	case 'I':
 		info_get = true;
