@@ -59,9 +59,12 @@ struct HEAD {
 #define DESIGN_KEEP_SIZE	4096
 
 struct EXT {
+	const char start_bit = 0xB0;
 	uint64_t length;
 	uint64_t checksum;
+	const char stop_bit = 0xB1;
 	char buff[DESIGN_KEEP_SIZE-sizeof(uint64_t)*2];
+	const char stop_all = 0xBA;
 };
 #define EXT_SUPPORT	0
 #define EXT_FHANDLE	1
