@@ -3,5 +3,5 @@ ADD_LIBRARY(Semphella SHARED  data_recovery.cpp argment.cpp translate.cpp APD_LO
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D__LINUX__ -std=c++11 -fpermissive -D_LINUX -O3 -fopenmp")
 
 INSTALL (TARGETS Semphella DESTINATION lib)
-INSTALL (FILES apd.h data_recovery.h xtables.h translate.h argment.h config.h crypt.h debug.h files.h kernel.h linux.h main.h math.h string.h sum.h utils.h license.h DESTINATION include/libSemphella)
+INSTALL (FILES apd.h data_recovery.h translate.h argment.h config.h crypt.h debug.h files.h kernel.h linux.h main.h math.h string.h sum.h utils.h license.h DESTINATION include/libSemphella)
 
