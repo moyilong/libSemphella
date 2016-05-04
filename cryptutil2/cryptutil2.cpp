@@ -226,7 +226,7 @@ void config_read(string name, string value)
 
 int main(int argc, char *argv[])
 {
-	KERNEL.SetDebugStat(false);
+	//KERNEL.SetDebugStat(false);
 #ifndef __LINUX__
 	logo();
 	cout << "Error:This Program is can't run in windows !" << endl;
