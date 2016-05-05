@@ -81,6 +81,57 @@ bool file::is_eof()
 	return feof(fp);
 }
 
+void file::get_steps(uint64_t bs, uint64_t & mbs, uint64_t & fix)
+{
+	uint64_t len = tell_len();
+	mbs = len / bs;
+	fix = len - (mbs*bs);
+}
+
+uint64_t file::getsum()
+{
+	char buff[MAX_BUFF_SIZE];
+	uint64_t bs;
+	uint64_t fix;
+	get_steps(MAX_BUFF_SIZE, bs, fix);
+	uint64_t sum = 0;
+	for (int n = 0; n < bs; n++)
+	{
+		seekp(n*MAX_BUFF_SIZE);
+		memset(buff, 0, MAX_BUFF_SIZE);
+		read(buff, MAX_BUFF_SIZE);
+		sum += getsumV2(buff, MAX_BUFF_SIZE);
+	}
+	if (fix > 0)
+	{
+		seekp(len - fix);
+		memset(buff, 0, MAX_BUFF_SIZE);
+		read(buff, fix);
+		sum += getsumV2(buff, fix);
+	}
+	return sum;
+}
+
+void file::snapshot(uint64_t addr)
+{
+	if (snapshot_addr != -1)
+	{
+		throw exception("snapshot is inited");
+	}
+	snapshot_addr = tellp();
+	seekp(addr);
+}
+
+void file::desnapshot()
+{
+	if (snapshot_addr == -1)
+	{
+		throw exception("snapshot is not init");
+	}
+	seekp(snapshot_addr);
+	snapshot_addr = -1;
+}
+
 void file::check()
 {
 	if (opend && fp == NULL)

@@ -146,3 +146,12 @@ API STAT VerifyRecoveryData(const char * rec, int64_t len)
 		return FAILD;
 	return OK;
 }
+#define TEST_LEN	128
+
+API void RecoveryAlgTest()
+{
+	char buff[TEST_LEN];
+	char orig[TEST_LEN];
+	char diff[TEST_LEN];
+
+}

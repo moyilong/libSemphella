@@ -53,7 +53,7 @@ struct HEAD {
 	//Program Funcation
 	bool check();
 	HEAD();
-	void reset_ext();
+	void reset_ext(bool faild_test=false);
 };
 
 #define DESIGN_KEEP_SIZE	4096

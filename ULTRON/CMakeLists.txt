@@ -1,0 +1,6 @@
+
+INCLUDE_DIRECTORIES(..)
+ADD_EXECUTABLE(ULTRON protoco.mod.cpp stdafx.cpp ULTRON.cpp stdafx.cpp)
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D__LINUX__ -std=c++11 -fpermissive -D_LINUX -O3 -fopenmp")
+INSTALL(TARGETS ULTRON DESTINATION bin)
+TARGET_LINK_LIBRARIES(ULTRON -lTAHITI -lSemphella)

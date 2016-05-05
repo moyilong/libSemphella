@@ -22,6 +22,10 @@ public:
 	template<class type> void read(type *buff, uint64_t block_size);
 	template<class type> void write(type *buff, uint64_t block_size);
 	bool is_eof();
+	void get_steps(uint64_t bs, uint64_t &mbs, uint64_t &fix);
+	uint64_t getsum();
+	void snapshot(uint64_t addr);
+	void desnapshot();
 private:
 	FILE *fp;
 	string ioname;
@@ -30,6 +34,8 @@ private:
 	uint64_t len;
 protected:
 	void check();
+	uint64_t snapshot_addr=-1;
+
 };
 
 template<class type>

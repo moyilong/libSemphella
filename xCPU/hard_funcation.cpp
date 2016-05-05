@@ -15,6 +15,7 @@ ASSIGN_TYPE rst = -1;
 ASSIGN_TYPE auto_rst = 0;
 ASSIGN_TYPE mem_rst = 0;
 ASSIGN_TYPE cloop = 0;
+ASSIGN_TYPE reset_size = 0;
 vector<CMD> program;
 char memory[ALLOW_SIZE];
 
@@ -60,6 +61,9 @@ void error()
 	{
 		err_rst++;
 		cout << "System will be reboot!" << endl;
+		reset_size++;
+		if (reset_size == 4)
+			auto_rst = false;
 		esleep(5000);
 		init();
 		loop();

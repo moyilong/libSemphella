@@ -36,6 +36,7 @@ int main(int argc, char *argv[])
 	{
 		omp_set_num_threads(omp_get_max_threads() - 1);
 	}
+	cout << "Performance Test Utils" << endl;
 	cout << "Running Memory Write Test...";
 	memTest = time(0);
 	init();
@@ -54,11 +55,11 @@ int main(int argc, char *argv[])
 	double al_all = cc_count / (double)1000000;
 	double final_per = cc_count / algorthimTest / (double)1000;
 	double div = cc_count / algorthimTest / MT7620_PERFORMANCE;
-	cout << "主线程性能:" << mt_per << " 千步每秒" << endl;
-	cout << "主线程步数:" << mt_all << " 千步" << endl;
-	cout << "整体性能: " << al_per << " 十万步每秒" << endl;
-	cout << "整体步数:" << al_all << " 十万步" << endl;
+	cout << "Main Performance:" << mt_per << " KS/S" << endl;
+	cout << "Main Performance Steps:" << mt_all << " KS" << endl;
+	cout << "ALL Performance: " << al_per << " MS/S" << endl;
+	cout << "ALL Performance Steps:" << al_all << " MS" << endl;
 	cout << "=======================================================" << endl;
-	cout << "最终成绩:" << final_per << " 千步每秒" << endl;
-	cout << "对比MT7620(580MHZ 128MB DDR2 7.5千步每秒):" << div << " 倍" << endl;
+	cout << "Final Score:" << final_per << " KS/S" << endl;
+	cout << "Performance to MT7620(580MHZ 128MB DDR2 7.5KS/S):" << div << " Divid" << endl;
 }

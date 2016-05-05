@@ -3,16 +3,24 @@
 ALGHRTHIM APOLL[AMAX];
 int xsize = 0;
 
-ALGHRTHIM::ALGHRTHIM(password_algrthom p, crypt_algrthom c, sum_algrthom s, int xid, get_password_checksum pc, bool _can_be_pt)
+ALGHRTHIM::ALGHRTHIM(password_algrthom p, crypt_algrthom c, sum_algrthom s, int xid, string _doc,get_password_checksum pc, bool _can_be_pt)
 {
 	id = xid;
 	pa = p;
 	ca = c;
 	sa = s;
 	px = pc;
+	doc = _doc;
 	debug << "Insert Alghrthim " << id << " @ " << xsize << endl;
 	//APOLL.push_back(*this);
 	can_be_pt = _can_be_pt;
+	for (int n=0;n<xsize;n++)
+		if (APOLL[n].id == xid)
+		{
+			debug << "Error of ID REMAP!" << endl;
+			debug << "ID:" << id << " stored at " << n << " is remaped!" << endl;
+			exit(-1);
+		}
 	APOLL[xsize++] = *this;
 }
 

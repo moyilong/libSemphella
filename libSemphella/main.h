@@ -56,3 +56,7 @@ using namespace std;
 #include <time.h>
 
 #include "translate.h"
+
+#ifndef __LINUX
+#pragma error(disable,4996);
+#endif

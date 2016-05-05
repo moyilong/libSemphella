@@ -90,12 +90,12 @@ bool HEAD::check()
 		cout << "Warring: HEAD Protoco Extend Table Check Faild!" << endl;
 		cout << " Convert to Default Status!" << endl;
 		cout << hex << "CheckLab:" << (int)(char)ext_support_lab << " != " << (int)(char)ext[EXT_SUPPORT] << endl << oct;
-		reset_ext();
+		reset_ext(true);
 	}
 	return true;
 }
 EXT ex;
-void HEAD::reset_ext()
+void HEAD::reset_ext(bool faild_test)
 {
 	cp2 << "Resetting Extension Table..." << endl;
 	memset(ext, 0, sizeof(ext));
@@ -103,6 +103,8 @@ void HEAD::reset_ext()
 	ext[EXT_SUPPORT] = ext_support_lab;
 	ext[EXT_EXTABLE] = 1;
 	ext[EXT_ENDFLAG] = ext_end_lab;
+	if (faild_test)
+		ext[EXT_EXTABLE] = 0;
 }
 HEAD::HEAD()
 {
@@ -190,6 +192,12 @@ void config_read(string name, string value)
 		cout << endl;
 		exit(0);
 		break;
+	case 'a':
+		logo();
+		cout << "All of Algorthim and Documents!" << endl;
+		for (int n = 0; n < xsize; n++)
+			cout << "ID:" << APOLL[n].id << "\t" << APOLL[n].doc << endl;
+		exit(0);
 	case 'l':
 		license_create = true;
 		break;
@@ -230,11 +238,11 @@ int main(int argc, char *argv[])
 #ifndef __LINUX__
 	logo();
 	cout << "Error:This Program is can't run in windows !" << endl;
-	cout << "      Please use linux version!" << endl;
+	cout << "      Please use linux version!" << endl<<endl;
 #ifdef ALLOW_WINDOWS_RUN
 	exit(-1);
 #else
-	cout << "Program is alloed be run!" << endl;
+	cout << "Program is alloed be run!" << endl << endl;
 #endif
 #endif
 	cp2 << "MAX Algrthon Type: 0~" << APOLL_IDMAX << endl;
