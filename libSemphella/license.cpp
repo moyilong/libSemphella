@@ -25,7 +25,7 @@ LICENSE LICENSE::operator =(string _str)
 		return lic;
 	}
 	lic.main = str.substr(0, u);
-	lic.api_version = atoi(lic.main.substr(0, 2).data());	
+	lic.api_version = atoi(lic.main.substr(0, 2).data());
 	lic.main = str.substr(2);
 	lic.check = str.substr(u);
 	if (!CheckLicense(lic))
@@ -35,12 +35,11 @@ LICENSE LICENSE::operator =(string _str)
 	return lic;
 }
 
-string LICENSE::toString(LICENSE lic,int splite)
+string LICENSE::toString(LICENSE lic, int splite)
 {
-	
-	string temp = int2s(lic.api_version).substr(0,2)+ lic.main +"/" + lic.check;
+	string temp = int2s(lic.api_version).substr(0, 2) + lic.main + "/" + lic.check;
 	string ret;
-	if (splite>0)
+	if (splite > 0)
 		for (int n = 0; n < temp.size(); n++)
 		{
 			ret += temp.at(n);
@@ -74,7 +73,7 @@ string MainToCheck(string lmain)
 	string ret;
 	for (int n = 0; n < LICENSE_VIRFY_DEEP; n++)
 	{
-		int x; 
+		int x;
 		char val;
 		x = LICENSE_VIRFY_DEEP * n;
 		x = sin(x)*LICENSE_VIRFY_DEEP;

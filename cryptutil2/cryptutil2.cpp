@@ -28,7 +28,7 @@ string password;
 void load_ext_data(string filename)
 {
 	file ext;
-	ext.open(filename,"r");
+	ext.open(filename, "r");
 	if (ext.tell_len() > MAX_EXDATA_SIZE)
 	{
 		cout << "Error: External File is too large!" << endl;
@@ -39,10 +39,9 @@ void load_ext_data(string filename)
 	memset(ext_data, 0, sizeof(ext_data));
 	ext.read(ext_data, ex.length);
 	ex.checksum = getsumV2(ext_data, ex.length);
-	debug<<"External Was Been Load "<<ex.length<<"@"<<ex.checksum<<endl;
+	debug << "External Was Been Load " << ex.length << "@" << ex.checksum << endl;
 	ext.close();
 }
-
 
 void logo()
 {

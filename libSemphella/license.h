@@ -9,7 +9,7 @@
 #define LIC_API			01
 
 struct CAPI LICENSE {
-	char api_version=LIC_API;
+	char api_version = LIC_API;
 	string main;
 	string check;
 	LICENSE LICENSE::operator =(string str);

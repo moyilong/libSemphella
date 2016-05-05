@@ -326,7 +326,7 @@ API uint64_t sha1_SUM(const char *data, uint64_t len)
 	ZEN_LIB::sha1((const unsigned char *)data, len, result);
 	return getsumV2((char*)result, ZEN_SHA1_HASH_SIZE);
 }
-API void fastCrypt(char *data, int64_t len, string password,int PMLEN)
+API void fastCrypt(char *data, int64_t len, string password, int PMLEN)
 {
 	char seed = 0;
 	for (int n = 0; n < password.size(); n++)
@@ -337,10 +337,10 @@ API void fastCrypt(char *data, int64_t len, string password,int PMLEN)
 	{
 		pm[n] = n;
 		for (uint64_t x = 0; x < password.size(); x++)
-			pm[n] ^= password.at(x) +x +n +seed+PMLEN;
+			pm[n] ^= password.at(x) + x + n + seed + PMLEN;
 	}
 #pragma omp parallel for
-	for (int64_t n=0;n<len;n++)
+	for (int64_t n = 0; n < len; n++)
 	{
 		char stuffix = n;
 		for (int x = 0; x < PMLEN; x++)
@@ -357,7 +357,7 @@ API void fcTest()
 	char decrypt[TEST_LEN];
 	for (int n = 0; n < TEST_LEN; n++)
 	{
-		buff[n] = time(0)+rand();
+		buff[n] = time(0) + rand();
 		shadow[n] = buff[n];
 	}
 	fastCrypt(buff, TEST_LEN, "moyilong");
@@ -366,13 +366,13 @@ API void fcTest()
 	cout << "Black:";
 	for (int n = 0; n < TEST_LEN; n++)
 	{
-		sprintf(temp,"%+02x", buff[n]);
+		sprintf(temp, "%+02x", buff[n]);
 		cout << temp + strlen(temp) - 2 << " ";
 	}
 	cout << endl << "White:";
 	for (int n = 0; n < TEST_LEN; n++)
 	{
-		sprintf(temp, "%+02x",shadow[n]);
+		sprintf(temp, "%+02x", shadow[n]);
 		cout << temp + strlen(temp) - 2 << " ";
 	}
 	memcpy(decrypt, buff, TEST_LEN);

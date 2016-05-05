@@ -37,52 +37,52 @@ int information_process()
 			for (uint64_t v = 0; v < numeric_limits<uint64_t>::max(); v += omp_get_num_procs())
 			{
 #pragma omp parallel
-			{
-				int id = omp_get_thread_num();
-				uint64_t n = v + id;
-				block[id].count++;
-				char str[MAX_BUFF_SIZE];
-				eitoa((uint64_t)n, str, strlen(strtbl), strtbl);
-				if (APOLL[trans_id(head.algrthom)].px(password) == head.password_sum)
 				{
-					cout << "Password is Found!" << endl;
-					cout << str << endl;
-					cout << "Timeout:" << time(0) - missing << endl;
-					exit(0);
+					int id = omp_get_thread_num();
+					uint64_t n = v + id;
+					block[id].count++;
+					char str[MAX_BUFF_SIZE];
+					eitoa((uint64_t)n, str, strlen(strtbl), strtbl);
+					if (APOLL[trans_id(head.algrthom)].px(password) == head.password_sum)
+					{
+						cout << "Password is Found!" << endl;
+						cout << str << endl;
+						cout << "Timeout:" << time(0) - missing << endl;
+						exit(0);
+					}
+
+					if (block[id].count % 1000000 == 0)
+					{
+						block[id].ilen = strlen(str);
+						if (time(0) - missing > 0)
+							block[id].iops = count / (time(0) - missing);
+						else
+							block[id].iops = -1;
+						block[id].temp = str;
+						block[id].n = n;
+						block[id].per = (double)strfind(strtbl, str[0], true) / strlen(strtbl);
+					}
+				}
+				if (block[0].count % 1000000 == 0 && block[0].count > 10000000)
+				{
+					uint64_t ccc = 0;
+					double max = 0;
+					for (int x = 0; x < omp_get_num_procs(); x++)
+					{
+						cout << "[" << x << "][";
+						cout << " iLen:" << int2s(block[x].ilen) << " Temp:\"" << block[x].temp << "\" ";
+						cout << "] ";
+						max = emax(max, block[x].per);
+						ccc += block[x].count;
+					}
+					cout << endl;
+					double iops = ccc / (time(0) - missing);
+					string dis = "iLen:" + int2s(block[0].temp.size()) + " IOPS:" + ull2s(iops);
+					ShowProcessBar(max, dis);
+					cout << "\r";
 				}
 
-				if (block[id].count % 1000000 == 0)
-				{
-					block[id].ilen = strlen(str);
-					if (time(0) - missing > 0)
-						block[id].iops = count / (time(0) - missing);
-					else
-						block[id].iops = -1;
-					block[id].temp = str;
-					block[id].n = n;
-					block[id].per = (double)strfind(strtbl, str[0], true) / strlen(strtbl);
-				}
-			}
-			if (block[0].count % 1000000 == 0 && block[0].count > 10000000)
-			{
-				uint64_t ccc = 0;
-				double max = 0;
-				for (int x = 0; x < omp_get_num_procs(); x++)
-				{
-					cout << "[" << x << "][";
-					cout << " iLen:" << int2s(block[x].ilen) << " Temp:\"" << block[x].temp << "\" ";
-					cout << "] ";
-					max = emax(max, block[x].per);
-					ccc += block[x].count;
-				}
-				cout << endl;
-				double iops = ccc / (time(0) - missing);
-				string dis = "iLen:" + int2s(block[0].temp.size()) + " IOPS:" + ull2s(iops);
-				ShowProcessBar(max, dis);
-				cout << "\r";
-			}
-
-			/*str_add(str);*/
+				/*str_add(str);*/
 			}
 		}
 		exit(0);

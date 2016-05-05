@@ -115,7 +115,7 @@ int crypt_process()
 		}
 		if (head.ext[EXT_EXTABLE] == 1)
 		{
-			debug<<"External Tables was been find!"<<endl;
+			debug << "External Tables was been find!" << endl;
 			in.seekp(sizeof(HEAD));
 			char buff[sizeof(EXT)];
 			memset(buff, 0, sizeof(buff));
@@ -128,8 +128,8 @@ int crypt_process()
 				cout << "External Data Checksum Faild!";
 				exit(-1);
 			}
-			debug<<"Data was been find!"<<endl;
-			debug<<"Find "<<ex.length<<"@"<<ex.checksum<<endl;
+			debug << "Data was been find!" << endl;
+			debug << "Find " << ex.length << "@" << ex.checksum << endl;
 		}
 	}
 	if (!std_out)	cout << input << " => " << output << endl;

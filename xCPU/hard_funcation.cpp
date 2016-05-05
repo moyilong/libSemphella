@@ -91,7 +91,7 @@ void reset()
 			memory[ptr] = 0;
 			if (n % 1024 == 0)
 			{
-				printf("Resetting Memory 0x%-16x => 0x%-16x\r", n,MEM_SIZE);
+				printf("Resetting Memory 0x%-16x => 0x%-16x\r", n, MEM_SIZE);
 			}
 		}
 		cout << endl;

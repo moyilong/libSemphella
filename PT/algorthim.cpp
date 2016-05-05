@@ -45,7 +45,7 @@ void ThreadMonitor()
 		esleep(100);
 		time_out = time(0) - beg;
 		precent = (double)xc_count / all;
-		
+
 		iops = (iops + (cc_count / dZero(time_out))) / 2;
 
 		ShowProcessBar(precent, ull2s(iops / 1000) + " KIPS in " + ull2s(time_out) + " s");
@@ -62,7 +62,7 @@ void _Run()
 {
 	beg = time(0);
 	time_out = 0;
-	for (int n = 0; n < LOOP_ADD && (time_out < tout || tout == -1 && tout!=0) && (steps==-1 || steps>n); n++)
+	for (int n = 0; n < LOOP_ADD && (time_out < tout || tout == -1 && tout != 0) && (steps == -1 || steps > n); n++)
 	{
 #pragma omp parallel for
 		for (int x = 0; x < AREA_MAX; x++)

@@ -74,7 +74,6 @@ void file::seekp(uint64_t off)
 	check();
 	f2debug << "Redirect " << tellp() << " => " << off << endl;
 	fseek(fp, off, 0);
-	
 }
 
 bool file::is_eof()

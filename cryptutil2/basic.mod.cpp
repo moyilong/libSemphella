@@ -58,7 +58,6 @@ void xor_2(char *data, int64_t len, int64_t bit)
 
 void not_crypt(char *data, int64_t len, int64_t bit)
 {
-
 }
 #ifndef LOW_PERFORMANCE_DEVICE
 ALGORTHIM basic_xor_V2_1(M1, xor_2_1, getsumV2, 0);

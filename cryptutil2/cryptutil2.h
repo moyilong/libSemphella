@@ -63,7 +63,7 @@ struct EXT {
 	uint64_t length;
 	uint64_t checksum;
 	const char stop_bit = 0xB1;
-	char buff[DESIGN_KEEP_SIZE-sizeof(uint64_t)*2];
+	char buff[DESIGN_KEEP_SIZE - sizeof(uint64_t) * 2];
 	const char stop_all = 0xBA;
 };
 #define EXT_SUPPORT	0

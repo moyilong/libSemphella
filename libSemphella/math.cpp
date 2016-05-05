@@ -54,4 +54,3 @@ API MTYPE LINE_2D_K(XPOINT a, XPOINT b)
 		return 0;
 	return abs(a.y - b.y) / abs(a.x - b.x);
 }
-
