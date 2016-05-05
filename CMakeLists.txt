@@ -1,5 +1,5 @@
 
-SET(CMAKE_CXX_FLAGS "-Wno-error=unused-but-set-variable -Wno-error=unused-result -D__LINUX")
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-error=unused-but-set-variable -Wno-error=unused-result -D__LINUX")
 LINK_DIRECTORIES(${PROJECT_BINARY_DIR}/lib)
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
 SET(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/lib)
