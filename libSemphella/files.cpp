@@ -116,7 +116,7 @@ void file::snapshot(uint64_t addr)
 {
 	if (snapshot_addr != -1)
 	{
-		throw exception("snapshot is inited");
+		throw "snapshot is inited";
 	}
 	snapshot_addr = tellp();
 	seekp(addr);
@@ -126,7 +126,7 @@ void file::desnapshot()
 {
 	if (snapshot_addr == -1)
 	{
-		throw exception("snapshot is not init");
+		throw "snapshot is not init";
 	}
 	seekp(snapshot_addr);
 	snapshot_addr = -1;
