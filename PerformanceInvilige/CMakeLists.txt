@@ -1,5 +1,5 @@
 ADD_EXECUTABLE(PerformanceInvilige PerformanceInvilige.cpp)
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D__LINUX__ -std=c++11 -fpermissive -D_LINUX -O3 -fopenmp")
 INSTALL(TARGETS PerformanceInvilige DESTINATION bin)
-TARGET_LINK_LIBRARIES(PerformanceInvilige -lTAHITI)
+TARGET_LINK_LIBRARIES(PerformanceInvilige -lTAHITI -lSemphella)
 INCLUDE_DIRECTORIES(..)
