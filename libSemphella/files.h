@@ -26,6 +26,7 @@ public:
 	uint64_t getsum();
 	void snapshot(uint64_t addr);
 	void desnapshot();
+	string getline(uint64_t perfect_max=8192);
 private:
 	FILE *fp;
 	string ioname;
@@ -34,8 +35,7 @@ private:
 	uint64_t len;
 protected:
 	void check();
-	uint64_t snapshot_addr=-1;
-
+	uint64_t snapshot_addr = -1;
 };
 
 template<class type>

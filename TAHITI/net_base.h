@@ -8,6 +8,7 @@
 #include <netdb.h>
 #include <arpa/inet.h>
 #else
+#define WIN32_LEAN_AND_MEAN
 #include <WinSock2.h>
 #include <stdio.h>
 #pragma comment(lib,"ws2_32.lib")

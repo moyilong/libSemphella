@@ -132,6 +132,17 @@ void file::desnapshot()
 	snapshot_addr = -1;
 }
 
+string file::getline(uint64_t perfect_max)
+{
+	char *buff = (char*)malloc(perfect_max);
+	fgets(buff, perfect_max, fp);
+	string ret = buff;
+	free(buff);
+	return ret;
+}
+
+
+
 void file::check()
 {
 	if (opend && fp == NULL)
