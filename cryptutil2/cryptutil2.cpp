@@ -23,10 +23,14 @@ string input;
 string output;
 string password;
 #include "fhandle.h"
-#define MAX_EXDATA_SIZE	16384
+#include <limits>
+#undef max
+#undef min
+#define MAX_EXDATA_SIZE	 numeric_limits<uint64_t>::max()
 
 void load_ext_data(string filename)
 {
+	
 	file ext;
 	ext.open(filename, "r");
 	if (ext.tell_len() > MAX_EXDATA_SIZE)
