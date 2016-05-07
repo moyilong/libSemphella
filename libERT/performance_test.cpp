@@ -1,4 +1,5 @@
 #include "algorthim.h"
+#include "fhandle.h"
 #include "stdafx.h"
 struct SCORE_T {
 	long double time_out;
@@ -6,7 +7,7 @@ struct SCORE_T {
 	uint64_t all_count;
 	uint64_t timeout;
 };
-int timeout = 4;
+int timeout = 2;
 #define TEST_LOOPS	128
 SCORE_T runOnce(int id)
 {
@@ -26,10 +27,8 @@ SCORE_T runOnce(int id)
 		APOLL[id].pa(pwd);
 		t_hash_1 = APOLL[id].sa(buff, MAX_BUFF_SIZE);
 		APOLL[id].ca(buff, MAX_BUFF_SIZE, 0);
-		decrypt = true;
 		APOLL[id].ca(buff, MAX_BUFF_SIZE, 0);
 		t_hash_2 = APOLL[id].sa(buff, MAX_BUFF_SIZE);
-		decrypt = false;
 	}
 	time_t stop = time(0);
 	SCORE_T sc;
@@ -37,11 +36,9 @@ SCORE_T runOnce(int id)
 	sc.time_out = count / (stop - start);
 	sc.timeout = stop - start;
 	sc.all_count = count;
-	decrypt = false;
 	return sc;
 }
-
-void PerformanceTest()
+LIBERT_API void LIB_ERTLIB::PerformanceTest()
 {
 	cout << "Start Performance Test!" << endl;
 	cout << "Algorthim Size:" << APOLL_SIZE << endl;
@@ -89,3 +86,4 @@ void PerformanceTest()
 		cout << sct[n].id;
 	}
 }
+	

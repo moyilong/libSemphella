@@ -4,7 +4,7 @@
 #include <libSemphella/utils.h>
 #include <libSemphella/crypt.h>
 #include <libSemphella/debug.h>
-#include "cryptutil2.h"
+#include "libERT.h"
 
 uint64_t password_type(string passwd);
 
@@ -13,7 +13,6 @@ typedef void(*crypt_algrthom)(char *data, int64_t len, int64_t bit_off);	//º”√‹À
 typedef uint64_t(*sum_algrthom)(const char *data, int64_t len);	//–£—È∫ÕÀ„∑®
 typedef uint64_t(*get_password_checksum)(string passwd);	//√‹¬Î–£—ÈÀ„∑®
 
-extern  bool decrypt;
 
 class ALGHRTHIM {
 public:

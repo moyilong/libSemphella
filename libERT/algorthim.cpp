@@ -48,6 +48,6 @@ int trans_id(int id)
 		}
 	debug << "Id not found!" << endl;
 	debug << "Founted ID:" << id << endl;
-	cout << "ID was not exist!" << endl;
+	cout << "ID "<<id<<" was not exist!" << endl;
 	return -1;
 }

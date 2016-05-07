@@ -1,12 +1,17 @@
 #include "fhandle.h"
 #include <libSemphella/data_recovery.h>
+#include "libERT.h"
+#include "headproto.h"
+#include "algorthim.h"
+#include "fhandle.h"
+#define cp2 debug
 uint64_t xcount = 0;
-void Rechandle(HEAD head, file in, file out, uint64_t &sum, int len, uint64_t op_addr)
+void Rechandle(HEAD head, file in, file out, uint64_t &sum, int len, uint64_t op_addr,bool decrypt,bool std_out)
 {
 	int rclen = get_block_len(len);
 	char *recdata = (char*)malloc(rclen);
 	uint64_t mov_in = 0, mov_out = 0;
-	uint64_t rec_off = xcount*get_block_len(bs);
+	uint64_t rec_off = xcount*get_block_len(head.bs);
 	cp2 << "Setting Recovery Offset:" << rec_off << endl;
 	if (decrypt)
 	{

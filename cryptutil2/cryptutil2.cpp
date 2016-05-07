@@ -4,56 +4,18 @@
 #include "stdafx.h"
 #include "cryptutil2.h"
 #include <libSemphella/argment.h>
-extern int timeout;
-int64_t bs = 4096;
-bool decrypt = false;
-bool crack = false;
-bool std_out = false;
-
-bool force = false;
-bool license_create = false;
-bool crack_get = false;
-bool info_get = false;
-int alghtriom = DEFAULT_ALGRTHOM_TYPE;
-extern int fhand = DEFAULT_FHANDLE;
-//#define ALLOW_WINDOWS_RUN
-
-int al;
-string input;
-string output;
-string password;
-#include "fhandle.h"
-#include <limits>
-#undef max
-#undef min
-#define MAX_EXDATA_SIZE	 numeric_limits<uint64_t>::max()
-
-void load_ext_data(string filename)
-{
-	
-	file ext;
-	ext.open(filename, "r");
-	if (ext.tell_len() > MAX_EXDATA_SIZE)
-	{
-		cout << "Error: External File is too large!" << endl;
-		exit(-1);
-	}
-	ex.length = ext.tell_len();
-	ext_data = (char*)malloc(ex.length);
-	memset(ext_data, 0, sizeof(ext_data));
-	ext.read(ext_data, ex.length);
-	ex.checksum = getsumV2(ext_data, ex.length);
-	debug << "External Was Been Load " << ex.length << "@" << ex.checksum << endl;
-	ext.close();
-}
-
+#include <libERT/libERT.h>
 void logo()
 {
 	KERNEL.LogoPrint();
 	cout << "CryptUtils Version 3.2.5-Beta " << endl << "Head Protoco Version:" << level << endl;
+	cout << "libERT Version:" << LIB_ERTLIB::get_api_ver() << endl;
 	cout << CORE_NAME << endl << "API Level:" << ull2s(API_VER) << endl << "Max Buff Size:" << ull2s(MAX_BUFF_SIZE) << endl;
 }
 
+string input, password, output,ext_file;
+int bs=4096,al=DEFAULT_ALG_ID,fhand=DEFAULT_FHL_ID;
+using namespace LIB_ERTLIB;
 bool file_name_check(string filename)
 {
 	cp2 << "Check File Name \"" << filename << "\"" << endl;
@@ -64,65 +26,17 @@ bool file_name_check(string filename)
 		return true;
 	if (streval(filename.substr(filename.size() - 5).data(), ".ert3"))
 		return true;
+	if (streval(filename.substr(filename.size() - 5).data(), ".ert4"))
+		return true;
 	return false;
 }
-
-bool HEAD::check()
-{
-	cp2 << "Head Level:" << (int)account_level << endl;
-	cp2 << "Algrthom Type:" << (int)algrthom << endl;
-	cp2 << "File Handle Type:" << (int)ext[EXT_FHANDLE] << endl;
-	cp2 << "File Check Sum:" << sum << endl;
-	cp2 << "Password Check Sum:" << password_sum << endl;
-	cp2 << "Block Length:" << bs << endl;
-	cp2 << "Extenision Table Size:" << EXT_SIZE << endl;
-	if (account_level > level || account_level < level_compact)
-	{
-		cout << "Error: HEAD Protoco Check Fail d!" << endl;
-		cout << "Unsupported Level:" << (int)account_level << endl;
-		cout << "Compact of:" << level_compact << " max  " << level << endl;
-		return false;
-	}
-	if (algrthom > APOLL_IDMAX)
-	{
-		cout << "Error: HEAD Protoco Define unexist Algrthom!" << endl;
-		cout << (int)algrthom << "is not exist!" << endl;
-		return false;
-	}
-	if (ext[EXT_SUPPORT] != ext_support_lab || ext[EXT_ENDFLAG] != ext_end_lab)
-	{
-		cout << "Warring: HEAD Protoco Extend Table Check Faild!" << endl;
-		cout << " Convert to Default Status!" << endl;
-		cout << hex << "CheckLab:" << (int)(char)ext_support_lab << " != " << (int)(char)ext[EXT_SUPPORT] << endl << oct;
-		reset_ext(true);
-	}
-	return true;
-}
-EXT ex;
-void HEAD::reset_ext(bool faild_test)
-{
-	cp2 << "Resetting Extension Table..." << endl;
-	memset(ext, 0, sizeof(ext));
-	ext[EXT_FHANDLE] = DEFAULT_FHANDLE;
-	ext[EXT_SUPPORT] = ext_support_lab;
-	ext[EXT_EXTABLE] = 1;
-	ext[EXT_ENDFLAG] = ext_end_lab;
-	if (faild_test)
-		ext[EXT_EXTABLE] = 0;
-}
-HEAD::HEAD()
-{
-	account_level = level;
-	algrthom = 0;
-	sum = 0;
-	password_sum = 0;
-	bs = 0;
-	reset_ext();
-}
-bool load_ext_info = false;
-char *buff = nullptr;
+bool std_mode = false;
+WORK_MODE mode=CRYPT;
+//bool load_ext_info = false;
+//char *buff = nullptr;
 void config_read(string name, string value)
 {
+	int itemp;
 	string temp;
 	bool stat = false;
 	switch (name.at(0)) {
@@ -139,10 +53,7 @@ void config_read(string name, string value)
 		password = value;
 		break;
 	case 'd':
-		decrypt = true;
-		break;
-	case 'f':
-		force = true;
+		mode = DECRYPT;
 		break;
 	case 'P':
 		PerformanceTest();
@@ -152,31 +63,30 @@ void config_read(string name, string value)
 		bs = atoi(value.data());
 		break;
 	case 'E':
-		load_ext_info = true;
+		//load_ext_info = true;
+		mode = EXT_TO_FILE;
 		break;
 	case 'e':
-		load_ext_data(value);
+		ext_file = value;
 		break;
 	case 'I':
-		info_get = true;
-		break;
-	case 'C':
-		info_get = true;
-		crack_get = true;
+		mode = FILE_INFO;
 		break;
 	case 'A':
 		al = atoi(value.data());
-		cp2 << "Resetting Algorithm ID " << alghtriom << " => " << al << endl;
-		if (trans_id(al) == -1)
+		if (get_alg_id(al) == -1)
 		{
-			cout << "Warrong ID!" << endl;
+			cout << "Faild to Get Algorghim!" << endl;
 			exit(-1);
 		}
-		alghtriom = al;
+		debug << "Set ID To" << al << endl;
 		break;
 	case 'v':
 		KERNEL.SetDebugStat(true);
 		fs_verbos(true);
+		break;
+	case 's':
+		std_mode = true;
 		break;
 	case 'V':
 		logo();
@@ -185,43 +95,28 @@ void config_read(string name, string value)
 			cout << "Verbos is Enabled!" << endl;
 		cout << "Deafult Algrthom ID " << DEFAULT_ALGRTHOM_TYPE << endl;
 		cout << "Extenision Table Size:" << EXT_SIZE << endl;
-		cout << "Fhandle Size:" << fsize + 1 << endl;
 		cout << "Default Fhandle Size:" << DEFAULT_FHANDLE << endl;
 		cout << "Alloed Fhandle ID:" << endl;
-		for (int n = 0; n < fsize; n++)
-			cout << FPOLL[n].id << "\t";
-		cout << endl << "Allowed Algrthom ID:" << endl;
-		for (int n = 0; n < xsize; n++)
-			cout << APOLL[n].id << "\t";
 		cout << endl;
 		exit(0);
 		break;
 	case 'a':
 		logo();
 		cout << "All of Algorthim and Documents!" << endl;
-		for (int n = 0; n < xsize; n++)
-			cout << "ID:" << APOLL[n].id << "\t" << APOLL[n].doc << endl;
+		cout << "==============================================" << endl;
+		cout << "All of Algorthim:" << algor_max()<<endl;
+		cout << "Default Algorthim ID:" << al << endl;
+		for (int n = 0; n < algor_max(); n++)
+		{
+			get_alg_info(n, itemp, temp);
+			cout <<n<<":"<< itemp << "\t" << temp<<endl;
+		}
 		exit(0);
 	case 'l':
-		license_create = true;
-		break;
-	case 'F':
-		al = atoi(value.data());
-		for (int x = 0; x < fsize; x++)
-			if (FPOLL[x].id == al)
-				stat = true;
-		if (!stat)
-		{
-			cout << "File Handle Not Exist!" << endl;
-			exit(0);
-		}
-		cp2 << "Resetting File Handle" << fhand << " => " << al << endl;
-		fhand = al;
+		mode = LICENSE_CREATE;
 		break;
 	case '-':
 		temp = name.substr(1);
-		if (streval(temp.data(), "timeout"))
-			timeout = atoi(value.data());
 		if (streval(temp.data(), "thread"))
 		{
 			debug << "setting thread number:" << atoi(value.data());
@@ -249,7 +144,6 @@ int main(int argc, char *argv[])
 	cout << "Program is alloed be run!" << endl << endl;
 #endif
 #endif
-	cp2 << "MAX Algrthon Type: 0~" << APOLL_IDMAX << endl;
 	cp2 << "Deafult Algrthom ID " << DEFAULT_ALGRTHOM_TYPE << endl;
 
 	argment config_load;
@@ -258,14 +152,94 @@ int main(int argc, char *argv[])
 	cp2 << "Process Argment by foreach" << endl;
 	config_load.for_each(config_read);
 	cp2 << "Init Funcation" << endl;
-	if (load_ext_info)
-	{
-		ext_dump();
-		exit(0);
+	try {
+		HEAD head;
+		
+
+		switch (mode)
+		{
+		case FILE_INFO:
+			if (!file_name_check(input))
+			{
+				cout << "Input Name Check Faild!" << endl;
+				exit(-1);
+			}
+			if (input.empty())
+			{
+				cout << "Input is Empty!" << endl;
+				exit(-1);
+			}
+			head = get_head(input);
+			break;
+		case CRYPT:
+			if (input.empty())
+			{
+				cout << "Input is Empty!" << endl;
+				exit(-1);
+			}
+			if (output.empty())
+				output = input + ".ert4";
+			if (!file_name_check(output))
+			{
+				cout << "File name Check Faild!" << endl;
+				exit(-1);
+			}
+			crypt_to_file(input, output, password, al, fhand, ext_file, bs);
+			break;
+		case DECRYPT:
+			if (!file_name_check(input))
+			{
+				cout << "File name Check Faild!" << endl;
+				exit(-1);
+			}
+			if (input.empty())
+			{
+				cout << "Input is Empty!" << endl;
+				exit(-1);
+			}
+			if (!std_mode)
+				if (output.empty())
+				{
+					cout << "Output is Empty!" << endl;
+					exit(-1);
+				}
+			decrtpt_to_file(input, output, password, std_mode);
+			break;
+		case LICENSE_CREATE:
+			if (!std_mode)
+			if (output.empty())
+			{
+				cout << "Output is Empty!" << endl;
+				exit(-1);
+			}
+			create_license(output, std_mode, bs);
+			break;
+		case EXT_TO_FILE:
+			if (!file_name_check(input))
+			{
+				cout << "File name Check Faild!" << endl;
+				exit(-1);
+			}
+			if (input.empty())
+			{
+				cout << "Input is Empty!" << endl;
+				exit(-1);
+			}
+			if (output.empty())
+			{
+				cout << "Output is Empty!" << endl;
+				exit(-1);
+			}
+			get_ext_to_file(input, output, std_mode);
+			break;
+		}
 	}
-	if (license_create)
-		return create_license();
-	if (info_get)
-		return information_process();
-	return crypt_process();
+	catch (exception e)
+	{
+		cout << "System Catch a Error:" << endl << e.what() << endl;
+	}
+	catch (...)
+	{
+		cout << "Systam Catch an Error!" << endl;
+	}
 }

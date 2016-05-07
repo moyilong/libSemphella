@@ -4,10 +4,9 @@
 #include <libSemphella/utils.h>
 #include <libSemphella/crypt.h>
 #include <libSemphella/debug.h>
-#include "cryptutil2.h"
-#include "algorthim.h"
+#include "libERT.h"
 #define FHANDLE_MAX	16
-typedef void(*CFHANDLE)(HEAD head, file _in, file _out, uint64_t &sum, int len, uint64_t op_addr);
+typedef void(*CFHANDLE)(HEAD head, file _in, file _out, uint64_t &sum, int len, uint64_t op_addr, bool decrypt,bool std_out);
 class FHANDLE {
 public:
 	FHANDLE(CFHANDLE hand, int lid);

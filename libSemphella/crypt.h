@@ -40,17 +40,6 @@ inline void crypt(char *data, long long len, const string password)
 API char xor_crypt(string password, char *data, int len);
 API float getsum(const char *data, int len);
 
-#define MATRIX_LEN	4096
-
-API void xor_cryptV2(char **matrix, char *data, int64_t len, int64_t bit_off);
-API void xor_cryptV2_1(char **matrix, char *data, int64_t len, int64_t bit_off);
-API void CreateMatrix(string password, char **matrix);
-API void CreateMatrixV2(const char *data, size_t dlen, char **matrix);
-API void xor_cryptV2_1_MATRIX_V2_LMEM(string password, char *data, int64_t len, int64_t bitoff);
-inline void CreateMatrixV2(string password, char **matrix)
-{
-	CreateMatrixV2(password.data(), password.size(), matrix);
-}
 API uint64_t getsumV2(const char *data, int64_t len);
 
 #define anySUM(ptr) getsumV2((char*)ptr,sizeof(ptr));

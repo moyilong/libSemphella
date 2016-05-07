@@ -13,12 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Algorthim">
-      <UniqueIdentifier>{65ab1241-6cd9-4ed2-bf57-7a77136db6cc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="FHandle">
-      <UniqueIdentifier>{fc13a5e6-37e2-49db-9d37-3217e5452ea7}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -28,13 +22,7 @@
     <ClInclude Include="stdafx.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="algorthim.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="cryptutil2.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="fhandle.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -42,34 +30,7 @@
     <ClCompile Include="cryptutil2.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="info.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="crypt.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="license_create.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="basic.mod.cpp">
-      <Filter>Algorthim</Filter>
-    </ClCompile>
-    <ClCompile Include="algorthim.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="fhandle.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="basic.fhand.cpp">
-      <Filter>FHandle</Filter>
-    </ClCompile>
-    <ClCompile Include="frecovery.fhand.cpp">
-      <Filter>FHandle</Filter>
-    </ClCompile>
-    <ClCompile Include="performance_test.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="extdump.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
