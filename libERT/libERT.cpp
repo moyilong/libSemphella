@@ -22,8 +22,7 @@ void load_ext_data(string filename)
 	ext.close();
 }
 
-
-LIBERT_API RETURN_STAT LIB_ERTLIB::crypt_to_file(string in, string out, string password, int alg, int fid, string extfil,int bs)
+LIBERT_API RETURN_STAT LIB_ERTLIB::crypt_to_file(string in, string out, string password, int alg, int fid, string extfil, int bs)
 {
 	file i, o;
 	if (!extfil.empty())
@@ -57,24 +56,23 @@ LIBERT_API RETURN_STAT LIB_ERTLIB::crypt_to_file(string in, string out, string p
 	}
 	uint64_t mbs, fix;
 	i.get_steps(bs, mbs, fix);
-	uint64_t sum=0;
-	time_t start=time(0);
+	uint64_t sum = 0;
+	time_t start = time(0);
 	for (uint64_t n = 0; n < mbs; n++)
 	{
 		get_fhandle(head.ext[EXT_FHANDLE])(head, i, o, sum, head.bs, n*head.bs, false, false);
-			double per = (double)((double)n*(double)head.bs) / (double)i.tell_len();
-			if (per != old_presend)
-			{
-				old_presend = per;
-				ulen = (n* head.bs) / dZero(time(0) - start);
-				ShowProcessBar(per, human_read(ulen, human_read_storage_str, 1024, 10) + "PS");
-			}
+		double per = (double)((double)n*(double)head.bs) / (double)i.tell_len();
+		if (per != old_presend)
+		{
+			old_presend = per;
+			ulen = (n* head.bs) / dZero(time(0) - start);
+			ShowProcessBar(per, human_read(ulen, human_read_storage_str, 1024, 10) + "PS");
+		}
 	}
 	ShowProcessBar(1, " END");
 	if (fix > 0)
 	{
 		get_fhandle(head.ext[EXT_FHANDLE])(head, i, o, sum, fix, mbs*head.bs, false, false);
-
 	}
 	ShowProcessBar(1, " Finish");
 	i.close();
@@ -118,11 +116,11 @@ LIBERT_API RETURN_STAT LIB_ERTLIB::decrtpt_to_file(string in, string out, string
 		i.read(&ex, 1);
 		all_ext_len = sizeof(EXT) + ex.length;
 	}
-	uint64_t len = i.tell_len() - sizeof(HEAD) -all_ext_len;
+	uint64_t len = i.tell_len() - sizeof(HEAD) - all_ext_len;
 	double old_presend = 0, dlen = i.tell_len();
 	uint64_t ulen = 0;
 	uint64_t mbs, fix;
-	mbs = len/head.bs;
+	mbs = len / head.bs;
 	fix = len - (head.bs*mbs);
 	uint64_t sum = 0;
 	time_t start = time(0);
@@ -161,7 +159,7 @@ LIBERT_API RETURN_STAT LIB_ERTLIB::decrypt_to_std(string in, string out, string 
 	return decrtpt_to_file(in, out, password, true);
 }
 
-LIBERT_API RETURN_STAT LIB_ERTLIB::get_ext_to_file(string in, string out,bool std_mode)
+LIBERT_API RETURN_STAT LIB_ERTLIB::get_ext_to_file(string in, string out, bool std_mode)
 {
 	file fi, fo;
 	fi.open(in, "r");
@@ -188,7 +186,8 @@ LIBERT_API RETURN_STAT LIB_ERTLIB::get_ext_to_file(string in, string out,bool st
 	if (std_mode)
 	{
 		cout << buff;
-	}else{
+	}
+	else {
 		fo.write(buff, ex.length);
 	}
 	return OK;
@@ -209,7 +208,7 @@ LIBERT_API HEAD LIB_ERTLIB::get_head(string in)
 	fin.read(&head, 1);
 	if (!head.check())
 		throw "HEAD CHECK FAILD!";
-	return head;	
+	return head;
 }
 
 LIBERT_API int LIB_ERTLIB::algor_max()

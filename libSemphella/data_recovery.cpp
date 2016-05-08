@@ -153,5 +153,4 @@ API void RecoveryAlgTest()
 	char buff[TEST_LEN];
 	char orig[TEST_LEN];
 	char diff[TEST_LEN];
-
 }

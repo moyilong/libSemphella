@@ -32,7 +32,7 @@ void Protoco_Scan_Client_ret(DATA_FORMAT &ret)
 		string C_HEAD = COMMAND_HEAD;
 		string S_DIR = SCRIPT_DIR;
 		string exec = C_HEAD + S_DIR + "//" + buff_script + ".script &";
-		int ret=system(exec.data());
+		int ret = system(exec.data());
 		cout << "Script return : " << ret << endl;
 		protoco = temp.protoco_count;
 	}
@@ -47,7 +47,7 @@ int switcher(vector<string> cmd)
 	get.def = PROTOCO_SWITCH;
 	memcpy(get.buff, &send, sizeof(PROTOCO_INFO));
 	DATA_FORMAT back;
-	network_trans(get,back);
+	network_trans(get, back);
 	if (!strcmp(back.buff, SWITCH_OVER))
 		return 0;
 	else
@@ -63,5 +63,5 @@ void Protoco_Switch_Server(DATA_FORMAT in, DATA_FORMAT &ret, SOCKET &conn)
 	cout << "Now Switch To Protoco:" << protoco << endl;
 }
 
-Modules Protoco_Scan(PROTOCO_API, "ProtocoScanner", Protoco_Scan_Server, Protoco_Scan_Client_to, Protoco_Scan_Client_ret,GUEST);
-Modules Protoco_Switch(PROTOCO_SWITCH, "pswitch", Protoco_Switch_Server, NULL, NULL,ADMIN, switcher);
+Modules Protoco_Scan(PROTOCO_API, "ProtocoScanner", Protoco_Scan_Server, Protoco_Scan_Client_to, Protoco_Scan_Client_ret, GUEST);
+Modules Protoco_Switch(PROTOCO_SWITCH, "pswitch", Protoco_Switch_Server, NULL, NULL, ADMIN, switcher);

@@ -13,8 +13,8 @@ void logo()
 	cout << CORE_NAME << endl << "API Level:" << ull2s(API_VER) << endl << "Max Buff Size:" << ull2s(MAX_BUFF_SIZE) << endl;
 }
 
-string input, password, output,ext_file;
-int bs=4096,al=DEFAULT_ALG_ID,fhand=DEFAULT_FHL_ID;
+string input, password, output, ext_file;
+int bs = 4096, al = DEFAULT_ALG_ID, fhand = DEFAULT_FHL_ID;
 using namespace LIB_ERTLIB;
 bool file_name_check(string filename)
 {
@@ -31,7 +31,7 @@ bool file_name_check(string filename)
 	return false;
 }
 bool std_mode = false;
-WORK_MODE mode=CRYPT;
+WORK_MODE mode = CRYPT;
 //bool load_ext_info = false;
 //char *buff = nullptr;
 void config_read(string name, string value)
@@ -104,12 +104,12 @@ void config_read(string name, string value)
 		logo();
 		cout << "All of Algorthim and Documents!" << endl;
 		cout << "==============================================" << endl;
-		cout << "All of Algorthim:" << algor_max()<<endl;
+		cout << "All of Algorthim:" << algor_max() << endl;
 		cout << "Default Algorthim ID:" << al << endl;
 		for (int n = 0; n < algor_max(); n++)
 		{
 			get_alg_info(n, itemp, temp);
-			cout <<n<<":"<< itemp << "\t" << temp<<endl;
+			cout << n << ":" << itemp << "\t" << temp << endl;
 		}
 		exit(0);
 	case 'l':
@@ -137,7 +137,7 @@ int main(int argc, char *argv[])
 #ifndef __LINUX__
 	logo();
 	cout << "Error:This Program is can't run in windows !" << endl;
-	cout << "      Please use linux version!" << endl<<endl;
+	cout << "      Please use linux version!" << endl << endl;
 #ifdef ALLOW_WINDOWS_RUN
 	exit(-1);
 #else
@@ -154,7 +154,6 @@ int main(int argc, char *argv[])
 	cp2 << "Init Funcation" << endl;
 	try {
 		HEAD head;
-		
 
 		switch (mode)
 		{
@@ -207,11 +206,11 @@ int main(int argc, char *argv[])
 			break;
 		case LICENSE_CREATE:
 			if (!std_mode)
-			if (output.empty())
-			{
-				cout << "Output is Empty!" << endl;
-				exit(-1);
-			}
+				if (output.empty())
+				{
+					cout << "Output is Empty!" << endl;
+					exit(-1);
+				}
 			create_license(output, std_mode, bs);
 			break;
 		case EXT_TO_FILE:

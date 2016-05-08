@@ -1,6 +1,6 @@
 #include "translate.h"
 
-struct TBLOCK{
+struct TBLOCK {
 	string origin;
 	string target;
 };
@@ -13,57 +13,55 @@ void load_asci(string filename)
 	input.open(filename.data());
 	if (!input.is_open())
 	{
-		cout<<"Translate file load error!"<<endl;
+		cout << "Translate file load error!" << endl;
 		return;
 	}
-	int line=0;
+	int line = 0;
 	while (!input.eof())
 	{
 		line++;
 		string buff;
 		getline(input, buff);
 		vector<int>p;
-		for (unsigned int n=0;n<buff.size();n++)
-			if (buff.at(n)=='\"')
+		for (unsigned int n = 0; n < buff.size(); n++)
+			if (buff.at(n) == '\"')
 				p.push_back(n);
-		if (p.size()%2!=0)
+		if (p.size() % 2 != 0)
 		{
-			cout<<"Translate file Syntax Error!"<<endl;
-			cout<<"Apped at:"<<line<<endl;
+			cout << "Translate file Syntax Error!" << endl;
+			cout << "Apped at:" << line << endl;
 			cout << "parser error!" << endl;
 			input.close();
 			return;
 		}
 		vector<string> spoll;
-		for (unsigned int n=0;n<p.size();n+=2)
-			spoll.push_back(buff.substr(p.at(n),p.at(n+1)));
-		if (spoll.size()!=2)
+		for (unsigned int n = 0; n < p.size(); n += 2)
+			spoll.push_back(buff.substr(p.at(n), p.at(n + 1)));
+		if (spoll.size() != 2)
 		{
-			cout<<"Translast file Syntax Error"<<endl;
-			cout<<"Append at:"<<line<<endl;
-			cout<<"Error:splite error!"<<endl;
+			cout << "Translast file Syntax Error" << endl;
+			cout << "Append at:" << line << endl;
+			cout << "Error:splite error!" << endl;
 			input.close();
 			return;
 		}
 		TBLOCK temp;
-		temp.origin=spoll.at(0);
-		temp.target=spoll.at(1);
+		temp.origin = spoll.at(0);
+		temp.target = spoll.at(1);
 		tpoll.push_back(temp);
-		}
+	}
 	if (input.is_open())
 		input.close();
 }
 
-
-struct TBIN_HEAD{
+struct TBIN_HEAD {
 	int size;
 };
 
-struct TBIN_INFO{
+struct TBIN_INFO {
 	int target_len;
 	int origin_len;
 };
-
 
 void load_bin(string filename)
 {
@@ -91,7 +89,7 @@ void load_bin(string filename)
 	}
 	input.close();
 }
-		
+
 void dump_bin(string filename)
 {
 	ofstream output;
@@ -121,7 +119,7 @@ inline bool estrcmp(string a, string b)
 	if (a.size() != b.size())
 		return false;
 	bool ret = true;
-#pragma omp parallel for 
+#pragma omp parallel for
 	for (long n = 0; n < a.size(); n++)
 		if (a.at(n) != b.at(n))
 			ret = false;

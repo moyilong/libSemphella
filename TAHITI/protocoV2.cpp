@@ -2,7 +2,7 @@
 
 #define DEBUG	debug<<"[Protoco V2]"
 
-struct V2_PRO_HEAD{
+struct V2_PRO_HEAD {
 	char API_A;
 	char API_B;
 	unsigned long long io_len;
@@ -19,9 +19,9 @@ struct V2_PRO_HEAD{
 
 unsigned long long caculate_checksum(const char *data, unsigned long long len)
 {
-	unsigned long long ret=0;
+	unsigned long long ret = 0;
 	for (int n = 0; n < len; n++)
-		ret += data[n]*1000+0xFF9;
+		ret += data[n] * 1000 + 0xFF9;
 	return ret;
 }
 
@@ -67,7 +67,7 @@ void ProtocoRecvData(SOCKET sock, vector<char>&data, int wlen)
 		data.push_back(tdata[n]);
 	unsigned long long csum = caculate_checksum(tdata, wlen);
 	DEBUG << "Recving ReadData @" << csum << endl;
-	if ( caculate_checksum(tdata,wlen) != head.checksum)
+	if (caculate_checksum(tdata, wlen) != head.checksum)
 	{
 		DEBUG << "Protoco Package Checksum Faild!" << endl;
 	}
@@ -80,7 +80,7 @@ void ProtocoSendData(SOCKET sock, char *data, int len)
 	V2_PRO_HEAD head;
 	head.io_len = len;
 	head.checksum = caculate_checksum(data, len);
-	DEBUG << "Sending Data @" << head.checksum<<endl;
+	DEBUG << "Sending Data @" << head.checksum << endl;
 	SendRAWSocketData(sock, (char*)&head, V2_HEAD_LEN);
 	SendRAWSocketData(sock, data, len);
 }

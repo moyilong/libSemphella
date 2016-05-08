@@ -6,7 +6,7 @@
 #include "fhandle.h"
 #define cp2 debug
 uint64_t xcount = 0;
-void Rechandle(HEAD head, file in, file out, uint64_t &sum, int len, uint64_t op_addr,bool decrypt,bool std_out)
+void Rechandle(HEAD head, file in, file out, uint64_t &sum, int len, uint64_t op_addr, bool decrypt, bool std_out)
 {
 	int rclen = get_block_len(len);
 	char *recdata = (char*)malloc(rclen);

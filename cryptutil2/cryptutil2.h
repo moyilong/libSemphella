@@ -13,13 +13,9 @@
 //static const char *strtbl = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz,/.<>?;':\"[] {}|\\-+*/";
 #define strtbl "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
 
-
-
-
 #define cp2 debug
 #define DEBUG debug
 #define MAX_PASSWORD_LEN	MAX_BUFF_SIZE
-
 
 enum WORK_MODE {
 	FILE_INFO,
@@ -29,5 +25,4 @@ enum WORK_MODE {
 	EXT_TO_FILE,
 };
 
-
-int create_license(string output, bool std_out,int bs);
+int create_license(string output, bool std_out, int bs);

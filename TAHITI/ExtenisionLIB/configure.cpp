@@ -7,7 +7,7 @@ bool init_configure(string file, CONFIG &io, bool allow_syntax_error)
 	if (!io.link.empty() || io.file.is_open())
 		return false;
 	io.link = file;
-	io.file.open(file.data(), ios_base::in|ios_base::out);
+	io.file.open(file.data(), ios_base::in | ios_base::out);
 	int line = 0;
 	while (!io.file.eof())
 	{
@@ -25,9 +25,9 @@ bool init_configure(string file, CONFIG &io, bool allow_syntax_error)
 				{
 					equal = n;
 				}
-				else{
-					CFG_LOAD << "File Format Error! @"<<line<<"."<<n << endl;
-					CFG_LOAD << "Syntax Error: Double '='"<<endl;
+				else {
+					CFG_LOAD << "File Format Error! @" << line << "." << n << endl;
+					CFG_LOAD << "Syntax Error: Double '='" << endl;
 					if (!allow_syntax_error)
 						return false;
 				}
@@ -39,7 +39,7 @@ bool init_configure(string file, CONFIG &io, bool allow_syntax_error)
 			temp.name = buff.substr(0, equal);
 			temp.value = buff.substr(equal + 1, buff.size() - equal - 1);
 		}
-		else{
+		else {
 			temp.name = buff;
 			temp.value = STR_FALSE;
 		}
@@ -47,10 +47,9 @@ bool init_configure(string file, CONFIG &io, bool allow_syntax_error)
 		{
 			CFG_LOAD << "Label Name Replace! @" << line << endl;
 		}
-		else{
+		else {
 			io.poll.push_back(temp);
 		}
-
 	}
 	return true;
 }
@@ -77,7 +76,7 @@ string get_value(string name, CONFIG &io)
 #ifndef __ANDROID__
 #include <omp.h>
 
-void for_each(FOR_EACH_API api, CONFIG &io,bool omp)
+void for_each(FOR_EACH_API api, CONFIG &io, bool omp)
 {
 	int mp_thread;
 	if (!omp)

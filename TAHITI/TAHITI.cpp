@@ -5,19 +5,16 @@
 #include "inline.h"
 #include "modules.h"
 
-
 #define tahiti cout<<"[TAHITI_MAIN]"
-
 
 XKERNEL kernel;
 bool first_init = false;
-
 
 XKERNEL::XKERNEL()
 {
 	if (first_init)
 	{
-		cout << "Warring:Multi Init Kernel!" <<endl;
+		cout << "Warring:Multi Init Kernel!" << endl;
 		abort();
 	}
 #ifndef __LINUX__
@@ -59,26 +56,24 @@ int __client_main(vector<string> command)
 #include "serverutil.h"
 Modules server_link("server", __server_relink);
 Modules client_link("client_daemon", __client_main);
-Modules Hert_beat_link(0xFFFF0001, "HertBeat", Hert_beat_server, Hert_beat_client_to, Hert_beat_client_ret,BLACK_OUT);
-Modules RoutingServerX(0x995DFA6B, "RoutingServer", Data_Routing_Server,NULL,NULL,ADMIN);
+Modules Hert_beat_link(0xFFFF0001, "HertBeat", Hert_beat_server, Hert_beat_client_to, Hert_beat_client_ret, BLACK_OUT);
+Modules RoutingServerX(0x995DFA6B, "RoutingServer", Data_Routing_Server, NULL, NULL, ADMIN);
 Modules ServerUtilCli(SERVER_INFO_CLIENT_DEF, "ServerInfo", ServerInfoClient, NULL, NULL, GUEST, ServerInfoCLI, NULL);
 
 char ENDIAN_CACHE = -1;
 
-
-
- char ENDIAN_TEST()
-{	
+char ENDIAN_TEST()
+{
 	if (ENDIAN_CACHE != -1)
 	{
 		return ENDIAN_CACHE;
 	}
-   union
-    {
-       int a;
-        char b;
-   }c;
-    c.a = 1;
+	union
+	{
+		int a;
+		char b;
+	}c;
+	c.a = 1;
 	if (c.b == 1)
 		ENDIAN_CACHE = LIT_ENDIAN;
 	else

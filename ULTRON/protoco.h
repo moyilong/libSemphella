@@ -1,9 +1,6 @@
-struct PROTOCO_INFO{
+struct PROTOCO_INFO {
 	int protoco_count = 0;
 };
-
-
-
 
 #define PROTOCO_API	0x800000AA
 #define PROTOCO_SWITCH 0x800000AB

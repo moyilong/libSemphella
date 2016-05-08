@@ -7,8 +7,6 @@
 #define esleep(ms) Sleep(ms)
 #endif
 
-
-
 #ifndef __LINUX__
 inline void close(SOCKET conn)
 {

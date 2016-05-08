@@ -8,8 +8,6 @@ SOCKET clientSocket;
 
 #define client_dbg cout<<"[ClientDaemon]"
 
-
-
 void client_main()
 {
 	client_dbg << "Client Daemon is Start!" << endl;
@@ -17,7 +15,7 @@ void client_main()
 	trigger(CLIENT_DAEMON_INIT, __env__temp);
 	sockaddr_in server;
 	server.sin_family = AF_INET;
-	server.sin_port = htons(kernel().port) ;
+	server.sin_port = htons(kernel().port);
 	struct hostent *host;
 	host = gethostbyname(kernel().server.data());
 	server.sin_addr = *((struct in_addr *)host->h_addr);
@@ -34,14 +32,14 @@ void client_main()
 				DATA_FORMAT push, ret;
 				push.def = get_mod(n).get_api();
 				get_mod(n).get_client_to()(push);
-				network_trans(push,ret);
+				network_trans(push, ret);
 				if (ret.def != get_mod(n).get_api())
 				{
 					for (int b = 0; b < get_modules_size(); b++)
-						if (get_mod(b).get_api() == ret.def&&get_mod(b).get_client_ret()!=NULL)
+						if (get_mod(b).get_api() == ret.def&&get_mod(b).get_client_ret() != NULL)
 							get_mod(b).get_client_ret()(ret);
 				}
-				else{
+				else {
 					get_mod(n).get_client_ret()(ret);
 				}
 				close(clientSocket);
@@ -49,6 +47,4 @@ void client_main()
 			}
 		}
 	}
-
-	}
-
+}

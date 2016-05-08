@@ -1,7 +1,7 @@
 #include "fhandle.h"
 #include "algorthim.h"
 #include "headproto.h"
-void FileProcess(HEAD head, file in, file out, uint64_t &sum, int len, uint64_t op_addr,  bool decrypt, bool std_out)
+void FileProcess(HEAD head, file in, file out, uint64_t &sum, int len, uint64_t op_addr, bool decrypt, bool std_out)
 {
 	int external_size = 0;
 	if (head.ext[EXT_EXTABLE] == 1)

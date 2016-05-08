@@ -10,8 +10,7 @@
 
 #include "dll.h"
 
-namespace LIB_ERTLIB{
-
+namespace LIB_ERTLIB {
 	enum RETURN_STAT {
 		OK,
 		FILE_IO_FAILD,
@@ -25,10 +24,10 @@ namespace LIB_ERTLIB{
 	};
 #define DEFAULT_ALG_ID	6
 #define DEFAULT_FHL_ID	0
-	LIBERT_API RETURN_STAT crypt_to_file(string in, string out, string password, int alg=DEFAULT_ALG_ID, int fid=DEFAULT_FHL_ID, string extfil="",int bs=MAX_BUFF_SIZE);
-	LIBERT_API RETURN_STAT decrtpt_to_file(string in, string out, string password,int std_mode=false);
+	LIBERT_API RETURN_STAT crypt_to_file(string in, string out, string password, int alg = DEFAULT_ALG_ID, int fid = DEFAULT_FHL_ID, string extfil = "", int bs = MAX_BUFF_SIZE);
+	LIBERT_API RETURN_STAT decrtpt_to_file(string in, string out, string password, int std_mode = false);
 	LIBERT_API RETURN_STAT decrypt_to_std(string in, string out, string password);
-	LIBERT_API RETURN_STAT get_ext_to_file(string in, string out,bool std_mode=false);
+	LIBERT_API RETURN_STAT get_ext_to_file(string in, string out, bool std_mode = false);
 	LIBERT_API RETURN_STAT get_ext_to_std(string in);
 	LIBERT_API HEAD get_head(string in);
 	LIBERT_API void PerformanceTest();
@@ -40,5 +39,4 @@ namespace LIB_ERTLIB{
 	LIBERT_API int get_alg_id(int tid);
 
 	LIBERT_API string get_api_ver();
-
 }

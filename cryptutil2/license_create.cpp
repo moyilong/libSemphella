@@ -1,7 +1,7 @@
 #include "cryptutil2.h"
 #include <libSemphella/license.h>
 
-int create_license(string output,bool std_out,int bs)
+int create_license(string output, bool std_out, int bs)
 {
 	if (output.empty())
 	{

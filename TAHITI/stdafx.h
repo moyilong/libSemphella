@@ -15,14 +15,13 @@ using namespace std;
 
 #include "net_base.h"
 
-
 #include "multi_platform.h"
 
 #include "inline.h"
 #include "feature_define.h"
 #include "modules.h"
- 
-#define DEBUG_LINE if (true) 
+
+#define DEBUG_LINE if (true)
 
 #include "event.h"
 #include "permission.h"

@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "modules.h"
 
-long long mod_size=0;
+long long mod_size = 0;
 
 Modules mod_poll[MAX_MOD_SIZE];
 
@@ -16,12 +16,10 @@ void framework_inif()
 	framework_init = true;
 }
 
-
 Modules::Modules()
 {
 	framework_inif();
 };
-
 
 string Modules::get_name()
 {
@@ -44,8 +42,6 @@ void Modules::reg_ser(ESS_Modules srv)
 	entry_server = srv;
 }
 
-
-
 void Modules::init()
 {
 	framework_inif();
@@ -60,7 +56,7 @@ void Modules::reg()
 #ifdef UNLOAD_MODULES
 	return;
 #else
-	mod_fram<< "reg of:" << this->sname << endl;
+	mod_fram << "reg of:" << this->sname << endl;
 	mod_poll[mod_size] = *this;
 	mod_size++;
 	ENV_DATA env;
@@ -70,7 +66,7 @@ void Modules::reg()
 #endif
 }
 
-Modules::Modules(feature_t _mode, string name, ESS_Modules __server_entry , ESS_CMOD __clinet_entry_to , ESS_CMOD __client_entry_ret , permission_t level , CLI kcli , KSAPI vlink )
+Modules::Modules(feature_t _mode, string name, ESS_Modules __server_entry, ESS_CMOD __clinet_entry_to, ESS_CMOD __client_entry_ret, permission_t level, CLI kcli, KSAPI vlink)
 {
 	init();
 	strcpy(sname, name.data());
@@ -130,7 +126,7 @@ Modules::Modules(string name, CLI link, KSAPI vlink)
 	reg();
 }
 
-string cli_preprocess(vector<string>poll,string getd)
+string cli_preprocess(vector<string>poll, string getd)
 {
 	for (int n = 0; n < poll.size(); n++)
 	{
@@ -144,7 +140,7 @@ string cli_preprocess(vector<string>poll,string getd)
 			{
 				return "y";
 			}
-			else{
+			else {
 				return poll.at(n).substr(qeual);
 			}
 		}

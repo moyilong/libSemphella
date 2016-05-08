@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
 	if (streval("-f", argv[1]))
 	{
 		file load;
-		load.open(argv[2],"r");
+		load.open(argv[2], "r");
 		if (!load.is_open())
 		{
 			cout << "Faild Open File!" << endl;

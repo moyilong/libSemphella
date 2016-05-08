@@ -91,7 +91,7 @@ allow_back load_user_define(string filename)
 			per_dbg << "Syntax Error @" << vline << " more less arg" << endl;
 			stat = false;
 		}
-		else{
+		else {
 			temp.name = spoll.at(0);
 			temp.password = spoll.at(1);
 			temp.line_id = vline;
@@ -104,7 +104,6 @@ allow_back load_user_define(string filename)
 				per_dbg << "Syntax Error @" << vline << " unknow level define!" << endl;
 				stat = false;
 			}
-
 		}
 		if (stat)
 			create_user(temp);
@@ -121,7 +120,7 @@ void create_auth_code_by_original(USER define, DATA_FORMAT target)
 {
 #pragma omp parallel for
 	for (int n = 0; n < AUTH_CODE_LEN; n++)
-		target.auth_key[n] = define.auth_key[n] ^ target.dev.id +n;
+		target.auth_key[n] = define.auth_key[n] ^ target.dev.id + n;
 	xorcrypt(target.auth_key, AUTH_CODE_LEN);
 }
 #ifdef _OLD_AUTHCMD
@@ -148,14 +147,14 @@ inline bool auth_cmp(const char *a, const char*b)
 inline bool auth_cmp(const char *a, const char *b)
 {
 #if AUTH_CODE_LEN >= 16
-	for (int n=0;n<16;n++)
+	for (int n = 0; n < 16; n++)
 		if (a[n] != b[n])
 			return false;
 #endif
 	bool stat = true;
-#pragma omp parallel for 
+#pragma omp parallel for
 	for (int n = 16; n < AUTH_CODE_LEN; n++)
-		if (a[n] != b[n]&&stat)
+		if (a[n] != b[n] && stat)
 			stat = false;
 	return stat;
 }
@@ -189,7 +188,7 @@ void test_user_alloc(DATA_FORMAT format, permission_t &per, int &allow_id)
 				if (!strcmp(upoll.at(allow_id).allow_define_dev.at(n).data(), format.dev.name))
 					balck_list_check = true;
 			}
-			else{
+			else {
 				if (strcmp(upoll.at(allow_id).allow_define_dev.at(n).data(), format.dev.name))
 					balck_list_check = true;
 			}
@@ -204,8 +203,8 @@ permission_t test_user_alloc(DATA_FORMAT format)
 {
 	permission_t pre;
 	int uid;
-	test_user_alloc(format, pre,uid);
-		return pre;
+	test_user_alloc(format, pre, uid);
+	return pre;
 }
 
 allow_back allow_change_password(DATA_FORMAT format, int xuid, string password)
@@ -213,7 +212,7 @@ allow_back allow_change_password(DATA_FORMAT format, int xuid, string password)
 	int uid;
 	permission_t level;
 	test_user_alloc(format, level, uid);
-	if (uid == -1 || level == BLACK_OUT||level<upoll.at(xuid).leve||level==upoll.at(xuid).leve)
+	if (uid == -1 || level == BLACK_OUT || level < upoll.at(xuid).leve || level == upoll.at(xuid).leve)
 		return PERMISSION_DEINED;
 	if (uid == xuid)
 		return PERMISSION_DEINED;
@@ -227,13 +226,13 @@ allow_back allow_remove_account(DATA_FORMAT format, int xuid, permission_t xleve
 	int uid;
 	permission_t level;
 	test_user_alloc(format, level, uid);
-	if (uid == -1 || level == BLACK_OUT || level<upoll.at(xuid).leve || level == upoll.at(xuid).leve)
+	if (uid == -1 || level == BLACK_OUT || level < upoll.at(xuid).leve || level == upoll.at(xuid).leve)
 		return PERMISSION_DEINED;
 	if (uid == xuid)
 		return PERMISSION_DEINED;
 	if (xlevel >= upoll.at(uid).leve)
 		return PERMISSION_DEINED;
-	upoll.at(xuid).leve =xlevel;
+	upoll.at(xuid).leve = xlevel;
 	return FINISH;
 }
 
@@ -253,9 +252,8 @@ int uname2uid(string username)
 {
 	int ret = -1;
 #pragma omp parallel for
-	for (long  n = 0; n < upoll.size(); n++)
+	for (long n = 0; n < upoll.size(); n++)
 		if (upoll.at(n).name.data(), username.data())
 			ret = n;
 	return ret;
-
 }

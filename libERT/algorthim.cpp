@@ -3,7 +3,7 @@
 ALGHRTHIM APOLL[AMAX];
 int xsize = 0;
 
-ALGHRTHIM::ALGHRTHIM(password_algrthom p, crypt_algrthom c, sum_algrthom s, int xid, string _doc,get_password_checksum pc, bool _can_be_pt)
+ALGHRTHIM::ALGHRTHIM(password_algrthom p, crypt_algrthom c, sum_algrthom s, int xid, string _doc, get_password_checksum pc, bool _can_be_pt)
 {
 	id = xid;
 	pa = p;
@@ -14,7 +14,7 @@ ALGHRTHIM::ALGHRTHIM(password_algrthom p, crypt_algrthom c, sum_algrthom s, int 
 	debug << "Insert Alghrthim " << id << " @ " << xsize << endl;
 	//APOLL.push_back(*this);
 	can_be_pt = _can_be_pt;
-	for (int n=0;n<xsize;n++)
+	for (int n = 0; n < xsize; n++)
 		if (APOLL[n].id == xid)
 		{
 			debug << "Error of ID REMAP!" << endl;
@@ -48,6 +48,6 @@ int trans_id(int id)
 		}
 	debug << "Id not found!" << endl;
 	debug << "Founted ID:" << id << endl;
-	cout << "ID "<<id<<" was not exist!" << endl;
+	cout << "ID " << id << " was not exist!" << endl;
 	return -1;
 }

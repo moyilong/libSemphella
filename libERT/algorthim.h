@@ -13,7 +13,6 @@ typedef void(*crypt_algrthom)(char *data, int64_t len, int64_t bit_off);	//º”√‹À
 typedef uint64_t(*sum_algrthom)(const char *data, int64_t len);	//–£—È∫ÕÀ„∑®
 typedef uint64_t(*get_password_checksum)(string passwd);	//√‹¬Î–£—ÈÀ„∑®
 
-
 class ALGHRTHIM {
 public:
 	bool can_be_pt = true;
@@ -29,7 +28,7 @@ public:
 	//Àµ√˜
 	string doc;
 	inline ALGHRTHIM() {};
-	ALGHRTHIM(password_algrthom p, crypt_algrthom c, sum_algrthom s, int xid,string _doc, get_password_checksum pc = password_type, bool _can_be_pt = true);
+	ALGHRTHIM(password_algrthom p, crypt_algrthom c, sum_algrthom s, int xid, string _doc, get_password_checksum pc = password_type, bool _can_be_pt = true);
 };
 #define AMAX	16
 

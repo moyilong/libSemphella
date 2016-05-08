@@ -35,13 +35,13 @@ int main(int argc, char *argv[])
 	else
 		cout << "Use New Dymanic Protoco" << endl;
 	cout << "===========================================" << endl;
-	cout << "Kernel Information:"<<endl;
+	cout << "Kernel Information:" << endl;
 	cout << "Kernel Mode:" << kernel().kernel_mode << endl;
 	cout << "kernel.max_try_conn=" << kernel().max_try_conn << endl;
 	cout << "kernel.try_wait=" << kernel().try_wait << endl;
 	cout << "kernel.quiet=" << bool2str(kernel().quiet) << endl;
-	cout << "kernel.old_protoco_version=" << bool2str(kernel().old_protoco_version)<<endl;
-	cout << "kernel.allow_server_back_level=" << bool2str(kernel().allow_server_back_level)<<endl;
+	cout << "kernel.old_protoco_version=" << bool2str(kernel().old_protoco_version) << endl;
+	cout << "kernel.allow_server_back_level=" << bool2str(kernel().allow_server_back_level) << endl;
 	cout << "===========================================" << endl;
 	cout << "Start Performance Test:" << endl;
 	cout << "ProcessKeyLen:" << TEST_LEN << endl;

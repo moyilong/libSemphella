@@ -1,4 +1,3 @@
-
 #include "stdafx.h"
 #include "hertbeat.h"
 
@@ -10,10 +9,10 @@ void ServerInfoClient(struct DATA_FORMAT in, struct DATA_FORMAT& out, SOCKET &co
 	{
 	case 'd':
 		int count;
-		memcpy(&count, in.buff+1, sizeof(int));
+		memcpy(&count, in.buff + 1, sizeof(int));
 		cout << "Returning Data:" << count << endl;
 		temp_get = GetDevice(count);
-		memcpy(&out.dev,&temp_get, sizeof(DEVICE));
+		memcpy(&out.dev, &temp_get, sizeof(DEVICE));
 		break;
 	default:
 		ServerInfo send;
@@ -63,6 +62,3 @@ void sys_exec(struct DATA_FORMAT &get)
 }
 
 Modules sys_execc(0x55555555, "SystemExecClient", NULL, NULL, sys_exec);
-
-
-

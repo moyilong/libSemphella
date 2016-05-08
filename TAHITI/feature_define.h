@@ -10,7 +10,6 @@ typedef  uint64_t feature_t;
 #define S_API_VERSION			'X'			//此文件版本号
 #define S_API_ALLOW_MIN			'X'			//支持的最低版本号
 
-
 #ifndef MAX_BUFF_SIZE
 #define MAX_BUFF_SIZE 4096										//内建缓冲区大小
 #endif
@@ -32,24 +31,15 @@ typedef  uint64_t feature_t;
 #define _ERROR_AUTH_FAILD				"__SRC_AUTH_FAILD_________"			//授权失败
 #define _ERROR_ENDINA_ERROR				"__CPU_ARCH_ENDINA_UNMATCH"			//CPU大小端错误
 
-
 #define NO			0xFFFFFFFF
 #define ERR_BACK	0xFFFFFF00
 
-
-
-
-
 #define AUTH_CODE_LEN	32		//验证密钥长度
-
 
 #define DATA_LEN	MAX_BUFF_SIZE					//定长传输
 
 #define PORT 		2258					//端口号
 #define IP "127.0.0.1"
-
-
-
 
 inline void xorcrypt(char *data, int len, string password = DEFAULT_CRYPT_PASSWORD)
 {
@@ -58,10 +48,9 @@ inline void xorcrypt(char *data, int len, string password = DEFAULT_CRYPT_PASSWO
 #define Convert xorcrypt
 char GetHeadCheck(char HDA);
 
-
 #define DEVICE_ID	uint64_t
 
-struct DEVICE{
+struct DEVICE {
 	DEVICE_ID id;
 	char name[DEVICE_NAME_LEN];
 	clock_t last;
@@ -77,16 +66,15 @@ struct DEVICE{
 #define LIT_ENDIAN	1
 #endif
 
-
 char ENDIAN_TEST();
 
-struct DATA_FORMAT{
-	char HEAD_CHECK_A ;				//确认辨别
-	char HEAD_CHECK_B ;				//计算辨别
+struct DATA_FORMAT {
+	char HEAD_CHECK_A;				//确认辨别
+	char HEAD_CHECK_B;				//计算辨别
 	char API_LEVEL;					//API版本号定义
 	char endia_stat;				//大小端确认
 	int real_data_len = -1;			//真实数据长度
-	feature_t def=NO;				//数据类型
+	feature_t def = NO;				//数据类型
 	DEVICE dev;						//设备
 	char auth_key[AUTH_CODE_LEN];	//授权密钥
 	char buff[DATA_LEN];			//数据
@@ -99,14 +87,12 @@ struct DATA_FORMAT{
 		memset(auth_key, 0, sizeof(auth_key));
 		endia_stat = ENDIAN_TEST();
 	}
-	
-	
 };
 
-struct ROUTING_INFO{
+struct ROUTING_INFO {
 	feature_t def;
 	char name[DEVICE_NAME_LEN];
-	char data[DATA_LEN/2];
+	char data[DATA_LEN / 2];
 	inline ROUTING_INFO()
 	{
 		memset(name, 0, sizeof(name));
@@ -114,28 +100,17 @@ struct ROUTING_INFO{
 	}
 };
 
-
-struct ServerInfo{
+struct ServerInfo {
 	char server_name[DEVICE_NAME_LEN];			//服务器名称
 	int reg_dev_size;
 	int routing_size;
 };
 
-
-
-
-
-
-
 #define SEND_LEN	sizeof(DATA_FORMAT)
 
 /*
 
-
-
 通讯步骤说明:
-
-
 
 服务器-->
 
@@ -151,9 +126,5 @@ struct ServerInfo{
 初始化----->创建和服务器的链接->|							|------>从服务器获得数据--->处理-----|
 					|						     												 |
 					|-----------<----------<----------<----------<---------等待间隔<--=-----------
-
-
-
-
 
 */

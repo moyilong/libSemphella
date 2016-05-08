@@ -86,4 +86,3 @@ LIBERT_API void LIB_ERTLIB::PerformanceTest()
 		cout << sct[n].id;
 	}
 }
-	

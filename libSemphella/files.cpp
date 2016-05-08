@@ -141,8 +141,6 @@ string file::getline(uint64_t perfect_max)
 	return ret;
 }
 
-
-
 void file::check()
 {
 	if (opend && fp == NULL)

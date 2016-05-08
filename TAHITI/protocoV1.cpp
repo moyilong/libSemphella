@@ -7,17 +7,17 @@
 
 DATA_FORMAT network_trans(DATA_FORMAT to, DATA_FORMAT &ret)
 {
-	SOCKET conn=create_connect();
+	SOCKET conn = create_connect();
 	data_send(to, conn);
-	data_recv(conn,ret);
+	data_recv(conn, ret);
 	if (ret.def == ERR_BACK)
 		if (strcmp(ret.buff, _ERROR_NO_ERROR))
 		{
-		cout << "Server return a ERROR!!" << endl;
-		cout << ret.buff << endl;
-		ENV_DATA data;
-		data.data = ret;
-		trigger(SERVER_ERR_BACK, data);
+			cout << "Server return a ERROR!!" << endl;
+			cout << ret.buff << endl;
+			ENV_DATA data;
+			data.data = ret;
+			trigger(SERVER_ERR_BACK, data);
 		}
 	close(conn);
 	return ret;
@@ -43,7 +43,7 @@ SOCKET create_connect(int port)
 		create_count++;
 		if (create_count % 10 == 0)
 		{
-			DEBUG_LINE cout << "Warring of connect! try " << create_count<<"//"<<kernel().max_try_conn << endl;
+			DEBUG_LINE cout << "Warring of connect! try " << create_count << "//" << kernel().max_try_conn << endl;
 		}
 		if (create_count > kernel().max_try_conn)
 		{
@@ -54,11 +54,7 @@ SOCKET create_connect(int port)
 		esleep(kernel().try_wait);
 	}
 	return client_socket;
-
-
 }
-
-
 
 int v1_data_send(DATA_FORMAT data, SOCKET conn)
 {
@@ -69,7 +65,7 @@ int v1_data_send(DATA_FORMAT data, SOCKET conn)
 	return ERR_NO_ERROR;
 }
 
-int v1_data_recv(SOCKET conn,DATA_FORMAT &ret)
+int v1_data_recv(SOCKET conn, DATA_FORMAT &ret)
 {
 	char get[SEND_LEN];
 	recv(conn, get, SEND_LEN, 0);
@@ -111,59 +107,58 @@ int v1_data_recv(SOCKET conn,DATA_FORMAT &ret)
 	return ERR_NO_ERROR;
 }
 
-char GetHeadCheck(char HDA){
+char GetHeadCheck(char HDA) {
 	return (HDA * 0x2B);
 }
 
+int data_send(DATA_FORMAT data, SOCKET conn)
+{
+	int ret = 0;
+	if (!kernel().old_protoco_version)
+		ret = v2_send_data(conn, data);
+	else
+		ret = v1_data_send(data, conn);
+	if (ret != 0)
+	{
+		cout << "Protoco Return An Error!" << endl;
+	}
+	return ret;
+}
 
- int data_send(DATA_FORMAT data, SOCKET conn)
- {
-	 int ret = 0;
-	 if (!kernel().old_protoco_version)
-		 ret = v2_send_data(conn, data);
-	 else
-		 ret = v1_data_send(data, conn);
-	 if (ret != 0)
-	 {
-		 cout << "Protoco Return An Error!" << endl;
-	 }
-	 return ret;
- }
-
- int data_recv(SOCKET conn, DATA_FORMAT &ret)
- {
-	 int xret = 0;
-	 if (!kernel().old_protoco_version)
-	 xret = v2_recv_data(conn, ret);
-	 else
-	xret = v1_data_recv(conn, ret);
+int data_recv(SOCKET conn, DATA_FORMAT &ret)
+{
+	int xret = 0;
+	if (!kernel().old_protoco_version)
+		xret = v2_recv_data(conn, ret);
+	else
+		xret = v1_data_recv(conn, ret);
 	if (xret != 0)
 	{
 		cout << "Protoco Return An Error!" << endl;
 	}
-	 return xret;
- }
+	return xret;
+}
 
- uint16_t fast_server_online_test()
- {
-	 sockaddr_in server;
-	 server.sin_family = AF_INET;
-	 server.sin_port = htons(kernel().port);
-	 struct hostent *host = gethostbyname(kernel().server.data());
-	 if (host == nullptr)
-	 {
-		 return -1;
-	 }
-	 server.sin_addr = *((struct in_addr *)host->h_addr);
+uint16_t fast_server_online_test()
+{
+	sockaddr_in server;
+	server.sin_family = AF_INET;
+	server.sin_port = htons(kernel().port);
+	struct hostent *host = gethostbyname(kernel().server.data());
+	if (host == nullptr)
+	{
+		return -1;
+	}
+	server.sin_addr = *((struct in_addr *)host->h_addr);
 
-	 SOCKET client_socket = socket(AF_INET, SOCK_STREAM, 0);
-	 if (client_socket == INVALID_SOCKET)
-		 return -1;
-	 int create_count = 0;
-	 clock_t tout = clock();
-	 if (connect(client_socket, (sockaddr*)&server, sizeof(server)) == INVALID_SOCKET)
-		 return -1;	 
-	 tout = clock() - tout;
-	 close(client_socket);
-	 return tout;
- }
+	SOCKET client_socket = socket(AF_INET, SOCK_STREAM, 0);
+	if (client_socket == INVALID_SOCKET)
+		return -1;
+	int create_count = 0;
+	clock_t tout = clock();
+	if (connect(client_socket, (sockaddr*)&server, sizeof(server)) == INVALID_SOCKET)
+		return -1;
+	tout = clock() - tout;
+	close(client_socket);
+	return tout;
+}

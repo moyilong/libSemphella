@@ -7,12 +7,11 @@ DEVICE local;
 
 bool local_init = false;
 
-
 vector<ROUTING_INFO> rpoll;
 
 inline DEVICE_ID get_dev_id()
 {
-	DEVICE_ID ret=rand();
+	DEVICE_ID ret = rand();
 	for (int n = 0; n < MAX_BUFF_SIZE; n++)
 		ret += rand();
 	return ret;
@@ -34,7 +33,7 @@ inline DEVICE GETLOCAL()
 	return local;
 }
 
-void Data_Routing_Server( DATA_FORMAT in, DATA_FORMAT &ret, SOCKET &conn)
+void Data_Routing_Server(DATA_FORMAT in, DATA_FORMAT &ret, SOCKET &conn)
 {
 	ROUTING_INFO info;
 	memcpy(&info, in.buff, sizeof(ROUTING_INFO));
@@ -78,14 +77,13 @@ void Hert_beat_server(DATA_FORMAT in, DATA_FORMAT &ret, SOCKET &conn)
 	}
 }
 
-void Hert_beat_client_to( DATA_FORMAT &data)
+void Hert_beat_client_to(DATA_FORMAT &data)
 {
 	//memcpy(&data.dev, &local, sizeof(DEVICE));
 	data.dev = GETLOCAL();
-
 }
 
-void Hert_beat_client_ret( DATA_FORMAT &data)
+void Hert_beat_client_ret(DATA_FORMAT &data)
 {
 	local.last = data.dev.last;
 	DEBUG_LINE cout << "last get time:" << local.last << endl;
