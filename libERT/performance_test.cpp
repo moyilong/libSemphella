@@ -14,7 +14,7 @@ SCORE_T runOnce(int id)
 	debug << "Prepering for Test:" << APOLL[id].id << endl;
 	char buff[MAX_BUFF_SIZE];
 	uint64_t hash = getsumV2(buff, MAX_BUFF_SIZE);
-	char pwd[MAX_BUFF_SIZE];
+	char pwd[MAX_BUFF_SIZE]="moyilong_defined_password_for_test_program";
 	sprintf(buff, "%ull", hash);
 	for (int n = 0; n < MAX_BUFF_SIZE; n++)
 		buff[n] = rand();
@@ -49,7 +49,15 @@ LIBERT_API void LIB_ERTLIB::PerformanceTest()
 		debug << "Initing Algorthim:" << id << endl;
 		if (APOLL[n].can_be_pt)
 		{
-			SCORE_T sc = runOnce(n);
+				SCORE_T sc;
+			try{
+				sc = runOnce(n);
+			}
+			catch(...)
+			{
+				cout<<"Have an Unexcept Error Catch in Test progress!"<<endl;
+				continue;
+			}
 			poll.push_back(sc);
 			cout << "ID:" << id << "\tTimtout:" << sc.time_out << " IOPS\tof " << sc.all_count << " IOS \tin " << sc.timeout << " SECOND" << endl;
 		}
@@ -85,4 +93,5 @@ LIBERT_API void LIB_ERTLIB::PerformanceTest()
 			cout << " => ";
 		cout << sct[n].id;
 	}
+	cout<<endl;
 }

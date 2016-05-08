@@ -1,6 +1,6 @@
 #pragma once
 
-#ifndef __LINUX
+#ifndef __LINUX__
 
 #ifdef LIBERT_EXPORTS
 #define LIBERT_API __declspec(dllexport)

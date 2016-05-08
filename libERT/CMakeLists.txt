@@ -1,4 +1,3 @@
-PROJECT(Semphella)
 ADD_LIBRARY(ERT SHARED 
 	algorthim.cpp
 	basic.fhand.cpp

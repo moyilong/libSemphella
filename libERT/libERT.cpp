@@ -84,6 +84,7 @@ LIBERT_API RETURN_STAT LIB_ERTLIB::crypt_to_file(string in, string out, string p
 	head.check();
 	o.write(&head, 1);
 	o.close();
+	cout<<endl<<endl;
 	return OK;
 }
 
@@ -150,7 +151,8 @@ LIBERT_API RETURN_STAT LIB_ERTLIB::decrtpt_to_file(string in, string out, string
 	o.close();
 	if (sum != head.sum)
 		return FILE_VERIFY_FAILD;
-
+	if (!std_mode)
+		cout<<endl<<endl;
 	return OK;
 }
 
