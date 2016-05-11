@@ -1,6 +1,6 @@
 #pragma once
 #include "libSemphella.h"
-
+#include "debug.h"
 
 class CAPI file {
 public:
