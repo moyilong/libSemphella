@@ -22,6 +22,7 @@ void load_ext_data(string filename)
 	ext.close();
 }
 
+
 LIBERT_API RETURN_STAT LIB_ERTLIB::crypt_to_file(string in, string out, string password, int alg, int fid, string extfil, int bs)
 {
 	file i, o;
@@ -51,8 +52,13 @@ LIBERT_API RETURN_STAT LIB_ERTLIB::crypt_to_file(string in, string out, string p
 	o.write(&head, 1);
 	if (!extfil.empty())
 	{
-		o.write(&ex, 1);
-		o.write(ext_data, ex.length);
+		char xbuff[sizeof(EXT)];
+		memcpy(xbuff, &ex, sizeof(EXT));
+		o.write(xbuff, sizeof(EXT));
+		char *buff = (char*)malloc(ex.length);
+		memcpy(buff, ext_data, ex.length);
+		mask(buff, ex.length);
+		o.write(buff, ex.length);
 	}
 	uint64_t mbs, fix;
 	i.get_steps(bs, mbs, fix);
@@ -85,6 +91,8 @@ LIBERT_API RETURN_STAT LIB_ERTLIB::crypt_to_file(string in, string out, string p
 	o.write(&head, 1);
 	o.close();
 	cout<<endl<<endl;
+	debug << "WriteHead:" << getsumV2((char*)&head, sizeof(head))<<endl;
+	cout << "SysteDecode:" << head.sum << "=>" << sum << endl;
 	return OK;
 }
 
@@ -94,6 +102,7 @@ LIBERT_API RETURN_STAT LIB_ERTLIB::decrtpt_to_file(string in, string out, string
 	i.open(in, "r");
 	if (!i.is_open())
 	{
+		debug << "Open File Faild!" << endl;
 		throw "Open " + in + " faild";
 	}
 	if (!std_mode)
@@ -101,12 +110,17 @@ LIBERT_API RETURN_STAT LIB_ERTLIB::decrtpt_to_file(string in, string out, string
 		o.open(out, "w");
 		if (!o.is_open())
 		{
+			debug << "Open File Faild!" << endl;
 			throw "Open " + out + " faild!";
 		}
 	}
 	HEAD head;
 	i.seekp(0);
-	i.read(&head, 1);
+	char hbuff[sizeof(HEAD)];
+	i.read(hbuff, sizeof(HEAD));
+	memcpy(&head,hbuff,sizeof(HEAD));
+	display_dump((char*)&head, sizeof(HEAD));
+	debug << "ReadHead:" << getsumV2((char*)&head, sizeof(head)) << endl;
 	if (!head.check())
 		return HEAD_VERIFY_FAILD;
 	if (head.password_sum != APOLL[trans_id(head.algrthom)].px(password))
@@ -114,7 +128,9 @@ LIBERT_API RETURN_STAT LIB_ERTLIB::decrtpt_to_file(string in, string out, string
 	uint64_t all_ext_len = 0;
 	if (head.ext[EXT_EXTABLE] == 1)
 	{
-		i.read(&ex, 1);
+		char ebuff[sizeof(EXT)];
+		i.read(ebuff, sizeof(EXT));
+		memcpy(&ex, ebuff, sizeof(EXT));
 		all_ext_len = sizeof(EXT) + ex.length;
 	}
 	uint64_t len = i.tell_len() - sizeof(HEAD) - all_ext_len;
@@ -149,6 +165,10 @@ LIBERT_API RETURN_STAT LIB_ERTLIB::decrtpt_to_file(string in, string out, string
 		ShowProcessBar(1, " Finish");
 	i.close();
 	o.close();
+	if (!std_mode)
+	{
+		cout << "SysteDecode:" << head.sum << "=>" << sum << endl;
+	}
 	if (sum != head.sum)
 		return FILE_VERIFY_FAILD;
 	if (!std_mode)
@@ -183,15 +203,17 @@ LIBERT_API RETURN_STAT LIB_ERTLIB::get_ext_to_file(string in, string out, bool s
 		return HEAD_VERIFY_FAILD;
 	if (head.ext[EXT_EXTABLE] != 1)
 		return EXT_NOT_EXIST;
-	char *buff = (char*)malloc(ex.length);
-	fi.read(buff, ex.length);
+	ext_data = (char*)malloc(ex.length);
+	fi.read(ext_data, ex.length);
+	mask(ext_data, ex.length);
 	if (std_mode)
 	{
-		cout << buff;
+		cout << ext_data;
 	}
 	else {
-		fo.write(buff, ex.length);
+		fo.write(ext_data, ex.length);
 	}
+	
 	return OK;
 }
 

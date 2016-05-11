@@ -59,7 +59,8 @@ API char xor_crypt(string password, char *data, int len)
 		value = abs(value);
 		data[n] = data[n] ^ (~password.at(value) + n);
 	}
-}
+}
+
 
 inline char xbit(const char *data, long long len, const char off)
 {
@@ -310,12 +311,37 @@ API void fcTest()
 	}
 }
 
+char *pre_cacl_tab = nullptr;
+int64_t pct_len = 0;
+
+inline char get_value(int64_t n)
+{
+	return n + 2;
+}
+
 API void mask(char *buff, int64_t len)
 {
 #pragma omp parallel for
 	for (int64_t n = 0; n < len; n++)
 	{
-		char value = n + 2;
-		buff[n] ^= value;
+		if (pre_cacl_tab != nullptr && len < pct_len)
+			buff[n] ^= pre_cacl_tab[n];
+		else
+			buff[n] ^= get_value(n);
 	}
+}
+
+API void pre_calc_pct(int64_t len)
+{
+	if (pct_len != 0 && pre_cacl_tab != nullptr)
+	{
+		pct_len = 0;
+		if (pre_cacl_tab != nullptr)
+			free(pre_cacl_tab);
+	}
+	pct_len = len;
+	pre_cacl_tab = (char*)malloc(pct_len);
+#pragma omp parallel for
+	for (int64_t n = 0; n < len; n++)
+		pre_cacl_tab[n] = get_value(n);
 }

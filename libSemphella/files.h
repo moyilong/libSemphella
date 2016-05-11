@@ -1,6 +1,7 @@
 #pragma once
 #include "libSemphella.h"
 
+
 class CAPI file {
 public:
 	~file();
@@ -41,12 +42,14 @@ protected:
 template<class type>
 inline void file::read(type * buff, uint64_t block_size)
 {
+	debug << "ReadFile " << ioname << "@" << tellp() << "+" << sizeof(type)*block_size << endl;
 	fread(buff, sizeof(type), block_size, fp);
 }
 
 template<class type>
 inline void file::write(type * buff, uint64_t block_size)
 {
+	debug << "WriteFile " << ioname << "@" << tellp() << "+" << sizeof(type)*block_size << endl;
 	fwrite(buff, sizeof(type), block_size, fp);
 }
 

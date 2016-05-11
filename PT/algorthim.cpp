@@ -4,8 +4,6 @@
 #include <stdlib.h>
 int iops;
 bool quiet = false;
-uint64_t cc_count = 0;
-uint64_t xc_count = 0;
 bool status = true;
 #undef max
 uint64_t tout = -1;
@@ -13,11 +11,12 @@ int steps = -1;
 
 bool subRun(XPOINT point, int steps)
 {
-	for (int dg_step = 0; dg_step < DGST_STEP; dg_step++)
+#pragma omp parallel for
+	for (int len_step = 0; len_step < STEPS; len_step++)
 	{
-		MTYPE dgst = (360 / DGST_STEP)*dg_step;
-		for (int len_step = 0; len_step < STEPS; len_step++)
+		for (int dg_step = 0; dg_step < DGST_STEP; dg_step++)
 		{
+			MTYPE dgst = (360 / DGST_STEP)*dg_step;
 			XPOINT target = VectorPoint(point, dgst, steps);
 			if (steps <= STEPS && inPoint(target))
 				subRun(target, steps + 1);
@@ -27,7 +26,6 @@ bool subRun(XPOINT point, int steps)
 				char bit_data2 = chess[(int)point.y][(int)point.x];
 				bit_data ^ bit_data2;
 			}
-			cc_count++;
 		}
 	}
 	return false;
@@ -44,11 +42,9 @@ void ThreadMonitor()
 	{
 		esleep(100);
 		time_out = time(0) - beg;
-		precent = (double)xc_count / all;
+		precent = (double)iops / all;
 
-		iops = (iops + (cc_count / dZero(time_out))) / 2;
-
-		ShowProcessBar(precent, ull2s(iops / 1000) + " KIPS in " + ull2s(time_out) + " s");
+		ShowProcessBar(precent,  ull2s(time_out) + " s");
 		printf("\r");
 		if (!status)
 		{
@@ -68,8 +64,8 @@ void _Run()
 		for (int x = 0; x < AREA_MAX; x++)
 			for (int y = 0; y < AREA_MAX; y++)
 			{
-				xc_count++;
 				subRun(XPOINT(x, y), 0);
+				iops++;
 			}
 	}
 	status = false;
@@ -89,5 +85,5 @@ void Run()
 		cout << "System Append an Error: MAXED_OUT" << endl;
 	}
 	else
-		iops = (iops + (xc_count / (time(0) - beg))) / 2;
+		iops = (iops + ((AREA_MAX*AREA_MAX) / (time(0) - beg))) / 2;
 }

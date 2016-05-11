@@ -45,7 +45,7 @@ void HEAD::reset_ext(bool faild_test)
 	if (faild_test)
 		ext[EXT_EXTABLE] = 0;
 }
-HEAD::HEAD()
+void HEAD::init()
 {
 	account_level = level;
 	algrthom = 0;

@@ -16,8 +16,12 @@ struct LIBERT_API HEAD {
 
 	//Program Funcation
 	bool check();
-	HEAD();
+	void init();
 	void reset_ext(bool faild_test = false);
+	inline HEAD()
+	{
+		init();
+	}
 };
 
 struct EXT {

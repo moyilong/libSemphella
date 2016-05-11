@@ -33,7 +33,7 @@ API string AddressGetFileName(string filename)
 			last = n;
 			break;
 		}
-	return filename.substr(last);
+	return strrm(filename.substr(last).data(),"/\\");
 }
 
 API int strfind(const char *str, char find, bool wn)
@@ -186,7 +186,6 @@ API string strrm(const char* str, const char *rm_list)
 	for (int n = 0; n < strlen(str); n++)
 	{
 		bool stat = true;
-#pragma omp parallel for
 		for (int x = 0; x < strlen(rm_list); x++)
 			if (str[n] == rm_list[x])
 				stat = false;

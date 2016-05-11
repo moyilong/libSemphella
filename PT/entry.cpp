@@ -49,17 +49,9 @@ int main(int argc, char *argv[])
 	if (algorthimTest == 0)
 		algorthimTest = 1;
 	cout << endl << endl;
-	double mt_per = xc_count / algorthimTest / (double)1000;
-	double mt_all = xc_count / (double)1000;
-	double al_per = cc_count / algorthimTest / (double)1000000;
-	double al_all = cc_count / (double)1000000;
-	double final_per = cc_count / algorthimTest / (double)1000;
-	double div = cc_count / algorthimTest / MT7620_PERFORMANCE;
-	cout << "Main Performance:" << mt_per << " KS/S" << endl;
-	cout << "Main Performance Steps:" << mt_all << " KS" << endl;
-	cout << "ALL Performance: " << al_per << " MS/S" << endl;
-	cout << "ALL Performance Steps:" << al_all << " MS" << endl;
-	cout << "=======================================================" << endl;
+	double final_per = iops / algorthimTest / (double)1000;
+	final_per *= (omp_get_num_threads() / 10) + 1;
+	double div = final_per / MT7620_PERFORMANCE;
 	cout << "Final Score:" << final_per << " KS/S" << endl;
 	cout << "Performance to MT7620(580MHZ 128MB DDR2 7.5KS/S):" << div << " Divid" << endl;
 }

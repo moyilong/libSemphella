@@ -31,3 +31,5 @@ inline string eitoa(int num, int radix, const char *word_list = DEFAULT_WORD_WHI
 
 API string AddressGetFileName(string filename);
 API string f2s(float value);
+API void bin2s(string &dest, char *buff, int64_t len);
+API void s2bin(string dest, char *buff, int64_t len);

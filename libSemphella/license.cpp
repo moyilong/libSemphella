@@ -55,7 +55,7 @@ string LICENSE::operator=(LICENSE lic)
 }
 
 #ifndef LICENSE_VIRFY_DEEP
-#define LICENSE_VIRFY_DEEP  128
+#define LICENSE_VIRFY_DEEP  256
 #endif
 
 string MainToCheck(string lmain)
@@ -70,6 +70,7 @@ string MainToCheck(string lmain)
 		buff[n] += n;
 		memcpy(str_buff + sizeof(uint64_t)*n, &buff[n], sizeof(uint64_t));
 	}
+	mask(str_buff, sizeof(uint64_t)*LICENSE_VIRFY_DEEP);
 	string ret;
 	for (int n = 0; n < LICENSE_VIRFY_DEEP; n++)
 	{
@@ -105,8 +106,9 @@ API char ArgmentGetValue(LICENSE lic, uint64_t arg1, uint64_t arg2)
 
 #define EXT_BIT	128
 
-API LICENSE CreateLicense(uint64_t _seed, uint64_t leng_bit)
+API LICENSE CreateLicense(uint64_t __seed, uint64_t leng_bit)
 {
+	uint64_t _seed = getsumV2((char*)&__seed, sizeof(uint64_t));
 	LICENSE ret;
 	char *buff = (char*)malloc(leng_bit);
 	memset(buff, 0, sizeof(buff));
@@ -117,6 +119,7 @@ API LICENSE CreateLicense(uint64_t _seed, uint64_t leng_bit)
 		tbuff[n] = ~(time(0) ^ n) + rand() << 8;
 		tbuff[n] ^= _seed;
 	}
+	mask((char*)tbuff, sizeof(tbuff));
 	strcpy(buff, HEAD_STR);
 #pragma omp parallel for
 	for (int n = strlen(HEAD_STR); n < leng_bit; n++)
