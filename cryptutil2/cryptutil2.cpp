@@ -9,13 +9,12 @@ void logo()
 {
 	KERNEL.LogoPrint();
 	cout << "CryptUtils Version 3.2.5-Beta " << endl << "Head Protoco Version:" << level << endl;
-	cout << "libERT Version:" << LIB_ERTLIB::get_api_ver() << endl;
+	cout << "libERT Version:" << get_api_ver() << endl;
 	cout << CORE_NAME << endl << "API Level:" << ull2s(API_VER) << endl << "Max Buff Size:" << ull2s(MAX_BUFF_SIZE) << endl;
 }
 
 string input, password, output, ext_file;
 int bs = 4096, al = DEFAULT_ALG_ID, fhand = DEFAULT_FHL_ID;
-using namespace LIB_ERTLIB;
 bool file_name_check(string filename)
 {
 	cp2 << "Check File Name \"" << filename << "\"" << endl;

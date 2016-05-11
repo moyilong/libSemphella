@@ -38,7 +38,7 @@ SCORE_T runOnce(int id)
 	sc.all_count = count;
 	return sc;
 }
-LIBERT_API void LIB_ERTLIB::PerformanceTest()
+LIBERT_API void PerformanceTest()
 {
 	cout << "Start Performance Test!" << endl;
 	cout << "Algorthim Size:" << APOLL_SIZE << endl;

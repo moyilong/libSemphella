@@ -69,3 +69,6 @@ CMakeFiles
 install_manifest.txt
 Makefile
 CMakeLists.txt.user
+CryptUtilsGUI/bin
+CryptUtilsGUI/obj
+CryptUtilsGUI/lib

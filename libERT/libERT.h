@@ -3,7 +3,6 @@
 #include "stdafx.h"
 #include "headproto.h"
 
-namespace LIB_ERTLIB {
 	enum RETURN_STAT {
 		OK,
 		FILE_IO_FAILD,
@@ -32,4 +31,3 @@ namespace LIB_ERTLIB {
 	LIBERT_API int get_alg_id(int tid);
 
 	LIBERT_API string get_api_ver();
-}

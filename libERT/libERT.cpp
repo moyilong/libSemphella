@@ -6,7 +6,6 @@
 #include "algorthim.h"
 #include "fhandle.h"
 #include "headproto.h"
-using namespace LIB_ERTLIB;
 EXT ex;
 char *ext_data;
 void load_ext_data(string filename)
@@ -23,7 +22,7 @@ void load_ext_data(string filename)
 }
 
 
-LIBERT_API RETURN_STAT LIB_ERTLIB::crypt_to_file(string in, string out, string password, int alg, int fid, string extfil, int bs)
+LIBERT_API RETURN_STAT crypt_to_file(string in, string out, string password, int alg, int fid, string extfil, int bs)
 {
 	file i, o;
 	if (!extfil.empty())
@@ -96,7 +95,7 @@ LIBERT_API RETURN_STAT LIB_ERTLIB::crypt_to_file(string in, string out, string p
 	return OK;
 }
 
-LIBERT_API RETURN_STAT LIB_ERTLIB::decrtpt_to_file(string in, string out, string password, int std_mode)
+LIBERT_API RETURN_STAT decrtpt_to_file(string in, string out, string password, int std_mode)
 {
 	file i, o;
 	i.open(in, "r");
@@ -176,12 +175,12 @@ LIBERT_API RETURN_STAT LIB_ERTLIB::decrtpt_to_file(string in, string out, string
 	return OK;
 }
 
-LIBERT_API RETURN_STAT LIB_ERTLIB::decrypt_to_std(string in, string out, string password)
+LIBERT_API RETURN_STAT decrypt_to_std(string in, string out, string password)
 {
 	return decrtpt_to_file(in, out, password, true);
 }
 
-LIBERT_API RETURN_STAT LIB_ERTLIB::get_ext_to_file(string in, string out, bool std_mode)
+LIBERT_API RETURN_STAT get_ext_to_file(string in, string out, bool std_mode)
 {
 	file fi, fo;
 	fi.open(in, "r");
@@ -217,12 +216,12 @@ LIBERT_API RETURN_STAT LIB_ERTLIB::get_ext_to_file(string in, string out, bool s
 	return OK;
 }
 
-LIBERT_API RETURN_STAT LIB_ERTLIB::get_ext_to_std(string in)
+LIBERT_API RETURN_STAT get_ext_to_std(string in)
 {
 	return get_ext_to_file(in, "", true);
 }
 
-LIBERT_API HEAD LIB_ERTLIB::get_head(string in)
+LIBERT_API HEAD get_head(string in)
 {
 	file fin;
 	fin.open(in, "r");
@@ -235,27 +234,27 @@ LIBERT_API HEAD LIB_ERTLIB::get_head(string in)
 	return head;
 }
 
-LIBERT_API int LIB_ERTLIB::algor_max()
+LIBERT_API int algor_max()
 {
 	return xsize;
 }
-LIBERT_API int LIB_ERTLIB::fhand_max()
+LIBERT_API int fhand_max()
 {
 	return fsize;
 }
 
-LIBERT_API void LIB_ERTLIB::get_alg_info(int stor_id, int & id, string & help)
+LIBERT_API void get_alg_info(int stor_id, int & id, string & help)
 {
 	id = APOLL[stor_id].id;
 	help = APOLL[stor_id].doc;
 }
 
-LIBERT_API int LIB_ERTLIB::get_alg_id(int tid)
+LIBERT_API int get_alg_id(int tid)
 {
 	return trans_id(tid);
 }
 
-LIBERT_API string LIB_ERTLIB::get_api_ver()
+LIBERT_API string get_api_ver()
 {
 	return "ERT4.0.1735";
 }

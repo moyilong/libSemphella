@@ -4,7 +4,7 @@
 #include "debug.h"
 
 enum STAT {
-	OK,
+	NPBLM,
 	FAILD,
 	VerifyPackageFaild,
 	Fixed,

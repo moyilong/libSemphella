@@ -92,7 +92,7 @@ API STAT Recovery(char * data, int64_t len, const char * rec)
 	if (!stat_ok)
 		return FAILD;
 	if (warring == -1)
-		return OK;
+		return NPBLM;
 	int y_warring = -1;
 #pragma omp parallel for
 	for (int n = 0; n < head.y; n++)
@@ -144,7 +144,7 @@ API STAT VerifyRecoveryData(const char * rec, int64_t len)
 	int64_t splite = len / 2;
 	if (getsumV2(rec + sizeof(REC_HEAD), get_block_len(len) - sizeof(REC_HEAD)) != head.checksum)
 		return FAILD;
-	return OK;
+	return NPBLM;
 }
 #define TEST_LEN	128
 
