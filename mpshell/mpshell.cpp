@@ -171,6 +171,7 @@ int main(int argc, char* argv[])
 	cout << "===================RESULT================" << endl;
 	for (int n = 0; n < cmd.size(); n++)
 	{
+		cout << cmd.at(n).retval << endl;
 	}
 	return 1;
 }
