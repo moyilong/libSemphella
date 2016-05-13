@@ -12,6 +12,8 @@ void load_ext_data(string filename)
 {
 	file ext;
 	ext.open(filename, "r");
+	if (!ext.is_open())
+		exit(-1);
 	ex.length = ext.tell_len();
 	ext_data = (char*)malloc(ex.length);
 	memset(ext_data, 0, sizeof(ext_data));
@@ -27,18 +29,18 @@ LIBERT_API RETURN_STAT crypt_to_file(string in, string out, string password, int
 	file i, o;
 	if (!extfil.empty())
 	{
-		load_ext_data(extfil);
+		return FILE_IO_FAILD;
 	}
 	i.open(in, "r");
 	if (!i.is_open())
 	{
-		throw "Open " + in + " faild";
+		return FILE_IO_FAILD;
 	}
 
 	o.open(out, "w");
 	if (!o.is_open())
 	{
-		throw "Open " + out + " faild!";
+		return FILE_IO_FAILD;
 	}
 	HEAD head;
 	head.algrthom = alg;
@@ -102,7 +104,7 @@ LIBERT_API RETURN_STAT decrtpt_to_file(string in, string out, string password, i
 	if (!i.is_open())
 	{
 		debug << "Open File Faild!" << endl;
-		throw "Open " + in + " faild";
+		return FILE_IO_FAILD;
 	}
 	if (!std_mode)
 	{
@@ -110,7 +112,7 @@ LIBERT_API RETURN_STAT decrtpt_to_file(string in, string out, string password, i
 		if (!o.is_open())
 		{
 			debug << "Open File Faild!" << endl;
-			throw "Open " + out + " faild!";
+			return FILE_IO_FAILD;
 		}
 	}
 	HEAD head;
