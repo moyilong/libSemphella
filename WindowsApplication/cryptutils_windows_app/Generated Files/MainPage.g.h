@@ -6,7 +6,6 @@
 //     the code is regenerated.
 //------------------------------------------------------------------------------
 
-#include "XamlBindingInfo.g.h"
 
 namespace Windows {
     namespace UI {
@@ -35,9 +34,7 @@ namespace cryptutils_windows_app
     
     private:
         bool _contentLoaded;
-        class MainPage_obj1_Bindings;
     
-        ::XamlBindingInfo::XamlBindings^ Bindings;
         private: ::Windows::UI::Xaml::Controls::TextBox^ input;
         private: ::Windows::UI::Xaml::Controls::TextBox^ output;
         private: ::Windows::UI::Xaml::Controls::TextBox^ password;

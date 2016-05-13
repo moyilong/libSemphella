@@ -29,7 +29,7 @@ LIBERT_API RETURN_STAT crypt_to_file(string in, string out, string password, int
 	file i, o;
 	if (!extfil.empty())
 	{
-		return FILE_IO_FAILD;
+		load_ext_data(extfil);
 	}
 	i.open(in, "r");
 	if (!i.is_open())
