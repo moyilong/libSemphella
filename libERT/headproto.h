@@ -7,10 +7,19 @@
 #undef PRELOAD_HEAD
 #define CLASS_TYPED
 #include "dll.h"
+
+#ifndef __LINUX__
+
 #ifdef LIBERT_EXPORTS
 struct __declspec(dllexport) HEAD {
 #else
 struct __declspec(dllimport) HEAD {
+#endif
+
+#else
+
+struct HEAD {
+
 #endif
 	char account_level = level;
 	char algrthom;
