@@ -152,86 +152,84 @@ int main(int argc, char *argv[])
 	cp2 << "Process Argment by foreach" << endl;
 	config_load.for_each(config_read);
 	cp2 << "Init Funcation" << endl;
-	try {
-		HEAD head;
+	HEAD head;
 
-		switch (mode)
+	switch (mode)
+	{
+	case FILE_INFO:
+		if (!file_name_check(input))
 		{
-		case FILE_INFO:
-			if (!file_name_check(input))
-			{
-				cout << "Input Name Check Faild!" << endl;
-				exit(-1);
-			}
-			if (input.empty())
-			{
-				cout << "Input is Empty!" << endl;
-				exit(-1);
-			}
-			head = get_head(input);
-			break;
-		case CRYPT:
-			if (input.empty())
-			{
-				cout << "Input is Empty!" << endl;
-				exit(-1);
-			}
-			if (output.empty())
-				output = input + ".ert4";
-			if (!file_name_check(output))
-			{
-				cout << "File name Check Faild!" << endl;
-				exit(-1);
-			}
-			crypt_to_file(input, output, password, al, fhand, ext_file, bs);
-			break;
-		case DECRYPT:
-			if (!file_name_check(input))
-			{
-				cout << "File name Check Faild!" << endl;
-				exit(-1);
-			}
-			if (input.empty())
-			{
-				cout << "Input is Empty!" << endl;
-				exit(-1);
-			}
-			if (!std_mode)
-				if (output.empty())
-				{
-					cout << "Output is Empty!" << endl;
-					exit(-1);
-				}
-			decrtpt_to_file(input, output, password, std_mode);
-			break;
-		case LICENSE_CREATE:
-			if (!std_mode)
-				if (output.empty())
-				{
-					cout << "Output is Empty!" << endl;
-					exit(-1);
-				}
-			create_license(output, std_mode, bs);
-			break;
-		case EXT_TO_FILE:
-			if (!file_name_check(input))
-			{
-				cout << "File name Check Faild!" << endl;
-				exit(-1);
-			}
-			if (input.empty())
-			{
-				cout << "Input is Empty!" << endl;
-				exit(-1);
-			}
+			cout << "Input Name Check Faild!" << endl;
+			exit(-1);
+		}
+		if (input.empty())
+		{
+			cout << "Input is Empty!" << endl;
+			exit(-1);
+		}
+		head = get_head(input);
+		break;
+	case CRYPT:
+		if (input.empty())
+		{
+			cout << "Input is Empty!" << endl;
+			exit(-1);
+		}
+		if (output.empty())
+			output = input + ".ert4";
+		if (!file_name_check(output))
+		{
+			cout << "File name Check Faild!" << endl;
+			exit(-1);
+		}
+		crypt_to_file(input, output, password, al, fhand, ext_file, bs);
+		break;
+	case DECRYPT:
+		if (!file_name_check(input))
+		{
+			cout << "File name Check Faild!" << endl;
+			exit(-1);
+		}
+		if (input.empty())
+		{
+			cout << "Input is Empty!" << endl;
+			exit(-1);
+		}
+		if (!std_mode)
 			if (output.empty())
 			{
 				cout << "Output is Empty!" << endl;
 				exit(-1);
 			}
-			get_ext_to_file(input, output, std_mode);
-			break;
+		decrtpt_to_file(input, output, password, std_mode);
+		break;
+	case LICENSE_CREATE:
+		if (!std_mode)
+			if (output.empty())
+			{
+				cout << "Output is Empty!" << endl;
+				exit(-1);
+			}
+		create_license(output, std_mode, bs);
+		break;
+	case EXT_TO_FILE:
+		if (!file_name_check(input))
+		{
+			cout << "File name Check Faild!" << endl;
+			exit(-1);
 		}
+		if (input.empty())
+		{
+			cout << "Input is Empty!" << endl;
+			exit(-1);
+		}
+		if (output.empty())
+		{
+			cout << "Output is Empty!" << endl;
+			exit(-1);
+		}
+		get_ext_to_file(input, output, std_mode);
+		break;
 	}
 	return 0;
 }
