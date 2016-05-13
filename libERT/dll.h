@@ -1,11 +1,12 @@
 #pragma once
 
+
 #ifndef __LINUX__
 
 #ifdef LIBERT_EXPORTS
-#define LIBERT_API __declspec(dllexport)
+#define LIBERT_API extern "C" __declspec(dllexport) 
 #else
-#define LIBERT_API __declspec(dllimport)
+#define LIBERT_API extern "C" __declspec(dllimport) 
 #endif
 
 #else

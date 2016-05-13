@@ -156,14 +156,6 @@ void APD::node_for_each(for_each_api *api, for_each_check *check, bool omp)
 void APD::save()
 {
 	fileio.close();
-	string cmd;
-#ifdef __LINUX__
-	cmd += "rm ";
-#else
-	cmd += "del ";
-#endif
-	cmd += filename;
-	system(cmd.data());
 	fileio.open(filename, ios::in | ios::out);
 	if (!fileio.is_open()) {
 		apd << "clean file faild!" << endl << "resume file stat!" << endl;

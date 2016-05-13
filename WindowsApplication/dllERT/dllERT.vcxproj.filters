@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tga;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\libERT\libERT.h" />
+    <ClInclude Include="..\..\libERT\headproto.h" />
+    <ClInclude Include="..\..\libERT\dll.h" />
+    <ClInclude Include="..\..\libERT\stdafx.h" />
+    <ClInclude Include="..\..\libERT\fhandle.h" />
+    <ClInclude Include="..\..\libERT\algorthim.h" />
+    <ClInclude Include="..\..\libERT\targetver.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\libERT\utils.cpp" />
+    <ClCompile Include="..\..\libERT\performance_test.cpp" />
+    <ClCompile Include="..\..\libERT\libERT.cpp" />
+    <ClCompile Include="..\..\libERT\basic.mod.cpp" />
+    <ClCompile Include="..\..\libERT\frecovery.fhand.cpp" />
+    <ClCompile Include="..\..\libERT\basic.fhand.cpp" />
+    <ClCompile Include="..\..\libERT\stdafx.cpp" />
+    <ClCompile Include="..\..\libERT\algorthim.cpp" />
+    <ClCompile Include="..\..\libERT\fhandle.cpp" />
+  </ItemGroup>
+</Project>

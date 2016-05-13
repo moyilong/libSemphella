@@ -282,3 +282,13 @@ API string f2s(float value)
 	sprintf(buff, "%f", value);
 	return buff;
 }
+
+API bool memequal(const void * a,const void * b, uint64_t size)
+{
+	const char *c =(const char*) a;
+	const char *d = (const char*)b;
+	for (int n = 0; n < size; n++)
+		if (c[n] != d[n])
+			return false;
+	return true;
+}

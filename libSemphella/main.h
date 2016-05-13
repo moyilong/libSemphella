@@ -51,7 +51,12 @@ using namespace std;
 #define DEFAULT_WORD_BLACK_LIST "MUsXGH1bEgTYijNwdklm7ZIJaxSAVWPQtn2340FfOCDuvh8yz56cBoR9qrepKL"
 #endif
 
+#ifndef APP_BUILD
 #define API extern "C" CAPI
+#else
+#define API CAPI
+#endif
+
 
 #include <time.h>
 

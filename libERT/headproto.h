@@ -4,8 +4,14 @@
 #define level_compact 2
 #define DESIGN_KEEP_SIZE	4096
 #define EXT_SIZE	sizeof(uint64_t)
+#undef PRELOAD_HEAD
+#define CLASS_TYPED
 #include "dll.h"
-struct LIBERT_API HEAD {
+#ifdef LIBERT_EXPORTS
+struct __declspec(dllexport) HEAD {
+#else
+struct __declspec(dllimport) HEAD {
+#endif
 	char account_level = level;
 	char algrthom;
 	uint64_t sum;
