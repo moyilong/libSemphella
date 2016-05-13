@@ -153,7 +153,7 @@ int main(int argc, char *argv[])
 	config_load.for_each(config_read);
 	cp2 << "Init Funcation" << endl;
 	HEAD head;
-
+	RETURN_STAT stat=OK;
 	switch (mode)
 	{
 	case FILE_INFO:
@@ -182,7 +182,7 @@ int main(int argc, char *argv[])
 			cout << "File name Check Faild!" << endl;
 			exit(-1);
 		}
-		crypt_to_file(input, output, password, al, fhand, ext_file, bs);
+		stat=crypt_to_file(input, output, password, al, fhand, ext_file, bs);
 		break;
 	case DECRYPT:
 		if (!file_name_check(input))
@@ -201,7 +201,7 @@ int main(int argc, char *argv[])
 				cout << "Output is Empty!" << endl;
 				exit(-1);
 			}
-		decrtpt_to_file(input, output, password, std_mode);
+		stat=decrtpt_to_file(input, output, password, std_mode);
 		break;
 	case LICENSE_CREATE:
 		if (!std_mode)
@@ -210,7 +210,7 @@ int main(int argc, char *argv[])
 				cout << "Output is Empty!" << endl;
 				exit(-1);
 			}
-		create_license(output, std_mode, bs);
+		return create_license(output, std_mode, bs);
 		break;
 	case EXT_TO_FILE:
 		if (!file_name_check(input))
@@ -228,8 +228,14 @@ int main(int argc, char *argv[])
 			cout << "Output is Empty!" << endl;
 			exit(-1);
 		}
-		get_ext_to_file(input, output, std_mode);
+		stat=get_ext_to_file(input, output, std_mode);
 		break;
+	}
+	if (stat != OK)
+	{
+		cout << "Faild to Run Program!" << endl;
+		cout << "API Return ID:" << stat << endl;
+		return -1;
 	}
 	return 0;
 }
