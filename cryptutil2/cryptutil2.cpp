@@ -233,12 +233,5 @@ int main(int argc, char *argv[])
 			break;
 		}
 	}
-	catch (exception e)
-	{
-		cout << "System Catch a Error:" << endl << e.what() << endl;
-	}
-	catch (...)
-	{
-		cout << "Systam Catch an Error!" << endl;
-	}
+	return 0;
 }
