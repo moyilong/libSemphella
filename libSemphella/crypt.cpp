@@ -9,6 +9,7 @@ using namespace std;
 #include "math.h"
 #include "debug.h"
 #include "string.h"
+#include "aes.h"
 //libDebug cpt("Semphella-CryptMod");
 
 #define cpt debug<<"[CryptModules]"
@@ -60,7 +61,6 @@ API char xor_crypt(string password, char *data, int len)
 		data[n] = data[n] ^ (~password.at(value) + n);
 	}
 }
-
 
 inline char xbit(const char *data, long long len, const char off)
 {

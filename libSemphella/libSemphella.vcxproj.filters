@@ -43,6 +43,9 @@
     <ClCompile Include="kernel.cpp">
       <Filter>代码</Filter>
     </ClCompile>
+    <ClCompile Include="AES.cpp">
+      <Filter>代码</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="crypt.h">
@@ -94,6 +97,9 @@
       <Filter>头</Filter>
     </ClInclude>
     <ClInclude Include="translate.h">
+      <Filter>头</Filter>
+    </ClInclude>
+    <ClInclude Include="AES.h">
       <Filter>头</Filter>
     </ClInclude>
   </ItemGroup>

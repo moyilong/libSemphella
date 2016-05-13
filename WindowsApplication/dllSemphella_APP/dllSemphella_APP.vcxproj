@@ -27,6 +27,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\libSemphella\aes.h" />
     <ClInclude Include="..\..\libSemphella\apd.h" />
     <ClInclude Include="..\..\libSemphella\argment.h" />
     <ClInclude Include="..\..\libSemphella\config.h" />
@@ -46,6 +47,8 @@
     <ClInclude Include="..\..\libSemphella\utils.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\libSemphella\aes.cpp" />
+    <ClCompile Include="..\..\libSemphella\aes_enc.cpp" />
     <ClCompile Include="..\..\libSemphella\APD_LOADER.cpp" />
     <ClCompile Include="..\..\libSemphella\argment.cpp" />
     <ClCompile Include="..\..\libSemphella\crypt.cpp" />

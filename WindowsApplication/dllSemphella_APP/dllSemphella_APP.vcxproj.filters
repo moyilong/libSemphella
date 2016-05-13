@@ -24,6 +24,7 @@
     <ClInclude Include="..\..\libSemphella\debug.h" />
     <ClInclude Include="..\..\libSemphella\apd.h" />
     <ClInclude Include="..\..\libSemphella\argment.h" />
+    <ClInclude Include="..\..\libSemphella\aes.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\libSemphella\string.cpp" />
@@ -40,5 +41,7 @@
     <ClCompile Include="..\..\libSemphella\debug.cpp" />
     <ClCompile Include="..\..\libSemphella\argment.cpp" />
     <ClCompile Include="..\..\libSemphella\APD_LOADER.cpp" />
+    <ClCompile Include="..\..\libSemphella\aes.cpp" />
+    <ClCompile Include="..\..\libSemphella\aes_enc.cpp" />
   </ItemGroup>
 </Project>
