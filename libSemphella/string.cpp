@@ -146,7 +146,7 @@ API string human_read(uint64_t _in, string *unit, int step, int number_out_type)
 		return  ull2s(_in) + unit[0];
 	}
 	uint64_t uint_id = 0;
-	long float val = _in;
+	float val = _in;
 	while (val >= step)
 	{
 		val /= step;
