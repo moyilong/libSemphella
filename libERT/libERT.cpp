@@ -84,7 +84,7 @@ LIBERT_API RETURN_STAT crypt_to_file(string in, string out, string password, int
 			sprintf(str_buff, "%sPS %f Need At Position 0x%s + 0x%s => 0x%s",human_read(ulen, human_read_storage_str, 1024, 10),(float)left,ull2s(n*head.bs),ull2s(i.tell_len() - n*head.bs),ull2s(i.tell_len()));
 			}
 		else {
-				sprintf(str_buff, "%sPS %f Need", human_read(ulen, human_read_storage_str, 1024, 10), (float)left);
+				sprintf(str_buff, "%sPS %.2f Need", human_read(ulen, human_read_storage_str, 1024, 10), (float)left);
 			}
 			ShowProcessBar(per, str_buff);
 		}
@@ -186,7 +186,7 @@ LIBERT_API RETURN_STAT decrtpt_to_file(string in, string out, string password, i
 				sprintf(str_buff, "%sPS %f Need At Position 0x%s + 0x%s => 0x%s",human_read(ulen, human_read_storage_str, 1024, 10),(float)left,ull2s(n*head.bs),ull2s(i.tell_len() - n*head.bs),ull2s(i.tell_len()));
 			}
 		else {
-				sprintf(str_buff, "%sPS %f Need", human_read(ulen, human_read_storage_str, 1024, 10), (float)left);
+				sprintf(str_buff, "%sPS %.2f Need", human_read(ulen, human_read_storage_str, 1024, 10), (float)left);
 			}
 			ShowProcessBar(per, str_buff);
 		}
