@@ -13,7 +13,6 @@ ADD_LIBRARY(Semphella SHARED  data_recovery.cpp
 	sum.cpp
 	AES.cpp
 	utils.cpp)
-set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D__LINUX__  -Wno-error=unused-result -std=c++11 -fpermissive -D_LINUX -O3 -fopenmp ")
 
 INSTALL (TARGETS Semphella DESTINATION lib)
 INSTALL (FILES apd.h

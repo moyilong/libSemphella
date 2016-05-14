@@ -19,6 +19,5 @@ INSTALL(FILES
 	)
 	
 
-set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D__LINUX__  -Wno-error=unused-result -std=c++11 -fpermissive -D_LINUX -O3 -fopenmp ")
 INCLUDE_DIRECTORIES(..)
 TARGET_LINK_LIBRARIES(ERT -lSemphella)
