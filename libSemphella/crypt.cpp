@@ -9,7 +9,6 @@ using namespace std;
 #include "math.h"
 #include "debug.h"
 #include "string.h"
-#include "aes.h"
 //libDebug cpt("Semphella-CryptMod");
 
 #define cpt debug<<"[CryptModules]"
