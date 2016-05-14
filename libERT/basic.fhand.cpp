@@ -1,6 +1,7 @@
 #include "fhandle.h"
 #include "algorthim.h"
 #include "headproto.h"
+
 void FileProcess(HEAD head, file in, file out, uint64_t &sum, int len, uint64_t op_addr, bool decrypt, bool std_out)
 {
 	int external_size = 0;
@@ -28,9 +29,7 @@ void FileProcess(HEAD head, file in, file out, uint64_t &sum, int len, uint64_t 
 	int doff = 0;
 	if (decrypt)
 		doff = sizeof(HEAD);
-#ifndef WHITE_CRYPT
 	APOLL[trans_id(head.algrthom)].ca(buff, len, in.tellp() - len - doff);
-#endif
 	if (decrypt)
 		vsu = APOLL[trans_id(head.algrthom)].sa(buff, len);
 	if (!std_out)

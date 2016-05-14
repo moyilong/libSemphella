@@ -16,7 +16,7 @@ enum RETURN_STAT {
 };
 #define DEFAULT_ALG_ID	6
 #define DEFAULT_FHL_ID	0
-LIBERT_API RETURN_STAT crypt_to_file(string in, string out, string password, int alg = DEFAULT_ALG_ID, int fid = DEFAULT_FHL_ID, string extfil = "", int bs = MAX_BUFF_SIZE);
+LIBERT_API RETURN_STAT crypt_to_file(string in, string out, string password, int alg = DEFAULT_ALG_ID, int fid = DEFAULT_FHL_ID, string extfil = "", int bs = 1*1024*1024);
 LIBERT_API RETURN_STAT decrtpt_to_file(string in, string out, string password, int std_mode = false);
 LIBERT_API RETURN_STAT decrypt_to_std(string in, string out, string password);
 LIBERT_API RETURN_STAT get_ext_to_file(string in, string out, bool std_mode = false);

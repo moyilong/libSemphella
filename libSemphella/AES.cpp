@@ -6,7 +6,7 @@
 #include "string.h"
 #include "AES.h"
 
-AES::AES(unsigned char* key)
+void AES::SetPassword(unsigned char* key)
 {
 	unsigned char sBox[] =
 	{ /*  0    1    2    3    4    5    6    7    8    9    a    b    c    d    e    f */ 
@@ -51,6 +51,16 @@ AES::AES(unsigned char* key)
 	KeyExpansion(key, w);
 }
 
+AES::AES(unsigned char *key)
+{
+	SetPassword(key);
+}
+
+AES::AES()
+{
+
+}
+
 AES::~AES()
 {
 
@@ -60,7 +70,6 @@ unsigned char* AES::Cipher(unsigned char* input)
 {
 	unsigned char state[4][4];
 	int i,r,c;
-
 	for(r=0; r<4; r++)
 	{
 		for(c=0; c<4 ;c++)
@@ -78,7 +87,6 @@ unsigned char* AES::Cipher(unsigned char* input)
 		if(i!=10)MixColumns(state);
 		AddRoundKey(state,w[i]);
 	}
-
 	for(r=0; r<4; r++)
 	{
 		for(c=0; c<4 ;c++)
@@ -94,7 +102,6 @@ unsigned char* AES::InvCipher(unsigned char* input)
 {
 	unsigned char state[4][4];
 	int i,r,c;
-
 	for(r=0; r<4; r++)
 	{
 		for(c=0; c<4 ;c++)
@@ -114,7 +121,7 @@ unsigned char* AES::InvCipher(unsigned char* input)
 			InvMixColumns(state);
 		}
 	}
-	
+
 	for(r=0; r<4; r++)
 	{
 		for(c=0; c<4 ;c++)
@@ -151,6 +158,76 @@ void* AES::InvCipher(void* input, int length)
 		InvCipher(in+i);
 	}
 	return input;
+}
+
+
+void AES::Decrypt(void * ptr, int len)
+{
+	AES_MP(ptr, len, true);
+}
+
+void AES::Crypt(void * ptr, int len)
+{
+	AES_MP(ptr, len, false);
+}
+
+int cached_len = -1;
+int cached_mpsize = -1;
+
+void AES::AES_MP(void * _ptr, int len, bool decrypt)
+{
+	if (len < 128 * 8|| len %128 != 0)
+	{
+		mask((char *)_ptr, len);
+		
+	}
+	else
+		_AES_MP(_ptr, len, decrypt);
+}
+
+void AES::_AES_MP(void * _ptr, int len, bool decrypt)
+{
+	char * ptr = (char *)_ptr;
+	int mp_size = omp_get_num_procs();
+	if (len %mp_size != 0 && cached_len != -1 && cached_mpsize != -1 && cached_len == len)
+	{
+		mp_size = cached_mpsize;
+	}
+	if (len % mp_size != 0)
+	{
+		for (int n=omp_get_num_procs();n>0;n++)
+			if (len %n == 0)
+			{
+				mp_size = n;
+				break;
+			}
+	}
+	cached_len = len;
+	cached_mpsize = mp_size;
+	const int sub_len = len / mp_size;
+	if (sub_len < 128 * 8)
+	{
+		if (decrypt)
+			InvCipher(_ptr, len);
+		else
+			Cipher(_ptr, len);
+		return;
+	}
+#pragma omp parallel for
+	for (int n = 0; n < mp_size; n++)
+	{
+		char *buff = (char*)malloc(sizeof(char)*sub_len);
+		//for (int x = 0; x < sub_len; x++)
+			//buff[x] = ptr[n*sub_len+x];
+		memcpy(buff, ptr + n*sub_len, sub_len);
+		if (decrypt)
+			InvCipher(buff, sub_len);
+		else
+			Cipher(buff, sub_len);
+		memcpy(ptr + n*sub_len, buff, sub_len);
+		free(buff);
+	}
+
 }
 
 void AES::KeyExpansion(unsigned char* key, unsigned char w[][4][4])

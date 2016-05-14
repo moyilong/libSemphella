@@ -1,5 +1,5 @@
 #include "algorthim.h"
-
+bool decryptmode;
 ALGHRTHIM APOLL[AMAX];
 int xsize = 0;
 

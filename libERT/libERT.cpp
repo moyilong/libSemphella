@@ -26,6 +26,7 @@ void load_ext_data(string filename)
 
 LIBERT_API RETURN_STAT crypt_to_file(string in, string out, string password, int alg, int fid, string extfil, int bs)
 {
+	decryptmode = false;
 	file i, o;
 	if (!extfil.empty())
 	{
@@ -67,15 +68,25 @@ LIBERT_API RETURN_STAT crypt_to_file(string in, string out, string password, int
 	i.get_steps(bs, mbs, fix);
 	uint64_t sum = 0;
 	time_t start = time(0);
+	char str_buff[MAX_BUFF_SIZE];
+	double per = 0;
+	double left = 0;
 	for (uint64_t n = 0; n < mbs; n++)
 	{
 		get_fhandle(head.ext[EXT_FHANDLE])(head, i, o, sum, head.bs, n*head.bs, false, false);
-		double per = (double)((double)n*(double)head.bs) / (double)i.tell_len();
+		per = (double)((double)n*(double)head.bs) / (double)i.tell_len();
 		if (per != old_presend)
 		{
 			old_presend = per;
 			ulen = (n* head.bs) / dZero(time(0) - start);
-			ShowProcessBar(per, human_read(ulen, human_read_storage_str, 1024, 10) + "PS");
+			left = (i.tell_len() - n * head.bs) / ulen;
+			DEBUG_LINE{
+			sprintf(str_buff, "%sPS %f Need At Position 0x%s + 0x%s => 0x%s",human_read(ulen, human_read_storage_str, 1024, 10),(float)left,ull2s(n*head.bs),ull2s(i.tell_len() - n*head.bs),ull2s(i.tell_len()));
+			}
+		else {
+				sprintf(str_buff, "%sPS %f Need", human_read(ulen, human_read_storage_str, 1024, 10), (float)left);
+			}
+			ShowProcessBar(per, str_buff);
 		}
 	}
 	ShowProcessBar(1, " END");
@@ -101,6 +112,7 @@ LIBERT_API RETURN_STAT crypt_to_file(string in, string out, string password, int
 
 LIBERT_API RETURN_STAT decrtpt_to_file(string in, string out, string password, int std_mode)
 {
+	decryptmode = true;
 	file i, o;
 	i.open(in, "r");
 	if (!i.is_open())
@@ -144,7 +156,7 @@ LIBERT_API RETURN_STAT decrtpt_to_file(string in, string out, string password, i
 	fix = len - (head.bs*mbs);
 	uint64_t sum = 0;
 	time_t start = time(0);
-	for (uint64_t n = 0; n < mbs; n++)
+	/*for (uint64_t n = 0; n < mbs; n++)
 	{
 		get_fhandle(head.ext[EXT_FHANDLE])(head, i, o, sum, head.bs, n*head.bs, true, std_mode);
 		if (!std_mode)
@@ -157,7 +169,29 @@ LIBERT_API RETURN_STAT decrtpt_to_file(string in, string out, string password, i
 				ShowProcessBar(per, human_read(ulen, human_read_storage_str, 1024, 10) + "PS");
 			}
 		}
+	}*/
+	double per = 0;
+	double left = 0;
+	char str_buff[MAX_BUFF_SIZE];
+	for (uint64_t n = 0; n < mbs; n++)
+	{
+		get_fhandle(head.ext[EXT_FHANDLE])(head, i, o, sum, head.bs, n*head.bs, false, false);
+		per = (double)((double)n*(double)head.bs) / (double)i.tell_len();
+		if (per != old_presend)
+		{
+			old_presend = per;
+			ulen = (n* head.bs) / dZero(time(0) - start);
+			left = (i.tell_len() - n * head.bs) / ulen;
+			DEBUG_LINE{
+				sprintf(str_buff, "%sPS %f Need At Position 0x%s + 0x%s => 0x%s",human_read(ulen, human_read_storage_str, 1024, 10),(float)left,ull2s(n*head.bs),ull2s(i.tell_len() - n*head.bs),ull2s(i.tell_len()));
+			}
+		else {
+				sprintf(str_buff, "%sPS %f Need", human_read(ulen, human_read_storage_str, 1024, 10), (float)left);
+			}
+			ShowProcessBar(per, str_buff);
+		}
 	}
+
 	if (!std_mode)
 		ShowProcessBar(1, " END");
 	if (fix > 0)
@@ -186,6 +220,7 @@ LIBERT_API RETURN_STAT decrypt_to_std(string in, string out, string password)
 
 LIBERT_API RETURN_STAT get_ext_to_file(string in, string out, bool std_mode)
 {
+	decryptmode = true;
 	file fi, fo;
 	fi.open(in, "r");
 	if (!fi.is_open())
@@ -262,5 +297,5 @@ LIBERT_API int get_alg_id(int tid)
 
 LIBERT_API string get_api_ver()
 {
-	return "ERT4.0.1735";
+	return "ERT4.1.1850";
 }

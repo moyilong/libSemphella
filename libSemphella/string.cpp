@@ -14,6 +14,7 @@ using namespace std;
 
 #define strr debug<<"[StringLib]"
 API  string human_read_storage_str[] = { "B","KB","MB","GB","TB","PB","EB" };
+API string human_read_time_str[] = { "S","M","H" };
 
 API string StrLimit(string str, int len)
 {
@@ -145,13 +146,15 @@ API string human_read(uint64_t _in, string *unit, int step, int number_out_type)
 		return  ull2s(_in) + unit[0];
 	}
 	uint64_t uint_id = 0;
-	uint64_t val = _in;
+	long float val = _in;
 	while (val >= step)
 	{
 		val /= step;
 		uint_id++;
 	}
-	return eitoa(val, number_out_type) + unit[uint_id];
+	char buff[MAX_BUFF_SIZE] = "";
+	sprintf(buff, "%.2lf", val);
+	return buff + unit[uint_id];
 }
 
 API string space_fix(string str)

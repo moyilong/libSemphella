@@ -14,7 +14,7 @@ void logo()
 }
 
 string input, password, output, ext_file;
-int bs = 4096, al = DEFAULT_ALG_ID, fhand = DEFAULT_FHL_ID;
+int bs = 2*1024*1024, al = DEFAULT_ALG_ID, fhand = DEFAULT_FHL_ID;
 bool file_name_check(string filename)
 {
 	cp2 << "Check File Name \"" << filename << "\"" << endl;
@@ -50,6 +50,9 @@ void config_read(string name, string value)
 		break;
 	case 'n':
 		password = value;
+		break;
+	case 'j':
+		omp_set_num_threads(atoi(value.data()));
 		break;
 	case 'd':
 		mode = DECRYPT;
@@ -124,6 +127,11 @@ void config_read(string name, string value)
 		if (streval(temp.data(), "fctest"))
 		{
 			fcTest();
+			exit(0);
+		}
+		if (streval(temp.data(), "aestest"))
+		{
+			aesTest();
 			exit(0);
 		}
 		break;

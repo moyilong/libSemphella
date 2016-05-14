@@ -38,3 +38,4 @@ extern ALGHRTHIM APOLL[AMAX];
 
 extern int xsize;
 int trans_id(int id);
+extern bool decryptmode;

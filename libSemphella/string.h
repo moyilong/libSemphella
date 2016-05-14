@@ -20,6 +20,7 @@ API string convert_process(const char *data);
 
 API string human_read(uint64_t _in, string *unit, int step, int number_out_type);
 API string human_read_storage_str[];
+API string human_read_time_str[];
 
 inline string eitoa(int num, int radix, const char *word_list = DEFAULT_WORD_WHITE_LIST)
 {

@@ -345,3 +345,53 @@ API void pre_calc_pct(int64_t len)
 	for (int64_t n = 0; n < len; n++)
 		pre_cacl_tab[n] = get_value(n);
 }
+
+#include "AES.h"
+
+API void aesTest()
+{
+	AES ciper((unsigned char *)"moyilong");
+#define TEST_LEN 128*8
+	char buff[TEST_LEN];
+	char shadow[TEST_LEN];
+	char decrypt[TEST_LEN];
+	for (int n = 0; n < TEST_LEN; n++)
+	{
+		buff[n] = time(0) + rand();
+		shadow[n] = buff[n];
+	}
+	//fastCrypt(buff, TEST_LEN, "moyilong");
+	ciper.Crypt(buff, TEST_LEN);
+	char temp[16];
+	string swap;
+	cout << "Black:";
+	for (int n = 0; n < TEST_LEN; n++)
+	{
+		sprintf(temp, "%+02x", buff[n]);
+		cout << temp + strlen(temp) - 2 << " ";
+	}
+	cout << endl << "White:";
+	for (int n = 0; n < TEST_LEN; n++)
+	{
+		sprintf(temp, "%+02x", shadow[n]);
+		cout << temp + strlen(temp) - 2 << " ";
+	}
+	memcpy(decrypt, buff, TEST_LEN);
+	//fastCrypt(decrypt, TEST_LEN, "moyilong");
+	ciper.Decrypt(decrypt, TEST_LEN);
+	cout << endl << "Decpt:";
+	for (int n = 0; n < TEST_LEN; n++)
+	{
+		sprintf(temp, "%+02x", decrypt[n]);
+		cout << temp + strlen(temp) - 2 << " ";
+	}
+	long long count = 0;
+	cout << endl;
+	for (int n=0;n<TEST_LEN;n++)
+		if (decrypt[n] != shadow[n])
+		{
+			cout << "Different Finad @" << n << endl;
+			count++;
+		}
+	cout << "All Find Different:" << count << endl;
+}

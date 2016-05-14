@@ -8,6 +8,7 @@ ADD_LIBRARY(ERT SHARED
 	performance_test.cpp
 	stdafx.cpp
 	utils.cpp
+	aes.mod.cpp
 	)
 INSTALL(TARGETS ERT DESTINATION lib)
 INSTALL(FILES 

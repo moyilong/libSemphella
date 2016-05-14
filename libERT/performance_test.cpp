@@ -7,7 +7,7 @@ struct SCORE_T {
 	uint64_t all_count;
 	uint64_t timeout;
 };
-int timeout = 2;
+int timeout = 10;
 #define TEST_LOOPS	128
 SCORE_T runOnce(int id)
 {

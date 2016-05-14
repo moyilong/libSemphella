@@ -48,3 +48,4 @@ API void fastCrypt(char *data, int64_t len, string password, int PMLEN = 16);
 API void fcTest();
 API void mask(char *buff, int64_t len);
 API void pre_calc_pct(int64_t len);
+API void aesTest();

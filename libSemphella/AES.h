@@ -15,13 +15,23 @@ class CAPI AES
 {
 public:
 	AES(unsigned char* key);
+	AES();
 	virtual ~AES();
-	unsigned char* Cipher(unsigned char* input);
-	unsigned char* InvCipher(unsigned char* input);
-	void* Cipher(void* input, int length=0);
-	void* InvCipher(void* input, int length);
+	void SetPassword(unsigned char *key);
+
+
+
+	void Decrypt(void *ptr, int len);
+	void Crypt(void *ptr, int len);
 
 private:
+	unsigned char* Cipher(unsigned char* input);
+	unsigned char* InvCipher(unsigned char* input);
+	void* Cipher(void* input, int length = 0);
+	void* InvCipher(void* input, int length);
+	void AES_MP(void *ptr, int len, bool decrypt);
+	void _AES_MP(void *ptr, int len, bool decrypt);
+
 	unsigned char Sbox[256];
 	unsigned char InvSbox[256];
 	unsigned char w[11][4][4];
