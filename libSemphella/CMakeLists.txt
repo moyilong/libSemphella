@@ -31,5 +31,7 @@ INSTALL (FILES apd.h
 	string.h
 	sum.h
 	utils.h
-	license.h  DESTINATION include/libSemphella)
+	license.h 
+	sysapi_modcall.h
+	DESTINATION include/libSemphella)
 

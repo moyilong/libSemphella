@@ -9,6 +9,14 @@ FHANDLE::FHANDLE(CFHANDLE hand, int lid)
 	fsize++;
 }
 
+FHANDLE::FHANDLE(fhand_t ht)
+{
+	id = ht.id;
+	hand = ht.hand;
+	FPOLL[fsize] = *this;
+	fsize++;
+}
+
 CFHANDLE get_fhandle(int n)
 {
 	for (int x = 0; x < fsize; x++)

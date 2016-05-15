@@ -394,3 +394,52 @@ API void aesTest()
 		}
 	cout << "All Find Different:" << count << endl;
 }
+
+
+
+API bool algrTest(crt_algr_func algr, int test_len )
+{
+#define TEST_LEN 128*8
+	char buff[TEST_LEN];
+	char shadow[TEST_LEN];
+	char decrypt[TEST_LEN];
+	for (int n = 0; n < TEST_LEN; n++)
+	{
+		buff[n] = time(0) + rand();
+		shadow[n] = buff[n];
+	}
+	//fastCrypt(buff, TEST_LEN, "moyilong");
+	algr(buff, TEST_LEN, "moyilong");
+	char temp[16];
+	string swap;
+	cout << "Black:";
+	for (int n = 0; n < TEST_LEN; n++)
+	{
+		sprintf(temp, "%+02x", buff[n]);
+		cout << temp + strlen(temp) - 2 << " ";
+	}
+	cout << endl << "White:";
+	for (int n = 0; n < TEST_LEN; n++)
+	{
+		sprintf(temp, "%+02x", shadow[n]);
+		cout << temp + strlen(temp) - 2 << " ";
+	}
+	memcpy(decrypt, buff, TEST_LEN);
+	//fastCrypt(decrypt, TEST_LEN, "moyilong");
+	algr(buff, TEST_LEN, "moyilong");
+	cout << endl << "Decpt:";
+	for (int n = 0; n < TEST_LEN; n++)
+	{
+		sprintf(temp, "%+02x", decrypt[n]);
+		cout << temp + strlen(temp) - 2 << " ";
+	}
+	long long count = 0;
+	cout << endl;
+	for (int n = 0; n<TEST_LEN; n++)
+		if (decrypt[n] != shadow[n])
+		{
+			cout << "Different Finad @" << n << endl;
+			count++;
+		}
+	cout << "All Find Different:" << count << endl;
+}

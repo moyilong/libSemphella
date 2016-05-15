@@ -23,7 +23,6 @@ void load_ext_data(string filename)
 	ext.close();
 }
 
-
 LIBERT_API RETURN_STAT crypt_to_file(string in, string out, string password, int alg, int fid, string extfil, int bs)
 {
 	decryptmode = false;

@@ -24,3 +24,8 @@ ADD_DEPENDENCIES(cryptutil2 Semphella ERT)
 ADD_DEPENDENCIES(PT Semphella)
 ADD_DEPENDENCIES(PerformanceInvilige TAHITI Semphella)
 ADD_DEPENDENCIES(ULTRON TAHITI Semphella)
+
+
+# Testutils
+
+ADD_SUBDIRECTORY(cp2_extlibtest)

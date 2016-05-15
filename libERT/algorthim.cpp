@@ -3,6 +3,18 @@ bool decryptmode;
 ALGHRTHIM APOLL[AMAX];
 int xsize = 0;
 
+void insert(ALGHRTHIM alg)
+{
+	for (int n = 0; n < xsize; n++)
+		if (APOLL[n].id == alg.id)
+		{
+			debug << "Error of ID REMAP!" << endl;
+			debug << "ID:" << alg.id << " stored at " << n << " is remaped!" << endl;
+			exit(-1);
+		}
+	APOLL[xsize++] = alg;
+}
+
 ALGHRTHIM::ALGHRTHIM(password_algrthom p, crypt_algrthom c, sum_algrthom s, int xid, string _doc, get_password_checksum pc, bool _can_be_pt)
 {
 	id = xid;
@@ -14,14 +26,19 @@ ALGHRTHIM::ALGHRTHIM(password_algrthom p, crypt_algrthom c, sum_algrthom s, int 
 	debug << "Insert Alghrthim " << id << " @ " << xsize << endl;
 	//APOLL.push_back(*this);
 	can_be_pt = _can_be_pt;
-	for (int n = 0; n < xsize; n++)
-		if (APOLL[n].id == xid)
-		{
-			debug << "Error of ID REMAP!" << endl;
-			debug << "ID:" << id << " stored at " << n << " is remaped!" << endl;
-			exit(-1);
-		}
-	APOLL[xsize++] = *this;
+	insert(*this);
+}
+
+ALGHRTHIM::ALGHRTHIM(algr_t algr)
+{
+#define FUNC_LINK(idx) idx = algr.idx
+	FUNC_LINK(id);
+	FUNC_LINK(pa);
+	FUNC_LINK(ca);
+	FUNC_LINK(sa);
+	FUNC_LINK(px);
+	FUNC_LINK(doc);
+	insert(*this);
 }
 
 char _cached_trans_from = -1;

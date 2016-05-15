@@ -5,6 +5,7 @@
 #include "cryptutil2.h"
 #include <libSemphella/argment.h>
 #include <libERT/libERT.h>
+#include <libERT/ext_io.h>
 void logo()
 {
 	KERNEL.LogoPrint();
@@ -73,6 +74,13 @@ void config_read(string name, string value)
 		break;
 	case 'I':
 		mode = FILE_INFO;
+		break;
+	case 'm':
+		if (LoadExternalLib(value) != 0)
+		{
+			cout << "Loadlib:" << value << " Faild" << endl;
+			exit(-1);
+		}
 		break;
 	case 'A':
 		al = atoi(value.data());

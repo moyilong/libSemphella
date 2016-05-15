@@ -7,14 +7,15 @@ ADD_LIBRARY(ERT SHARED
 	libERT.cpp
 	performance_test.cpp
 	stdafx.cpp
-	utils.cpp
 	aes.mod.cpp
+	external_library.cpp
 	)
 INSTALL(TARGETS ERT DESTINATION lib)
 INSTALL(FILES 
 	dll.h
 	libERT.h
 	headproto.h
+	ext_io.h
 	DESTINATION include/libERT
 	)
 	

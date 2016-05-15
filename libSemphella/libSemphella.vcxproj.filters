@@ -102,6 +102,9 @@
     <ClInclude Include="AES.h">
       <Filter>头</Filter>
     </ClInclude>
+    <ClInclude Include="sysapi_modcall.h">
+      <Filter>头</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />

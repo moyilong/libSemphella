@@ -46,6 +46,12 @@
     <ClInclude Include="dll.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="external_library.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ext_io.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -69,14 +75,14 @@
     <ClCompile Include="fhandle.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="utils.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="performance_test.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="aes.mod.cpp">
       <Filter>Algorthim</Filter>
+    </ClCompile>
+    <ClCompile Include="external_library.cpp">
+      <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
