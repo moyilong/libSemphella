@@ -18,6 +18,7 @@ inline  void CloseLibrary(mod_t mod)
 
 inline void * GetLibraryAddress(mod_t mod, string name)
 {
+	debug << "Load proc from:" << name << endl;
 #ifdef __LINUX__
 	return dlsym(mod, name.data());
 #else
@@ -27,6 +28,7 @@ inline void * GetLibraryAddress(mod_t mod, string name)
 
 inline mod_t OpenLibrary(string modname)
 {
+	debug << "Opening Library:" << modname << endl;
 #ifdef __LINUX__
 	return dlopen(modname.data(), RTLD_NOW );
 #else

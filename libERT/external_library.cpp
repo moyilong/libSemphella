@@ -14,6 +14,7 @@ struct  storaged_modules_info {
 
 LIBERT_API int  LoadExternalLib(string filename)
 {
+	cp2 << "Open Library File:" << filename << endl;
 	storaged_modules_info info;
 	info.file = filename;
 	info.hmod = OpenLibrary(filename.data());
