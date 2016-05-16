@@ -28,7 +28,7 @@ inline void * GetLibraryAddress(mod_t mod, string name)
 inline mod_t OpenLibrary(string modname)
 {
 #ifdef __LINUX__
-	return dlopen(modname.data(), RTLD_LAZY);
+	return dlopen(modname.data(), RTLD_NOW );
 #else
 	return LoadLibraryA(modname.data());
 #endif
