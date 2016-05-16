@@ -6,7 +6,7 @@
 
 struct  storaged_modules_info {
 	modules_info *info;
-	storaged_modules_info();
+	~storaged_modules_info();
 	mod_t hmod;
 };
   vector<storaged_modules_info> modpoll;
@@ -46,7 +46,7 @@ LIBERT_API int  LoadExternalLib(string filename)
 
 
 
-storaged_modules_info::storaged_modules_info()
+storaged_modules_info::~storaged_modules_info()
 {
 	CloseLibrary(hmod);
 }
