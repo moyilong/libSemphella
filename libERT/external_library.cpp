@@ -17,6 +17,7 @@ LIBERT_API int  LoadExternalLib(string filename)
 	cp2 << "Open Library File:" << filename << endl;
 	storaged_modules_info info;
 	info.file = filename;
+	cp2 << "Running Open Funcation..." << endl;
 	info.hmod = OpenLibrary(filename.data());
 	if (info.hmod == NULL)
 	{
