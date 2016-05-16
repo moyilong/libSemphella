@@ -64,5 +64,8 @@ int argment::get_id(string name)
 void argment::for_each(for_each_fun fun)
 {
 	for (int n = 0; n < block.size(); n++)
+	{
+		debug << "Processing: " << block.at(n).name << " = " << block.at(n).value << endl;
 		fun(block.at(n).name, block.at(n).value);
+	}
 }
