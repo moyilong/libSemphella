@@ -1,8 +1,10 @@
 #pragma once
 #include "main.h"
 #ifndef __LINUX__
+#include <Windows.h>
 #define mod_t HINSTANCE
 #else
+#include <dlfcn.h>
 #define mod_t void*
 #endif
 inline  void CloseLibrary(mod_t mod)
