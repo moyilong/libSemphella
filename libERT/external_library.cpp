@@ -26,7 +26,6 @@ LIBERT_API int  LoadExternalLib(string filename)
 	if (info.info == NULL)
 	{
 		cp2 << "Warring of Load Procd Function!" << endl;
-		CloseLibrary(info.hmod);
 		return -1;
 	}
 	cp2 << "Tips: Loadlibrary:" << info.info->name << endl;
