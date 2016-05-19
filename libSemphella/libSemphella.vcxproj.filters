@@ -34,9 +34,6 @@
     <ClCompile Include="argment.cpp">
       <Filter>代码</Filter>
     </ClCompile>
-    <ClCompile Include="data_recovery.cpp">
-      <Filter>代码</Filter>
-    </ClCompile>
     <ClCompile Include="translate.cpp">
       <Filter>代码</Filter>
     </ClCompile>
@@ -44,6 +41,9 @@
       <Filter>代码</Filter>
     </ClCompile>
     <ClCompile Include="AES.cpp">
+      <Filter>代码</Filter>
+    </ClCompile>
+    <ClCompile Include="date_recovery_plus.cpp">
       <Filter>代码</Filter>
     </ClCompile>
   </ItemGroup>
@@ -90,9 +90,6 @@
     <ClInclude Include="argment.h">
       <Filter>头</Filter>
     </ClInclude>
-    <ClInclude Include="data_recovery.h">
-      <Filter>头</Filter>
-    </ClInclude>
     <ClInclude Include="kernel.h">
       <Filter>头</Filter>
     </ClInclude>
@@ -103,6 +100,9 @@
       <Filter>头</Filter>
     </ClInclude>
     <ClInclude Include="sysapi_modcall.h">
+      <Filter>头</Filter>
+    </ClInclude>
+    <ClInclude Include="date_recovery_plus.h">
       <Filter>头</Filter>
     </ClInclude>
   </ItemGroup>

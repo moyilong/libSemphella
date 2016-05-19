@@ -1,4 +1,4 @@
-ADD_LIBRARY(Semphella SHARED  data_recovery.cpp 
+ADD_LIBRARY(Semphella SHARED  
 	argment.cpp
 	translate.cpp
 	APD_LOADER.cpp
@@ -12,11 +12,11 @@ ADD_LIBRARY(Semphella SHARED  data_recovery.cpp
 	string.cpp
 	sum.cpp
 	AES.cpp
+	date_recovery_plus.cpp
 	utils.cpp)
 
 INSTALL (TARGETS Semphella DESTINATION lib)
 INSTALL (FILES apd.h
-	data_recovery.h
 	translate.h
 	argment.h
 	config.h
@@ -31,6 +31,7 @@ INSTALL (FILES apd.h
 	string.h
 	sum.h
 	utils.h
+	date_recovery_plus.h
 	license.h 
 	sysapi_modcall.h
 	DESTINATION include/libSemphella)

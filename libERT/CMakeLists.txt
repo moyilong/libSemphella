@@ -3,7 +3,6 @@ ADD_LIBRARY(ERT SHARED
 	basic.fhand.cpp
 	basic.mod.cpp
 	fhandle.cpp
-	frecovery.fhand.cpp
 	libERT.cpp
 	performance_test.cpp
 	stdafx.cpp

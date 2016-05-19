@@ -169,7 +169,6 @@
     <ClCompile Include="basic.mod.cpp" />
     <ClCompile Include="external_library.cpp" />
     <ClCompile Include="fhandle.cpp" />
-    <ClCompile Include="frecovery.fhand.cpp" />
     <ClCompile Include="libERT.cpp" />
     <ClCompile Include="performance_test.cpp" />
     <ClCompile Include="stdafx.cpp" />

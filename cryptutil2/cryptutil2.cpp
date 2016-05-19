@@ -6,6 +6,7 @@
 #include <libSemphella/argment.h>
 #include <libERT/libERT.h>
 #include <libERT/ext_io.h>
+#include <libSemphella/date_recovery_plus.h>
 void logo()
 {
 	KERNEL.LogoPrint();
@@ -34,6 +35,7 @@ bool std_mode = false;
 WORK_MODE mode = CRYPT;
 //bool load_ext_info = false;
 //char *buff = nullptr;
+#include <libSemphella/math.h>
 void config_read(string name, string value)
 {
 	int itemp;
@@ -141,6 +143,36 @@ void config_read(string name, string value)
 		{
 			aesTest();
 			exit(0);
+		}
+		if (streval(temp.data(), "drptest"))
+		{
+			uint64_t val = time(0);
+			uint64_t len = LIM_RAND_ULD(4096, 16384);
+			cout << val << " => " << len << endl;
+			if (!TrustyTestPerFrame(val, len))
+			{
+				cout << "Faild!" << endl;
+			}
+			exit(0);
+		}
+		if (streval(temp.data(), "drpstreet"))
+		{
+			uint64_t all=0;
+			uint64_t fin = 0;
+			uint64_t beg = time(0);
+			while (true)
+			{
+				all++;
+				uint64_t val = time(0);
+				uint64_t len = LIM_RAND_ULD(4096, 16384);
+				//cout << val << " => " << len << endl;
+				if (TrustyTestPerFrame(val, len))
+					fin++;
+				if (all % 5 == 0)
+				{
+					cout << "                                         " << (double)(fin * 100 / all) << "% " << (all - fin) << ":" << all << " " << (double)(all / dZero((time(0) - beg))) << " fps  \r";
+				}
+			}
 		}
 		break;
 	}

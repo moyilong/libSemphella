@@ -14,6 +14,6 @@
 #define DEBUG_CALL_TRACK_ARGMENT	string __file_name=__FILE__ ,int __file_line=__LINE__
 #define DEBUG_CALL_TRACK_ARGMENT_FUNC	string __file_name,int __file_line
 
-API void __display_dump(const char *data, long long len, int x = 5, DEBUG_CALL_TRACK_ARGMENT);
+API void __display_dump(const char *data, long long len, int x = 16, DEBUG_CALL_TRACK_ARGMENT);
 
 #define display_dump DEBUG_LINE __display_dump

@@ -66,9 +66,6 @@
     <ClCompile Include="basic.fhand.cpp">
       <Filter>FileHandle</Filter>
     </ClCompile>
-    <ClCompile Include="frecovery.fhand.cpp">
-      <Filter>FileHandle</Filter>
-    </ClCompile>
     <ClCompile Include="algorthim.cpp">
       <Filter>源文件</Filter>
     </ClCompile>

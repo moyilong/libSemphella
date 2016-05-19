@@ -54,3 +54,19 @@ API MTYPE LINE_2D_K(XPOINT a, XPOINT b)
 		return 0;
 	return abs(a.y - b.y) / abs(a.x - b.x);
 }
+
+API MTYPE LIM_RAND(MTYPE min, MTYPE max,MTYPE deep)
+{
+	MTYPE ret = sin(deep+rand())*(max - min)+min;
+	if (ret<min || ret > max)
+		return LIM_RAND(min, max,deep+1);
+	return ret;
+}
+
+API uint64_t LIM_RAND_ULD(uint64_t min, uint64_t max,uint64_t deep)
+{
+	uint64_t ret = sin(deep+rand())*(max - min) + min;
+	if (ret<min || ret > max)
+		return LIM_RAND_ULD(min, max,deep+1);
+	return ret;
+}

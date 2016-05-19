@@ -22,6 +22,7 @@ bool kernel::GetDebugStat()
 
 kernel::kernel()
 {
+	srand((unsigned)time(0));
 	message("Kernel Start!");
 	if (kernel_inited)
 		abort();
