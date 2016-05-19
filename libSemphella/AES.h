@@ -11,15 +11,13 @@
 #include "debug.h"
 #include "crypt.h"
 
-class CAPI AES  
+class CAPI AES
 {
 public:
 	AES(unsigned char* key);
 	AES();
 	virtual ~AES();
 	void SetPassword(unsigned char *key);
-
-
 
 	void Decrypt(void *ptr, int len);
 	void Crypt(void *ptr, int len);

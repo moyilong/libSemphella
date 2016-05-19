@@ -386,7 +386,7 @@ API void aesTest()
 	}
 	long long count = 0;
 	cout << endl;
-	for (int n=0;n<TEST_LEN;n++)
+	for (int n = 0; n < TEST_LEN; n++)
 		if (decrypt[n] != shadow[n])
 		{
 			cout << "Different Finad @" << n << endl;
@@ -395,9 +395,7 @@ API void aesTest()
 	cout << "All Find Different:" << count << endl;
 }
 
-
-
-API bool algrTest(crt_algr_func algr, int test_len )
+API bool algrTest(crt_algr_func algr, int test_len)
 {
 #define TEST_LEN 128*8
 	char buff[TEST_LEN];
@@ -435,7 +433,7 @@ API bool algrTest(crt_algr_func algr, int test_len )
 	}
 	long long count = 0;
 	cout << endl;
-	for (int n = 0; n<TEST_LEN; n++)
+	for (int n = 0; n < TEST_LEN; n++)
 		if (decrypt[n] != shadow[n])
 		{
 			cout << "Different Finad @" << n << endl;

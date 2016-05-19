@@ -103,8 +103,8 @@ LIBERT_API RETURN_STAT crypt_to_file(string in, string out, string password, int
 	head.check();
 	o.write(&head, 1);
 	o.close();
-	cout<<endl<<endl;
-	debug << "WriteHead:" << getsumV2((char*)&head, sizeof(head))<<endl;
+	cout << endl << endl;
+	debug << "WriteHead:" << getsumV2((char*)&head, sizeof(head)) << endl;
 	cout << "SysteDecode:" << head.sum << "=>" << sum << endl;
 	return OK;
 }
@@ -116,7 +116,7 @@ LIBERT_API RETURN_STAT decrtpt_to_file(string in, string out, string password, i
 	i.open(in, "r");
 	if (!i.is_open())
 	{
-		debug << "Open File "<< in <<" Faild!" << endl;
+		debug << "Open File " << in << " Faild!" << endl;
 		return FILE_IO_FAILD;
 	}
 	if (!std_mode)
@@ -124,7 +124,7 @@ LIBERT_API RETURN_STAT decrtpt_to_file(string in, string out, string password, i
 		o.open(out, "w");
 		if (!o.is_open())
 		{
-			debug << "Open File "<<out<<" Faild!" << endl;
+			debug << "Open File " << out << " Faild!" << endl;
 			return FILE_IO_FAILD;
 		}
 	}
@@ -132,7 +132,7 @@ LIBERT_API RETURN_STAT decrtpt_to_file(string in, string out, string password, i
 	i.seekp(0);
 	char hbuff[sizeof(HEAD)];
 	i.read(hbuff, sizeof(HEAD));
-	memcpy(&head,hbuff,sizeof(HEAD));
+	memcpy(&head, hbuff, sizeof(HEAD));
 	display_dump((char*)&head, sizeof(HEAD));
 	debug << "ReadHead:" << getsumV2((char*)&head, sizeof(head)) << endl;
 	if (!head.check())
@@ -208,7 +208,7 @@ LIBERT_API RETURN_STAT decrtpt_to_file(string in, string out, string password, i
 	if (sum != head.sum)
 		return FILE_VERIFY_FAILD;
 	if (!std_mode)
-		cout<<endl<<endl;
+		cout << endl << endl;
 	return OK;
 }
 
@@ -224,7 +224,7 @@ LIBERT_API RETURN_STAT get_ext_to_file(string in, string out, bool std_mode)
 	fi.open(in, "r");
 	if (!fi.is_open())
 	{
-		cout<< "Open " << in << " Faild!"<<endl;
+		cout << "Open " << in << " Faild!" << endl;
 		return FILE_IO_FAILD;
 	}
 	if (!std_mode)
@@ -232,7 +232,7 @@ LIBERT_API RETURN_STAT get_ext_to_file(string in, string out, bool std_mode)
 		fo.open(out, "w");
 		if (!fo.is_open())
 		{
-			cout<< "open " << out << " Faild!"<<endl;
+			cout << "open " << out << " Faild!" << endl;
 			return FILE_IO_FAILD;
 		}
 	}
@@ -252,7 +252,7 @@ LIBERT_API RETURN_STAT get_ext_to_file(string in, string out, bool std_mode)
 	else {
 		fo.write(ext_data, ex.length);
 	}
-	
+
 	return OK;
 }
 

@@ -51,4 +51,4 @@ API void pre_calc_pct(int64_t len);
 API void aesTest();
 
 typedef void(*crt_algr_func)(char *data, int64_t len, string password);
-API bool algrTest(crt_algr_func algr, int test_len=128);
+API bool algrTest(crt_algr_func algr, int test_len = 128);

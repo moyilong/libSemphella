@@ -34,7 +34,7 @@ API string AddressGetFileName(string filename)
 			last = n;
 			break;
 		}
-	return strrm(filename.substr(last).data(),"/\\");
+	return strrm(filename.substr(last).data(), "/\\");
 }
 
 API int strfind(const char *str, char find, bool wn)
@@ -286,9 +286,9 @@ API string f2s(float value)
 	return buff;
 }
 
-API bool memequal(const void * a,const void * b, uint64_t size)
+API bool memequal(const void * a, const void * b, uint64_t size)
 {
-	const char *c =(const char*) a;
+	const char *c = (const char*)a;
 	const char *d = (const char*)b;
 	for (int n = 0; n < size; n++)
 		if (c[n] != d[n])

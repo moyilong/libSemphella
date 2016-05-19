@@ -9,7 +9,7 @@ struct  storaged_modules_info {
 	~storaged_modules_info();
 	mod_t hmod;
 };
-  vector<storaged_modules_info> modpoll;
+vector<storaged_modules_info> modpoll;
 
 LIBERT_API int  LoadExternalLib(string filename)
 {
@@ -42,8 +42,6 @@ LIBERT_API int  LoadExternalLib(string filename)
 	modpoll.push_back(info);
 	return 0;
 }
-
-
 
 storaged_modules_info::~storaged_modules_info()
 {

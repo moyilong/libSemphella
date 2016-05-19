@@ -30,7 +30,7 @@ inline mod_t OpenLibrary(string modname)
 {
 	debug << "Opening Library:" << modname << endl;
 #ifdef __LINUX__
-	return dlopen(modname.data(), RTLD_NOW );
+	return dlopen(modname.data(), RTLD_NOW);
 #else
 	return LoadLibraryA(modname.data());
 #endif

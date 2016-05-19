@@ -52,11 +52,10 @@ using namespace std;
 #endif
 
 #ifndef APP_BUILD
-#define API extern "C" CAPI
+#define API  CAPI
 #else
 #define API CAPI
 #endif
-
 
 #include <time.h>
 

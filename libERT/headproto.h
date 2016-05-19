@@ -53,7 +53,6 @@ extern EXT ex;
 
 #define cp2 debug
 
-
 inline bool HEAD::check()
 {
 	cp2 << "Head Level:" << (int)account_level << endl;
@@ -99,6 +98,3 @@ inline void HEAD::init()
 	bs = 0;
 	reset_ext();
 }
-
-
-

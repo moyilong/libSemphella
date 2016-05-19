@@ -11,7 +11,6 @@ typedef uint64_t(*sum_algrthom)(const char *data, int64_t len);	//校验和算法
 typedef uint64_t(*get_password_checksum)(string passwd);	//密码校验算法
 typedef void(*CFHANDLE)(HEAD head, file _in, file _out, uint64_t &sum, int len, uint64_t op_addr, bool decrypt, bool std_out);	//文件操作句柄
 
-
 struct algr_t {
 	bool can_be_pt = true;
 	//密码初始化算法

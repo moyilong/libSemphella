@@ -7,7 +7,7 @@ API  void ShowProcessBar(double percent, string display, char finish, char split
 	int proceed = bis*percent;
 	int incomplete = bis - proceed - 1;
 	//cout << percent * 100 << "%[";
-	printf("%.2lf %[", percent*100);
+	printf("%.2lf %[", percent * 100);
 	for (int n = 0; n < proceed; n++)
 		cout << finish;
 	cout << splite;

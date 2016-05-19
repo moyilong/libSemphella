@@ -26,7 +26,6 @@ using namespace std;
 #include "event.h"
 #include "permission.h"
 
-
 #ifndef __LINUX__
 #include <Windows.h>
 #endif

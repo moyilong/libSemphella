@@ -15,7 +15,7 @@ void logo()
 }
 
 string input, password, output, ext_file;
-int bs = 2*1024*1024, al = DEFAULT_ALG_ID, fhand = DEFAULT_FHL_ID;
+int bs = 2 * 1024 * 1024, al = DEFAULT_ALG_ID, fhand = DEFAULT_FHL_ID;
 bool file_name_check(string filename)
 {
 	cp2 << "Check File Name \"" << filename << "\"" << endl;
@@ -169,7 +169,7 @@ int main(int argc, char *argv[])
 	config_load.for_each(config_read);
 	cp2 << "Init Funcation" << endl;
 	HEAD head;
-	RETURN_STAT stat=OK;
+	RETURN_STAT stat = OK;
 	switch (mode)
 	{
 	case FILE_INFO:
@@ -198,7 +198,7 @@ int main(int argc, char *argv[])
 			cout << "File name Check Faild!" << endl;
 			exit(-1);
 		}
-		stat=crypt_to_file(input, output, password, al, fhand, ext_file, bs);
+		stat = crypt_to_file(input, output, password, al, fhand, ext_file, bs);
 		break;
 	case DECRYPT:
 		if (!file_name_check(input))
@@ -217,7 +217,7 @@ int main(int argc, char *argv[])
 				cout << "Output is Empty!" << endl;
 				exit(-1);
 			}
-		stat=decrtpt_to_file(input, output, password, std_mode);
+		stat = decrtpt_to_file(input, output, password, std_mode);
 		break;
 	case LICENSE_CREATE:
 		if (!std_mode)
@@ -244,7 +244,7 @@ int main(int argc, char *argv[])
 			cout << "Output is Empty!" << endl;
 			exit(-1);
 		}
-		stat=get_ext_to_file(input, output, std_mode);
+		stat = get_ext_to_file(input, output, std_mode);
 		break;
 	}
 	if (stat != OK)

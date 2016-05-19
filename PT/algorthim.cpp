@@ -44,7 +44,7 @@ void ThreadMonitor()
 		time_out = time(0) - beg;
 		precent = (double)iops / all;
 
-		ShowProcessBar(precent,  ull2s(time_out) + " s");
+		ShowProcessBar(precent, ull2s(time_out) + " s");
 		printf("\r");
 		if (!status)
 		{

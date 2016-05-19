@@ -3,8 +3,7 @@
 #include "external_library.h"
 uint64_t password_type(string passwd);
 
-
-class ALGHRTHIM  {
+class ALGHRTHIM {
 public:
 	bool can_be_pt = true;
 	//√‹¬Î≥ı ºªØÀ„∑®
