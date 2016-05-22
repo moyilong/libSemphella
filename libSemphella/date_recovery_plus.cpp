@@ -4,6 +4,10 @@
 #include "date_recovery_plus.h"
 #include <math.h>
 
+#ifdef __ANDROID__
+#define sqrtl sqrt
+#endif
+
 void LenToXY(uint64_t len, uint64_t &x, uint64_t &y)
 {
 	uint64_t ret_x = sqrtl(len);

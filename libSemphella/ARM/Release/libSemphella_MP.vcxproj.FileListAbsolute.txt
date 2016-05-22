@@ -1,0 +1,8 @@
+F:\libSemphella\libSemphella\ARM\Release\libSemphella_MP.so.mdb
+F:\libSemphella\ARM\Release\libSemphella_MP.so.mdb
+F:\libSemphella\libSemphella\ARM\Release\libSemphella_MP.so.mdb
+F:\libSemphella\ARM\Release\libSemphella_MP.so.mdb
+F:\libSemphella\libSemphella\ARM\Release\libSemphella_MP.dll.mdb
+F:\libSemphella\ARM\Release\libSemphella_MP.dll.mdb
+F:\libSemphella\libSemphella\ARM\Release\libSemphella_MP.dll.mdb
+F:\libSemphella\ARM\Release\libSemphella_MP.dll.mdb
