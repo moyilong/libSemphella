@@ -32,7 +32,6 @@
     <ClInclude Include="..\..\libSemphella\argment.h" />
     <ClInclude Include="..\..\libSemphella\config.h" />
     <ClInclude Include="..\..\libSemphella\crypt.h" />
-    <ClInclude Include="..\..\libSemphella\data_recovery.h" />
     <ClInclude Include="..\..\libSemphella\debug.h" />
     <ClInclude Include="..\..\libSemphella\files.h" />
     <ClInclude Include="..\..\libSemphella\kernel.h" />
@@ -48,11 +47,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\libSemphella\aes.cpp" />
-    <ClCompile Include="..\..\libSemphella\aes_enc.cpp" />
     <ClCompile Include="..\..\libSemphella\APD_LOADER.cpp" />
     <ClCompile Include="..\..\libSemphella\argment.cpp" />
     <ClCompile Include="..\..\libSemphella\crypt.cpp" />
-    <ClCompile Include="..\..\libSemphella\data_recovery.cpp" />
     <ClCompile Include="..\..\libSemphella\debug.cpp" />
     <ClCompile Include="..\..\libSemphella\files.cpp" />
     <ClCompile Include="..\..\libSemphella\kernel.cpp" />

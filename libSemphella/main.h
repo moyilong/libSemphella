@@ -8,6 +8,10 @@
 #define API_VER         153
 #define CORE_NAME       "libSemphella-Core"
 
+#ifdef __ANDROID__
+#define nullptr NULL
+#endif
+
 #ifndef _WNO_CPP
 #include <iostream>
 #include <string>
@@ -19,8 +23,10 @@
 using namespace std;
 #endif
 
-#ifndef _WNO_OMP
+#ifndef APP_BUILD
 #include <omp.h>
+#else
+#define omp_get_num_procs() 1
 #endif
 
 #ifdef __LINUX__

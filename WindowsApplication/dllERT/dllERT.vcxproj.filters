@@ -16,11 +16,9 @@
     <ClInclude Include="..\..\libERT\targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\libERT\utils.cpp" />
     <ClCompile Include="..\..\libERT\performance_test.cpp" />
     <ClCompile Include="..\..\libERT\libERT.cpp" />
     <ClCompile Include="..\..\libERT\basic.mod.cpp" />
-    <ClCompile Include="..\..\libERT\frecovery.fhand.cpp" />
     <ClCompile Include="..\..\libERT\basic.fhand.cpp" />
     <ClCompile Include="..\..\libERT\stdafx.cpp" />
     <ClCompile Include="..\..\libERT\algorthim.cpp" />

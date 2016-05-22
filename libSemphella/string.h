@@ -19,8 +19,12 @@ API string strrm(const char* str, const char *rm_list);
 API string convert_process(const char *data);
 
 API string human_read(uint64_t _in, string *unit, int step, int number_out_type);
-API string human_read_storage_str[];
-API string human_read_time_str[];
+
+API string* api_human_read_time_unit();
+API string *api_human_read_storage_unit();
+
+#define human_read_time_unit api_human_read_time_unit()
+#define human_read_storage_str api_human_read_storage_unit()
 
 inline string eitoa(int num, int radix, const char *word_list = DEFAULT_WORD_WHITE_LIST)
 {

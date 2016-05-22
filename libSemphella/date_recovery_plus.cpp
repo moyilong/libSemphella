@@ -2,6 +2,7 @@
 #include "string.h"
 #include "debug.h"
 #include "date_recovery_plus.h"
+#include <math.h>
 
 void LenToXY(uint64_t len, uint64_t &x, uint64_t &y)
 {
@@ -24,11 +25,6 @@ API uint64_t GetLength(uint64_t len)
 inline char link_2d_3d(const char *data, uint64_t len, uint64_t px, uint64_t py, uint64_t rx, uint64_t ry, bool xasix, uint64_t replace_point = -1, char tar = -1)
 {
 	uint64_t ref_2d=px*ry+rx;
-	/*if (xasix)
-		ref_2d = px*ry + rx;
-	else
-		ref_2d = py*rx + ry;*/
-	//debug << "Ref Link:(" << rx << "," << ry << ") => " << ref_2d << endl;
 	if (ref_2d > len)
 	{
 
@@ -188,12 +184,24 @@ API bool TrustyTestPerFrame(uint64_t seek, uint64_t length)
 
 		}
 		if (!stat)
-			goto end_false;
+		{
+			free(buff[0]); 
+				free(buff[1]); 
+				free(buff[2]); 
+				free(ecode); 
+				free(ecode2); 
+				return false;
+		}
 	}
 	int ret = RefPointCorrect(buff[1], length, ecode);
 	if (ret != 0)
 	{
-		goto end_false;
+		free(buff[0]);
+		free(buff[1]);
+		free(buff[2]);
+		free(ecode);
+		free(ecode2);
+		return false;
 	}
 	bool stat = true;
 	for (uint64_t n = 0; n < length; n++)
@@ -215,11 +223,5 @@ API bool TrustyTestPerFrame(uint64_t seek, uint64_t length)
 	free(ecode2);
 	return true;
 
-end_false:
-	free(buff[0]);
-	free(buff[1]);
-	free(buff[2]);
-	free(ecode);
-	free(ecode2);
-	return false;
+
 }

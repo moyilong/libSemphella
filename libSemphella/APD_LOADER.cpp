@@ -140,26 +140,27 @@ COUNT_TYPE APD::check_label(string node, string lab)
 
 void APD::node_for_each(for_each_api *api, for_each_check *check, bool omp)
 {
-	COUNT_TYPE omp_size = omp_get_num_threads();
 	if (omp)
-		omp_set_num_threads(1);
 #pragma omp parallel for
 	for (COUNT_TYPE n = 0; n < poll.size(); n++)
 	{
 		if (check(poll.at(n).n_name))
 			api(poll.at(n), n);
 	}
-
-	omp_set_num_threads(omp_size);
+	else {
+		for (COUNT_TYPE n = 0; n < poll.size(); n++)
+			if (check(poll.at(n).n_name))
+				api(poll.at(n), n);
+	}
 }
 
 void APD::save()
 {
 	fileio.close();
-	fileio.open(filename, ios::in | ios::out);
+	fileio.open(filename.data(), ios::in | ios::out);
 	if (!fileio.is_open()) {
 		apd << "clean file faild!" << endl << "resume file stat!" << endl;
-		fileio.open(filename, ios::in | ios::out);
+		fileio.open(filename.data(), ios::in | ios::out);
 		if (!fileio.is_open())
 		{
 			apd << "File Resume Faild!" << endl;

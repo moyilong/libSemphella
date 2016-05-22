@@ -4,7 +4,6 @@
 #include <iostream>
 #include <string>
 #include <fstream>
-#include <omp.h>
 using namespace std;
 #include "libSemphella.h"
 #include "string.h"
@@ -13,8 +12,19 @@ using namespace std;
 //libDebug strr("stringlib");
 
 #define strr debug<<"[StringLib]"
-API  string human_read_storage_str[] = { "B","KB","MB","GB","TB","PB","EB" };
-API string human_read_time_str[] = { "S","M","H" };
+
+
+API string * api_human_read_storage_unit()
+{
+	string ret[] ={ "B","KB","MB","GB","TB","PB","EB" };
+	return ret;
+}
+
+API string *api_human_read_time_unit()
+{
+	string ret[] = { "S","M","H" };
+	return ret;
+}
 
 API string StrLimit(string str, int len)
 {

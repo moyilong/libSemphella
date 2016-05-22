@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
 #include <fstream>
-#include <omp.h>
 using namespace std;
 #include "libSemphella.h"
 
