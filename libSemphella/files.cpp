@@ -43,7 +43,7 @@ bool file::open(string filename, string mode)
 		return false;
 	debug << "OpenFile:" << filename << " by " << mode << endl;
 	fp = fopen(filename.data(), mode.data());
-	opend = fp == NULL;
+	opend = (fp != NULL);
 	if (opend)
 	{
 		uint64_t te = ftell(fp);
