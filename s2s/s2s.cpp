@@ -32,6 +32,6 @@ int main(int argc, char *argv[])
 	for (int n = 0; n < argc; n++)
 		arg_t += argv[n];
 	uint64_t ret = getsumV2(arg_t.data(), arg_t.size());
-	printf("%08ull", ret);
+	cout << ull2s(ret) << endl;
 	return 0;
 }
