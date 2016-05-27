@@ -176,6 +176,7 @@
     <ClInclude Include="math.h" />
     <ClInclude Include="string.h" />
     <ClInclude Include="sysapi_modcall.h" />
+    <ClInclude Include="time.h" />
     <ClInclude Include="translate.h" />
     <ClInclude Include="utils.h" />
   </ItemGroup>
@@ -193,6 +194,7 @@
     <ClCompile Include="libSemphella.cpp" />
     <ClCompile Include="math.cpp" />
     <ClCompile Include="string.cpp" />
+    <ClCompile Include="time.cpp" />
     <ClCompile Include="translate.cpp" />
     <ClCompile Include="utils.cpp" />
   </ItemGroup>

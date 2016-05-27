@@ -66,3 +66,7 @@ void ProtocoRecvData(SOCKET sock, vector<char>&data, int wlen);
 void ProtocoSendData(SOCKET sock, char *data, int len);
 
 uint16_t fast_server_online_test();	//服务器快速检测
+SOCKET create_connect_server();
+
+typedef bool(*server_mode_call_back)(SOCKET recv_socket, sockaddr_in addr);
+void entry_server(server_mode_call_back api);

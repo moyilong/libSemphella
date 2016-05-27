@@ -43,9 +43,7 @@ bool file::open(string filename, string mode)
 		return false;
 	debug << "OpenFile:" << filename << " by " << mode << endl;
 	fp = fopen(filename.data(), mode.data());
-	if (fp == NULL)
-		return false;
-	opend = true;
+	opend = fp == NULL;
 	if (opend)
 	{
 		uint64_t te = ftell(fp);
@@ -55,6 +53,8 @@ bool file::open(string filename, string mode)
 		fseek(fp, 0, 0);
 		f2debug << "Setting File Len:" << len << endl;
 	}
+	else
+		return false;
 	debug << "File:" << filename << " was been opend!" << endl;
 	return true;
 }
@@ -155,4 +155,16 @@ void file::check()
 API void fs_verbos(bool stat)
 {
 	KERNEL.SetDebugStat(stat);
+}
+
+void file::write(char *buff, uint64_t len, uint64_t off)
+{
+	seekp(off);
+	write(buff, len);
+}
+
+void file::read(char *buff, uint64_t len, uint64_t off)
+{
+	seekp(off);
+	read(buff, len);
 }

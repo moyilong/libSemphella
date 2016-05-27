@@ -36,6 +36,13 @@ template<class T>inline T emin(const T a, const T b)
 		return b;
 }
 
+template<class T> inline T eabs(T value)
+{
+	if (value < 0)
+		return value-2*value;
+	return value;
+}
+
 #ifndef MTYPE
 #define MTYPE	float
 #endif
