@@ -13,6 +13,7 @@ ADD_LIBRARY(Semphella SHARED
 	sum.cpp
 	AES.cpp
 	date_recovery_plus.cpp
+	time.cpp
 	utils.cpp)
 
 INSTALL (TARGETS Semphella DESTINATION lib)
@@ -26,6 +27,7 @@ INSTALL (FILES apd.h
 	files.h
 	kernel.h
 	linux.h
+	time.h
 	main.h
 	math.h
 	string.h
