@@ -10,16 +10,18 @@
 
 file::~file()
 {
-	close();
+	if (fp != NULL)
+		fclose(fp);
 }
 
 void file::close()
 {
-	if (!opend)
+	if (!opend||fp==NULL)
 	{
 		f2debug << ioname << " is already closed!" << endl;
 		return;
 	}
+	f2debug << "Try to closing file..." << endl;
 	fclose(fp);
 	opend = false;
 	return;
