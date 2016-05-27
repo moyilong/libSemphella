@@ -80,19 +80,17 @@ LIBERT_API RETURN_STAT crypt_to_file(string in, string out, string password, int
 			ulen = (n* head.bs) / dZero(time(0) - start);
 			left = (i.tell_len() - n * head.bs) / ulen;
 			DEBUG_LINE{
-			sprintf(str_buff, "%sPS %f Need At Position 0x%s + 0x%s => 0x%s",human_read(ulen, human_read_storage_str, 1024, 10),(float)left,ull2s(n*head.bs),ull2s(i.tell_len() - n*head.bs),ull2s(i.tell_len()));
+			sprintf(str_buff, "%sPS %f Need At Position 0x%s + 0x%s => 0x%s",human_read(ulen, human_read_storage_str, 1024, 10).data(),(float)left,ull2s(n*head.bs),ull2s(i.tell_len() - n*head.bs),ull2s(i.tell_len()));
 			}
 		else {
-				sprintf(str_buff, "%sPS %.2f Need", human_read(ulen, human_read_storage_str, 1024, 10), (float)left);
+				sprintf(str_buff, "%sPS %.2f Need", human_read(ulen, human_read_storage_str, 1024, 10).data(), (float)left);
 			}
 			ShowProcessBar(per, str_buff);
 		}
 	}
 	ShowProcessBar(1, " END");
 	if (fix > 0)
-	{
 		get_fhandle(head.ext[EXT_FHANDLE])(head, i, o, sum, fix, mbs*head.bs, false, false);
-	}
 	ShowProcessBar(1, " Finish");
 	i.close();
 	head.sum = sum;

@@ -20,6 +20,7 @@ void file::close()
 		f2debug << ioname << " is already closed!" << endl;
 		return;
 	}
+	fclose(fp);
 	opend = false;
 	return;
 }
