@@ -10,21 +10,10 @@
 
 file::~file()
 {
-	if (fp != NULL)
-		fclose(fp);
 }
 
 void file::close()
 {
-	if (!opend||fp==NULL)
-	{
-		f2debug << ioname << " is already closed!" << endl;
-		return;
-	}
-	f2debug << "Try to closing file..." << endl;
-	fclose(fp);
-	opend = false;
-	return;
 }
 
 void file::read(char *buff, uint64_t len)
@@ -72,6 +61,8 @@ uint64_t file::tell_len()
 void file::seekp(uint64_t off)
 {
 	check();
+	if (off<0 && off>len)
+		return;
 	f2debug << "Redirect " << tellp() << " => " << off << endl;
 	fseek(fp, off, 0);
 }
@@ -143,7 +134,7 @@ string file::getline(uint64_t perfect_max)
 
 void file::check()
 {
-	if (opend && fp == NULL)
+	if (!opend || fp == NULL)
 	{
 		f2debug << "Error Report!" << endl;
 		f2debug << "Status is open bug the status is ptr is null" << endl;

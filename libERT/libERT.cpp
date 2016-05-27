@@ -92,7 +92,6 @@ LIBERT_API RETURN_STAT crypt_to_file(string in, string out, string password, int
 	if (fix > 0)
 		get_fhandle(head.ext[EXT_FHANDLE])(head, i, o, sum, fix, mbs*head.bs, false, false);
 	ShowProcessBar(1, " Finish");
-	i.close();
 	head.sum = sum;
 	head.algrthom = alg;
 	head.ext[EXT_FHANDLE] = fid;
@@ -100,10 +99,11 @@ LIBERT_API RETURN_STAT crypt_to_file(string in, string out, string password, int
 	o.seekp(0);
 	head.check();
 	o.write(&head, 1);
-	o.close();
 	cout << endl << endl;
 	debug << "WriteHead:" << getsumV2((char*)&head, sizeof(head)) << endl;
 	cout << "SysteDecode:" << head.sum << "=>" << sum << endl;
+	i.close();
+	o.close();
 	return OK;
 }
 
