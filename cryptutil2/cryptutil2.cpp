@@ -7,6 +7,7 @@
 #include <libERT/libERT.h>
 #include <libERT/ext_io.h>
 #include <libSemphella/date_recovery_plus.h>
+
 void logo()
 {
 	KERNEL.LogoPrint();

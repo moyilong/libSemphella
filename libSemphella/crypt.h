@@ -1,5 +1,6 @@
 #pragma once
 #include "main.h"
+#include <limits>
 API char get_off();
 
 #ifndef _EL_CPYOFF
