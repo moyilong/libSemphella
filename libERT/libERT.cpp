@@ -69,7 +69,6 @@ LIBERT_API RETURN_STAT crypt_to_file(string in, string out, string password, int
 	time_t start = time(0);
 	char str_buff[MAX_BUFF_SIZE];
 	double per = 0;
-	double left = 0;
 	for (uint64_t n = 0; n < mbs; n++)
 	{
 		get_fhandle(head.ext[EXT_FHANDLE])(head, i, o, sum, head.bs, n*head.bs, false, false);
@@ -78,13 +77,7 @@ LIBERT_API RETURN_STAT crypt_to_file(string in, string out, string password, int
 		{
 			old_presend = per;
 			ulen = (n* head.bs) / dZero(time(0) - start);
-			left = (i.tell_len() - n * head.bs) / ulen;
-			DEBUG_LINE{
-			sprintf(str_buff, "%sPS %f Need At Position 0x%s + 0x%s => 0x%s",human_read(ulen, human_read_storage_str, 1024, 10).data(),(float)left,ull2s(n*head.bs),ull2s(i.tell_len() - n*head.bs),ull2s(i.tell_len()));
-			}
-		else {
-				sprintf(str_buff, "%sPS %.2f Need", human_read(ulen, human_read_storage_str, 1024, 10).data(), (float)left);
-			}
+			sprintf(str_buff, "%sPS", human_read(ulen, human_read_storage_str, 1024, 10).data());
 			ShowProcessBar(per, str_buff);
 		}
 	}
@@ -268,7 +261,7 @@ LIBERT_API HEAD get_head(string in)
 	HEAD head;
 	fin.read(&head, 1);
 	if (!head.check())
-		throw "HEAD CHECK FAILD!";
+		throw "FILE_TO_LOAD_HEAD";
 	return head;
 }
 
