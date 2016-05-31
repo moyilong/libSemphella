@@ -6,7 +6,6 @@
 #include <libSemphella/crypt.h>
 #include <time.h>
 #include <math.h>
-const char *strtbl = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz~`!@#$%^&*()-=_+{}[]\\|;':\",.<>/?/+*-";
 #include <libSemphella/sum.h>
 
 #include <limits>
