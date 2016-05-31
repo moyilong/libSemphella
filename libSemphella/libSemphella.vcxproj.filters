@@ -111,6 +111,9 @@
     <ClInclude Include="time.h">
       <Filter>头</Filter>
     </ClInclude>
+    <ClInclude Include="VER.h">
+      <Filter>头</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />

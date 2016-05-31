@@ -1,7 +1,6 @@
-ADD_EXECUTABLE(cryptutil2 
-	cryptutil2.cpp
-	license_create.cpp
+ADD_LIBRARY(s2s SHARED 
+	s2s.cpp
 	)
-INSTALL (TARGETS cryptutil2 DESTINATION bin)
-TARGET_LINK_LIBRARIES(cryptutil2 -lSemphella -lERT)
+
 INCLUDE_DIRECTORIES(..)
+INSTALL(TARGETS cp2_extlibtest DESTINATION lib/libSemphellaUtils)

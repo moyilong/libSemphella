@@ -14,21 +14,21 @@ enum WMODE {
 	APP_MAIN_RUN,
 	APP_INFO_GET,
 };
-WMODE mode=APP_MAIN_RUN;
+WMODE mode = APP_MAIN_RUN;
 void load_args(string name, string val)
 {
 	switch (name.at(0))
 	{
 	case 'l':
-			switch (name.at(1))
-			{
-			case 'n':
-				mod_api = val;
-				break;
-			case 'i':
-				mode = APP_INFO_GET;
-				break;
-			}
+		switch (name.at(1))
+		{
+		case 'n':
+			mod_api = val;
+			break;
+		case 'i':
+			mode = APP_INFO_GET;
+			break;
+		}
 		break;
 	default:
 		targ.add(name, val);
@@ -45,11 +45,6 @@ int main(int argc, char *argv[])
 		cout << "Warring:Argments Error!" << endl;
 		return -1;
 	}
-	if (!streval(mod_api.substr(mod_api.size()-3).data(), "edl"))
-	{
-		cout << "Check Stat Faild!" << endl;
-		return -1;
-	}
 	mod_t call = OpenLibrary(mod_api.data());
 	if (call == NULL)
 	{
@@ -64,7 +59,6 @@ int main(int argc, char *argv[])
 	}
 	if (mode == APP_MAIN_RUN)
 	{
-
 		debug << "Modules Was been init:" << entry->appname << "," << entry->ver.to_str() << endl;
 		if (entry->init_call != NULL)
 			entry->init_call();

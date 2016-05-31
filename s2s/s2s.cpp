@@ -21,9 +21,9 @@ void each(string name, string value)
 	switch (name.at(0))
 	{
 	case 'f':
-			file_mode = true;
-			lfile = value;
-			break;
+		file_mode = true;
+		lfile = value;
+		break;
 	case 's':
 		file_mode = false;
 		lfile = value;
