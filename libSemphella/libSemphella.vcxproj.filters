@@ -46,6 +46,9 @@
     <ClCompile Include="date_recovery_plus.cpp">
       <Filter>代码</Filter>
     </ClCompile>
+    <ClCompile Include="time.cpp">
+      <Filter>代码</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="crypt.h">
@@ -103,6 +106,9 @@
       <Filter>头</Filter>
     </ClInclude>
     <ClInclude Include="date_recovery_plus.h">
+      <Filter>头</Filter>
+    </ClInclude>
+    <ClInclude Include="time.h">
       <Filter>头</Filter>
     </ClInclude>
   </ItemGroup>

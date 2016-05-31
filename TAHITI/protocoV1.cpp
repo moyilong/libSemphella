@@ -56,6 +56,56 @@ SOCKET create_connect(int port)
 	return client_socket;
 }
 
+SOCKET create_connect_server()
+{
+	SOCKET sListen = socket(AF_INET, SOCK_STREAM, 0);
+	if (sListen == INVALID_SOCKET) {
+		return INVALID_SOCKET;
+	}
+
+	sockaddr_in serv;
+	serv.sin_family = AF_INET;
+	serv.sin_port = htons(kernel().port);
+	serv.sin_addr.s_addr = htonl(INADDR_ANY);
+
+	if (bind(sListen, (sockaddr*)&serv, sizeof(serv)) == SOCKET_ERROR) {
+		trigger(BIND_FAILD);
+		return INVALID_SOCKET;
+	}
+
+	if (listen(sListen, 5) == SOCKET_ERROR) {
+		cout << "Listen Prot Faild!" << endl;
+		trigger(LISTEN_FAILD);
+		return INVALID_SOCKET;
+	}
+	return sListen;
+}
+
+void entry_server(server_mode_call_back api)
+{
+#ifdef __LINUX__
+#define __UNSIGNED_INT
+#endif
+
+#ifdef __ANDROID__
+#undef __UNSIGNED_INT
+#endif
+	SOCKET server_sock = create_connect_server();
+	bool ret = true;
+	while (ret)
+	{
+		SOCKET sAccept;
+		sockaddr_in client;
+#ifdef __UNSIGNED_INT
+		unsigned
+#endif
+			int iLen = sizeof(client);
+		sAccept = accept(server_sock, (sockaddr*)&client, &iLen);
+		ret = api(sAccept, client);
+		close(sAccept);
+	}
+}
+
 int v1_data_send(DATA_FORMAT data, SOCKET conn)
 {
 	char buff[SEND_LEN];

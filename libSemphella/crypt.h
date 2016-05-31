@@ -1,5 +1,6 @@
 #pragma once
 #include "main.h"
+#include <limits>
 API char get_off();
 
 #ifndef _EL_CPYOFF
@@ -52,3 +53,7 @@ API void aesTest();
 
 typedef void(*crt_algr_func)(char *data, int64_t len, string password);
 API bool algrTest(crt_algr_func algr, int test_len = 128);
+
+#undef min 
+#undef max
+API vector<string> getsum2_decrypt(uint64_t sum, uint64_t begin_seek = numeric_limits<uint64_t>::min(), uint64_t end_seek = numeric_limits<uint64_t>::max(), string allow_string = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/*-+.`~!@#$%^&*()_+-=\\|;':\"[]{},.<>/?");

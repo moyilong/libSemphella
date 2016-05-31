@@ -22,6 +22,8 @@ public:
 	}
 	template<class type> void read(type *buff, uint64_t block_size);
 	template<class type> void write(type *buff, uint64_t block_size);
+	void read(char *buff, uint64_t len, uint64_t off);
+	void write(char *buff, uint64_t len, uint64_t off);
 	bool is_eof();
 	void get_steps(uint64_t bs, uint64_t &mbs, uint64_t &fix);
 	uint64_t getsum();

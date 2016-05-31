@@ -7,6 +7,7 @@
 #include <libERT/libERT.h>
 #include <libERT/ext_io.h>
 #include <libSemphella/date_recovery_plus.h>
+
 void logo()
 {
 	KERNEL.LogoPrint();
@@ -36,12 +37,16 @@ WORK_MODE mode = CRYPT;
 //bool load_ext_info = false;
 //char *buff = nullptr;
 #include <libSemphella/math.h>
+bool broken = false;
 void config_read(string name, string value)
 {
 	int itemp;
 	string temp;
 	bool stat = false;
 	switch (name.at(0)) {
+	case 'g':
+		broken = true;
+		break;
 	case 'i':
 		input = value;
 		break;
@@ -155,6 +160,11 @@ void config_read(string name, string value)
 			}
 			exit(0);
 		}
+		if (streval(temp.data(), "decrypt"))
+		{
+			getsum2_decrypt(getsumV2("moyilong", strlen("moyilong")));
+			exit(0);
+		}
 		if (streval(temp.data(), "drpstreet"))
 		{
 			uint64_t all=0;
@@ -216,6 +226,12 @@ int main(int argc, char *argv[])
 			exit(-1);
 		}
 		head = get_head(input);
+		if (broken)
+		{
+			vector<string> str=getsum2_decrypt(head.password_sum);
+			for (int n = 0; n < str.size(); n++)
+				cout << "\"" << str.at(n) << "\"" << endl;
+		}
 		break;
 	case CRYPT:
 		if (input.empty())

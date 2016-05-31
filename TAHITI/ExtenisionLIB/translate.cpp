@@ -62,7 +62,7 @@ struct TBIN_INFO {
 	int target_len;
 	int origin_len;
 };
-
+#include <libSemphella/math.h>
 void load_bin(string filename)
 {
 	ifstream input;
@@ -79,7 +79,7 @@ void load_bin(string filename)
 		TBIN_INFO bin;
 		input.read((char*)&bin, sizeof(TBIN_INFO));
 		TBLOCK tinfo;
-		char *buff = (char*)calloc(sizeof(char), max(bin.target_len, bin.origin_len));
+		char *buff = (char*)calloc(sizeof(char), emax(bin.target_len, bin.origin_len));
 		input.read(buff, bin.origin_len);
 		tinfo.origin = buff;
 		memset(buff, 0, sizeof(buff));

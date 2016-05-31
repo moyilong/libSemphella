@@ -10,18 +10,10 @@
 
 file::~file()
 {
-	close();
 }
 
 void file::close()
 {
-	if (!opend)
-	{
-		f2debug << ioname << " is already closed!" << endl;
-		return;
-	}
-	opend = false;
-	return;
 }
 
 void file::read(char *buff, uint64_t len)
@@ -45,15 +37,12 @@ bool file::open(string filename, string mode)
 	if (fp == NULL)
 		return false;
 	opend = true;
-	if (opend)
-	{
-		uint64_t te = ftell(fp);
-		fseek(fp, 0, SEEK_END);
-		te = ftell(fp) - te;
-		len = te;
-		fseek(fp, 0, 0);
-		f2debug << "Setting File Len:" << len << endl;
-	}
+	uint64_t te = ftell(fp);
+	fseek(fp, 0, SEEK_END);
+	te = ftell(fp) - te;
+	len = te;
+	fseek(fp, 0, 0);
+	f2debug << "Setting File Len:" << len << endl;
 	debug << "File:" << filename << " was been opend!" << endl;
 	return true;
 }
@@ -72,6 +61,8 @@ uint64_t file::tell_len()
 void file::seekp(uint64_t off)
 {
 	check();
+	if (off<0 && off>len)
+		return;
 	f2debug << "Redirect " << tellp() << " => " << off << endl;
 	fseek(fp, off, 0);
 }
@@ -143,7 +134,7 @@ string file::getline(uint64_t perfect_max)
 
 void file::check()
 {
-	if (opend && fp == NULL)
+	if (!opend || fp == NULL)
 	{
 		f2debug << "Error Report!" << endl;
 		f2debug << "Status is open bug the status is ptr is null" << endl;
@@ -154,4 +145,16 @@ void file::check()
 API void fs_verbos(bool stat)
 {
 	KERNEL.SetDebugStat(stat);
+}
+
+void file::write(char *buff, uint64_t len, uint64_t off)
+{
+	seekp(off);
+	write(buff, len);
+}
+
+void file::read(char *buff, uint64_t len, uint64_t off)
+{
+	seekp(off);
+	read(buff, len);
 }
