@@ -3,7 +3,7 @@ LINK_DIRECTORIES(${PROJECT_BINARY_DIR}/lib)
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
 SET(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/lib)
 
-set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D__LINUX__  -I${CMAKE_SOURCE_DIR} -Wno-error=unused-result  -std=c++11 -fpermissive -D_LINUX -Os -fopenmp ")
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lrt -D__LINUX__  -I${CMAKE_SOURCE_DIR} -Wno-error=unused-result  -std=c++11 -fpermissive -D_LINUX -Os -fopenmp ")
 
 ADD_SUBDIRECTORY(libSemphella)
 ADD_SUBDIRECTORY(TAHITI)
