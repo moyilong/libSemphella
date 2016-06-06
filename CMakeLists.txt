@@ -16,7 +16,7 @@ ADD_SUBDIRECTORY(PerformanceInvilige)
 ADD_SUBDIRECTORY(ULTRON)
 ADD_SUBDIRECTORY(cp2_extlibtest)
 ADD_SUBDIRECTORY(EV_APP)
-
+ADD_SUBDIRECTORY(cp2_extlibtest)
 
 ADD_DEPENDENCIES(TAHITI Semphella)
 ADD_DEPENDENCIES(s2s Semphella)
@@ -30,4 +30,4 @@ ADD_DEPENDENCIES(EV_APP Semphella)
 
 # Testutils
 
-ADD_SUBDIRECTORY(cp2_extlibtest)
+ADD_DEPENDENCIES(cp2_extlibtest Semphella)
