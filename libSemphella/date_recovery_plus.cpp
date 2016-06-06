@@ -16,7 +16,7 @@ void LenToXY(uint64_t len, uint64_t &x, uint64_t &y)
 		ret_y += 1;
 	x = ret_x;
 	y = ret_y;
-	debug << "Return:" << x <<","<<y<< endl;
+	debug << "Return:" << x << "," << y << endl;
 }
 
 API uint64_t GetLength(uint64_t len)
@@ -28,10 +28,9 @@ API uint64_t GetLength(uint64_t len)
 
 inline char link_2d_3d(const char *data, uint64_t len, uint64_t px, uint64_t py, uint64_t rx, uint64_t ry, bool xasix, uint64_t replace_point = -1, char tar = -1)
 {
-	uint64_t ref_2d=px*ry+rx;
+	uint64_t ref_2d = px*ry + rx;
 	if (ref_2d > len)
 	{
-
 		return 0xFF;
 	}
 	if (replace_point != -1)
@@ -44,7 +43,7 @@ API void CreateRefPoint(const char *data, uint64_t len, uint64_t &wback, char *b
 {
 	uint64_t x, y;
 	LenToXY(len, x, y);
-	
+
 	//back = (char*)malloc(x + y);
 	memset(back, 0, x + y);
 	for (uint64_t rx = 0; rx < x; rx++)
@@ -76,12 +75,12 @@ API int RefPointCorrect(char *data, uint64_t len, const char *code)
 	int as = 0;
 	uint64_t x = -1;
 	uint64_t y = -1;
-	if (px==py)
-	for (int n=0;n<px;n++)
-		if (code[n] == code[n + px])
-		{
-			debug << "No Different @" << n << endl;
-		}
+	if (px == py)
+		for (int n = 0; n < px; n++)
+			if (code[n] == code[n + px])
+			{
+				debug << "No Different @" << n << endl;
+			}
 	for (uint64_t n = 0; n < px; n++)
 		if (code[n] != new_code[n])
 		{
@@ -90,7 +89,7 @@ API int RefPointCorrect(char *data, uint64_t len, const char *code)
 			debug << "X Find Different at:" << n << endl;
 		}
 	for (uint64_t n = 0; n < py; n++)
-		if (code[n+px] != new_code[n+px])
+		if (code[n + px] != new_code[n + px])
 		{
 			as++;
 			y = n;
@@ -109,7 +108,7 @@ API int RefPointCorrect(char *data, uint64_t len, const char *code)
 			return ERR_CORRECT_ER;
 	}
 	uint64_t position = px*y + x;
-	debug << "Find Problem in " << position<< "(" << x << "," << y << ")" << endl;
+	debug << "Find Problem in " << position << "(" << x << "," << y << ")" << endl;
 	vector<char>tx, ty;
 #pragma omp parallel for
 	for (char b = numeric_limits<char>::min(); b < numeric_limits<char>::max(); b++)
@@ -121,7 +120,6 @@ API int RefPointCorrect(char *data, uint64_t len, const char *code)
 		}
 		if (test == code[px + y])
 			ty.push_back(b);
-
 
 		test = 0;
 		for (uint64_t ry = 0; ry < py; ry++)
@@ -169,15 +167,15 @@ API bool TrustyTestPerFrame(uint64_t seek, uint64_t length)
 		ref_point = -_ref_point;
 	else
 		ref_point = _ref_point;
-	buff[1][ref_point] = ~(buff[1][ref_point] ^ 7) ^8;
+	buff[1][ref_point] = ~(buff[1][ref_point] ^ 7) ^ 8;
 	buff[2][ref_point] = buff[1][ref_point];
-	debug << "Set Problem in " << ref_point <<" "<< (int)buff[0][ref_point] << "=>" << (int)buff[1][ref_point] << endl;
+	debug << "Set Problem in " << ref_point << " " << (int)buff[0][ref_point] << "=>" << (int)buff[1][ref_point] << endl;
 	char *ecode = (char*)malloc(GetLength(length));
 	char *ecode2 = (char*)malloc(GetLength(length));
 	uint64_t len;
 	CreateRefPoint(buff[0], length, len, ecode);
 	CreateRefPoint(buff[0], length, len, ecode2);
-	display_dump(ecode,len);
+	display_dump(ecode, len);
 	for (int n = 0; n < len; n++)
 	{
 		bool stat = true;
@@ -185,16 +183,15 @@ API bool TrustyTestPerFrame(uint64_t seek, uint64_t length)
 		{
 			cout << "Code Unmatch:" << n << endl;
 			stat = false;
-
 		}
 		if (!stat)
 		{
-			free(buff[0]); 
-				free(buff[1]); 
-				free(buff[2]); 
-				free(ecode); 
-				free(ecode2); 
-				return false;
+			free(buff[0]);
+			free(buff[1]);
+			free(buff[2]);
+			free(ecode);
+			free(ecode2);
+			return false;
 		}
 	}
 	int ret = RefPointCorrect(buff[1], length, ecode);
@@ -226,6 +223,4 @@ API bool TrustyTestPerFrame(uint64_t seek, uint64_t length)
 	free(ecode);
 	free(ecode2);
 	return true;
-
-
 }

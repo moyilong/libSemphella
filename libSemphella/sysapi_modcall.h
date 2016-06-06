@@ -1,5 +1,6 @@
 #pragma once
 #include "main.h"
+#include "debug.h"
 #ifndef __LINUX__
 #include <Windows.h>
 #define mod_t HINSTANCE

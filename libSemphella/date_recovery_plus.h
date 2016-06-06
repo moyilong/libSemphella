@@ -1,7 +1,5 @@
 #pragma once
 
-
-
 #define ERR_CODE_FAILD	-10
 #define ERR_CORRECT_ER	-11
 

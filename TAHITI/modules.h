@@ -2,7 +2,8 @@
 #define MAX_MOD_SIZE	64
 #include "feature_define.h"
 #include "permission.h"
-
+#include "stdafx.h"
+#include "inline.h"
 typedef void(*ESS_Modules)(struct DATA_FORMAT, struct DATA_FORMAT &, SOCKET &);
 typedef void(*ESS_CMOD)(struct DATA_FORMAT &);
 typedef int(*CLI)(vector<string>);
@@ -50,7 +51,7 @@ int get_modules_size();
 //MODULES API
 DATA_FORMAT network_trans(DATA_FORMAT to, DATA_FORMAT &ret);	//客户端网路传输
 string cli_preprocess(vector<string>poll, string getd);	//获取参数
-SOCKET create_connect(int port = -1);				//仅创建连接
+SOCKET create_connect(int port = -1,string target="");				//仅创建连接
 
 int v1_data_send(DATA_FORMAT data, SOCKET conn);	//发送数据
 int v1_data_recv(SOCKET conn, DATA_FORMAT &ret);		//接受数据
@@ -66,7 +67,7 @@ void ProtocoRecvData(SOCKET sock, vector<char>&data, int wlen);
 void ProtocoSendData(SOCKET sock, char *data, int len);
 
 uint16_t fast_server_online_test();	//服务器快速检测
-SOCKET create_connect_server();
+SOCKET create_connect_server(int port = -1);
 
 typedef bool(*server_mode_call_back)(SOCKET recv_socket, sockaddr_in addr);
-void entry_server(server_mode_call_back api);
+void entry_server(server_mode_call_back api, int port = -1);

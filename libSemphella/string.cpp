@@ -13,10 +13,9 @@ using namespace std;
 
 #define strr debug<<"[StringLib]"
 
-
 API string * api_human_read_storage_unit()
 {
-	string ret[] ={ "B","KB","MB","GB","TB","PB","EB" };
+	string ret[] = { "B","KB","MB","GB","TB","PB","EB" };
 	return ret;
 }
 

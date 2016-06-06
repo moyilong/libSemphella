@@ -23,12 +23,16 @@ DATA_FORMAT network_trans(DATA_FORMAT to, DATA_FORMAT &ret)
 	return ret;
 }
 
-SOCKET create_connect(int port)
+SOCKET create_connect(int port, string target)
 {
+	if (port == -1)
+		port = kernel().port;
+	if (target.empty())
+		target = kernel().server;
 	sockaddr_in server;
 	server.sin_family = AF_INET;
-	server.sin_port = htons(kernel().port);
-	struct hostent *host = gethostbyname(kernel().server.data());
+	server.sin_port = htons(port);
+	struct hostent *host = gethostbyname(target.data());
 	server.sin_addr = *((struct in_addr *)host->h_addr);
 
 	SOCKET client_socket = socket(AF_INET, SOCK_STREAM, 0);
@@ -56,8 +60,10 @@ SOCKET create_connect(int port)
 	return client_socket;
 }
 
-SOCKET create_connect_server()
+SOCKET create_connect_server(int port)
 {
+	if (port == -1)
+		port = kernel().port;
 	SOCKET sListen = socket(AF_INET, SOCK_STREAM, 0);
 	if (sListen == INVALID_SOCKET) {
 		return INVALID_SOCKET;
@@ -65,7 +71,7 @@ SOCKET create_connect_server()
 
 	sockaddr_in serv;
 	serv.sin_family = AF_INET;
-	serv.sin_port = htons(kernel().port);
+	serv.sin_port = htons(port);
 	serv.sin_addr.s_addr = htonl(INADDR_ANY);
 
 	if (bind(sListen, (sockaddr*)&serv, sizeof(serv)) == SOCKET_ERROR) {
@@ -81,7 +87,7 @@ SOCKET create_connect_server()
 	return sListen;
 }
 
-void entry_server(server_mode_call_back api)
+void entry_server(server_mode_call_back api, int port)
 {
 #ifdef __LINUX__
 #define __UNSIGNED_INT
@@ -90,7 +96,7 @@ void entry_server(server_mode_call_back api)
 #ifdef __ANDROID__
 #undef __UNSIGNED_INT
 #endif
-	SOCKET server_sock = create_connect_server();
+	SOCKET server_sock = create_connect_server(port);
 	bool ret = true;
 	while (ret)
 	{

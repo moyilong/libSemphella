@@ -22,6 +22,7 @@ public:
 	bool define(string name);
 	int get_id(string name);
 	void for_each(for_each_fun fun);
+	void add(string name, string val);
 private:
 	vector<CONFIG_BLOCK>block;
 };

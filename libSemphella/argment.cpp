@@ -69,3 +69,11 @@ void argment::for_each(for_each_fun fun)
 		fun(block.at(n).name, block.at(n).value);
 	}
 }
+
+void argment::add(string name, string val)
+{
+	CONFIG_BLOCK blk;
+	blk.name = name;
+	blk.value = val;
+	block.push_back(blk);
+}

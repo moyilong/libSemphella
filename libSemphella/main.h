@@ -5,14 +5,13 @@
 #else
 #define MAX_BUFF_SIZE	4096
 #endif
-#define API_VER         153
+#define API_VER         155
 #define CORE_NAME       "libSemphella-Core"
 
 #ifdef __ANDROID__
 #define nullptr NULL
 #endif
 
-#ifndef _WNO_CPP
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -21,7 +20,6 @@
 #include <string.h>
 #include <vector>
 using namespace std;
-#endif
 
 #ifndef APP_BUILD
 #include <omp.h>
@@ -66,3 +64,4 @@ using namespace std;
 #include <time.h>
 
 #include "translate.h"
+#include <limits>

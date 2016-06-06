@@ -167,7 +167,7 @@ void config_read(string name, string value)
 		}
 		if (streval(temp.data(), "drpstreet"))
 		{
-			uint64_t all=0;
+			uint64_t all = 0;
 			uint64_t fin = 0;
 			uint64_t beg = time(0);
 			while (true)
@@ -228,7 +228,7 @@ int main(int argc, char *argv[])
 		head = get_head(input);
 		if (broken)
 		{
-			vector<string> str=getsum2_decrypt(head.password_sum);
+			vector<string> str = getsum2_decrypt(head.password_sum);
 			for (int n = 0; n < str.size(); n++)
 				cout << "\"" << str.at(n) << "\"" << endl;
 		}

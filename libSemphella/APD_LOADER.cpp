@@ -142,11 +142,11 @@ void APD::node_for_each(for_each_api *api, for_each_check *check, bool omp)
 {
 	if (omp)
 #pragma omp parallel for
-	for (COUNT_TYPE n = 0; n < poll.size(); n++)
-	{
-		if (check(poll.at(n).n_name))
-			api(poll.at(n), n);
-	}
+		for (COUNT_TYPE n = 0; n < poll.size(); n++)
+		{
+			if (check(poll.at(n).n_name))
+				api(poll.at(n), n);
+		}
 	else {
 		for (COUNT_TYPE n = 0; n < poll.size(); n++)
 			if (check(poll.at(n).n_name))

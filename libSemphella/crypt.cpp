@@ -454,12 +454,12 @@ string extoa(uint64_t val, const char *allow)
 		value = value / raidx;
 		ret = allow[xid] + ret;
 	}
-	ret = allow[value]+ret;
+	ret = allow[value] + ret;
 	string xret;
 	return ret;
 }
 
-API  vector<string> getsum2_decrypt(uint64_t sum,uint64_t begin_seek, uint64_t end_seek, string allow_string)
+API  vector<string> getsum2_decrypt(uint64_t sum, uint64_t begin_seek, uint64_t end_seek, string allow_string)
 {
 	vector<string>ret;
 	int64_t mp_size = MAX_BUFF_SIZE*MAX_BUFF_SIZE;
@@ -468,10 +468,10 @@ API  vector<string> getsum2_decrypt(uint64_t sum,uint64_t begin_seek, uint64_t e
 	uint64_t ops = 0;
 	double last_ops = 0, iops = 0;
 	time_t begin = time(0);
-	for (uint64_t n=begin_seek;n<end_seek;n+=mp_size)
+	for (uint64_t n = begin_seek; n < end_seek; n += mp_size)
 	{
 		value = n;
-#pragma omp parallel for 
+#pragma omp parallel for
 		for (int64_t p = 0; p < mp_size; p++)
 		{
 			string xval = extoa(value + p, allow_string.data()).data();

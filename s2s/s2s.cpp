@@ -12,13 +12,32 @@
 #include <libSemphella/utils.h>
 #include <libSemphella/files.h>
 #include <libSemphella/argment.h>
+#include <EV_APP/call.h>
 
-int main(int argc, char *argv[])
+bool file_mode = false;
+string lfile;
+void each(string name, string value)
 {
-	if (streval("-f", argv[1]))
+	switch (name.at(0))
+	{
+	case 'f':
+		file_mode = true;
+		lfile = value;
+		break;
+	case 's':
+		file_mode = false;
+		lfile = value;
+		break;
+	}
+}
+
+int _main(argment args)
+{
+	args.for_each(each);
+	if (file_mode)
 	{
 		file load;
-		load.open(argv[2], "r");
+		load.open(lfile, "r");
 		if (!load.is_open())
 		{
 			cout << "Faild Open File!" << endl;
@@ -27,10 +46,9 @@ int main(int argc, char *argv[])
 		printf("%x", load.getsum());
 		exit(0);
 	}
-	string arg_t;
-	for (int n = 0; n < argc; n++)
-		arg_t += argv[n];
-	uint64_t ret = getsumV2(arg_t.data(), arg_t.size());
+	uint64_t ret = getsumV2(lfile.data(), lfile.size());
 	cout << ull2s(ret) << endl;
 	return 0;
 }
+
+MODULES("String2String", APP_VER(1, 0, 0, 0), _main, NULL, NULL);

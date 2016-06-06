@@ -39,7 +39,7 @@ template<class T>inline T emin(const T a, const T b)
 template<class T> inline T eabs(T value)
 {
 	if (value < 0)
-		return value-2*value;
+		return value - 2 * value;
 	return value;
 }
 
@@ -91,5 +91,5 @@ struct LINE {
 API XPOINT LineGetPoint(MTYPE x, const LINE line);
 API	MTYPE PointToPoint(XPOINT a, XPOINT b);
 API MTYPE LINE_2D_K(XPOINT a, XPOINT b);
-API MTYPE LIM_RAND(MTYPE min, MTYPE max,MTYPE deep=0);
-API uint64_t LIM_RAND_ULD(uint64_t min, uint64_t max,uint64_t deep=0);
+API MTYPE LIM_RAND(MTYPE min, MTYPE max, MTYPE deep = 0);
+API uint64_t LIM_RAND_ULD(uint64_t min, uint64_t max, uint64_t deep = 0);
