@@ -1,6 +1,7 @@
-ADD_LIBRARY(s2s SHARED 
-	s2s.cpp
+ADD_LIBRARY(cryptutil2 SHARED 
+	cryptutil2.cpp
+	license_create.cpp
 	)
 
 INCLUDE_DIRECTORIES(..)
-INSTALL(TARGETS cp2_extlibtest DESTINATION lib/libSemphellaUtils)
+INSTALL(TARGETS cryptutil2 DESTINATION bin)
