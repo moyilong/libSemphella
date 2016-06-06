@@ -1,4 +1,4 @@
-ADD_EXECUTABLE(cryptutil2 SHARED 
+ADD_EXECUTABLE(cryptutil2  
 	cryptutil2.cpp
 	license_create.cpp
 	)
