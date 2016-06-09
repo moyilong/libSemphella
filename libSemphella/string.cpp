@@ -13,16 +13,16 @@ using namespace std;
 
 #define strr debug<<"[StringLib]"
 
-API string * api_human_read_storage_unit()
+API string  api_human_read_storage_unit(uint64_t val)
 {
 	string ret[] = { "B","KB","MB","GB","TB","PB","EB" };
-	return ret;
+	return human_read(val, ret, 1024);
 }
 
-API string *api_human_read_time_unit()
+API string api_human_read_time_unit(uint64_t val)
 {
 	string ret[] = { "S","M","H" };
-	return ret;
+	return human_read(val, ret, 1024);
 }
 
 API string StrLimit(string str, int len)
@@ -148,7 +148,7 @@ API string upper_string(string str, bool upper)
 	return ret;
 }
 
-API string human_read(uint64_t _in, string *unit, int step, int number_out_type)
+API string human_read(uint64_t _in, string *unit, int step)
 {
 	if (_in < step)
 	{

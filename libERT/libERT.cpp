@@ -77,7 +77,7 @@ LIBERT_API RETURN_STAT crypt_to_file(string in, string out, string password, int
 		{
 			old_presend = per;
 			ulen = (n* head.bs) / dZero(time(0) - start);
-			sprintf(str_buff, "%sPS", human_read(ulen, human_read_storage_str, 1024, 10).data());
+			sprintf(str_buff, "%sPS", human_read_storage_str(ulen).data());
 			ShowProcessBar(per, str_buff);
 		}
 	}
@@ -173,10 +173,10 @@ LIBERT_API RETURN_STAT decrtpt_to_file(string in, string out, string password, i
 			ulen = (n* head.bs) / dZero(time(0) - start);
 			left = (i.tell_len() - n * head.bs) / ulen;
 			DEBUG_LINE{
-				sprintf(str_buff, "%sPS %f Need At Position 0x%s + 0x%s => 0x%s",human_read(ulen, human_read_storage_str, 1024, 10),(float)left,ull2s(n*head.bs),ull2s(i.tell_len() - n*head.bs),ull2s(i.tell_len()));
+				sprintf(str_buff, "%sPS %f Need At Position 0x%s + 0x%s => 0x%s",human_read_storage_str(ulen),(float)left,ull2s(n*head.bs),ull2s(i.tell_len() - n*head.bs),ull2s(i.tell_len()));
 			}
 		else {
-				sprintf(str_buff, "%sPS %.2f Need", human_read(ulen, human_read_storage_str, 1024, 10), (float)left);
+				sprintf(str_buff, "%sPS %.2f Need", human_read_storage_str(ulen), (float)left);
 			}
 			ShowProcessBar(per, str_buff);
 		}
