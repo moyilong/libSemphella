@@ -26,7 +26,7 @@ void FileProcess(HEAD head, file in, file out, uint64_t &sum, int len, uint64_t 
 	for (int n = 0; n < mps; n++)
 	{
 		buff[n] = (char*)malloc(len);
-		in.read(buff, len);
+		in.read(buff[n], len);
 		if (!decrypt)
 			sum += APOLL[trans_id(head.algrthom)].sa(buff[n], len);
 		
@@ -39,7 +39,7 @@ void FileProcess(HEAD head, file in, file out, uint64_t &sum, int len, uint64_t 
 		if (decrypt)
 			sum += APOLL[trans_id(head.algrthom)].sa(buff[n], len);
 		if (!std_out)
-			out.write(buff, len);
+			out.write(buff[n], len);
 		else
 			//		cout<<buff;
 			fprintf(stdout, "%s", buff);
