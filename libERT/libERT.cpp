@@ -8,7 +8,7 @@
 #include "headproto.h"
 EXT ex;
 char *ext_data;
-int count_set = omp_get_num_procs()*2;
+int count_set = omp_get_num_procs();
 void load_ext_data(string filename)
 {
 	file ext;
