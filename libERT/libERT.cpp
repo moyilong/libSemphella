@@ -88,7 +88,7 @@ LIBERT_API RETURN_STAT crypt_to_file(string in, string out, string password, int
 	}
 	ShowProcessBar(1, " END");
 	if (fix > 0)
-		get_fhandle(head.ext[EXT_FHANDLE])(head, i, o, sum, fix, mbs*head.bs, false, false);
+		get_fhandle(head.ext[EXT_FHANDLE])(head, i, o, sum, fix, mbs*head.bs, false, false,1);
 	ShowProcessBar(1, " Finish");
 	head.sum = sum;
 	head.algrthom = alg;
@@ -173,7 +173,7 @@ LIBERT_API RETURN_STAT decrtpt_to_file(string in, string out, string password, i
 		ShowProcessBar(1, " END");
 	if (fix > 0)
 	{
-		get_fhandle(head.ext[EXT_FHANDLE])(head, i, o, sum, fix, mbs*head.bs, true, std_mode);
+		get_fhandle(head.ext[EXT_FHANDLE])(head, i, o, sum, fix, mbs*head.bs, true, std_mode,1);
 	}
 	if (!std_mode)
 		ShowProcessBar(1, " Finish");
