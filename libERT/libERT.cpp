@@ -146,7 +146,7 @@ LIBERT_API RETURN_STAT decrtpt_to_file(string in, string out, string password, i
 	fix = len - (head.bs*mbs);
 	uint64_t sum = 0;
 	time_t start = time(0);
-	/*for (uint64_t n = 0; n < mbs; n++)
+	for (uint64_t n = 0; n < mbs; n++)
 	{
 		get_fhandle(head.ext[EXT_FHANDLE])(head, i, o, sum, head.bs, n*head.bs, true, std_mode);
 		if (!std_mode)
@@ -156,32 +156,10 @@ LIBERT_API RETURN_STAT decrtpt_to_file(string in, string out, string password, i
 			{
 				old_presend = per;
 				ulen = (n* head.bs) / dZero(time(0) - start);
-				ShowProcessBar(per, human_read(ulen, human_read_storage_str, 1024, 10) + "PS");
+				ShowProcessBar(per, human_read_storage_str(ulen) + "PS");
 			}
-		}
-	}*/
-	double per = 0;
-	double left = 0;
-	char str_buff[MAX_BUFF_SIZE];
-	for (uint64_t n = 0; n < mbs; n++)
-	{
-		get_fhandle(head.ext[EXT_FHANDLE])(head, i, o, sum, head.bs, n*head.bs, false, false);
-		per = (double)((double)n*(double)head.bs) / (double)i.tell_len();
-		if (per != old_presend)
-		{
-			old_presend = per;
-			ulen = (n* head.bs) / dZero(time(0) - start);
-			left = (i.tell_len() - n * head.bs) / ulen;
-			DEBUG_LINE{
-				sprintf(str_buff, "%sPS %f Need At Position 0x%s + 0x%s => 0x%s",human_read_storage_str(ulen),(float)left,ull2s(n*head.bs),ull2s(i.tell_len() - n*head.bs),ull2s(i.tell_len()));
-			}
-		else {
-				sprintf(str_buff, "%sPS %.2f Need", human_read_storage_str(ulen), (float)left);
-			}
-			ShowProcessBar(per, str_buff);
 		}
 	}
-
 	if (!std_mode)
 		ShowProcessBar(1, " END");
 	if (fix > 0)
