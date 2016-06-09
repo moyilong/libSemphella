@@ -49,3 +49,12 @@ void FileProcess(HEAD head, file in, file out, uint64_t &sum, int len, uint64_t 
 }
 
 XFHANDLE BasicProcess(FileProcess, 0);
+
+
+void FileProcessSingal(HEAD head, file in, file out, uint64_t &sum, int len, uint64_t op_addr, bool decrypt, bool std_out, int mps)
+{
+	for (int n = 0; n < mps; n++)
+		FileProcess(head, in, out, sum, len, op_addr, decrypt, std_out, 1);
+}
+
+XFHANDLE BasicSingle(FileProcessSingal, 1);
