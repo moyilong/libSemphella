@@ -488,3 +488,44 @@ API  vector<string> getsum2_decrypt(uint64_t sum, uint64_t begin_seek, uint64_t 
 	}
 	return ret;
 }
+
+API bool dgst_check(const dgst dgst)
+{
+	if (dgst.main_data_verify != getsumV2(dgst.data, DGST_LEN))
+		return false;
+	return true;
+}
+
+API dgst dgst_calc(const char * data, int64_t len)
+{
+	dgst ret;
+	for (int64_t n = 0; n < len; n++)
+	{
+		ret.data[get_n(DGST_LEN, n)] ^= data[n]+n;
+	}
+#pragma omp parallel for
+	for (int n = 0; n < DGST_LEN; n++)
+		ret.data[n] ^= data[get_n(len, n)]+n;
+	ret.main_data_verify = getsumV2(ret.data, DGST_LEN);
+	return ret;
+}
+
+API dgst dgst_merge(const dgst a, const dgst b)
+{
+	dgst ret;
+#pragma omp parallel for
+	for (int n = 0; n < DGST_LEN; n++)
+		ret.data[n] = a.data[n] ^ b.data[n];
+	ret.main_data_verify = getsumV2(ret.data, DGST_LEN);
+	return ret;
+}
+
+API string dgst_string(const dgst a)
+{
+	string ret;
+	for (int n = 0; n < DGST_LEN; n++)
+	{
+		ret += DEFAULT_WORD_BLACK_LIST[get_n(strlen(DEFAULT_WORD_BLACK_LIST), a.data[n])];
+	}
+	return ret;
+}

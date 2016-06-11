@@ -57,3 +57,18 @@ API bool algrTest(crt_algr_func algr, int test_len = 128);
 #undef min
 #undef max
 API vector<string> getsum2_decrypt(uint64_t sum, uint64_t begin_seek = numeric_limits<uint64_t>::min(), uint64_t end_seek = numeric_limits<uint64_t>::max(), string allow_string = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/*-+.`~!@#$%^&*()_+-=\\|;':\"[]{},.<>/?");
+#define DGST_LEN 8192
+struct dgst {
+	char data[DGST_LEN];
+	uint64_t main_data_verify;
+	inline dgst()
+	{
+		memset(data, 0, sizeof(data));
+		main_data_verify = 0;
+	}
+};
+
+API bool dgst_check(const dgst dgst);
+API dgst dgst_calc(const char *data,int64_t len);
+API dgst dgst_merge(const dgst a, const dgst b);
+API string dgst_string(const dgst a);
