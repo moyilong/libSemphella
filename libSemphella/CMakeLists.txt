@@ -1,40 +1,12 @@
-ADD_LIBRARY(Semphella SHARED  
-	argment.cpp
-	translate.cpp
-	APD_LOADER.cpp
-	crypt.cpp
-	debug.cpp
-	files.cpp
-	kernel.cpp
-	libSemphella.cpp
-	license.cpp
-	math.cpp
-	string.cpp
-	sum.cpp
-	AES.cpp
-	date_recovery_plus.cpp
-	time.cpp
-	utils.cpp)
+ADD_LIBRARY(NetUtils SHARED  
+	modules.cpp
+	protoco.cpp
+	service.cpp
+	sppeder.cpp
+	)
 
-INSTALL (TARGETS Semphella DESTINATION lib)
-INSTALL (FILES apd.h
-	translate.h
-	argment.h
-	config.h
-	crypt.h
-	AES.h
-	debug.h
-	files.h
-	kernel.h
-	linux.h
-	time.h
-	main.h
-	math.h
-	string.h
-	sum.h
-	utils.h
-	date_recovery_plus.h
-	license.h 
-	sysapi_modcall.h
-	DESTINATION include/libSemphella)
+INSTALL (TARGETS NetUtils DESTINATION lib)
+INSTALL (FILES 
+	libNetUtils.h
+	DESTINATION include/libNetUtils)
 
