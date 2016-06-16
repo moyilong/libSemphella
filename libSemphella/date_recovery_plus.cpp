@@ -10,7 +10,7 @@
 
 void LenToXY(uint64_t len, uint64_t &x, uint64_t &y)
 {
-	uint64_t ret_x = sqrtl(len);
+	uint64_t ret_x = sqrt(len);
 	uint64_t ret_y = len / ret_x;
 	if (ret_x*ret_y < len)
 		ret_y += 1;
