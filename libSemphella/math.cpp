@@ -70,3 +70,21 @@ API uint64_t LIM_RAND_ULD(uint64_t min, uint64_t max, uint64_t deep)
 		return LIM_RAND_ULD(min, max, deep + 1);
 	return ret;
 }
+#include <limits>
+API bool is_prime(uint64_t value)
+{ 
+	bool stat = true;
+#undef min
+#undef max
+	for (int64_t n = numeric_limits<int64_t>::min(); n < numeric_limits<int64_t>::min() + value; n++)
+	{
+		if (!stat)
+			continue;
+		uint64_t val = n - numeric_limits<int64_t>::min();
+		if (n == 0 || n == 1 || n == value)
+			continue;
+		if (value%val == 0)
+			stat = false;
+	}
+	return stat;
+}

@@ -4,6 +4,7 @@ time_t memTest;
 time_t algorthimTest;
 extern int steps;
 bool signal = false;
+bool new_algr = false;
 int main(int argc, char *argv[])
 {
 	for (int n = 0; n < argc; n++)
@@ -27,6 +28,9 @@ int main(int argc, char *argv[])
 				steps = atoi(argv[n + 1]);
 				n += 1;
 				break;
+			case '2':
+				new_algr = true;
+				break;
 			default:
 				cout << "Unknow Options:" << argv[n];
 				exit(-1);
@@ -44,14 +48,20 @@ int main(int argc, char *argv[])
 	cout << "OK" << endl << "Timeout:" << memTest << endl;
 	cout << "Running Main Test..." << endl;
 	algorthimTest = time(0);
-	Run();
+	if (!new_algr)
+		Run();
+	else
+		Run2();
 	algorthimTest = time(0) - algorthimTest;
 	if (algorthimTest == 0)
 		algorthimTest = 1;
 	cout << endl << endl;
 	double final_per = iops / algorthimTest / (double)1000;
 	final_per *= (omp_get_num_threads() / 10) + 1;
-	double div = final_per / MT7620_PERFORMANCE;
 	cout << "Final Score:" << final_per << " KS/S" << endl;
-	cout << "Performance to MT7620(580MHZ 128MB DDR2 7.5KS/S):" << div << " Divid" << endl;
+	if (!new_algr)
+	{
+		double div = final_per / MT7620_PERFORMANCE;
+		cout << "Performance to MT7620(580MHZ 128MB DDR2 7.5KS/S):" << div << " Divid" << endl;
+	}
 }

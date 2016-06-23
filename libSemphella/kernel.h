@@ -2,6 +2,7 @@
 #include "libSemphella.h"
 #include <inttypes.h>
 #include "apd.h"
+#include "VER.h"
 enum KTYPE {
 	LINUX,
 	WINDOWS,
@@ -27,10 +28,13 @@ public:
 	void SetDebugStat(bool stat, string file = __FILE__, int line = __LINE__);
 	void LogoPrint();
 	void Register(REG_TYPE reg, KSAPI api);
+	VER GetVer();
 private:
 	time_t start_time;
 	vector<KSAPI> init_call;
 	vector<KSAPI> exit_call;
+	VER kver;
+	
 };
 
 extern "C" API kernel KERNEL;

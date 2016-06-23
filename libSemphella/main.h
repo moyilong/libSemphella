@@ -65,3 +65,8 @@ using namespace std;
 
 #include "translate.h"
 #include <limits>
+#include <stdlib.h>
+
+#ifndef __LINUX__
+#pragma warning(disable:4996)
+#endif

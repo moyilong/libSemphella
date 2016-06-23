@@ -29,7 +29,7 @@ using namespace std;
 #ifndef __LINUX__
 #include <Windows.h>
 #endif
-
+#include <libSemphella/main.h>
 #include <libSemphella/libSemphella.h>
 #include <libSemphella/string.h>
 #include <libSemphella/debug.h>

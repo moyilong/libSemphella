@@ -23,12 +23,15 @@ bool kernel::GetDebugStat()
 kernel::kernel()
 {
 	srand((unsigned)time(0));
-	message("Kernel Start!");
 	if (kernel_inited)
 		abort();
 	start_time = time(0);
 	for (int n = 0; n < init_call.size(); n++)
 		init_call.at(n)();
+	kver.main = 1;
+	kver.build = 4;
+	kver.version = 7;
+	kver.fix = 3;
 }
 
 void kernel::LogoPrint()
@@ -47,6 +50,11 @@ void kernel::Register(REG_TYPE reg, KSAPI api)
 		exit_call.push_back(api);
 		break;
 	}
+}
+
+VER kernel::GetVer()
+{
+	return kver;
 }
 
 kernel::~kernel()
