@@ -55,6 +55,7 @@ uint64_t file::tellp()
 
 uint64_t file::tell_len()
 {
+	check();
 	return len;
 }
 
@@ -69,6 +70,7 @@ void file::seekp(uint64_t off)
 
 bool file::is_eof()
 {
+	check();
 	return feof(fp);
 }
 

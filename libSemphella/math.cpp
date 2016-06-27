@@ -76,6 +76,7 @@ API bool is_prime(uint64_t value)
 	bool stat = true;
 #undef min
 #undef max
+#pragma omp parallel for
 	for (int64_t n = numeric_limits<int64_t>::min(); n < numeric_limits<int64_t>::min() + value; n++)
 	{
 		if (!stat)

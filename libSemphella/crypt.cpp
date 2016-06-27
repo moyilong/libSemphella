@@ -154,9 +154,12 @@ API string word_decrypt(const string origin, const string password)
 		string io = origin.substr(n, n + 2);
 		sbuff += atoi(io.data());
 	}
-	char *cache = new char[sbuff.size()];
+	//char *cache = new char[sbuff.size()];
+	char *cache = (char*)malloc(sbuff.size());
 	strcpy(cache, sbuff.data());
 	crypt(cache, sbuff.size(), password);
+	string ret = cache;
+	free(cache);
 	return cache;
 }
 

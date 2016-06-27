@@ -49,7 +49,9 @@
     <ClCompile Include="time.cpp">
       <Filter>代码</Filter>
     </ClCompile>
-    <ClCompile Include="emmx.cpp" />
+    <ClCompile Include="emmx.cpp">
+      <Filter>代码</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="crypt.h">
