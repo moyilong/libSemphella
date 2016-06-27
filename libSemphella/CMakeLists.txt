@@ -14,6 +14,7 @@ ADD_LIBRARY(Semphella SHARED
 	AES.cpp
 	date_recovery_plus.cpp
 	time.cpp
+	emmx.cpp
 	utils.cpp)
 
 INSTALL (TARGETS Semphella DESTINATION lib)
@@ -36,5 +37,6 @@ INSTALL (FILES apd.h
 	date_recovery_plus.h
 	license.h 
 	sysapi_modcall.h
+	emmx.h
 	DESTINATION include/libSemphella)
 
