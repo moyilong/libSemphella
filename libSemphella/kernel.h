@@ -29,6 +29,7 @@ public:
 	void LogoPrint();
 	void Register(REG_TYPE reg, KSAPI api);
 	VER GetVer();
+	int get_api_ver();
 private:
 	time_t start_time;
 	vector<KSAPI> init_call;

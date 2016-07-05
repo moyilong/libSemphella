@@ -57,6 +57,11 @@ VER kernel::GetVer()
 	return kver;
 }
 
+int kernel::get_api_ver()
+{
+	return API_VER;
+}
+
 kernel::~kernel()
 {
 	for (int n = 0; n < exit_call.size(); n++)
