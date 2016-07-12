@@ -43,7 +43,6 @@ void ThreadMonitor()
 		esleep(100);
 		time_out = time(0) - beg;
 		precent = (double)iops / all;
-
 		ShowProcessBar(precent, ull2s(time_out) + " s");
 		printf("\r");
 		if (!status)
@@ -86,4 +85,50 @@ void Run()
 	}
 	else
 		iops = (iops + ((AREA_MAX*AREA_MAX) / (time(0) - beg))) / 2;
+}
+
+inline char fastHash()
+{
+	char ret = 0;
+	for (int x = 0; x < AREA_MAX; x++)
+		for (int y = 0; y < AREA_MAX; y++)
+			ret ^= chess[x][y] ^ chess[y][x];
+	return ret;
+}
+
+void Run2SetValue(int x, int y)
+{
+	char val = x^y;
+	for (int a = 0; a < x - 1; a++)
+		for (int b=0;b<x-1;b++)
+			val ^= chess[a][b]^  fastHash();;
+}
+
+void _Run2()
+{
+	beg = time(0);
+	time_out = 0;
+	for (int n = 0; n < LOOP_ADD && (time_out < tout || tout == -1 && tout != 0) && (steps == -1 || steps > n); n++)
+	{
+		for (int x = 0; x < AREA_MAX; x++)
+			for (int y = 0; y < AREA_MAX; y++)
+			{
+				Run2SetValue(x, y);
+				iops++;
+			}
+	}
+	status = false;
+}
+
+void Run2()
+{
+	thread ca(_Run2);
+	thread mo(ThreadMonitor);
+	ca.join();
+	if (!quiet)
+		mo.join();
+	if (time(0) == beg)
+		cout << "MAXED_OUT" << endl;
+	else
+		iops = (iops + (AREA_MAX*AREA_MAX) / (time(0) - beg)) / 2;
 }

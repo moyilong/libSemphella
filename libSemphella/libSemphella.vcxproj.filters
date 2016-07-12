@@ -49,6 +49,9 @@
     <ClCompile Include="time.cpp">
       <Filter>代码</Filter>
     </ClCompile>
+    <ClCompile Include="emmx.cpp">
+      <Filter>代码</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="crypt.h">
@@ -112,6 +115,9 @@
       <Filter>头</Filter>
     </ClInclude>
     <ClInclude Include="VER.h">
+      <Filter>头</Filter>
+    </ClInclude>
+    <ClInclude Include="emmx.h">
       <Filter>头</Filter>
     </ClInclude>
   </ItemGroup>

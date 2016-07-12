@@ -34,7 +34,7 @@ void info()
 	disp_st(auto_rst, "AutoReset");
 	disp_st(mem_rst, "Resetting Memory");
 	disp_st(err_rst, "Error Reset Count");
-	cout << "MemSize:" << human_read(ALLOW_SIZE, human_read_storage_str, 1024, 10) << endl;
+	cout << "MemSize:" << human_read_storage_str(ALLOW_SIZE) << endl;
 }
 
 void poweroff()

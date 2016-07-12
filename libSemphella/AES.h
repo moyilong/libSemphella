@@ -27,8 +27,6 @@ private:
 	unsigned char* InvCipher(unsigned char* input);
 	void* Cipher(void* input, int length = 0);
 	void* InvCipher(void* input, int length);
-	void AES_MP(void *ptr, int len, bool decrypt);
-	void _AES_MP(void *ptr, int len, bool decrypt);
 
 	unsigned char Sbox[256];
 	unsigned char InvSbox[256];

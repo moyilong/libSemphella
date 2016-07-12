@@ -9,7 +9,7 @@ typedef void(*password_algrthom)(string password);	//初始化密码
 typedef void(*crypt_algrthom)(char *data, int64_t len, int64_t bit_off);	//加密算法
 typedef uint64_t(*sum_algrthom)(const char *data, int64_t len);	//校验和算法
 typedef uint64_t(*get_password_checksum)(string passwd);	//密码校验算法
-typedef void(*CFHANDLE)(HEAD head, file _in, file _out, uint64_t &sum, int len, uint64_t op_addr, bool decrypt, bool std_out);	//文件操作句柄
+typedef void(*CFHANDLE)(HEAD head, file _in, file _out, uint64_t &sum, int len, uint64_t op_addr, bool decrypt, bool std_out,int mps);	//文件操作句柄
 
 struct algr_t {
 	bool can_be_pt = true;

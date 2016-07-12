@@ -166,70 +166,14 @@ void* AES::InvCipher(void* input, int length)
 
 void AES::Decrypt(void * ptr, int len)
 {
-	AES_MP(ptr, len, true);
+	InvCipher(ptr, len);
 }
 
 void AES::Crypt(void * ptr, int len)
 {
-	AES_MP(ptr, len, false);
+	Cipher(ptr, len);
 }
 
-int cached_len = -1;
-int cached_mpsize = -1;
-
-void AES::AES_MP(void * _ptr, int len, bool decrypt)
-{
-	if (len < 128 * 8 || len % 128 != 0)
-	{
-		mask((char *)_ptr, len);
-	}
-	else
-		_AES_MP(_ptr, len, decrypt);
-}
-
-void AES::_AES_MP(void * _ptr, int len, bool decrypt)
-{
-	char * ptr = (char *)_ptr;
-	int mp_size = omp_get_num_procs();
-	if (len %mp_size != 0 && cached_len != -1 && cached_mpsize != -1 && cached_len == len)
-	{
-		mp_size = cached_mpsize;
-	}
-	if (len % mp_size != 0)
-	{
-		for (int n = omp_get_num_procs(); n > 0; n++)
-			if (len %n == 0)
-			{
-				mp_size = n;
-				break;
-			}
-	}
-	cached_len = len;
-	cached_mpsize = mp_size;
-	const int sub_len = len / mp_size;
-	if (sub_len < 128 * 8)
-	{
-		if (decrypt)
-			InvCipher(_ptr, len);
-		else
-			Cipher(_ptr, len);
-		return;
-	}
-#pragma omp parallel for
-	for (int n = 0; n < mp_size; n++)
-	{
-		char *buff = (char*)malloc(sizeof(char)*sub_len);
-		//for (int x = 0; x < sub_len; x++)
-			//buff[x] = ptr[n*sub_len+x];
-		memcpy(buff, ptr + n*sub_len, sub_len);
-		if (decrypt)
-			InvCipher(buff, sub_len);
-		else
-			Cipher(buff, sub_len);
-		memcpy(ptr + n*sub_len, buff, sub_len);
-		free(buff);
-	}
-}
 
 void AES::KeyExpansion(unsigned char* key, unsigned char w[][4][4])
 {

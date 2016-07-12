@@ -5,8 +5,8 @@
 #else
 #define MAX_BUFF_SIZE	4096
 #endif
-#define API_VER         155
-#define CORE_NAME       "libSemphella-Core"
+#define API_VER         160
+#define CORE_NAME       "libSemphella-Phoenix"
 
 #ifdef __ANDROID__
 #define nullptr NULL
@@ -65,3 +65,8 @@ using namespace std;
 
 #include "translate.h"
 #include <limits>
+#include <stdlib.h>
+
+#ifndef __LINUX__
+#pragma warning(disable:4996)
+#endif
