@@ -153,8 +153,15 @@ void file::write(char *buff, uint64_t len, uint64_t off)
 	write(buff, len);
 }
 
+void file::flush()
+{
+	check();
+	fflush(fp);
+}
+
 void file::read(char *buff, uint64_t len, uint64_t off)
 {
+	check();
 	seekp(off);
 	read(buff, len);
 }
