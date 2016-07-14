@@ -10,10 +10,17 @@
 
 file::~file()
 {
+	if (opend)
+		close();
 }
 
 void file::close()
 {
+	if (opend)
+		return;
+	fclose(fp);
+	fp = NULL;
+	opend = false;
 }
 
 void file::read(char *buff, uint64_t len)

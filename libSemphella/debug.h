@@ -9,7 +9,7 @@
 #define DEBUG_LINE if(__DEFAULT_DEBUG_STAT)
 #endif
 
-#define debug DEBUG_LINE cout<<"["<<AddressGetFileName(__FILE__)<<"]["<<__LINE__<<"]"
+#define debug DEBUG_LINE cout<<"["<<AddressGetFileName(__FILE__)<<"]["<<__LINE__<<"]["<<__FUNCTION__<<"]"
 
 #define DEBUG_CALL_TRACK_ARGMENT	string __file_name=__FILE__ ,int __file_line=__LINE__
 #define DEBUG_CALL_TRACK_ARGMENT_FUNC	string __file_name,int __file_line
