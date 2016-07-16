@@ -68,7 +68,7 @@ bool emmx::operator==(const emmx mmx) const
 
 void emmx::reallow()
 {
-	uint64_t size = 0;
+	uint64_t size = xsize;
 	free();
 	alloc(size);
 }

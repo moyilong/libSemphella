@@ -532,3 +532,64 @@ API string dgst_string(const dgst a)
 	}
 	return ret;
 }
+#include "emmx.h"
+API emmx mpSum(const char *data, uint64_t len,int caluc_length)
+{
+	emmx ret(caluc_length);
+#pragma omp parallel for
+	for (int n = 0; n < caluc_length; n++)
+	{
+		char tmp = n^caluc_length;
+		uint64_t beg = 0;
+		uint64_t cllen = len;
+		if (!(len <= caluc_length))
+		{
+			uint64_t all_calc = len / caluc_length;
+			beg = n*all_calc-all_calc;
+			cllen = 2 * all_calc + beg;
+			if (beg < 0)
+				beg = 0;
+			if (cllen > len)
+				cllen = len;
+		}
+		for (uint64_t b = beg; b < cllen; b++)
+			tmp = ~(tmp << 4) + ~(data[b] << 4) + ~(n^b);
+		ret.ptr[n] = tmp;
+	}
+	return ret;
+}
+
+API void mpSum_Test(int test_length)
+{
+#define BEG	1000000000000
+	vector<emmx> mem;
+	uint64_t n = BEG;
+	const time_t beg = time(0);
+	while (true)
+	{
+		bool find = false;
+		string val = eitoa(n, strlen(DEFAULT_WORD_WHITE_LIST), DEFAULT_WORD_WHITE_LIST);
+		if (n % 10 == 0)
+		{
+			cout << "IOPS:" <<(float)dZero(n-BEG)/(float)dZero((time(0)-beg))<< "\tChecking:" << val << endl;
+		}
+		n++;
+		emmx get = mpSum(val.data(), val.size(), test_length);
+		if (mem.size() == 0)
+			mem.push_back(get);
+		else
+		{
+//#pragma omp parallel for
+			for (int64_t x = 0; x < mem.size(); x++)
+				if (mem.at(x) == get)
+				{
+					cout << "Find:" << val << endl;
+					find = true;
+				}
+		}
+		if (!find)
+		{
+			mem.push_back(get);
+		}
+	}
+}
