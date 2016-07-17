@@ -1,0 +1,6 @@
+ADD_EXECUTABLE(EmuSPI
+	atlas.cpp
+	main.cpp
+	)
+INSTALL(TARGETS EmuSPI DESTINATION bin)
+TARGET_LINK_LIBRARIES(EmuSPI -lSemphella)
