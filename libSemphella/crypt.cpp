@@ -558,38 +558,23 @@ API emmx mpSum(const char *data, uint64_t len, int caluc_length)
 	}
 	return ret;
 }
-
+#include "utils.h"
 API void mpSum_Test(int test_length)
 {
 #define BEG	1000000000000
-	vector<emmx> mem;
 	uint64_t n = BEG;
 	const time_t beg = time(0);
+	ValueInfo vval;
 	while (true)
 	{
 		bool find = false;
 		string val = eitoa(n, strlen(DEFAULT_WORD_WHITE_LIST), DEFAULT_WORD_WHITE_LIST);
-		if (n % 10 == 0)
+		if (n % 100000 == 0)
 		{
-			cout << "IOPS:" << (float)dZero(n - BEG) / (float)dZero((time(0) - beg)) << "\tChecking:" << val << endl;
+			//cout << "IOPS:" << (float)dZero(n - BEG) / (float)dZero((time(0) - beg)) << "\tChecking:" << val << endl;
+			ValueDisplay((double)dZero(n - BEG) / (float)dZero(time(0) - beg,(long long)1000),"",vval,'\n');
 		}
 		n++;
 		emmx get = mpSum(val.data(), val.size(), test_length);
-		if (mem.size() == 0)
-			mem.push_back(get);
-		else
-		{
-			//#pragma omp parallel for
-			for (int64_t x = 0; x < mem.size(); x++)
-				if (mem.at(x) == get)
-				{
-					cout << "Find:" << val << endl;
-					find = true;
-				}
-		}
-		if (!find)
-		{
-			mem.push_back(get);
-		}
 	}
 }
