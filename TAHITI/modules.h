@@ -51,7 +51,7 @@ int get_modules_size();
 //MODULES API
 DATA_FORMAT network_trans(DATA_FORMAT to, DATA_FORMAT &ret);	//客户端网路传输
 string cli_preprocess(vector<string>poll, string getd);	//获取参数
-SOCKET create_connect(int port = -1,string target="");				//仅创建连接
+SOCKET create_connect(int port = -1, string target = "");				//仅创建连接
 
 int v1_data_send(DATA_FORMAT data, SOCKET conn);	//发送数据
 int v1_data_recv(SOCKET conn, DATA_FORMAT &ret);		//接受数据

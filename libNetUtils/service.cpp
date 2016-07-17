@@ -1,9 +1,9 @@
 #include "libNetUtils.h"
 #include "protoco.h"
 #include "modules.h"
-uint64_t err_size=0;
-uint64_t beg_time=0;
-uint64_t  cmd_size=0;
+uint64_t err_size = 0;
+uint64_t beg_time = 0;
+uint64_t  cmd_size = 0;
 NETAPI void service_main(int port)
 {
 	beg_time = time(0);
@@ -38,7 +38,6 @@ NETAPI void service_main(int port)
 	}
 }
 
-
 void ServerInfoServer(API_ARGS_DEF)
 {
 	ServerInfo info;
@@ -53,9 +52,9 @@ void ServerInfoServer(API_ARGS_DEF)
 
 MOD ServerInfoRegister(INFO_GET, ServerInfoServer);
 
-NETAPI ServerInfo ServerInfoGet(string targ_server,int port)
+NETAPI ServerInfo ServerInfoGet(string targ_server, int port)
 {
-	SOCKET sock=create_connect(port, targ_server);
+	SOCKET sock = create_connect(port, targ_server);
 	if (sock == INVALID_SOCKET)
 		throw CREATE_SOCKET_FAILD;
 	PortSend(sock, NULL, 0, INFO_GET);

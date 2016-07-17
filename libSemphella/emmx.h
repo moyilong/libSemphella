@@ -25,5 +25,4 @@ private:
 	uint64_t xsize = 0;
 };
 
-
 API const uint64_t GetGlobalAlloc();

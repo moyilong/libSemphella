@@ -33,4 +33,3 @@ public:
 private:
 	uint64_t ival;
 };
-

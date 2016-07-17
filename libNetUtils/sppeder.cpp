@@ -3,11 +3,10 @@
 #include "modules.h"
 #define DEFAULT_TRANSFAR_LEN	4096
 
-
 void DownloadTest(API_ARGS_DEF)
 {
 	char *t_send_ptr = (char*)malloc(DEFAULT_TRANSFAR_LEN);
-#pragma omp parallel for 
+#pragma omp parallel for
 	for (int n = 0; n < DEFAULT_TRANSFAR_LEN; n++)
 		t_send_ptr[n] = n^rand() ^ time(0);
 	send_ptr = t_send_ptr;
@@ -24,8 +23,8 @@ NETAPI double Download(string targsrv, int block_size, int port)
 		SOCKET sock = create_connect(port, targsrv);
 		if (sock == INVALID_SOCKET)
 			throw  CREATE_SOCKET_FAILD;
-		char *buff=nullptr;
-		uint64_t len=0;
+		char *buff = nullptr;
+		uint64_t len = 0;
 		time_t beg = time(0);
 		PortSend(sock, NULL, 0, DOWNLOAD_TEST);
 		PortGet(sock, buff, len);
@@ -54,7 +53,7 @@ NETAPI double Upload(string targsrv, int block_size, int port)
 		if (sock == INVALID_SOCKET)
 			throw  CREATE_SOCKET_FAILD;
 		char *t_send_ptr = (char*)malloc(DEFAULT_TRANSFAR_LEN);
-#pragma omp parallel for 
+#pragma omp parallel for
 		for (int n = 0; n < DEFAULT_TRANSFAR_LEN; n++)
 			t_send_ptr[n] = n^rand() ^ time(0);
 		time_t beg = time(0);

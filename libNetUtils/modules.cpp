@@ -56,7 +56,6 @@ SOCKET create_connect_server(int port)
 		return INVALID_SOCKET;
 	}
 
-
 	if (bind(sListen, (sockaddr*)&serv, sizeof(serv)) == SOCKET_ERROR) {
 		debug << "Bind Socket Faild!" << endl;
 		return INVALID_SOCKET;

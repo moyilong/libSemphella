@@ -174,7 +174,6 @@ void AES::Crypt(void * ptr, int len)
 	Cipher(ptr, len);
 }
 
-
 void AES::KeyExpansion(unsigned char* key, unsigned char w[][4][4])
 {
 	int i, j, r, c;

@@ -504,11 +504,11 @@ API dgst dgst_calc(const char * data, int64_t len)
 	dgst ret;
 	for (int64_t n = 0; n < len; n++)
 	{
-		ret.data[get_n(DGST_LEN, n)] ^= data[n]+n;
+		ret.data[get_n(DGST_LEN, n)] ^= data[n] + n;
 	}
 #pragma omp parallel for
 	for (int n = 0; n < DGST_LEN; n++)
-		ret.data[n] ^= data[get_n(len, n)]+n;
+		ret.data[n] ^= data[get_n(len, n)] + n;
 	ret.main_data_verify = getsumV2(ret.data, DGST_LEN);
 	return ret;
 }
@@ -533,7 +533,7 @@ API string dgst_string(const dgst a)
 	return ret;
 }
 #include "emmx.h"
-API emmx mpSum(const char *data, uint64_t len,int caluc_length)
+API emmx mpSum(const char *data, uint64_t len, int caluc_length)
 {
 	emmx ret(caluc_length);
 #pragma omp parallel for
@@ -545,7 +545,7 @@ API emmx mpSum(const char *data, uint64_t len,int caluc_length)
 		if (!(len <= caluc_length))
 		{
 			uint64_t all_calc = len / caluc_length;
-			beg = n*all_calc-all_calc;
+			beg = n*all_calc - all_calc;
 			cllen = 2 * all_calc + beg;
 			if (beg < 0)
 				beg = 0;
@@ -571,7 +571,7 @@ API void mpSum_Test(int test_length)
 		string val = eitoa(n, strlen(DEFAULT_WORD_WHITE_LIST), DEFAULT_WORD_WHITE_LIST);
 		if (n % 10 == 0)
 		{
-			cout << "IOPS:" <<(float)dZero(n-BEG)/(float)dZero((time(0)-beg))<< "\tChecking:" << val << endl;
+			cout << "IOPS:" << (float)dZero(n - BEG) / (float)dZero((time(0) - beg)) << "\tChecking:" << val << endl;
 		}
 		n++;
 		emmx get = mpSum(val.data(), val.size(), test_length);
@@ -579,7 +579,7 @@ API void mpSum_Test(int test_length)
 			mem.push_back(get);
 		else
 		{
-//#pragma omp parallel for
+			//#pragma omp parallel for
 			for (int64_t x = 0; x < mem.size(); x++)
 				if (mem.at(x) == get)
 				{

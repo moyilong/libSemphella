@@ -2,7 +2,7 @@
 #include "algorthim.h"
 #include "headproto.h"
 
-void FileProcess(HEAD head, file in, file out, uint64_t &sum, int len, uint64_t op_addr, bool decrypt, bool std_out,int mps)
+void FileProcess(HEAD head, file in, file out, uint64_t &sum, int len, uint64_t op_addr, bool decrypt, bool std_out, int mps)
 {
 	int external_size = 0;
 	if (head.ext[EXT_EXTABLE] == 1)
@@ -22,14 +22,13 @@ void FileProcess(HEAD head, file in, file out, uint64_t &sum, int len, uint64_t 
 		out.seekp(op_addr + sizeof(HEAD) + external_size);
 	}
 
-	char **buff = (char**)malloc(mps*sizeof(char*));
+	char **buff = (char**)malloc(mps * sizeof(char*));
 	for (int n = 0; n < mps; n++)
 	{
 		buff[n] = (char*)malloc(len);
 		in.read(buff[n], len);
 		if (!decrypt)
 			sum += APOLL[trans_id(head.algrthom)].sa(buff[n], len);
-		
 	}
 #pragma omp parallel for
 	for (int n = 0; n < mps; n++)
@@ -49,7 +48,6 @@ void FileProcess(HEAD head, file in, file out, uint64_t &sum, int len, uint64_t 
 }
 
 XFHANDLE BasicProcess(FileProcess, 0);
-
 
 void FileProcessSingal(HEAD head, file in, file out, uint64_t &sum, int len, uint64_t op_addr, bool decrypt, bool std_out, int mps)
 {

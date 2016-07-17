@@ -19,6 +19,44 @@ API string  api_human_read_storage_unit(uint64_t val)
 	return human_read(val, ret, 1024);
 }
 
+API vector<string> Splite(string val, const char  spliter, const bool auto_trim)
+{
+	vector<string> ret;
+	uint64_t last = 0;
+	string temp;
+	for (uint64_t n = 0; n < val.size(); n++)
+	{
+		if (val[n] == spliter)
+		{
+			temp = val.substr(last, n - last);
+			if (auto_trim)
+				temp = Trim(temp);
+			ret.push_back(temp);
+			last = n;
+		}
+	}
+	return ret;
+}
+
+API string Trim(string val)
+{
+	uint64_t beg = 0;
+	uint64_t end = 0;
+	for (uint64_t n = 0; n < val.size(); n++)
+		if (val[n] != ' ')
+		{
+			beg = n;
+			break;
+		}
+	for (uint64_t n = val.size() - 1; n >= 0; n++)
+		if (val[n] != ' ')
+		{
+			end = n;
+			break;
+		}
+	return val.substr(beg, end - beg);
+}
+
 API string api_human_read_time_unit(uint64_t val)
 {
 	string ret[] = { "S","M","H" };
@@ -305,14 +343,14 @@ API bool memequal(const void * a, const void * b, uint64_t size)
 	return true;
 }
 
-API vector<string> splite(string val,char spliter)
+API vector<string> splite(string val, char spliter)
 {
 	vector<string>ret;
 	int last = 0;
-	for (int n=0;n<val.size();n++)
+	for (int n = 0; n < val.size(); n++)
 		if (val.at(n) == spliter)
 		{
-			ret.push_back(val.substr(last,n - last));
+			ret.push_back(val.substr(last, n - last));
 			last = n;
 		}
 	return ret;

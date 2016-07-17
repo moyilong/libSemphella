@@ -5,7 +5,6 @@
 #include <libSemphella/argment.h>
 #include <libNetUtils/libNetUtils.h>
 
-
 argment  args;
 
 bool server_mode = false;
@@ -46,7 +45,7 @@ int _main(int argc, char *argv[])
 	double down = Download(server, block, port);
 	cout << "Testing Upload..." << endl;
 	double uplo = Upload(server, block, port);
-	cout << "Download Speed:" << human_read_storage_str(down)<<endl;
+	cout << "Download Speed:" << human_read_storage_str(down) << endl;
 	cout << "Upload Speed:" << human_read_storage_str(uplo) << endl;
 }
 

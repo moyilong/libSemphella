@@ -13,9 +13,9 @@ struct FLASH {
 	int partition_size;
 	PARTITION *part;
 	uint64_t length;
-	FLASH(const char * na,int ps, PARTITION *pt,uint64_t len);
+	FLASH(const char * na, int ps, PARTITION *pt, uint64_t len);
 	PARTITION GetPart(string name) const;
-	PARTITION GetPart(int id)const ;
+	PARTITION GetPart(int id)const;
 	inline FLASH() {};
 };
 

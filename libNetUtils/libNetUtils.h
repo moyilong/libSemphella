@@ -6,7 +6,7 @@
 // LIBNETUTILS_API 函数视为是从 DLL 导入的，而此 DLL 则将用此宏定义的
 // 符号视为是被导出的。
 #ifdef __LINUX__
-#define LIBNETUTILS_API 
+#define LIBNETUTILS_API
 #else
 #ifdef LIBNETUTILS_EXPORTS
 #define LIBNETUTILS_API __declspec(dllexport)
@@ -16,7 +16,6 @@
 #endif
 
 #define NETAPI	LIBNETUTILS_API
-
 
 #include <libSemphella/main.h>
 #include <libSemphella/libSemphella.h>
@@ -67,7 +66,6 @@ enum throw_t {
 	CREATE_SOCKET_FAILD,
 	CONN_FAILD,
 };
-
 
 enum WORK_CMD {
 	DOWNLOAD_TEST,

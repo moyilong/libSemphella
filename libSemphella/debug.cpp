@@ -39,5 +39,3 @@ string hdebug::Val2Str()
 {
 	return ull2s(ival);
 }
-
-

@@ -19,7 +19,7 @@ struct VER {
 		//return ull2s(main) + "." + ull2s(build) + "." + ull2s(version) + "." + ull2s(fix);
 	}
 
-	inline VER(const int _m, const int _b,const  int _v,const int _f)
+	inline VER(const int _m, const int _b, const  int _v, const int _f)
 	{
 		main = _m;
 		build = _b;
@@ -50,4 +50,3 @@ struct VER {
 		return true;
 	}
 };
-

@@ -2,7 +2,6 @@
 #include "libNetUtils.h"
 #define HEAD_VER	0x55
 
-
 struct HEAD_PROTOCO {
 	char ver;
 	WORK_CMD cmd;
@@ -11,4 +10,4 @@ struct HEAD_PROTOCO {
 };
 
 WORK_CMD PortGet(SOCKET sock, void *ptr, uint64_t &len);
-void PortSend(SOCKET sock, void *ptr, uint64_t len,WORK_CMD cmd);
+void PortSend(SOCKET sock, void *ptr, uint64_t len, WORK_CMD cmd);
