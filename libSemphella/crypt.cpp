@@ -572,7 +572,7 @@ API void mpSum_Test(int test_length)
 		if (n % 100000 == 0)
 		{
 			//cout << "IOPS:" << (float)dZero(n - BEG) / (float)dZero((time(0) - beg)) << "\tChecking:" << val << endl;
-			ValueDisplay((double)dZero(n - BEG) / (float)dZero(time(0) - beg,(long long)1000),"",vval,'\n');
+			ValueDisplay((double)dZero(n - BEG) / (float)dZero(time(0) - beg,(time_t)1000),"",vval,'\n');
 		}
 		n++;
 		emmx get = mpSum(val.data(), val.size(), test_length);
