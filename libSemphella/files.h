@@ -16,10 +16,7 @@ public:
 	{
 		return opend;
 	}
-	inline void flush()
-	{
-		fflush(fp);
-	}
+	void flush();
 	template<class type> void read(type *buff, uint64_t block_size);
 	template<class type> void write(type *buff, uint64_t block_size);
 	void read(char *buff, uint64_t len, uint64_t off);
@@ -31,7 +28,7 @@ public:
 	void desnapshot();
 	string getline(uint64_t perfect_max = 8192);
 private:
-	FILE *fp;
+	FILE *fp=nullptr;
 	string ioname;
 	string mode;
 	bool opend = false;

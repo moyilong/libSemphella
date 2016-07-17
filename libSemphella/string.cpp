@@ -304,3 +304,16 @@ API bool memequal(const void * a, const void * b, uint64_t size)
 			return false;
 	return true;
 }
+
+API vector<string> splite(string val,char spliter)
+{
+	vector<string>ret;
+	int last = 0;
+	for (int n=0;n<val.size();n++)
+		if (val.at(n) == spliter)
+		{
+			ret.push_back(val.substr(last,n - last));
+			last = n;
+		}
+	return ret;
+}

@@ -37,3 +37,4 @@ inline string eitoa(int num, int radix, const char *word_list = DEFAULT_WORD_WHI
 API string AddressGetFileName(string filename);
 API string f2s(float value);
 API bool memequal(const void * a, const void * b, uint64_t size);
+API vector<string> splite(string val, char spliter);

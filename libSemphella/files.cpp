@@ -10,10 +10,17 @@
 
 file::~file()
 {
+	if (opend)
+		close();
 }
 
 void file::close()
 {
+	if (opend)
+		return;
+	fclose(fp);
+	fp = NULL;
+	opend = false;
 }
 
 void file::read(char *buff, uint64_t len)
@@ -155,8 +162,15 @@ void file::write(char *buff, uint64_t len, uint64_t off)
 	write(buff, len);
 }
 
+void file::flush()
+{
+	check();
+	fflush(fp);
+}
+
 void file::read(char *buff, uint64_t len, uint64_t off)
 {
+	check();
 	seekp(off);
 	read(buff, len);
 }
