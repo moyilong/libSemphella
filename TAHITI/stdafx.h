@@ -21,8 +21,6 @@ using namespace std;
 #include "feature_define.h"
 #include "modules.h"
 
-#define DEBUG_LINE if (true)
-
 #include "event.h"
 #include "permission.h"
 
