@@ -19,11 +19,10 @@ public:
 	uint64_t size() const;
 	void reset();
 	void *value();
-private:
 	char *ptr;
+private:
 	bool inited = false;
 	uint64_t xsize = 0;
 };
-
 
 API const uint64_t GetGlobalAlloc();

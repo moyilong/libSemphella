@@ -100,8 +100,8 @@ void Run2SetValue(int x, int y)
 {
 	char val = x^y;
 	for (int a = 0; a < x - 1; a++)
-		for (int b=0;b<x-1;b++)
-			val ^= chess[a][b]^  fastHash();;
+		for (int b = 0; b < x - 1; b++)
+			val ^= chess[a][b] ^ fastHash();;
 }
 
 void _Run2()

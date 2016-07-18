@@ -35,7 +35,6 @@ private:
 	vector<KSAPI> init_call;
 	vector<KSAPI> exit_call;
 	VER kver;
-	
 };
 
 extern "C" API kernel KERNEL;

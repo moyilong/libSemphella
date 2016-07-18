@@ -28,6 +28,9 @@ void each(string name, string value)
 		file_mode = false;
 		lfile = value;
 		break;
+	case 't':
+		mpSum_Test(16);
+		break;
 	}
 }
 

@@ -1,6 +1,5 @@
 #include "modules.h"
 
-
 PARTITION atlas[] = {
 	{"uboot",0,0,0x30000},
 	{"uboot-env",1,0x30000,0x10000},

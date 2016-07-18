@@ -72,7 +72,7 @@ API uint64_t LIM_RAND_ULD(uint64_t min, uint64_t max, uint64_t deep)
 }
 #include <limits>
 API bool is_prime(uint64_t value)
-{ 
+{
 	bool stat = true;
 #undef min
 #undef max

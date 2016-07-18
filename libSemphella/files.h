@@ -28,7 +28,7 @@ public:
 	void desnapshot();
 	string getline(uint64_t perfect_max = 8192);
 private:
-	FILE *fp=nullptr;
+	FILE *fp = nullptr;
 	string ioname;
 	string mode;
 	bool opend = false;

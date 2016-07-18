@@ -1,8 +1,7 @@
 #include "main.h"
 #include "emmx.h"
 
-uint64_t global_alloc=0;
-
+uint64_t global_alloc = 0;
 
 emmx::emmx(uint64_t length)
 {
@@ -16,7 +15,6 @@ emmx::~emmx()
 	}
 	catch (...)
 	{
-
 	}
 }
 
@@ -68,7 +66,7 @@ bool emmx::operator==(const emmx mmx) const
 
 void emmx::reallow()
 {
-	uint64_t size = 0;
+	uint64_t size = xsize;
 	free();
 	alloc(size);
 }
@@ -82,7 +80,6 @@ API const uint64_t GetGlobalAlloc()
 {
 	return global_alloc;
 }
-
 
 void* emmx::value()
 {

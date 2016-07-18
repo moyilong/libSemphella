@@ -3,7 +3,7 @@
 #include <libSemphella/crypt.h>
 FLASH poll[128];
 uint64_t xsize = 0;
-FLASH::FLASH(const char*na,int ps, PARTITION * pt,uint64_t len)
+FLASH::FLASH(const char*na, int ps, PARTITION * pt, uint64_t len)
 {
 	//name = na;
 	memset(name, 0, sizeof(name));
@@ -11,11 +11,11 @@ FLASH::FLASH(const char*na,int ps, PARTITION * pt,uint64_t len)
 	part = pt;
 	length = len;
 	partition_size = ps;
-	debug << "Insert:" << na << ":" << human_read_storage_str(len)<<"="<<ps << endl;
+	debug << "Insert:" << na << ":" << human_read_storage_str(len) << "=" << ps << endl;
 	poll[xsize] = *this;
 	xsize++;
 }
-PARTITION FLASH::GetPart(string xname) const 
+PARTITION FLASH::GetPart(string xname) const
 {
 	for (int n = 0; n < partition_size; n++)
 		if (streval(part[n].name, xname.data()))
@@ -24,7 +24,7 @@ PARTITION FLASH::GetPart(string xname) const
 	cout << "Unexist:" << xname << endl;
 	exit(-1);
 }
-PARTITION FLASH::GetPart(int id) const 
+PARTITION FLASH::GetPart(int id) const
 {
 	if (id >= partition_size)
 	{
@@ -46,9 +46,9 @@ FLASH GetFlash(string mfname)
 	exit(-3);
 }
 argment args;
-string device_name="";
-string partition_name="";
-string filename="";
+string device_name = "";
+string partition_name = "";
+string filename = "";
 bool dump_mode = false;
 bool see_mode = false;
 void argprobe(string name, string val)
@@ -149,5 +149,4 @@ int main(int argc, char *argv[])
 		fi.write(buff, device.length);
 	}
 	return 0;
-
 }
