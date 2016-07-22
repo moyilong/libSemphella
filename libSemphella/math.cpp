@@ -26,6 +26,7 @@ API XPOINT ShadowX(XPOINT point, CST_TYPE type)
 		break;
 	case Z:
 		return XPOINT(point.x, point.y, 0);
+		break;
 	}
 	return point;
 }
