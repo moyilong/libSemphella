@@ -90,3 +90,15 @@ API bool is_prime(uint64_t value)
 	}
 	return stat;
 }
+
+API void random(char * buff, int64_t len)
+{
+#pragma omp parallel for
+	for (int64_t n = 0; n < len; n++)
+	{
+		char temp = buff[n] + len;
+		temp = temp << 4;
+		temp = ~temp+time(0);
+		temp = temp ^ (len^n);
+	}
+}

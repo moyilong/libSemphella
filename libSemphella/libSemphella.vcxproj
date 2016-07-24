@@ -145,6 +145,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalOptions>/D__DLL_EXPORT /D_CRT_SECURE_NO_WARNINGS /fs %(AdditionalOptions)</AdditionalOptions>
       <OpenMPSupport>true</OpenMPSupport>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

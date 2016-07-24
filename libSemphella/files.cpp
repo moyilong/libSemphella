@@ -141,6 +141,7 @@ string file::getline(uint64_t perfect_max)
 	free(buff);
 	return ret;
 }
+
 //String Storage Type: [LENGTH(uint64_t)][RAW_DATA]
 void file::write(string str)
 {
