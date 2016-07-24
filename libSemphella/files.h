@@ -12,7 +12,7 @@ public:
 	void close();
 	void read(char *buff, uint64_t len);
 	void write(char *buff, uint64_t len);
-	inline bool is_open()
+	inline bool is_open() const
 	{
 		return opend;
 	}
@@ -27,15 +27,17 @@ public:
 	void snapshot(uint64_t addr);
 	void desnapshot();
 	string getline(uint64_t perfect_max = 8192);
-private:
+	void write(string str);
+	string read();
+	void reopen();
+protected:
+	void check();
+	uint64_t snapshot_addr = -1;
 	FILE *fp = nullptr;
 	string ioname;
 	string mode;
 	bool opend = false;
 	uint64_t len;
-protected:
-	void check();
-	uint64_t snapshot_addr = -1;
 };
 
 template<class type>
@@ -51,5 +53,3 @@ inline void file::write(type * buff, uint64_t block_size)
 	debug << "WriteFile " << ioname << "@" << tellp() << "+" << sizeof(type)*block_size << endl;
 	fwrite(buff, sizeof(type), block_size, fp);
 }
-
-API void fs_verbos(bool stat);

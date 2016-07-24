@@ -2,18 +2,36 @@
 #include "math.h"
 #include "string.h"
 
-API  void ShowProcessBar(double percent, string display, char finish, char splite, char inprocess, int bis)
+API  void ShowProcessBar(double _percent, string display, char finish, char splite, char inprocess, int bis)
 {
+	double percent = _percent;
+	if (percent < 100)
+		percent *= 100;
 	int proceed = bis*percent;
-	int incomplete = bis - proceed - 1;
+	//int incomplete = bis - proceed - 1;
 	//cout << percent * 100 << "%[";
-	printf("%.2lf %[", percent * 100);
+	/*printf("%.2lf %[", percent * 100);
 	for (int n = 0; n < proceed; n++)
 		cout << finish;
 	cout << splite;
 	for (int n = 0; n < incomplete; n++)
 		cout << inprocess;
-	cout << "]  " << display << "       " << "\r";
+	cout << "]  " << display << "       " << "\r";*/
+	char buff[100] = { '\0' };
+/*#pragma omp parallel for
+	for (int n = 0; n < 100; n++)
+		if (n < proceed)
+			buff[n] = finish;
+		else
+			buff[n] = inprocess;*/
+	memset(buff, finish, proceed);
+	if (proceed != 100)
+	{
+		memset(buff + proceed, inprocess, 100 - proceed);
+		if (!(proceed + 1 >= 100))
+			buff[proceed + 1] = splite;
+	}
+	cout << display << " [" << buff << "]\r";
 }
 
 API void ShowProcessBarEx(int all, int st_1, int st_2, string display, char st1_ch, char st2_ch, char st3_ch)

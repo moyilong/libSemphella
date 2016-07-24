@@ -175,15 +175,16 @@ API char set_upper(const char bit, bool upper)
 
 API string upper_string(string str, bool upper)
 {
-	string ret;
+	char *buff = (char*)malloc(str.length());
+#pragma omp parallel for
 	for (int n = 0; n < str.size(); n++)
 	{
 		if (is_upper(str.at(n)))
-			ret += set_upper(str.at(n), upper);
+			buff[n]= set_upper(str.at(n), upper);
 		else
-			ret += str.at(n);
+			buff[n]= str.at(n);
 	}
-	return ret;
+	return buff;
 }
 
 API string human_read(uint64_t _in, string *unit, int step)

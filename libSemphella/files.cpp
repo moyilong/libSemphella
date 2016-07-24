@@ -16,8 +16,9 @@ file::~file()
 
 void file::close()
 {
-	if (opend)
+	if (!opend)
 		return;
+	check();
 	fclose(fp);
 	fp = NULL;
 	opend = false;
@@ -140,6 +141,32 @@ string file::getline(uint64_t perfect_max)
 	free(buff);
 	return ret;
 }
+//String Storage Type: [LENGTH(uint64_t)][RAW_DATA]
+void file::write(string str)
+{
+	uint64_t len = str.size();
+	write(&len, 1);
+	write(str.data(), len);
+}
+
+string file::read()
+{
+	string ret = "";
+	uint64_t len;
+	read(&len, 1);
+	char *buff = (char*)malloc(len);
+	read(buff, len);
+	ret = buff;
+	free(buff);
+	return ret;
+}
+
+void file::reopen()
+{
+	check();
+	close();
+	open(ioname, mode);
+}
 
 void file::check()
 {
@@ -149,11 +176,6 @@ void file::check()
 		f2debug << "Status is open bug the status is ptr is null" << endl;
 		KERNEL.abort();
 	}
-}
-
-API void fs_verbos(bool stat)
-{
-	KERNEL.SetDebugStat(stat);
 }
 
 void file::write(char *buff, uint64_t len, uint64_t off)
