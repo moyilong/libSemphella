@@ -25,7 +25,7 @@ API  void ShowProcessBar(double _percent, string display, char finish, char spli
 		if (proceed +1 < 100)
 			buff[proceed ] = splite;
 	}
-	cout << display << " [" << buff << "]\r";
+	cout << display << " [" << buff << "]                   \r";
 }
 
 API void ShowProcessBarEx(int all, int st_1, int st_2, string display, char st1_ch, char st2_ch, char st3_ch)
