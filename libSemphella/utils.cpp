@@ -5,8 +5,8 @@
 API  void ShowProcessBar(double _percent, string display, char finish, char splite, char inprocess, int bis)
 {
 	double percent = _percent;
-	if (percent < 100)
-		percent *= 100;
+	if (percent >= 100)
+		percent = percent/100;
 	int proceed = bis*percent;
 	//int incomplete = bis - proceed - 1;
 	//cout << percent * 100 << "%[";
@@ -17,19 +17,13 @@ API  void ShowProcessBar(double _percent, string display, char finish, char spli
 	for (int n = 0; n < incomplete; n++)
 		cout << inprocess;
 	cout << "]  " << display << "       " << "\r";*/
-	char buff[100] = { '\0' };
-/*#pragma omp parallel for
-	for (int n = 0; n < 100; n++)
-		if (n < proceed)
-			buff[n] = finish;
-		else
-			buff[n] = inprocess;*/
+	char *buff = (char*)malloc(bis);
 	memset(buff, finish, proceed);
-	if (proceed != 100)
+	if (bis - proceed > 0)
 	{
-		memset(buff + proceed, inprocess, 100 - proceed);
-		if (!(proceed + 1 >= 100))
-			buff[proceed + 1] = splite;
+		memset(buff + proceed+1, inprocess, bis - proceed);
+		if (proceed +1 < 100)
+			buff[proceed ] = splite;
 	}
 	cout << display << " [" << buff << "]\r";
 }
