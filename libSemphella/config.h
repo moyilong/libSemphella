@@ -9,7 +9,7 @@
 #endif
 
 #ifndef __DEFAULT_DEBUG_STAT
-#define __DEFAULT_DEBUG_STAT	false	//默认调试状态
+#define __DEFAULT_DEBUG_STAT	true	//默认调试状态
 #endif
 
 //#define __WNO_OMP						//禁用OpenMP头

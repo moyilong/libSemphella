@@ -3,7 +3,8 @@
 #include "string.h"
 #include "crypt.h"
 #define apd debug <<"[APD-Framework]"
-
+#define HEAD_LEN	8
+const char bin_head[HEAD_LEN] = { 'A','P','D','B',0x80,0x59,0x6b,0x7e };
 APD::APD()
 {
 	apd << "Apd is init a empty Class" << endl;
@@ -28,6 +29,7 @@ APD::APD(string filename)
 
 void APD::load(string filename)
 {
+	this->filename = filename;
 	if (filename.empty())
 	{
 		cout << "Load a NULL File Name!" << endl;
@@ -39,42 +41,100 @@ void APD::load(string filename)
 		apd << "open file faild!" << endl << "\tOpen:" << filename << endl;
 		return;
 	}
-	NODE buff;
-	while (!fileio.eof())
+	char head[HEAD_LEN];
+	fileio.read(head, HEAD_LEN);
+	bin_mode = memequal(head, bin_head,HEAD_LEN);
+	if (!bin_mode)
 	{
-		string sbuff;
-		getline(fileio, sbuff);
-		if (sbuff.at(0) == '[')
+		fileio.seekp(0);
+		fileio.seekg(0);
+		NODE buff;
+		bool first = true;
+		while (!fileio.eof())
 		{
-			if (buff.label.size() != 0)
+			string sbuff;
+			getline(fileio, sbuff);
+			apd << "ReadLine:" << sbuff << endl;
+			if (sbuff.size() == 0)
+				continue;
+			if (sbuff[0] == '#')
+				continue;
+			if (sbuff.at(0) == '['&&sbuff.at(sbuff.size()-1))
 			{
-				if (check_node(buff.n_name) != -1)
+				if (first)
 				{
-					apd << "node name replace!" << endl;
+					apd << "First Node Found!" << endl;
+					first = false;
 				}
-				else
-					poll.push_back(buff);
-			}
-			buff.n_name = sbuff.substr(1, sbuff.size() - 2);
-			buff.label.clear();
-		}
-		else {
-			label xbuff;
-			int equal = strfind(sbuff.data(), '=', true);
-			if (equal == 0)
-			{
-				apd << "file format error!" << endl << "Error Place:" << sbuff << endl;
+				else {
+					apd << "Begin Insert Check..." << endl;
+					if (check_node(buff.n_name) != -1)
+					{
+						apd << "node name replace!" << endl;
+					}
+					else
+					{
+						apd << "insert:" << buff.n_name << endl;
+						poll.push_back(buff);
+					}
+				}
+				buff.n_name = sbuff.substr(1, sbuff.size() - 2);
+				buff.label.clear();
 			}
 			else {
-				xbuff.name = sbuff.substr(0, equal);
-				xbuff.data = sbuff.substr(equal + 1);
-				apd << "Pushd:" << buff.n_name << "//" << xbuff.name << " = " << xbuff.data << endl;
-				buff.label.push_back(xbuff);
+				label xbuff;
+				int equal = strfind(sbuff.data(), '=', true);
+				if (equal == 0)
+				{
+					apd << "file format error!" << endl << "Error Place:" << sbuff << endl;
+				}
+				else {
+					xbuff.name = sbuff.substr(0, equal);
+					xbuff.data = sbuff.substr(equal + 1);
+					apd << "Pushd:" << buff.n_name << "//" << xbuff.name << " = " << xbuff.data << endl;
+					buff.label.push_back(xbuff);
+				}
 			}
 		}
+		if (buff.label.size() != 0)
+		{
+			apd << "->Push:" << buff.n_name << endl;
+			poll.push_back(buff);
+		}
+	} 
+	else {
+		fileio.seekg(HEAD_LEN);
+		fileio.seekp(HEAD_LEN);
+		uint64_t node_size;
+		fileio.read((char*)&node_size, sizeof(uint64_t));
+		for (uint64_t n = 0; n < node_size; n++)
+		{
+			NODE node;
+			uint64_t lab_size;
+			fileio.read((char*)&lab_size, sizeof(uint64_t));
+			for (uint64_t x = 0; x < lab_size; x++)
+			{
+				uint64_t str_len;
+				fileio.read((char*)&str_len, sizeof(uint64_t));
+				emmx mem(str_len);
+				fileio.read(mem.ptr, str_len);
+				string name = mem.ptr;
+				fileio.read((char*)&str_len, sizeof(uint64_t));
+				emmx mem2(str_len);
+				fileio.read(mem2.ptr, str_len);
+				string val = mem2.ptr;
+				label temp = { name,val };
+				node.label.push_back(temp);
+			}
+			uint64_t str_len;
+			fileio.read((char*)&str_len, sizeof(uint64_t));
+			emmx mem(str_len);
+			fileio.read(mem.ptr, str_len);
+			node.n_name = mem.ptr;
+			poll.push_back(node);
+		}
 	}
-	if (buff.label.size() != 0)
-		poll.push_back(buff);
+	fileio.close();
 }
 string APD::get_label(string node, string lab)
 {
@@ -89,6 +149,16 @@ string APD::get_label(string node, string lab)
 		return"";
 	}
 	return poll.at(check_node(node)).label.at(check_label(node, lab)).data;
+}
+
+string APD::get_label(COUNT_TYPE node, string lab)
+{
+	if (check_label(node, lab) == -1)
+	{
+		apd << "label not find!" << endl << "Lable:" << lab << endl;
+		return"";
+	}
+	return poll.at(node).label.at(check_label(node, lab)).data;
 }
 
 void APD::write_label(string node, string lab, string data)
@@ -118,7 +188,10 @@ COUNT_TYPE APD::check_node(string node)
 #pragma omp parallel for
 	for (COUNT_TYPE n = 0; n < poll.size(); n++)
 		if (streval(poll.at(n).n_name.data(), node.data()))
+		{
 			ret = n;
+		}
+	apd << "Find " << node << "=" << ret << endl;
 	return ret;
 }
 
@@ -138,6 +211,23 @@ COUNT_TYPE APD::check_label(string node, string lab)
 	return ret;
 }
 
+COUNT_TYPE APD::check_label(COUNT_TYPE node, string label)
+{
+	COUNT_TYPE ret = -1;
+#pragma omp parallel for
+	for (COUNT_TYPE n = 0; n < poll.at(node).label.size(); n++)
+		if (streval(poll.at(node).label.at(n).name.data(), label.data()))
+			ret = n;
+	return ret;
+}
+
+string APD::GetNode(COUNT_TYPE id)
+{
+	return poll.at(id).n_name;
+}
+
+
+
 void APD::node_for_each(for_each_api *api, for_each_check *check, bool omp)
 {
 	if (omp)
@@ -145,7 +235,7 @@ void APD::node_for_each(for_each_api *api, for_each_check *check, bool omp)
 		for (COUNT_TYPE n = 0; n < poll.size(); n++)
 		{
 			if (check(poll.at(n).n_name))
-				api(poll.at(n), n);
+				api(poll.at(n), n); 
 		}
 	else {
 		for (COUNT_TYPE n = 0; n < poll.size(); n++)
@@ -156,10 +246,10 @@ void APD::node_for_each(for_each_api *api, for_each_check *check, bool omp)
 
 void APD::save()
 {
-	fileio.close();
-	fileio.open(filename.data(), ios::in | ios::out);
+	fileio.open(filename.data(), ios::in | ios::out|ios::trunc);
 	if (!fileio.is_open()) {
-		apd << "clean file faild!" << endl << "resume file stat!" << endl;
+		apd << "resume file stat!" << endl;
+		apd << "Operating File:" << filename << endl;
 		fileio.open(filename.data(), ios::in | ios::out);
 		if (!fileio.is_open())
 		{
@@ -167,13 +257,54 @@ void APD::save()
 			return;
 		}
 	}
-
-	for (COUNT_TYPE n = 0; n < poll.size(); n++)
+	apd << "File is Reenable!" << endl;
+	if (bin_mode)
 	{
-		fileio << "[" << poll.at(n).n_name << "]" << endl;
-		for (COUNT_TYPE x = 0; x < poll.at(n).label.size(); x++)
-			fileio << poll.at(n).label.at(x).name << "=" << poll.at(n).label.at(x).data << endl;
+		fileio.write(bin_head, HEAD_LEN);
+		uint64_t len = poll.size();
+		fileio.write((char*)&len, sizeof(uint64_t));
+		for (uint64_t n = 0; n < poll.size(); n++)
+		{
+			uint64_t blen = poll.at(n).label.size();
+			fileio.write((char*)&blen, sizeof(uint64_t));
+			for (uint64_t x = 0; x < poll.at(n).label.size(); x++)
+			{
+				uint64_t slen=poll.at(n).label.at(x).name.size();
+				fileio.write((char*)&slen, sizeof(uint64_t));
+				fileio.write(poll.at(n).label.at(n).name.data(), poll.at(n).label.at(x).name.size());
+				uint64_t slen2 = poll.at(n).label.at(x).data.size();
+				fileio.write((char*)&slen2, sizeof(uint64_t));
+				fileio.write(poll.at(n).label.at(n).data.data(), poll.at(n).label.at(x).data.size());
+
+			}
+			uint64_t slen = poll.at(n).n_name.size();
+			fileio.write((char*)&slen, sizeof(uint64_t));
+			fileio.write(poll.at(n).n_name.data(), poll.at(n).n_name.size());
+		} 
 	}
+	else {
+		for (COUNT_TYPE n = 0; n < poll.size(); n++)
+		{
+			fileio << "[" << poll.at(n).n_name << "]" << endl;
+			for (COUNT_TYPE x = 0; x < poll.at(n).label.size(); x++)
+				fileio << poll.at(n).label.at(x).name << "=" << poll.at(n).label.at(x).data << endl;
+		}
+	}
+	fileio.close();
+}
+
+uint64_t APD::node_size()
+{
+	return poll.size();
+}
+
+uint64_t APD::lab_size(string node_name)
+{
+	COUNT_TYPE id = check_node(node_name);
+	if (id == -1)
+		return -1;
+	return poll.at(id).label.size();
+
 }
 
 void APD::remove(string node)

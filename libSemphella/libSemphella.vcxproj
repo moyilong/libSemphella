@@ -166,6 +166,7 @@
     <ClInclude Include="config.h" />
     <ClInclude Include="crypt.h" />
     <ClInclude Include="date_recovery_plus.h" />
+    <ClInclude Include="db.h" />
     <ClInclude Include="debug.h" />
     <ClInclude Include="emmx.h" />
     <ClInclude Include="files.h" />
@@ -189,6 +190,7 @@
     <ClCompile Include="argment.cpp" />
     <ClCompile Include="crypt.cpp" />
     <ClCompile Include="date_recovery_plus.cpp" />
+    <ClCompile Include="db.cpp" />
     <ClCompile Include="debug.cpp" />
     <ClCompile Include="emmx.cpp" />
     <ClCompile Include="files.cpp" />
