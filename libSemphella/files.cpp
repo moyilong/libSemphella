@@ -10,13 +10,11 @@
 
 file::~file()
 {
-	if (opend)
-		close();
 }
 
 void file::close()
 {
-	if (!opend)
+	if (fp==NULL)
 		return;
 	check();
 	fclose(fp);
