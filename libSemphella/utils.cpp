@@ -23,7 +23,7 @@ API  void ShowProcessBar(double _percent, string display, char finish, char spli
 	{
 		memset(buff + proceed+1, inprocess, bis - proceed);
 		if (proceed +1 < 100)
-			buff[proceed ] = splite;
+			buff[proceed +1] = splite;
 	}
 	cout << display << " [" << buff << "]                   \r";
 }
@@ -82,4 +82,9 @@ void ValueInfo::clean()
 	min = 0;
 	all_count = 0;
 	last = 0;
+}
+
+ValueInfo::ValueInfo()
+{
+	clean();
 }

@@ -12,6 +12,7 @@ struct API ValueInfo {
 	double last = 0;
 	uint64_t all_count = 0;
 	void clean();
+	ValueInfo();
 };
 
 API  void ShowProcessBar(double percent, string display, char finish = '=', char splite = '>', char inprocess = '.', int bis = 48);
