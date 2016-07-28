@@ -3,14 +3,14 @@
 
 typedef 	int64_t COUNT_TYPE;
 
-struct label {
+struct label_t {
 	string name;
 	string data;
 };
 
 struct NODE {
 	string n_name;
-	vector<label> label;
+	vector<label_t> label;
 };
 
 typedef void(for_each_api)(NODE node_link, COUNT_TYPE nid);

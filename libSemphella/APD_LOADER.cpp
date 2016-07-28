@@ -4,7 +4,7 @@
 #include "crypt.h"
 #define apd debug <<"[APD-Framework]"
 #define HEAD_LEN	8
-const char bin_head[HEAD_LEN] = { 'A','P','D','B',0x80,0x59,0x6b,0x7e };
+const char bin_head[HEAD_LEN] = { 'A','P','D','B',(char)0x80,(char)0x59,(char)0x6b,(char)0x7e };
 APD::APD()
 {
 	apd << "Apd is init a empty Class" << endl;
@@ -82,7 +82,7 @@ void APD::load(string filename)
 				buff.label.clear();
 			}
 			else {
-				label xbuff;
+				label_t xbuff;
 				int equal = strfind(sbuff.data(), '=', true);
 				if (equal == 0)
 				{
@@ -123,7 +123,7 @@ void APD::load(string filename)
 				emmx mem2(str_len);
 				fileio.read(mem2.ptr, str_len);
 				string val = mem2.ptr;
-				label temp = { name,val };
+				label_t temp = { name,val };
 				node.label.push_back(temp);
 			}
 			uint64_t str_len;
@@ -173,7 +173,7 @@ void APD::write_label(string node, string lab, string data)
 	if (check_label(node, lab) == -1)
 	{
 		apd << "label not find!" << endl << "Lable:" << lab << endl;
-		label temp;
+		label_t temp;
 		temp.name = lab;
 		temp.data = data;
 		poll.at(check_node(node)).label.push_back(temp);

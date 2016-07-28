@@ -3,7 +3,7 @@ LINK_DIRECTORIES(${PROJECT_BINARY_DIR}/lib)
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
 SET(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/lib)
 
-set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lrt -ldl -D__LINUX__  -I${CMAKE_SOURCE_DIR} -Wno-error=unused-result  -std=c++11 -fpermissive -lm -D_LINUX -Os -fopenmp ")
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lrt -ldl -D__LINUX__  -I${CMAKE_SOURCE_DIR} -Wno-error=unused-result  -std=c++11 -fpermissive -lm -D_LINUX -O2 -fopenmp -Wunused-variable -Wformat -ggdb -pipe")
 
 # Basic Libraries
 ADD_SUBDIRECTORY(libSemphella)
@@ -19,7 +19,8 @@ ADD_SUBDIRECTORY(PerformanceInvilige)
 ADD_SUBDIRECTORY(ULTRON)
 ADD_SUBDIRECTORY(cp2_extlibtest)
 ADD_SUBDIRECTORY(EmuSPI)
-#ADD_SUBDIRECTORY(EV_APP)
+ADD_SUBDIRECTORY(EV_APP)
+ADD_SUBDIRECTORY(APD_UTILS)
 
 ADD_DEPENDENCIES(TAHITI Semphella)
 ADD_DEPENDENCIES(s2s Semphella)
@@ -29,7 +30,8 @@ ADD_DEPENDENCIES(cryptutil2 Semphella ERT)
 ADD_DEPENDENCIES(PT Semphella)
 ADD_DEPENDENCIES(PerformanceInvilige TAHITI Semphella)
 ADD_DEPENDENCIES(ULTRON TAHITI Semphella)
-#ADD_DEPENDENCIES(EV_APP Semphella)
+ADD_DEPENDENCIES(EV_APP Semphella)
+ADD_DEPENDENCIES(APD_UTILS Semphella)
 ADD_DEPENDENCIES(EmuSPI Semphella)
 # Testutils
 

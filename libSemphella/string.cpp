@@ -218,12 +218,6 @@ API string space_fix(string str)
 	return ret;
 }
 
-API string & operator<<(string input, string x)
-{
-	input += x;
-	return input;
-}
-
 API string ull2s(uint64_t value)
 {
 	char buff[MAX_BUFF_SIZE] = { 0x00 };
