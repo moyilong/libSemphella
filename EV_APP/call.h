@@ -7,4 +7,4 @@
 #define DLL_EXPORT_TYPE
 #endif
 
-#define MODULES extern "C" DLL_EXPORT_TYPE APP_ENTRY __main_entry_info
+#define MODULES DLL_EXPORT_TYPE APP_ENTRY __main_entry_info

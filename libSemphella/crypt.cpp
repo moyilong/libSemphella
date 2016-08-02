@@ -187,7 +187,8 @@ API void half_dymanic_code(const char *license, long long license_len, string pa
 		sprintf(buff, "%d", license[n]);
 		license_buff += license_buff;
 	}
-	char crypt_len[MAX_BUFF_SIZE] = { now };
+	char crypt_len[MAX_BUFF_SIZE];
+	memcpy(crypt_len,now,sizeof(COUNT_TYPE));
 	crypt(crypt_len, MAX_BUFF_SIZE, license_buff);
 	crypt(crypt_len, MAX_BUFF_SIZE, password);
 	char lbuff[MAX_BUFF_SIZE] = { 0x00 };
@@ -275,10 +276,9 @@ API void fastCrypt(char *data, int64_t len, string password, int PMLEN)
 		data[n] ^= stuffix + len + seed;
 	}
 }
-
+#define TEST_LEN 128*8
 API void fcTest()
 {
-#define TEST_LEN 32
 	char buff[TEST_LEN];
 	char shadow[TEST_LEN];
 	char decrypt[TEST_LEN];
@@ -352,7 +352,6 @@ API void pre_calc_pct(int64_t len)
 API void aesTest()
 {
 	AES ciper((unsigned char *)"moyilong");
-#define TEST_LEN 128*8
 	char buff[TEST_LEN];
 	char shadow[TEST_LEN];
 	char decrypt[TEST_LEN];
@@ -399,7 +398,6 @@ API void aesTest()
 
 API bool algrTest(crt_algr_func algr, int test_len)
 {
-#define TEST_LEN 128*8
 	char buff[TEST_LEN];
 	char shadow[TEST_LEN];
 	char decrypt[TEST_LEN];

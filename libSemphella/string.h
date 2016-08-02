@@ -5,7 +5,6 @@
 API string StrLimit(string str, int len = 8);
 API int strfind(const char *str, char find, bool wn = false);
 CAPI void strcpy(char *dest, const char *origin, long long cplen, long long r_off, long long w_off);
-API string & operator<<(string input, string x);
 API bool streval(const char *a, const char *b, bool over_len = false);
 API char* eitoa(int num, char*str, int radix, const char *word_list = DEFAULT_WORD_WHITE_LIST);
 API bool is_upper(const char bit);
