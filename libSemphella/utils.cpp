@@ -48,7 +48,7 @@ API void ValueDisplay(double data, string tips, ValueInfo &info, char end_char)
 {
 #undef min
 #undef max
-	string out = "%s [VAL %.2lf %.2lf(%%%.2lf)]\t[AVG %.2lf %.2lf (%%%.2lf)]\t[MAX: %.2lf]\t[MIN: %.2lf]";
+	string out = "%s [VAL %.2lf %.2lf(%.2lf%%)][AVG %.2lf %.2lf (%.2lf%%)][MAX: %.2lf][MIN: %.2lf]";
 	out += end_char;
 	if (info.all_count == 0)
 	{

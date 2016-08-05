@@ -188,7 +188,7 @@ API void half_dymanic_code(const char *license, long long license_len, string pa
 		license_buff += license_buff;
 	}
 	char crypt_len[MAX_BUFF_SIZE];
-	memcpy(crypt_len,now,sizeof(COUNT_TYPE));
+	memcpy(crypt_len,&now,sizeof(COUNT_TYPE));
 	crypt(crypt_len, MAX_BUFF_SIZE, license_buff);
 	crypt(crypt_len, MAX_BUFF_SIZE, password);
 	char lbuff[MAX_BUFF_SIZE] = { 0x00 };
