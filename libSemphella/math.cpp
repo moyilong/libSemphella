@@ -150,13 +150,13 @@ API vector<LIMIT_LINE> ShortX(vector<LIMIT_LINE> data)
 			if (data.at(n).a.equal(ret.at(ret.size() - 1).b))
 			{
 				fid = n;
-				break;
+				continue;
 			}
 			if (data.at(n).b.equal(ret.at(ret.size() - 1).b))
 			{
 				fid = n;
 				swap = true;
-				break;;
+				continue;;
 			}
 		}
 		if (fid == -1)
