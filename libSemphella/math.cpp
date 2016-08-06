@@ -1,6 +1,7 @@
 #include "libSemphella.h"
 #include "math.h"
-
+#include "crypt.h"
+#include "debug.h"
 API XPOINT VectorPoint2D(XPOINT orig, MTYPE _dgst, MTYPE len)
 {
 	MTYPE a;
@@ -90,15 +91,164 @@ API bool is_prime(uint64_t value)
 	}
 	return stat;
 }
-
-API void random(char * buff, int64_t len)
+#define PREDEF "moyilong_predef"
+uint64_t random_seek=getsumV2(PREDEF,strlen(PREDEF));
+API void random(char * buff, int64_t len,uint64_t loop_size)
 {
+	char cbuff[sizeof(uint64_t)];
+	memcpy(cbuff, &random_seek,sizeof(uint64_t));
 #pragma omp parallel for
 	for (int64_t n = 0; n < len; n++)
 	{
-		char temp = buff[n] + len;
-		temp = temp << 4;
-		temp = ~temp+time(0);
-		temp = temp ^ (len^n);
+		int id =  sin((n + 23) + sizeof(uint64_t) + random_seek);
+		if (id < 0)
+			id = -id;
+		buff[n] = cbuff[id];
 	}
+	random_seek++;
+	random_seek += getsumV2(buff, len);
+	for (int n = 0; n < loop_size; n++)
+		random(buff, len, 0);
+}
+API void random_test()
+{
+	uint64_t val = 0;
+	vector<uint64_t>valx;
+	while (true)
+	{
+		cout << random() << endl;
+	}
+}
+API vector<LIMIT_LINE> ShortX(vector<LIMIT_LINE> data)
+{
+	vector<LIMIT_LINE> ret;
+	vector<uint64_t> find;
+	for (int64_t n = 0; n < data.size(); n++)
+	{
+		if (n == 0)
+		{
+			ret.push_back(data.at(0));
+			continue;
+		}
+		int64_t fid = -1;
+		bool swap = false;
+#pragma omp parallel for
+		for (int64_t n = 0; n < data.size(); n++)
+		{
+			if (fid != -1)
+				continue;
+			if (n != 0)
+			{
+				bool check = true;
+				for (uint64_t x = 0; x < find.size(); x++)
+					if (check)
+						if (find.at(x) == n)
+							check = false;
+				if (!check)
+					continue;
+			}
+			if (data.at(n).a.equal(ret.at(ret.size() - 1).b))
+			{
+				fid = n;
+				break;
+			}
+			if (data.at(n).b.equal(ret.at(ret.size() - 1).b))
+			{
+				fid = n;
+				swap = true;
+				break;;
+			}
+		}
+		if (fid == -1)
+		{
+			cout << "Error Unexcepted Status! No Next Line Found!" << endl;
+			exit(-1);
+		}
+		if (fid == 0)
+		{
+			continue;
+		}
+		else {
+			if (swap)
+			{
+				ret.push_back(LIMIT_LINE(data.at(fid).b, data.at(fid).a));
+			}
+			else {
+				ret.push_back(data.at(fid));
+			}
+		}
+	}
+	return ret;
+}
+#include "debug.h"
+API void ShortXTest(uint64_t test_numbers,string outformal)
+{
+	debug << "Perparing Memory..." << endl;
+	vector<LIMIT_LINE> memm(test_numbers);
+	memm.push_back(LIMIT_LINE(XPOINT(), XPOINT()));
+	for (uint64_t n = 0; n < test_numbers; n++)
+	{
+		int ra = 0;
+		random();
+		XPOINT a = XPOINT();
+		LIMIT_LINE line;
+
+		if (ra % 2 == 0)
+		{
+			line.a = a;
+			line.b = memm.at(memm.size() - 1).b;
+		}
+		else {
+			line.b = a;
+			line.a = memm.at(memm.size() - 1).b;
+		}
+		debug << "GeneratedA," << line.a.x << "," << line.a.y << "," << line.a.z << endl;
+		debug << "GeneratedB," << line.b.x << "," << line.b.y << "," << line.b.z << endl;
+	}
+	memm.push_back(LIMIT_LINE(memm.at(0).a, (memm.at(memm.size() - 1).b)));
+	debug << "Complete!";
+	vector<LIMIT_LINE> get = ShortX(memm);
+	debug << "Geted!" << endl;
+	for (int64_t n = 0; n < get.size(); n++)
+	{
+		printf(outformal.data(), get.at(n).a.x, get.at(n).a.y, get.at(n).a.z, get.at(n).b.x, get.at(n).b.y, get.at(n).b.z);
+	}
+}
+
+
+uint64_t block_math::Addr2Block(uint64_t addr, uint64_t & blk, uint64_t & off,bool with_head)
+{
+	if (with_head)
+		addr -= begin_offset;
+	return addr;
+}
+
+XPOINT::XPOINT()
+{
+	x = random();
+	y = random();
+	z = random();
+}
+XPOINT::XPOINT(MTYPE _x, MTYPE _y)
+{
+	x = _x;
+	y = _y;
+}
+XPOINT::XPOINT(MTYPE _x, MTYPE _y, MTYPE _z)
+{
+	x = _x;
+	y = _y;
+	z = _z;
+}
+bool XPOINT::equal(const XPOINT b)
+{
+	if (b.x == x&&b.y == y&&b.z == z)
+		return true;
+	return false;
+}
+
+uint64_t XPOINT::hash()
+{
+	MTYPE buff[3] = { x,y,z };
+	return getsumV2((char*)buff, sizeof(buff));
 }

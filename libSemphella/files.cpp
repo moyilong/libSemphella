@@ -25,13 +25,16 @@ void file::close()
 void file::read(char *buff, uint64_t len)
 {
 	check();
+	over_head_check(len);
 	fread(buff, sizeof(char), len / sizeof(char), fp);
 }
 
 void file::write(char *buff, uint64_t len)
 {
 	check();
+	over_head_check(len);
 	fwrite(buff, sizeof(char), len / sizeof(char), fp);
+
 }
 
 bool file::open(string filename, string mode)
@@ -175,6 +178,16 @@ void file::check()
 		f2debug << "Status is open bug the status is ptr is null" << endl;
 		KERNEL.abort();
 	}
+}
+
+bool file::over_head_check(uint64_t len)
+{
+	if (ftell(fp) + len > len)
+	{
+		debug << "Error: FP Over Head!" << endl;
+		return false;
+	}
+	return true;
 }
 
 void file::write(char *buff, uint64_t len, uint64_t off)

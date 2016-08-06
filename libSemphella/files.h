@@ -38,6 +38,7 @@ protected:
 	string mode;
 	bool opend = false;
 	uint64_t len;
+	bool over_head_check(uint64_t len);
 };
 
 template<class type>

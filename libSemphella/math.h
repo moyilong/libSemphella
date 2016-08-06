@@ -53,23 +53,27 @@ enum CST_TYPE {
 	Z
 };
 
-struct XPOINT {
+struct API XPOINT {
 	MTYPE x;
 	MTYPE y;
 	MTYPE z;
-	inline XPOINT(MTYPE _x, MTYPE _y)
-	{
-		x = _x;
-		y = _y;
-	}
-	inline XPOINT(MTYPE _x, MTYPE _y, MTYPE _z)
-	{
-		x = _x;
-		y = _y;
-		z = _z;
-	}
+	XPOINT();
+	XPOINT(MTYPE _x, MTYPE _y);
+	XPOINT(MTYPE _x, MTYPE _y, MTYPE _z);
+	bool equal(const XPOINT b);
+	uint64_t hash();
 };
 
+struct LIMIT_LINE {
+	XPOINT a;
+	XPOINT b;
+	inline LIMIT_LINE() {};
+	inline LIMIT_LINE(XPOINT _a, XPOINT _b)
+	{
+		a = _a;
+		b = _b;
+	}
+};
 API XPOINT VectorPoint2D(XPOINT orig, MTYPE _dgst, MTYPE len);
 
 #define VectorPoint VectorPoint2D
@@ -81,6 +85,7 @@ API XPOINT ShadowX(XPOINT point, CST_TYPE type);
 struct LINE {
 	MTYPE k = 1;
 	MTYPE b = 0;
+	inline LINE() {};
 	inline LINE(MTYPE xk, MTYPE xb)
 	{
 		k = xk;
@@ -94,4 +99,25 @@ API MTYPE LINE_2D_K(XPOINT a, XPOINT b);
 API MTYPE LIM_RAND(MTYPE min, MTYPE max, MTYPE deep = 0);
 API uint64_t LIM_RAND_ULD(uint64_t min, uint64_t max, uint64_t deep = 0);
 API bool is_prime(uint64_t value);
-API void random(char *buff, int64_t len);
+API void random(char *buff, int64_t len, uint64_t loop_size=512);
+
+inline uint64_t random()
+{
+	char buff[sizeof(uint64_t)];
+	random(buff, sizeof(uint64_t));
+	uint64_t ret;
+	memcpy(&ret, buff,sizeof(uint64_t));
+	return ret;
+}
+
+struct API block_math {
+	uint64_t begin_offset;
+	uint64_t block_size;
+	uint64_t block_append;
+	uint64_t Addr2Block(uint64_t addr, uint64_t &blk, uint64_t &off,bool with_head=false);
+};
+
+
+API vector<LIMIT_LINE> ShortX(vector<LIMIT_LINE> data);
+API void ShortXTest(uint64_t test_numbers,string outformal="%ld,%ld,%ld ,, %ld,%ld,%ld\n");
+API void random_test();

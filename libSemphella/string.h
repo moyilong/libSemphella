@@ -37,3 +37,4 @@ API string AddressGetFileName(string filename);
 API string f2s(float value);
 API bool memequal(const void * a, const void * b, uint64_t size);
 API vector<string> splite(string val, char spliter);
+API double atolf(string val);
