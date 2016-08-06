@@ -100,7 +100,7 @@ API MTYPE LIM_RAND(MTYPE min, MTYPE max, MTYPE deep = 0);
 API uint64_t LIM_RAND_ULD(uint64_t min, uint64_t max, uint64_t deep = 0);
 API bool is_prime(uint64_t value);
 API void random(char *buff, int64_t len, uint64_t loop_size=512);
-
+#ifndef __LINUX__
 inline uint64_t random()
 {
 	char buff[sizeof(uint64_t)];
@@ -109,7 +109,7 @@ inline uint64_t random()
 	memcpy(&ret, buff,sizeof(uint64_t));
 	return ret;
 }
-
+#endif
 struct API block_math {
 	uint64_t begin_offset;
 	uint64_t block_size;
