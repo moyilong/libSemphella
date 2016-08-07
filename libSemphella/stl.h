@@ -70,9 +70,14 @@ public:
 	{
 		memcpy(xhead, head,80);
 	}
+	inline uint32_t size()
+	{
+		return data.size();
+	}
+	bool WriteFile(const string filename);
+private:
 #define loadfile ReadSTLFile
 	uint8_t head[80];
-	uint32_t size;
 	vector<Triangles> data;
 	bool ReadASCII(const string cfilename);
 	bool ReadBinary(const string cfilename);

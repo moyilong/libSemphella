@@ -12,6 +12,21 @@ uint64_t stl::TrianglesSize() const
 {
 	return data.size();
 }
+bool stl::WriteFile(const string filename)
+{
+	file io;
+	io.open(filename, "w");
+	if (!io.is_open())
+		return false;
+	uint32_t xsize = size();
+	io.write((char*)head, sizeof(head));
+	io.write((char*)&xsize, sizeof(uint32_t));
+	for (uint64_t n = 0; n < xsize; n++)
+	{
+		io.write((char*)&at(n), 48);
+		io.write(at(n).attr, 2);
+	}
+}
 bool stl::ReadASCII(const string cfilename)
 {
 	file io;
@@ -46,6 +61,7 @@ bool stl::ReadBinary(const string cfilename)
 	io.open(cfilename, ios::binary);
 	if (!io.is_open())
 		return false;
+	uint32_t size;
 	io.read((char*)head, sizeof(uint8_t) * 80);
 	io.read((char*)&size, sizeof(size));
 	debug << "Get Size Info:" << size << endl;
@@ -95,7 +111,7 @@ void stl::SetHeaders(uint8_t tdata[80])
 
 Triangles stl::operator=(uint64_t val)
 {
-	if (val < size)
+	if (val < size())
 		return data[val];
 	return Triangles();
 }

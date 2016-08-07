@@ -32,7 +32,6 @@ void file::read(char *buff, uint64_t len)
 void file::write(char *buff, uint64_t len)
 {
 	check();
-	over_head_check(len);
 	fwrite(buff, sizeof(char), len / sizeof(char), fp);
 
 }

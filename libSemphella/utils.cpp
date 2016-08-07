@@ -88,3 +88,20 @@ ValueInfo::ValueInfo()
 {
 	clean();
 }
+#include <string.h>
+#include <sys/types.h>
+#ifndef __LINUX__
+#define popen _popen
+#endif
+
+API string shell(string cmds)
+{
+	string ret;
+	FILE *fp = popen(cmds.data(), "r");
+	if (fp == NULL)
+		return "UN_EXECED";
+	char buff[128];
+	while (fgets(buff, 128, fp))
+		ret += buff;
+	return ret;
+}

@@ -63,11 +63,12 @@ int main(int argc, char *argv[])
 		uint8_t head[80];
 		temp.GetHead(head);
 		fo.write((char*)head, 80);
-		fo.write((char*)&temp.size, sizeof(uint32_t));
-		for (uint64_t n = 0; n < temp.size; n++)
+		uint32_t size = temp.size();
+		fo.write((char*)&size, sizeof(uint32_t));
+		for (uint64_t n = 0; n < size; n++)
 		{
-			fo.write((char*)&temp.data.at(n), 48);
-			fo.write(temp.data.at(n).attr, 2);
+			fo.write((char*)&temp.at(n), 48);
+			fo.write(temp.at(n).attr, 2);
 		}
 		
 		
