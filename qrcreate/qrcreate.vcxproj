@@ -19,9 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{392DFBD2-B5EF-4678-A61A-174710821C3D}</ProjectGuid>
+    <ProjectGuid>{A86B1574-30EB-4807-BF63-E73F1E29C640}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>PT2</RootNamespace>
+    <RootNamespace>qrcreate</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -134,7 +134,6 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <OpenMPSupport>true</OpenMPSupport>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -144,18 +143,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Text Include="CMakeLists.txt" />
-    <Text Include="ReadMe.txt" />
+    <ClCompile Include="entry.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="stdafx.h" />
-    <ClInclude Include="targetver.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="PT2.cpp" />
-    <ClCompile Include="stdafx.cpp" />
-  </ItemGroup>
-  <ItemGroup>
+    <ProjectReference Include="..\libQr\libQr.vcxproj">
+      <Project>{b8cf5a9c-58fd-44ce-b86e-ec04e6a1a5ea}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\libSemphella\libSemphella.vcxproj">
       <Project>{4a7e309d-d699-4583-9d5a-1042f9f6f893}</Project>
     </ProjectReference>

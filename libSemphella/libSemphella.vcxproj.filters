@@ -58,6 +58,7 @@
     <ClCompile Include="stl.cpp">
       <Filter>代码</Filter>
     </ClCompile>
+    <ClCompile Include="bitmap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="crypt.h">
@@ -130,6 +131,9 @@
       <Filter>头</Filter>
     </ClInclude>
     <ClInclude Include="stl.h">
+      <Filter>头</Filter>
+    </ClInclude>
+    <ClInclude Include="bitmap.h">
       <Filter>头</Filter>
     </ClInclude>
   </ItemGroup>
