@@ -41,5 +41,6 @@ INSTALL (FILES apd.h
 	sysapi_modcall.h
 	emmx.h
 	libSemphella.h
+	bitmap.h
 	DESTINATION include/libSemphella)
 
