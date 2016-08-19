@@ -40,5 +40,6 @@ INSTALL (FILES apd.h
 	license.h 
 	sysapi_modcall.h
 	emmx.h
+	libSemphella.h
 	DESTINATION include/libSemphella)
 
