@@ -85,3 +85,8 @@ void* emmx::value()
 {
 	return ptr;
 }
+#include "crypt.h"
+uint64_t emmx::hash()
+{
+	return getsumV2((char*)ptr, xsize);
+}
