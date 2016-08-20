@@ -1,13 +1,13 @@
 #pragma once
 #include "stdafx.h"
-#define level 5
-#define level_compact 2
+#define level 6
+#define level_compact 6
 #define DESIGN_KEEP_SIZE	4096
 #define EXT_SIZE	sizeof(uint64_t)
 #undef PRELOAD_HEAD
 #define CLASS_TYPED
 #include "dll.h"
-
+#pragma pack(push,1)
 struct  HEAD {
 	char account_level = level;
 	char algrthom;
@@ -35,6 +35,7 @@ struct EXT {
 	char buff[DESIGN_KEEP_SIZE - sizeof(uint64_t) * 2];
 	const char stop_all = 0xBA;
 };
+#pragma pack(pop)
 #define EXT_SUPPORT	0
 #define EXT_FHANDLE	1
 #define EXT_EXTABLE	2
