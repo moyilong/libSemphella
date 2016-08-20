@@ -16,6 +16,7 @@ ADD_LIBRARY(Semphella SHARED
 	time.cpp
 	emmx.cpp
 	stl.cpp
+	bitmap.cpp
 	utils.cpp)
 
 INSTALL (TARGETS Semphella DESTINATION lib)

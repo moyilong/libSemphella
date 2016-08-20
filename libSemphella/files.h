@@ -2,6 +2,8 @@
 #include "libSemphella.h"
 #include "debug.h"
 
+typedef void(*f_process)(const string val);
+
 class CAPI file {
 public:
 	~file();
@@ -30,6 +32,7 @@ public:
 	void write(string str);
 	string read();
 	void reopen();
+	void for_each_line(f_process api);
 protected:
 	void check();
 	uint64_t snapshot_addr = -1;
