@@ -3,7 +3,6 @@
 
 // manual config.h for microsoft visual studio
 
-#define HAVE_STRDUP 1
 
 #define __STATIC static
 
