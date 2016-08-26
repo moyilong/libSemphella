@@ -23,6 +23,7 @@ class CAPI APD {
 public:
 	APD();
 	APD(string filename);
+	APD(string filename,string pwd);
 	~APD();
 	void load(string filename);
 	string get_label(string node, string lab);
@@ -56,9 +57,12 @@ public:
 	uint64_t lab_size(string node_name);
 	bool bin_mode = false;
 	string filename;
+	bool save_on_write = false;
+	uint64_t uncommit_size = 0;
+	void SetPassword(string dpwd);
 private:
-	fstream fileio;
 	vector<NODE> poll;
 	bool cryptd = false;
 	string p_password;
+	void commit();
 };

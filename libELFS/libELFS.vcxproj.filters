@@ -15,10 +15,18 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="CMakeLists.txt" />
+    <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="entry.cpp">
+    <ClInclude Include="libELFS.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="head_def.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
