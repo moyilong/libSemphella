@@ -15,7 +15,7 @@ typedef API struct
 	WORD    bfReserved1=0;
 	WORD    bfReserved2=0;
 	DWORD   bfOffBits;
-} BMP_FILE_HEAD;
+} BITMAPFILEHEADER;
 
 typedef API struct
 {
@@ -30,7 +30,7 @@ typedef API struct
 	LONG       biYPelsPerMeter;
 	DWORD      biClrUsed;
 	DWORD      biClrImportant;
-} BMP_INFO_HEAD;
+} BITMAPINFOHEADER;
 
 #pragma pack(pop)
 
