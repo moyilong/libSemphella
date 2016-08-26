@@ -17,7 +17,7 @@ API  void ShowProcessBar(double _percent, string display, char finish, char spli
 	for (int n = 0; n < incomplete; n++)
 		cout << inprocess;
 	cout << "]  " << display << "       " << "\r";*/
-	char *buff = (char*)malloc(bis);
+	char *buff = (char*)malloc(bis+1);
 	memset(buff, finish, proceed);
 	if (bis - proceed > 0)
 	{
@@ -25,6 +25,7 @@ API  void ShowProcessBar(double _percent, string display, char finish, char spli
 		if (proceed +1 < 100)
 			buff[proceed +1] = splite;
 	}
+	buff[bis] = '\0';
 	cout << display << " [" << buff << "]                   \r";
 }
 

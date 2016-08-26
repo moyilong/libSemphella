@@ -20,6 +20,7 @@ public:
 	void reset();
 	void *value();
 	char *ptr;
+	uint64_t hash();
 private:
 	bool inited = false;
 	uint64_t xsize = 0;

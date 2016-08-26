@@ -8,9 +8,8 @@ ADD_LIBRARY(Qr SHARED
 	qrinput.c
 	qrspec.c
 	rscode.c
-	split.c
-)
+	splite.c
+	)
 
 INSTALL(TARGETS Qr DESTINATION lib)
-INSTALL (FILES libQr.h DESTINATION include/libQr)
-TARGET_LINK_LIBRARIES(Qr -lSemphella)
+INSTALL(FILES libQr.h DESTINATION include)

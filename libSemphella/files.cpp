@@ -169,6 +169,12 @@ void file::reopen()
 	open(ioname, mode);
 }
 
+void file::for_each_line(f_process api)
+{
+	while (!is_eof())
+		api(getline());
+}
+
 void file::check()
 {
 	if (!opend || fp == NULL)

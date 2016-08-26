@@ -9,6 +9,7 @@ ADD_SUBDIRECTORY(libSemphella)
 ADD_SUBDIRECTORY(TAHITI)
 ADD_SUBDIRECTORY(libERT)
 ADD_SUBDIRECTORY(libQr)
+
 # Application
 ADD_SUBDIRECTORY(s2s)
 ADD_SUBDIRECTORY(mpshell)
@@ -39,7 +40,11 @@ ADD_DEPENDENCIES(APD_UTILS Semphella)
 ADD_DEPENDENCIES(EmuSPI Semphella)
 ADD_DEPENDENCIES(PT2 Semphella)
 ADD_DEPENDENCIES(stlcheck Semphella)
+<<<<<<< HEAD
 ADD_DEPENDENCIES(qrcreate Semphella Qr)
+=======
+#ADD_DEPENDENCIES(Qr Semphella)
+>>>>>>> 4942924bd57ae6a0c6663948b2961490881de04a
 # Testutils
 
 ADD_DEPENDENCIES(cp2_extlibtest Semphella)
