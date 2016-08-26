@@ -7,14 +7,14 @@
 #include <libSemphella/argment.h>
 string getstr;
 string out;
-string read;
+string pread;
 int prescale = 8;
 void for_each_cfg(string name, string val)
 {
 	switch (name.at(0))
 	{
 	case 'i':
-		read = val;
+		pread = val;
 		break;
 	case 'o':
 		out = val;
@@ -41,13 +41,13 @@ int main(int argc, char *argv[])
 	uint64_t len;
 	file output;
 	output.open(out, "w");
-	if (read.empty())
+	if (pread.empty())
 	{
 		CreateBMPBUff(getstr, ptr, len, prescale);
 	}
 	else {
 		file in;
-		in.open(read, "r");
+		in.open(pread, "r");
 		if (in.tell_len() > 1684)
 		{
 			cout << "File too big!" << endl;

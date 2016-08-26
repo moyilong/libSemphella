@@ -5,7 +5,7 @@ typedef unsigned long	DWORD;
 typedef signed long		LONG;
 
 #define BI_RGB			0L
-
+#ifdef __LINUX__
 #pragma pack(push, 2)
 
 typedef API struct
@@ -34,3 +34,4 @@ typedef API struct
 
 #pragma pack(pop)
 
+#endif
