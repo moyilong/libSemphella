@@ -8,7 +8,7 @@ ADD_LIBRARY(Qr SHARED
 	qrinput.c
 	qrspec.c
 	rscode.c
-	splite.c
+	split.c
 	)
 
 INSTALL(TARGETS Qr DESTINATION lib)
