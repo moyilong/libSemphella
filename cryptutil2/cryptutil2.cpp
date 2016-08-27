@@ -183,6 +183,14 @@ void config_read(string name, string value)
 				}
 			}
 		}
+		if (streval(temp.data(), "mp2test"))
+		{
+			mpSum_Test(0, true);
+		}
+		if (streval(temp.data(), "mptest"))
+		{
+			mpSum_Test(MAX_BUFF_SIZE, false);
+		}
 		break;
 	}
 }

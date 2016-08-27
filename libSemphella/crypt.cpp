@@ -276,6 +276,9 @@ API void fastCrypt(char *data, int64_t len, string password, int PMLEN)
 		data[n] ^= stuffix + len + seed;
 	}
 }
+
+
+
 #define TEST_LEN 128*8
 API void fcTest()
 {
@@ -556,8 +559,24 @@ API emmx mpSum(const char *data, uint64_t len, int caluc_length)
 	}
 	return ret;
 }
+
+API uint64_t mpsum2(const char *data, uint64_t len)
+{
+	char buff[sizeof(uint64_t)];
+#pragma omp parallel for
+	for (int n = 0; n < sizeof(uint64_t); n++)
+	{
+		char bit = n^len;
+		for (uint64_t n = 0; n < len; n++)
+			bit = bit ^ data[n] ^ n + n^data[n];
+		buff[n] = bit;
+	}
+	uint64_t ret;
+	memcpy(&ret, buff, sizeof(uint64_t));
+	return ret;
+}
 #include "utils.h"
-API void mpSum_Test(int test_length)
+API void mpSum_Test(int test_length,bool v2_algr)
 {
 #define BEG	1000000000000
 	uint64_t n = BEG;
@@ -570,9 +589,14 @@ API void mpSum_Test(int test_length)
 		if (n % 100000 == 0)
 		{
 			//cout << "IOPS:" << (float)dZero(n - BEG) / (float)dZero((time(0) - beg)) << "\tChecking:" << val << endl;
-			ValueDisplay((double)dZero(n - BEG) / (float)dZero(time(0) - beg,(time_t)1000),"",vval,'\n');
+			ValueDisplay((double)dZero(n - BEG) / (float)dZero(time(0) - beg, (time_t)1000), "", vval, '\n');
 		}
 		n++;
-		emmx get = mpSum(val.data(), val.size(), test_length);
+
+		//emmx get = mpSum(val.data(), val.size(), test_length);
+		if (v2_algr)
+			mpsum2(val.data(), val.size());
+		else
+			mpSum(val.data(), val.size(), test_length);
 	}
 }
