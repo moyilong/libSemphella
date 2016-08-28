@@ -1,4 +1,0 @@
-F:\libSemphella\WindowsApplication\cryptutils_windows_app\cryptutils_windows_app.vcxproj;x64
-F:\libSemphella\WindowsApplication\dllERT\dllERT.vcxproj;x64
-F:\libSemphella\WindowsApplication\dllSemphella_APP\dllSemphella_APP.vcxproj;x64
-F:\libSemphella\WindowsApplication\dllSemphella_APP\dllSemphella_APP.vcxproj;x64
