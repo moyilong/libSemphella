@@ -71,7 +71,6 @@ uint64_t TestDonalod()
 
 int main(int argc, char *argv[])
 {
-	KERNEL.SetDebugStat(false);
 	argment args;
 	debug << "Init Skovia..." << endl;
 	args.load(argc, argv);
