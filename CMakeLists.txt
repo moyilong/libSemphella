@@ -24,6 +24,8 @@ ADD_SUBDIRECTORY(APD_UTILS)
 ADD_SUBDIRECTORY(PT2)
 ADD_SUBDIRECTORY(stlcheck)
 ADD_SUBDIRECTORY(qrcreate)
+ADD_SUBDIRECTORY(libSkovia)
+ADD_SUBDIRECTORY(SkoviaSpeed)
 
 
 ADD_DEPENDENCIES(Qr Semphella)
@@ -41,6 +43,8 @@ ADD_DEPENDENCIES(EmuSPI Semphella)
 ADD_DEPENDENCIES(PT2 Semphella)
 ADD_DEPENDENCIES(stlcheck Semphella)
 ADD_DEPENDENCIES(qrcreate Semphella Qr)
+ADD_DEPENDENCIES(Skovia Semphella)
+ADD_DEPENDENCIES(SkoviaSpeed Semphella Skovia)
 # Testutils
 
 ADD_DEPENDENCIES(cp2_extlibtest Semphella)

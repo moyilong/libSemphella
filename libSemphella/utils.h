@@ -15,7 +15,7 @@ struct API ValueInfo {
 	ValueInfo();
 };
 
-API  void ShowProcessBar(double percent, string display, char finish = '=', char splite = '>', char inprocess = '.', int bis = 48);
+API  void ShowProcessBar(float percent, string display, char finish = '=', char splite = '>', char inprocess = '.', int bis = 60);
 API void ShowProcessBarEx(int all, int st_1, int st_2, string display, char st1_ch = '=', char st2_ch = '*', char st3_ch = '.');
 API void ValueDisplay(double data, string tips, ValueInfo &info, char end_char = '\r');
 API string shell(string cmds);

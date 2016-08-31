@@ -12,15 +12,18 @@ bool first_init = false;
 
 XKERNEL::XKERNEL()
 {
+	debug << "Initing TAHITI Kernel..." << endl;
 	if (first_init)
 	{
 		cout << "Warring:Multi Init Kernel!" << endl;
 		abort();
 	}
 #ifndef __LINUX__
+	debug << "Init Windows WSA" << endl;
 	WSAData wsa;
 	WORD word = MAKEWORD(2, 2);
 	WSAStartup(word, &wsa);
+	debug << "WSA Is Inited" << endl;
 #endif
 	USER admin;
 	admin.name = "moyilong";

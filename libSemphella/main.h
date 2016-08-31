@@ -70,3 +70,8 @@ using namespace std;
 #ifndef __LINUX__
 #pragma warning(disable:4996)
 #endif
+
+#define KB	1024
+#define MB	1024*KB
+#define GB	1024*MB
+#define TB	1024*GB

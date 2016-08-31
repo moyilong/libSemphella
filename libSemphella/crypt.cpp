@@ -443,6 +443,7 @@ API bool algrTest(crt_algr_func algr, int test_len)
 			count++;
 		}
 	cout << "All Find Different:" << count << endl;
+	return true;
 }
 
 string extoa(uint64_t val, const char *allow)

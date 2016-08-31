@@ -2,21 +2,12 @@
 #include "math.h"
 #include "string.h"
 
-API  void ShowProcessBar(double _percent, string display, char finish, char splite, char inprocess, int bis)
+API  void ShowProcessBar(float _percent, string display, char finish, char splite, char inprocess, int bis)
 {
-	double percent = _percent;
+	/*double percent = _percent;
 	if (percent >= 100)
 		percent = percent/100;
 	int proceed = bis*percent;
-	//int incomplete = bis - proceed - 1;
-	//cout << percent * 100 << "%[";
-	/*printf("%.2lf %[", percent * 100);
-	for (int n = 0; n < proceed; n++)
-		cout << finish;
-	cout << splite;
-	for (int n = 0; n < incomplete; n++)
-		cout << inprocess;
-	cout << "]  " << display << "       " << "\r";*/
 	char *buff = (char*)malloc(bis+1);
 	memset(buff, finish, proceed);
 	if (bis - proceed > 0)
@@ -27,6 +18,18 @@ API  void ShowProcessBar(double _percent, string display, char finish, char spli
 	}
 	buff[bis] = '\0';
 	cout << display << " [" << buff << "]                   \r";
+	free(buff);*/
+	double val = _percent;
+	if (val >= 1)
+		val = val / 100;
+	int comp = val*bis;
+	char *buff = (char*)malloc(bis+1);
+	memset(buff, inprocess, bis);
+	memset(buff, finish, comp);
+	buff[bis] = '\0';
+	buff[comp] = splite;
+	cout << display << " [" << buff << "]                   \r";
+	free(buff);
 }
 
 API void ShowProcessBarEx(int all, int st_1, int st_2, string display, char st1_ch, char st2_ch, char st3_ch)

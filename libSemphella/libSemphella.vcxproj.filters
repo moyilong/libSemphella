@@ -52,9 +52,6 @@
     <ClCompile Include="emmx.cpp">
       <Filter>代码</Filter>
     </ClCompile>
-    <ClCompile Include="db.cpp">
-      <Filter>代码</Filter>
-    </ClCompile>
     <ClCompile Include="stl.cpp">
       <Filter>代码</Filter>
     </ClCompile>
@@ -127,9 +124,6 @@
       <Filter>头</Filter>
     </ClInclude>
     <ClInclude Include="emmx.h">
-      <Filter>头</Filter>
-    </ClInclude>
-    <ClInclude Include="db.h">
       <Filter>头</Filter>
     </ClInclude>
     <ClInclude Include="stl.h">

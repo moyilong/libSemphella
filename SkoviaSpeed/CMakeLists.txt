@@ -1,0 +1,3 @@
+ADD_EXECUTABLE(SkoviaSpeed Skovia.cpp)
+TARGET_LINK_LIBRARIES(SkoviaSpeed -lSkovia)
+INSTALL(TARGETS Skovia DESTINATION bin)
