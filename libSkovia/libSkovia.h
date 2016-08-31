@@ -13,7 +13,7 @@
 #endif
 
 #else
-#defien LIBSKOVIA_API
+#define LIBSKOVIA_API
 #endif
 
 #define SAPI	LIBSKOVIA_API
