@@ -17,7 +17,7 @@ public:
 	bool Listen(int backlog = 5);
 	bool Accept(ESocket& s, char* fromip = NULL);
 	int Send(const char* buf, int len, int flags = 0);
-	int Recv(static char* buf, int len, int flags = 0);
+	int Recv(char* buf, int len, int flags = 0);
 	void XSend(const char *buff, uint64_t len);
 	char* XRecv(uint64_t &len);
 	void XSend(uint64_t data);
