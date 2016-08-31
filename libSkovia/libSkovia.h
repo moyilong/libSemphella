@@ -10,6 +10,8 @@
 #else
 #define LIBSKOVIA_API __declspec(dllimport)
 #endif
+#else
+#defien LIBSKOVIA_API
 #endif
 
 #define SAPI	LIBSKOVIA_API
