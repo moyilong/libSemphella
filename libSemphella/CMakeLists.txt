@@ -1,5 +1,4 @@
-ADD_LIBRARY(Semphella SHARED  
-	argment.cpp
+set (SOURCE_FILES argment.cpp
 	translate.cpp
 	APD_LOADER.cpp
 	crypt.cpp
@@ -19,7 +18,12 @@ ADD_LIBRARY(Semphella SHARED
 	bmp.cpp
 	utils.cpp)
 
+
+ADD_LIBRARY(Semphella SHARED  ${SOURCE_FILES})
+ADD_EXECUTABLE(libSemphella ${SOURCE_FILES})
+
 INSTALL (TARGETS Semphella DESTINATION lib)
+INSTALL (TARGETS libSemphella DESTINATION bin)
 INSTALL (FILES apd.h
 	translate.h
 	argment.h
