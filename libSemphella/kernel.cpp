@@ -5,6 +5,7 @@
 bool kernel_inited = false;
 bool debug_stat = __DEFAULT_DEBUG_STAT;
 kernel KERNEL;
+VER kver;
 
 void kernel::SetDebugStat(bool stat, string file, int line)
 {

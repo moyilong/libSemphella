@@ -34,7 +34,7 @@ private:
 	time_t start_time;
 	vector<KSAPI> init_call;
 	vector<KSAPI> exit_call;
-	VER kver;
+	
 };
 
 extern "C" API kernel KERNEL;
