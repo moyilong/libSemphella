@@ -57,4 +57,3 @@ inline void file::write(type * buff, uint64_t block_size)
 	debug << "WriteFile " << ioname << "@" << tellp() << "+" << sizeof(type)*block_size << endl;
 	fwrite(buff, sizeof(type), block_size, fp);
 }
-
