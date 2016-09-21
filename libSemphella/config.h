@@ -22,3 +22,19 @@
 
 /*连接*/
 #define DEFAULT_DEBUG_STAT  __DEFAULT_DEBUG_STAT
+
+/*DLL导出符号*/
+
+#ifdef __LINUX__
+
+#define CAPI
+
+#else
+
+#ifdef __DLL_EXPORT
+#define CAPI	 __declspec(dllexport)
+#else
+#define CAPI	 __declspec(dllimport)
+#endif
+
+#endif

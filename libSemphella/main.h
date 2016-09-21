@@ -33,19 +33,6 @@ using namespace std;
 #include <sys/types.h>
 #endif
 
-#ifdef __LINUX__
-
-#define CAPI
-
-#else
-
-#ifdef __DLL_EXPORT
-#define CAPI	 __declspec(dllexport)
-#else
-#define CAPI	 __declspec(dllimport)
-#endif
-
-#endif
 
 #ifndef DEFAULT_WORD_WHITE_LIST
 #define DEFAULT_WORD_WHITE_LIST "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"

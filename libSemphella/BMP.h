@@ -5,10 +5,10 @@
 typedef int LONG;
 typedef unsigned short WORD;
 typedef unsigned int DWORD;
-
+#endif
 #pragma pack(push,1)
 
-struct tagBITMAPFILEHEADER {
+struct __tagBITMAPFILEHEADER {
 	WORD  bfType;
 	DWORD bfSize;
 	WORD  bfReserved1;
@@ -16,9 +16,7 @@ struct tagBITMAPFILEHEADER {
 	DWORD bfOffBits;
 };
 
-#define BITMAPFILEHEADER tagBITMAPFILEHEADER
-
-struct tagBITMAPINFOHEADER {
+struct __tagBITMAPINFOHEADER {
 	DWORD biSize;
 	LONG  biWidth;
 	LONG  biHeight;
@@ -32,10 +30,12 @@ struct tagBITMAPINFOHEADER {
 	DWORD biClrImportant;
 };
 
-#define  BITMAPINFOHEADER tagBITMAPINFOHEADER
+#define BITMAPFILEHEADER __tagBITMAPFILEHEADER
+#define  BITMAPINFOHEADER __tagBITMAPINFOHEADER
+#define PBITMAPFILEHEADER __tagBITMAPFILEHEADER*
+#define PBITMAPINFOHEADER __tagBITMAPINFOHEADER*
 
 #pragma pack(pop)
-#endif
 struct RGB_COLOR {
 	unsigned int R;
 	unsigned int G;
@@ -75,5 +75,5 @@ private:
 	unsigned int m_nLineBytes;
 };
 
-void API OutputBitMapInfoHeader(PBITMAPINFOHEADER pInfoHeader);
-void API OutputBitMapFileHeader(PBITMAPFILEHEADER pFileHeader);
+API void  OutputBitMapInfoHeader(PBITMAPINFOHEADER pInfoHeader);
+API void OutputBitMapFileHeader(PBITMAPFILEHEADER pFileHeader);
