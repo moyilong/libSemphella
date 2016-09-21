@@ -87,3 +87,8 @@ void kernel::error(string info, string file, int line)
 	cout << "[ERROR][" << file << "][" << line << "]" << info << endl;
 	exit(-1);
 }
+
+int main(int argc, char *argv[])
+{
+	KERNEL.LogoPrint();
+}
