@@ -28,7 +28,7 @@ API  void ShowProcessBar(float _percent, string display, char finish, char split
 	memset(buff, finish, comp);
 	buff[bis] = '\0';
 	buff[comp] = splite;
-	cout << display << " [" << buff << "]                   \r";
+	cout << display << " [" << buff << "]        \r";
 	free(buff);
 }
 
