@@ -1,18 +1,24 @@
 #pragma once
+#include "main.h"
 
+#ifdef __LINUX__
 typedef int LONG;
 typedef unsigned short WORD;
 typedef unsigned int DWORD;
+
 #pragma pack(push,1)
-typedef struct tagBITMAPFILEHEADER {
+
+struct tagBITMAPFILEHEADER {
 	WORD  bfType;
 	DWORD bfSize;
 	WORD  bfReserved1;
 	WORD  bfReserved2;
 	DWORD bfOffBits;
-} BITMAPFILEHEADER, *PBITMAPFILEHEADER;
+};
 
-typedef struct tagBITMAPINFOHEADER {
+#define BITMAPFILEHEADER tagBITMAPFILEHEADER
+
+struct tagBITMAPINFOHEADER {
 	DWORD biSize;
 	LONG  biWidth;
 	LONG  biHeight;
@@ -24,9 +30,19 @@ typedef struct tagBITMAPINFOHEADER {
 	LONG  biYPelsPerMeter;
 	DWORD biClrUsed;
 	DWORD biClrImportant;
-} BITMAPINFOHEADER, *PBITMAPINFOHEADER;
+};
+
+#define  BITMAPINFOHEADER tagBITMAPINFOHEADER
+
 #pragma pack(pop)
-class CBmpReader {
+#endif
+struct RGB_COLOR {
+	unsigned int R;
+	unsigned int G;
+	unsigned int B;
+};
+
+class CAPI CBmpReader {
 public:
 	CBmpReader();
 	~CBmpReader();
@@ -46,6 +62,8 @@ public:
 	unsigned int GetRedAt(int row, int col) const;
 	unsigned int GetGreenAt(int row, int col) const;
 	unsigned int GetBlueAt(int row, int col) const;
+	RGB_COLOR GetColorAt(int row, int col) const;
+	
 
 private:
 	PBITMAPFILEHEADER m_pFileHeader;
@@ -57,3 +75,5 @@ private:
 	unsigned int m_nLineBytes;
 };
 
+void API OutputBitMapInfoHeader(PBITMAPINFOHEADER pInfoHeader);
+void API OutputBitMapFileHeader(PBITMAPFILEHEADER pFileHeader);
