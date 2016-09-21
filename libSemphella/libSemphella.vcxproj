@@ -163,6 +163,7 @@
     <ClInclude Include="AES.h" />
     <ClInclude Include="apd.h" />
     <ClInclude Include="argment.h" />
+    <ClInclude Include="BMP.h" />
     <ClInclude Include="config.h" />
     <ClInclude Include="crypt.h" />
     <ClInclude Include="date_recovery_plus.h" />
@@ -188,6 +189,7 @@
     <ClCompile Include="AES.cpp" />
     <ClCompile Include="APD_LOADER.cpp" />
     <ClCompile Include="argment.cpp" />
+    <ClCompile Include="bmp.cpp" />
     <ClCompile Include="crypt.cpp" />
     <ClCompile Include="date_recovery_plus.cpp" />
     <ClCompile Include="debug.cpp" />

@@ -16,6 +16,7 @@ ADD_LIBRARY(Semphella SHARED
 	time.cpp
 	emmx.cpp
 	stl.cpp
+	bmp.cpp
 	utils.cpp)
 
 INSTALL (TARGETS Semphella DESTINATION lib)
@@ -41,5 +42,6 @@ INSTALL (FILES apd.h
 	sysapi_modcall.h
 	emmx.h
 	libSemphella.h
+	BMP.h
 	DESTINATION include/libSemphella)
 
