@@ -19,6 +19,7 @@
 
 #endif
 
+#include <libSemphella/BMP.h>
 
 QRAPI void CreateBMPBUff(string data, char *ptr, uint64_t &len, uint64_t prescale);
 QRAPI void CreateDataBuff(const char *data, uint64_t dlen, char *ptr, uint64_t &len, uint64_t prescale);
