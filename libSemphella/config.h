@@ -8,13 +8,6 @@
 #define __ALLOW_DYMANIC_DEBUG			//允许动态修改调试状态
 #endif
 
-//允许使用NV-CUDA加速
-#ifndef __LINUX__
-#ifndef __WNO_CUDA
-#define ALLOW_NVIDIA_CUDA_COMPUTING
-#endif
-#endif
-
 #ifndef __DEFAULT_DEBUG_STAT
 #define __DEFAULT_DEBUG_STAT	true	//默认调试状态
 #endif
