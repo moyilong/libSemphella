@@ -20,6 +20,6 @@
 #endif
 
 #include <libSemphella/BMP.h>
-
+#define BI_RGB 0L
 QRAPI void CreateBMPBUff(string data, char *ptr, uint64_t &len, uint64_t prescale);
 QRAPI void CreateDataBuff(const char *data, uint64_t dlen, char *ptr, uint64_t &len, uint64_t prescale);
