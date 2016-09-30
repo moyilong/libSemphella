@@ -5,6 +5,9 @@
 #define MAX_FILE_SIZE(size) 
 
 #pragma pack(push,1)
+struct block_keep {
+
+};
 struct keep_data_f {
 
 };
@@ -66,5 +69,5 @@ protected:
 	void InitFileIO(char *mode);
 	void UpdateIDFile();
 	uint64_t Search(uint64_t id);
-
+	void ReadBuff(uint64_t hash, char *ptr);
 };

@@ -69,9 +69,36 @@ void Compress::Import(string filename, bool create, const configure_t cfg)
 	}
 }
 
-void Compress::ReadBuffer(string filename, uint64_t begin, uint64_t length, char * buff)
+void Compress::ReadBuffer(string filename, uint64_t begin, uint64_t length, char * buffc)
 {
+	uint64_t begin_block = begin / head.block_len;
+	uint64_t begin_offset = begin - (head.block_len*begin_block);
+	uint64_t end_block =  (length-begin_offset) / head.block_len;
+	uint64_t end_offset = (length - begin_offset) - (head.block_len*begin_block);
+	char *buff = (char*)malloc(head.block_len);
+	uint64_t id = -1;
+	for (uint64_t n = 0; n < fat.size();n++)
+		if (strcmp(fat.at(n).infile.name, filename.data()))
+		{
+			id = n;
+			break;
+		}
+	if (id == -1)
+	{
+		memset(buff, 0, length);
+		return;
+	}
+	for (int n = begin_block+1; n < end_block; n++)
+	{
+		ReadBuff(fat.at(id).bcc.at(n + begin_block),buffc+begin_offset+head.block_len*n);
+	}
+	ReadBuff(fat.at(begin_block).bcc.at(begin_block),buff);
+	memcpy(buffc, buff + (head.block_len - begin_offset), head.block_len - begin_offset);
 
+	ReadBuff(fat.at(id).bcc.at(end_block + begin_block), buff);
+	memcpy(buffc + end_offset, buff, end_offset);
+
+	
 }
 
 void Compress::AddFile(string filename)
@@ -161,5 +188,17 @@ uint64_t Compress::Search(uint64_t id)
 		if (id == bat.at(n).hash)
 			return n;
 	return -1;
+}
+
+void Compress::ReadBuff(uint64_t hash, char * ptr)
+{
+	uint64_t id = Search(hash);
+	if (id == -1)
+	{
+		memset(ptr, 0, head.block_len);
+	}
+	uint64_t addr = sizeof(block_keep) + head.block_len*id;
+	index.seekp(addr);
+	index.read(ptr, head.block_len);
 }
 
