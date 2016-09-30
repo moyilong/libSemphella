@@ -4,6 +4,7 @@ set (SOURCE_FILES argment.cpp
 	crypt.cpp
 	debug.cpp
 	files.cpp
+	compress.cpp
 	kernel.cpp
 	libSemphella.cpp
 	license.cpp
@@ -37,6 +38,7 @@ INSTALL (FILES apd.h
 	linux.h
 	time.h
 	main.h
+	compress.h
 	math.h
 	string.h
 	sum.h
