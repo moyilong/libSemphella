@@ -36,9 +36,6 @@ struct configure_t {
 	int block_len;
 };
 extern const configure_t def_cfg;
-#define VERIFY_NOFAST	0
-#define VERIFY_FAST		1
-#define VERIFY_FASTX	2
 
 class API Compress {
 public:
