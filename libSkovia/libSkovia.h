@@ -26,6 +26,7 @@
 #include <unistd.h>
 #include <netdb.h>
 #include <arpa/inet.h>
+#include <errno.h>
 #else
 #define WIN32_LEAN_AND_MEAN
 #include <WinSock2.h>
