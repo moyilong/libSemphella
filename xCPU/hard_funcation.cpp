@@ -66,7 +66,7 @@ void error()
 			auto_rst = false;
 		esleep(5000);
 		init();
-		loop();
+		//loop();
 	}
 }
 

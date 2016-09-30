@@ -58,6 +58,7 @@
     <ClCompile Include="bmp.cpp">
       <Filter>代码</Filter>
     </ClCompile>
+    <ClCompile Include="compress.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="crypt.h">
@@ -132,6 +133,7 @@
     <ClInclude Include="BMP.h">
       <Filter>头</Filter>
     </ClInclude>
+    <ClInclude Include="compress.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />

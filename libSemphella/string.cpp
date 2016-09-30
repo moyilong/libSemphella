@@ -358,3 +358,57 @@ API double atolf(string val)
 	sscanf(val.data(), "%lf", &ret);
 	return ret;
 }
+
+inline bool match_bit(const char data, const char bit)
+{
+	switch (bit)
+	{
+	case '.':
+		return true;
+		break;
+	default:
+		return (bit == data);
+		break;
+	}
+	return false;
+}
+
+API bool StrMatch(const char *str, const char *match)
+{
+	const int str_len = strlen(str);
+	const int mat_len = strlen(match);
+	if (str_len == 0 || mat_len == 0)
+		return true;
+	int str_id=0;
+	for (int n = 0; n < mat_len; n++)
+	{
+		if (match[n] == '*')
+		{
+			if (n == mat_len - 1)
+				return true;
+			bool cont_match = false;
+			for (int b = str_id; b < str_len;b++)
+				if (match_bit(str[b], match[n + 1]))
+				{
+					str_id = b;
+					cont_match = true;
+					continue;
+				}
+			if (cont_match)
+				continue;
+			else
+				return false;
+		}
+		if (match_bit(str[str_id], match[n]))
+		{
+			str_id++;
+		}
+		else
+		{
+			return false;
+		}
+		if (str_id >= str_len)
+			return true;
+	}
+	return true;
+}

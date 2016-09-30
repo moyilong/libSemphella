@@ -92,4 +92,5 @@ void kernel::error(string info, string file, int line)
 int main(int argc, char *argv[])
 {
 	KERNEL.LogoPrint();
+	cout << "libSemphella " << CORE_NAME << endl;
 }
