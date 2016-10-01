@@ -313,7 +313,7 @@ API bool BlkFormatCompact(int ver)
 	return CompactTest(ver, blk_format);
 }
 
-API bool ProFormatCompact(char ver)
+API bool ProFormatCompact(int ver)
 {
 	return CompactTest(ver, pro_format);
 }
