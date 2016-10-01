@@ -4,6 +4,10 @@
 #define BLOCK_FILE	".blk"
 #define INDEX_FILE	".idx"
 
+
+
+
+
 const configure_t def_cfg = {
 	128,
 };
@@ -47,6 +51,9 @@ void Compress::Import(string filename, bool create, const configure_t cfg)
 	else {
 		index.read(&head, 1);
 		index.read(&keep, 1);
+		block.read(&blk_keep, 1);
+		if (!VerifyFileHead())
+			return;
 		for (int n = 0; n < head.filesize; n++)
 		{
 			file_t f;
@@ -86,9 +93,10 @@ void Compress::ReadBuffer(string filename, uint64_t begin, uint64_t length, char
 	if (id == -1)
 	{
 		memset(buff, 0, length);
+		free(buff);
 		return;
 	}
-	for (int n = begin_block+1; n < end_block; n++)
+	for (uint64_t n = begin_block+1; n < end_block; n++)
 	{
 		ReadBuff(fat.at(id).bcc.at(n + begin_block),buffc+begin_offset+head.block_len*n);
 	}
@@ -97,7 +105,7 @@ void Compress::ReadBuffer(string filename, uint64_t begin, uint64_t length, char
 
 	ReadBuff(fat.at(id).bcc.at(end_block + begin_block), buff);
 	memcpy(buffc + end_offset, buff, end_offset);
-
+	free(buff);
 	
 }
 
@@ -131,6 +139,40 @@ void Compress::AddFile(vector<string> filename)
 {
 	for (uint64_t n = 0; n < filename.size(); n++)
 		AddFile(filename.at(n));
+}
+#include "string.h"
+bool Compress::VerifyFileHead()
+{
+	if (!streval(head._define, PREDEF_HEAD))
+		return false;
+	if (!streval(blk_keep._define, PREDEF_HEAD))
+		return false;
+	if (!BlkFormatCompact(blk_keep._ver))
+		return false;
+	if (!ExtFormatCompact(keep._ver))
+		return false;
+	if (!ProFormatCompact(head._ver))
+		return false;
+	return true;
+}
+
+bool Compress::Verify(VERIFY_MODE mode,int mpsie)
+{
+	if (mode == LINK_AND_DATA)
+	{
+		if (Verify(LINK_TAG, mpsie) && Verify(BLK_DATA, mpsie))
+			return true;
+		else
+			return false;
+	}
+	switch (mode)
+	{
+	case LINK_TAG:
+		return VerifyLink(mpsie);
+	case BLK_DATA:
+		return VerifyBlock(mpsie);
+	}
+	return false;
 }
 
 uint64_t Compress::AddBuffers(const char * buff)
@@ -171,6 +213,8 @@ void Compress::UpdateIDFile()
 	index.seekp(0);
 	index.write(&head,1);
 	index.write(&keep,1);
+	block.seekp(0);
+	block.write(&blk_keep, 1);
 	for (uint64_t n = 0; n < fat.size(); n++)
 	{
 		index.write(&fat.at(n).infile,1);
@@ -190,9 +234,8 @@ uint64_t Compress::Search(uint64_t id)
 	return -1;
 }
 
-void Compress::ReadBuff(uint64_t hash, char * ptr)
+void Compress::IDReadBuff(uint64_t id, char * ptr)
 {
-	uint64_t id = Search(hash);
 	if (id == -1)
 	{
 		memset(ptr, 0, head.block_len);
@@ -201,4 +244,76 @@ void Compress::ReadBuff(uint64_t hash, char * ptr)
 	index.seekp(addr);
 	index.read(ptr, head.block_len);
 }
+bool Compress::VerifyLink(int mpsize)
+{
+	if (mpsize == -1)
+		mpsize = omp_get_num_procs();
+	for (uint64_t n = 0; n < fat.size(); n+=mpsize)
+	{
+		bool stat = true;
+#pragma omp parallel for
+		for (int x = 0; x < mpsize; x++)
+			if (stat)
+				for (uint64_t b = 0; b < fat.at(n + x).bcc.size(); b++)
+					if (stat)
+						if (Search(fat.at(n + x).bcc.at(b) == -1))
+							stat = false;
+		if (!stat)
+			return false;
+	}
+	return true;
+}
+bool Compress::VerifyBlock(int mpsize)
+{
+	if (mpsize == -1)
+		mpsize = omp_get_num_procs();
+	char **temp;
+	temp = (char**)malloc(sizeof(char*)*mpsize);
+	for (int n = 0; n < mpsize; n++)
+		temp[n] = (char*)malloc(head.block_len);
+	for (uint64_t n = 0; n < bat.size(); n++)
+	{
+		bool stat = true;
+		for (int x = 0; x < mpsize; x++)
+			IDReadBuff(n + x, temp[x]);
+#pragma omp parallel for
+		for (int x = 0; x < mpsize; x++)
+			if (stat)
+				if (!getsumV2(temp[n + x], head.block_len))
+					stat = false;
+		if (!stat)
+			return false;
+	}
+	return true;
+}
+API extern const char ext_format[] = { 0xA0,0xFF };
+API extern const char pro_format[] = { 0xBF,0xFF };
+API extern const char blk_format[] = { 0xA1,0xFF };
+__inline bool CompactTest(const char ver,const char *match_tree)
+{
+	int offset = 0;
+	while (true)
+	{
+		if (match_tree[offset] == 0xFF)
+			return false;
+		if (ver == match_tree[offset])
+			return true;
+		offset++;
+	}
+	return false;
+}
 
+API bool ExtFormatCompact(char ver)
+{
+	return CompactTest(ver, ext_format);
+}
+
+API bool BlkFormatCompact(char ver)
+{
+	return CompactTest(ver, blk_format);
+}
+
+API bool ProFormatCompact(char ver)
+{
+	return CompactTest(ver, pro_format);
+}
