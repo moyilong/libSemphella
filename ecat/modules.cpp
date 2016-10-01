@@ -18,3 +18,11 @@ _CAT_MOD Search(string name)
 			return vmod.at(n);
 	throw "NO_ENOUGTH_VMOD";
 }
+
+
+void norm(char *val, int len, argment args)
+{
+	printf(val);
+}
+
+CAT_MOD normally("normally", norm);
