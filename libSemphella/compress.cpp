@@ -286,10 +286,10 @@ bool Compress::VerifyBlock(int mpsize)
 	}
 	return true;
 }
-API extern const char ext_format[] = { 0xA0,0xFF };
-API extern const char pro_format[] = { 0xBF,0xFF };
-API extern const char blk_format[] = { 0xA1,0xFF };
-__inline bool CompactTest(const char ver,const char *match_tree)
+API extern const int ext_format[] = { 0xA0,0xFF };
+API extern const int pro_format[] = { 0xBF,0xFF };
+API extern const int blk_format[] = { 0xA1,0xFF };
+__inline bool CompactTest(const char ver,const int *match_tree)
 {
 	int offset = 0;
 	while (true)
@@ -303,12 +303,12 @@ __inline bool CompactTest(const char ver,const char *match_tree)
 	return false;
 }
 
-API bool ExtFormatCompact(char ver)
+API bool ExtFormatCompact(int ver)
 {
 	return CompactTest(ver, ext_format);
 }
 
-API bool BlkFormatCompact(char ver)
+API bool BlkFormatCompact(int ver)
 {
 	return CompactTest(ver, blk_format);
 }

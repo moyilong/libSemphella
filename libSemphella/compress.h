@@ -9,29 +9,29 @@
 #define EXT_FORMAT_VER	0xA0
 #define BLK_FORMAT_VER	0xA1
 
-API extern const char ext_format[];
-API extern const char pro_format[];
-API extern const char blk_format[];
+API extern const int ext_format[];
+API extern const int pro_format[];
+API extern const int blk_format[];
 
-API bool ExtFormatCompact(char ver);
-API bool BlkFormatCompact(char ver);
-API bool ProFormatCompact(char ver);
+API bool ExtFormatCompact(int ver);
+API bool BlkFormatCompact(int ver);
+API bool ProFormatCompact(int ver);
 
 #pragma pack(push,1)
 struct block_keep {
 	char _define[8] = PREDEF_HEAD;
-	char _ver = BLK_FORMAT_VER;
+	int _ver = BLK_FORMAT_VER;
 };
 
 struct keep_data_f {
 	char description[MAX_DESCRIPTION_LEN];
-	char _ver = EXT_FORMAT_VER;
+	int _ver = EXT_FORMAT_VER;
 	uint64_t password_lize=0;
 };
 
 struct head_f {
 	char _define[8] = PREDEF_HEAD;
-	char _ver = PROTOCO_VER;
+	int _ver = PROTOCO_VER;
 	uint64_t filesize;
 	int block_len;
 	uint64_t blocksize;
