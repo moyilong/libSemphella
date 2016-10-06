@@ -6,8 +6,6 @@
 #include <libSemphella/crypt.h>
 #include <time.h>
 #include <math.h>
-#include <libSemphella/sum.h>
-
 #include <limits>
 #include <libSemphella/utils.h>
 #include <libSemphella/files.h>

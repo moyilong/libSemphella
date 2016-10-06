@@ -49,6 +49,7 @@ API uint64_t getsumV2(const char *data, int64_t len)
 	}
 	return ret;
 }
+
 API char xor_crypt(string password, char *data, int len)
 {
 #pragma omp parallel for
@@ -132,7 +133,7 @@ CAPI void word_list_convert(char *str, const char *word_white_list, const char *
 
 API string word_encrypt(const string origin, const string password)
 {
-	char *buff = new char[origin.size()];
+	char *buff = (char*)malloc(origin.size());//new char[origin.size()];
 	strcpy(buff, origin.data());
 	crypt(buff, origin.size(), password);
 	string ret;
@@ -143,6 +144,7 @@ API string word_encrypt(const string origin, const string password)
 		string xbuff = cbuff;
 		ret += xbuff.substr(xbuff.size() - 2);
 	}
+	free(buff);
 	return ret;
 }
 
@@ -237,23 +239,6 @@ API float getsum(const char *data, int len)
 	return ret;
 }
 
-#include "sum.h"
-
-API uint64_t md5_SUM(const char *data, uint64_t len)
-{
-	unsigned char result[ZEN_MD5_HASH_SIZE];
-	memset(result, 0, sizeof(result));
-	ZEN_LIB::md5((const unsigned char *)data, len, result);
-	return getsumV2((char*)result, ZEN_MD5_HASH_SIZE);
-}
-
-API uint64_t sha1_SUM(const char *data, uint64_t len)
-{
-	unsigned char result[ZEN_SHA1_HASH_SIZE];
-	memset(result, 0, sizeof(result));
-	ZEN_LIB::sha1((const unsigned char *)data, len, result);
-	return getsumV2((char*)result, ZEN_SHA1_HASH_SIZE);
-}
 API void fastCrypt(char *data, int64_t len, string password, int PMLEN)
 {
 	char seed = 0;

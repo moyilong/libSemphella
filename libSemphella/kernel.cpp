@@ -1,6 +1,5 @@
 #include "kernel.h"
 #include <time.h>
-#include "sum.h"
 #include "config.h"
 bool kernel_inited = false;
 bool debug_stat = __DEFAULT_DEBUG_STAT;

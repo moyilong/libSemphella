@@ -16,9 +16,6 @@
     <ClCompile Include="math.cpp">
       <Filter>代码</Filter>
     </ClCompile>
-    <ClCompile Include="sum.cpp">
-      <Filter>代码</Filter>
-    </ClCompile>
     <ClCompile Include="files.cpp">
       <Filter>代码</Filter>
     </ClCompile>
@@ -85,9 +82,6 @@
       <Filter>头</Filter>
     </ClInclude>
     <ClInclude Include="math.h">
-      <Filter>头</Filter>
-    </ClInclude>
-    <ClInclude Include="sum.h">
       <Filter>头</Filter>
     </ClInclude>
     <ClInclude Include="files.h">
