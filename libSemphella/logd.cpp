@@ -159,7 +159,7 @@ namespace LogDaemon {
 		if (sum != code)
 		{
 			debug << "Verify Faild:" << sum << " != " << code << endl;
-			throw META_DATA_CHECK_FIALD;
+			//throw META_DATA_CHECK_FIALD;
 		}
 		if (meta.crypted && meta.hash_code != lp_hash)
 			throw PASSWORD_VERIFY_ERROR;
