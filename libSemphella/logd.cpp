@@ -50,10 +50,10 @@ namespace LogDaemon {
 		SetPassword(password);
 		string meta_name = path + "/logd.meta";
 		string data_name = path + "/data.meta";
-		meta_file.open(meta_name,"r+");
+		meta_file.open(meta_name,"r");
 		if (!meta_file.is_open())
 			throw META_READ_EXCEPTED;
-		data_file.open(data_name, "r+");
+		data_file.open(data_name, "r");
 		if (!data_file.is_open())
 			throw DATA_FILE_EXCEPTED;
 		if (create)
