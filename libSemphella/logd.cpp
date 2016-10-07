@@ -149,6 +149,7 @@ namespace LogDaemon {
 		char buff[sizeof(META_INFO)];
 		memset(buff, 0, sizeof(buff));
 		meta_file.read(buff, sizeof(META_INFO));
+		display_dump(buff, sizeof(META_INFO));
 		memcpy(&meta, buff, sizeof(meta_info));
 		uint64_t sum = meta.verify;
 		meta.verify = 0;
