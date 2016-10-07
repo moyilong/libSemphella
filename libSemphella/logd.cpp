@@ -150,13 +150,15 @@ namespace LogDaemon {
 	{
 		if (!meta_file.is_open())
 			throw META_READ_EXCEPTED;
-		meta_file.seekp(meta_file.beg);
-		meta_file.seekg(meta_file.beg);
+		//meta_file.seekp(meta_file.beg);
+		//meta_file.seekg(meta_file.beg);
+		meta_file.seekg(0);
+		meta_file.seekp(0);
 		char buff[sizeof(META_INFO)];
 		memset(buff, 0, sizeof(buff));
 		meta_file.read(buff, sizeof(META_INFO));
 		display_dump(buff, sizeof(META_INFO));
-		memcpy(&meta, buff, sizeof(meta_info));
+		memcpy(&meta, buff, sizeof(META_INFO));
 		uint64_t sum = meta.verify;
 		meta.verify = 0;
 		uint64_t code = getsumV2((char*)&meta, sizeof(META_INFO));
@@ -185,10 +187,11 @@ namespace LogDaemon {
 		meta.verify = 0;
 		uint64_t verify = getsumV2((char*)&meta, sizeof(META_INFO));
 		meta.verify = verify;
+		meta.SectionSize = section.size();
 		meta_file.seekp(meta_file.beg);
 		meta_file.seekg(meta_file.beg);
+		
 		meta_file.write((char*)&meta, sizeof(META_INFO));
-		meta.SectionSize = section.size();
 		debug << "Writing Section " << meta.SectionSize << endl;
 		for (uint64_t n = 0; n < meta.SectionSize; n++)
 			meta_file.write((char*)&section.at(n), sizeof(Section));
