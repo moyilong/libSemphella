@@ -27,6 +27,7 @@ namespace LogDaemon {
 
 	void logd::SetPassword(string password)
 	{
+		debug << "Set Passwrod:" << password << endl;
 		loaded_password = password;
 		lp_hash = hash(password.data(), password.size());
 	}
@@ -110,7 +111,7 @@ namespace LogDaemon {
 		sect.descript_len = description.size();
 		section.push_back(sect);
 		debug << "Calcuating Offset..." << endl;
-		int offset = data_file.beg + GetOffSet(section.size() - 1);
+		uint64_t offset = data_file.beg + GetOffSet(section.size() - 1);
 		data_file.seekp(offset);
 		data_file.seekg(offset);
 		//data_file.write(description.data(), description.size());
