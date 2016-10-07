@@ -58,6 +58,9 @@
     <ClCompile Include="compress.cpp">
       <Filter>代码</Filter>
     </ClCompile>
+    <ClCompile Include="logd.cpp">
+      <Filter>代码</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="crypt.h">
@@ -130,6 +133,9 @@
       <Filter>头</Filter>
     </ClInclude>
     <ClInclude Include="compress.h">
+      <Filter>头</Filter>
+    </ClInclude>
+    <ClInclude Include="logd.h">
       <Filter>头</Filter>
     </ClInclude>
   </ItemGroup>

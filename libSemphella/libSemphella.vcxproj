@@ -172,6 +172,7 @@
     <ClInclude Include="emmx.h" />
     <ClInclude Include="files.h" />
     <ClInclude Include="license.h" />
+    <ClInclude Include="logd.h" />
     <ClInclude Include="stl.h" />
     <ClInclude Include="kernel.h" />
     <ClInclude Include="libsemphella.h" />
@@ -197,6 +198,7 @@
     <ClCompile Include="emmx.cpp" />
     <ClCompile Include="files.cpp" />
     <ClCompile Include="license.cpp" />
+    <ClCompile Include="logd.cpp" />
     <ClCompile Include="stl.cpp" />
     <ClCompile Include="kernel.cpp" />
     <ClCompile Include="libSemphella.cpp" />

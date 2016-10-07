@@ -17,6 +17,7 @@ set (SOURCE_FILES argment.cpp
 	emmx.cpp
 	stl.cpp
 	bmp.cpp
+	logd.cpp
 	utils.cpp)
 
 
@@ -37,6 +38,7 @@ INSTALL (FILES apd.h
 	kernel.h
 	linux.h
 	time.h
+	logd.h
 	main.h
 	compress.h
 	math.h

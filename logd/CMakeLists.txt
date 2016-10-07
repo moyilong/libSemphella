@@ -1,0 +1,3 @@
+ADD_EXECUTABLE(logd main.cpp)
+TARGET_LINK_LIBRARIES(logd -lSemphella)
+INSTALL(TARGETS logd DESTINATION bin)
