@@ -48,10 +48,10 @@ namespace LogDaemon {
 		SetPassword(password);
 		string meta_name = path + "/logd.meta";
 		string data_name = path + "/data.meta";
-		meta_file.open(meta_name,"wb");
+		meta_file.open(meta_name,ios_base::in|ios_base::out| ios_base::binary);
 		if (!meta_file.is_open())
 			throw META_READ_EXCEPTED;
-		data_file.open(data_name, "wb");
+		data_file.open(data_name, ios_base::in | ios_base::out | ios_base::binary);
 		if (!data_file.is_open())
 			throw DATA_FILE_EXCEPTED;
 		if (create)
@@ -88,7 +88,8 @@ namespace LogDaemon {
 			throw DATA_FILE_EXCEPTED;
 		char *buff = (char *)malloc(section.at(id).descript_len);
 		memset(buff, 0, section.at(id).descript_len);
-		data_file.seekp(offset);
+		data_file.seekp(data_file.beg + offset);
+		data_file.seekg(data_file.beg + offset);
 		data_file.read(buff, section.at(id).descript_len);
 		if (meta.crypted)
 			crypt(loaded_password, buff, section.at(id).descript_len);
@@ -108,7 +109,9 @@ namespace LogDaemon {
 		sect.descript_len = description.size();
 		section.push_back(sect);
 		debug << "Calcuating Offset..." << endl;
-		data_file.seekp(GetOffSet(section.size()-1));
+		int offset = data_file.beg + GetOffSet(section.size() - 1);
+		data_file.seekp(offset);
+		data_file.seekg(offset);
 		//data_file.write(description.data(), description.size());
 		debug << "Prepare to Crypto.." << endl;
 		char *buff = (char*)malloc(description.size());
@@ -147,7 +150,8 @@ namespace LogDaemon {
 	{
 		if (!meta_file.is_open())
 			throw META_READ_EXCEPTED;
-		meta_file.seekp(0);
+		meta_file.seekp(meta_file.beg);
+		meta_file.seekg(meta_file.beg);
 		char buff[sizeof(META_INFO)];
 		memset(buff, 0, sizeof(buff));
 		meta_file.read(buff, sizeof(META_INFO));
@@ -181,7 +185,8 @@ namespace LogDaemon {
 		meta.verify = 0;
 		uint64_t verify = getsumV2((char*)&meta, sizeof(META_INFO));
 		meta.verify = verify;
-		meta_file.seekp(0);
+		meta_file.seekp(meta_file.beg);
+		meta_file.seekg(meta_file.beg);
 		meta_file.write((char*)&meta, sizeof(META_INFO));
 		meta.SectionSize = section.size();
 		debug << "Writing Section " << meta.SectionSize << endl;

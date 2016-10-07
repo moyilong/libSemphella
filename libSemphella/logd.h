@@ -52,8 +52,8 @@ namespace LogDaemon {
 			uint64_t descript_len;
 		};
 #pragma pack(pop)
-		file meta_file;
-		file data_file;
+		fstream meta_file;
+		fstream data_file;
 		vector<Section> section;
 		META_INFO meta;
 		string loaded_password;
