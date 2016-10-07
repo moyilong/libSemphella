@@ -147,78 +147,44 @@ namespace LogDaemon {
 	{
 		if (!meta_file.is_open())
 			throw META_READ_EXCEPTED;
-		/*
-		
-		meta_file.read(buff, META_LEN);
-		memcpy(buff, (char*)&meta, sizeof(META_INFO));
-		uint64_t r_code = meta.verify;
-		meta.verify = 0;
-		uint64_t c_code = hash(buff, sizeof(META_INFO));
-		*/
-		//if (!memequal((char*)&c_code, buff + sizeof(META_INFO), sizeof(uint64_t)))
-		//	throw META_DATA_CHECK_FIALD;
-
-		//memcpy(&r_code, buff + sizeof(META_INFO), sizeof(uint64_t));
-		//debug << " Verify: " << c_code << "  " << r_code << endl;
-		//if (r_code != c_code)
-		//	throw META_DATA_CHECK_FIALD;
-		//meta_file.read(&meta, 1);
 		meta_file.seekp(0);
 		char buff[sizeof(META_INFO)];
+		memset(buff, 0, sizeof(buff));
 		meta_file.read(buff, sizeof(META_INFO));
-		memcpy(&meta, buff, sizeof(META_INFO));
-		display_dump((char*)&meta, sizeof(META_INFO));
-		uint64_t rc = meta.verify;
-		debug << "ReadVal:" << rc << endl;
+		memcpy(&meta, buff, sizeof(meta_info));
+		uint64_t sum = meta.verify;
 		meta.verify = 0;
-		uint64_t cc = hash((char*)&meta, sizeof(META_INFO));
-		debug << "Verify :" << cc << " != " << rc << endl;
-		if (cc != rc)
-		{
+		uint64_t code = getsumV2((char*)&meta, sizeof(META_INFO));
+		if (sum != code)
 			throw META_DATA_CHECK_FIALD;
-		}
-		section.clear();
+		if (meta.crypted && meta.hash_code != lp_hash)
+			throw PASSWORD_VERIFY_ERROR;
+		debug << "Reading Section " << meta.SectionSize << endl;
 		for (uint64_t n = 0; n < meta.SectionSize; n++)
 		{
-			Section sect;
-			meta_file.read((char *)&sect, 1);
-			if (meta.crypted)
-				crypt(loaded_password, (char*)&sect,sizeof(Section));
-			section.push_back(sect);
+			char temp[sizeof(Section)];
+			meta_file.read(temp,sizeof(Section));
+			Section v;
+			memcpy(&v, temp, sizeof(Section));
+			section.push_back(v);
 		}
-		debug << "Read Section:" << section.size() <<":"<<meta.SectionSize<< endl;
 	}
 
 	void logd::WriteMeta()
 	{
-		/*meta.verify = 0;
-		uint64_t code = hash((char*)&meta, sizeof(META_INFO));
-		meta.verify = code;
-		char *buff = (char*)malloc(META_LEN);
-		memcpy(buff, &meta, sizeof(META_INFO));
-		
-		meta_file.seekp(0);
-		meta_file.write(buff, META_LEN);
-		*/
 		if (!meta_file.is_open())
 			throw META_WRITE_EXCEPTED;
 		meta.verify = 0;
-		uint64_t verf = hash((char*)&meta, sizeof(META_INFO));
-		meta.verify = verf;
-		meta.SectionSize = section.size();
-		debug << "Write Section:" << meta.SectionSize << endl;
+		uint64_t verify = getsumV2((char*)&meta, sizeof(META_INFO));
+		meta.verify = verify;
+		meta_file.seekp(0);
 		meta_file.write((char*)&meta, sizeof(META_INFO));
-		meta_file.flush();
+		meta.SectionSize = section.size();
+		debug << "Writing Section " << meta.SectionSize << endl;
 		for (uint64_t n = 0; n < meta.SectionSize; n++)
-		{
-			char sect[sizeof(Section)];
-			memcpy(sect, &section.at(n), sizeof(Section));
-			if (meta.crypted)
-				crypt(loaded_password, sect, sizeof(Section));
-			meta_file.write(sect,sizeof(Section));
-		}
-		meta_file.flush();
-		display_dump((char*)&meta, sizeof(META_INFO));
+			meta_file.write((char*)&section.at(n), sizeof(Section));
+
+		
 	}
 	uint64_t logd::GetOffSet(uint64_t id)
 	{

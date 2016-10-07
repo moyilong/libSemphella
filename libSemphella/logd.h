@@ -11,6 +11,7 @@ namespace LogDaemon {
 		META_WRITE_EXCEPTED,
 		META_READ_EXCEPTED,
 		DATA_FILE_EXCEPTED,
+		PASSWORD_VERIFY_ERROR,
 	};
 #define hash getsumV2
 #define crypt(pwd,buf,len) fastCrypt(buf,len,pwd)
