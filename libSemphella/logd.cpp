@@ -67,6 +67,8 @@ namespace LogDaemon {
 			}
 			section.clear();
 			memset(meta.CDATA,'c', CUSTMON_DATA);
+			meta.a = 'v';
+			meta.b = 'e';
 			debug << "Writing Meta File..." << endl;
 			WriteMeta();
 			debug << "Init Log..." << endl;

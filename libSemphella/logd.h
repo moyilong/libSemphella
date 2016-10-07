@@ -42,7 +42,9 @@ namespace LogDaemon {
 			uint64_t hash_code=0;
 			uint64_t SectionSize;
 			char CDATA[CUSTMON_DATA] = { 0x00 };
+			char a='v';
 			uint64_t verify;
+			char b = 'e';
 		};
 		struct Section {
 			char begin='\n';
