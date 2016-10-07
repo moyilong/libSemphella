@@ -15,7 +15,6 @@ namespace LogDaemon {
 			data_file.flush();
 			data_file.close();
 		}
-			
 	}
 	logd::logd(string path, string password,bool create)
 	{
@@ -42,7 +41,6 @@ namespace LogDaemon {
 			return false;
 		}
 		return true;
-
 	}
 
 	void logd::Load(string path, string password,bool create)
@@ -156,7 +154,10 @@ namespace LogDaemon {
 		meta.verify = 0;
 		uint64_t code = getsumV2((char*)&meta, sizeof(META_INFO));
 		if (sum != code)
+		{
+			debug << "Verify Faild:" << sum << " != " << code << endl;
 			throw META_DATA_CHECK_FIALD;
+		}
 		if (meta.crypted && meta.hash_code != lp_hash)
 			throw PASSWORD_VERIFY_ERROR;
 		debug << "Reading Section " << meta.SectionSize << endl;
