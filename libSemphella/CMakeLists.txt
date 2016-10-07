@@ -10,7 +10,6 @@ set (SOURCE_FILES argment.cpp
 	license.cpp
 	math.cpp
 	string.cpp
-	sum.cpp
 	AES.cpp
 	date_recovery_plus.cpp
 	time.cpp
@@ -43,7 +42,6 @@ INSTALL (FILES apd.h
 	compress.h
 	math.h
 	string.h
-	sum.h
 	utils.h
 	date_recovery_plus.h
 	license.h 
