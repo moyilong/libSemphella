@@ -47,7 +47,7 @@ namespace LogDaemon {
 			char b = 'e';
 		};
 		struct Section {
-			char begin='\n';
+			char begin='b';
 			time_t time_log;
 			uint64_t descript_len;
 		};
