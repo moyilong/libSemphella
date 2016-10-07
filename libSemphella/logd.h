@@ -36,7 +36,7 @@ namespace LogDaemon {
 	private:
 #pragma pack(push,1)
 		struct META_INFO {
-			char begin[16];
+			//char begin[16];
 			//VER meta_ver;
 			bool crypted;
 			uint64_t hash_code=0;

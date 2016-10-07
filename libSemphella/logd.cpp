@@ -56,7 +56,7 @@ namespace LogDaemon {
 			throw DATA_FILE_EXCEPTED;
 		if (create)
 		{
-			strcpy(meta.begin, BEGIN_MASX);
+			//strcpy(meta.begin, BEGIN_MASX);
 			debug << "Create Mode..." << endl;
 			if (loaded_password.size() == 0)
 				meta.crypted = false;
