@@ -48,7 +48,7 @@ struct EXT {
 #define ext_end_lab	(char)'E'
 
 #define DEFAULT_FHANDLE 0
-#define DEFAULT_ALGRTHOM_TYPE	6
+#define DEFAULT_ALGRTHOM_TYPE	10
 
 extern EXT ex;
 
