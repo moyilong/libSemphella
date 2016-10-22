@@ -3,7 +3,7 @@
 PARTITION atlas[] = {
 	{"uboot",0,0,0x30000},
 	{"uboot-env",1,0x30000,0x10000},
-	{"factory",2,0x40000,0x100000},
+	{"factory",2,0x40000,0x10000},
 	{"firmware",3,0x50000,0xf90000},
 	{"efi",4,0xfe0000,0x10000}
 };

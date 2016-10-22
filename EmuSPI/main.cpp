@@ -104,20 +104,28 @@ int main(int argc, char *argv[])
 			const PARTITION part = device.GetPart(partition_name);
 			file fo;
 			debug << "Opening:" << part.name << endl;
+			debug << "Exporting form " << part.begin << " +" << part.length << endl;
 			fo.open(part.name, "w");
-			fo.write(buff + part.begin, part.length);
+			char *dbuff = (char*)malloc(part.length);
+			memcpy(dbuff, buff + part.begin, part.length);
+			fo.write(dbuff, part.length);
 			fo.close();
+			free(dbuff);
 		}
 		else {
 			cout << "Dump all partition...." << endl;
 			for (int n = 0; n < device.partition_size; n++)
 			{
 				const PARTITION part = device.GetPart(n);
+				debug << "Exporting form " << part.begin << " +" << part.length << endl;
 				cout << device.name << " -> " << part.name << endl;
 				file fo;
 				fo.open(part.name, "w");
-				fo.write(buff + part.begin, part.length);
+				char *dbuff = (char*)malloc(part.length);
+				memcpy(dbuff, buff + part.begin, part.length);
+				fo.write(dbuff, part.length);
 				fo.close();
+				free(dbuff);
 			}
 		}
 	}

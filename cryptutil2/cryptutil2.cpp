@@ -197,6 +197,7 @@ void config_read(string name, string value)
 
 int main(int argc, char *argv[])
 {
+	KERNEL.SetDebugStat(false);
 	pre_calc_pct(4096);
 	//KERNEL.SetDebugStat(false);
 #ifndef __LINUX__
