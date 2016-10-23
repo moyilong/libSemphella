@@ -7,9 +7,8 @@ struct SCORE_T {
 	uint64_t all_count;
 	uint64_t timeout;
 };
-int timeout = 5;
 #define TEST_LOOPS	128
-SCORE_T runOnce(int id)
+SCORE_T runOnce(int id,int timeout=5)
 {
 	debug << "Prepering for Test:" << APOLL[id].id << endl;
 	char buff[MAX_BUFF_SIZE];
@@ -38,7 +37,7 @@ SCORE_T runOnce(int id)
 	sc.all_count = count;
 	return sc;
 }
-LIBERT_API void PerformanceTest()
+LIBERT_API int PerformanceTest(int timeout)
 {
 	cout << "Start Performance Test!" << endl;
 	cout << "Algorthim Size:" << APOLL_SIZE << endl;
@@ -94,4 +93,5 @@ LIBERT_API void PerformanceTest()
 		cout << sct[n].id;
 	}
 	cout << endl;
+	return sct[0].id;
 }
