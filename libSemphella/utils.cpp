@@ -4,21 +4,6 @@
 
 API  void ShowProcessBar(float _percent, string display, char finish, char splite, char inprocess, int bis)
 {
-	/*double percent = _percent;
-	if (percent >= 100)
-		percent = percent/100;
-	int proceed = bis*percent;
-	char *buff = (char*)malloc(bis+1);
-	memset(buff, finish, proceed);
-	if (bis - proceed > 0)
-	{
-		memset(buff + proceed+1, inprocess, bis - proceed);
-		if (proceed +1 < 100)
-			buff[proceed +1] = splite;
-	}
-	buff[bis] = '\0';
-	cout << display << " [" << buff << "]                   \r";
-	free(buff);*/
 	double val = _percent;
 	if (val >= 1)
 		val = val / 100;
@@ -28,7 +13,7 @@ API  void ShowProcessBar(float _percent, string display, char finish, char split
 	memset(buff, finish, comp);
 	buff[bis] = '\0';
 	buff[comp] = splite;
-	cout << display << " [" << buff << "]        \r";
+	cout << StrLimit(display,8,true) << " [" << buff << "] \r";
 	free(buff);
 }
 

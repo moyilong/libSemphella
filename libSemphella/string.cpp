@@ -63,12 +63,18 @@ API string api_human_read_time_unit(uint64_t val)
 	return human_read(val, ret, 1024);
 }
 
-API string StrLimit(string str, int len)
+API string StrLimit(string str, int len,bool spare)
 {
 	if (len <= 8)
 		KERNEL.error("StrLimit is too short!");
 	if (str.size() <= len)
-		return str;
+	{
+		char *buff = (char*)malloc(len+1);
+		memset(buff, ' ', len + 1);
+		buff[len] = '\0';
+		strcpy(buff, str.data());
+		return buff;
+	}
 	return str.substr(0, len - 6) + "..." + str.substr(str.size() - 3);
 }
 

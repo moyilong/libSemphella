@@ -2,7 +2,7 @@
 #include "main.h"
 #include "debug.h"
 
-API string StrLimit(string str, int len = 8);
+API string StrLimit(string str, int len = 8, bool spare=false);
 API int strfind(const char *str, char find, bool wn = false);
 CAPI void strcpy(char *dest, const char *origin, long long cplen, long long r_off, long long w_off);
 API bool streval(const char *a, const char *b, bool over_len = false);
