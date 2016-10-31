@@ -66,7 +66,8 @@ API string api_human_read_time_unit(uint64_t val)
 API string StrLimit(string str, int len,bool spare)
 {
 	if (len <= 8)
-		KERNEL.error("StrLimit is too short!");
+		return str;
+		//KERNEL.error("StrLimit is too short!");
 	if (str.size() <= len)
 	{
 		char *buff = (char*)malloc(len+1);
