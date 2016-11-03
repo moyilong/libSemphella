@@ -78,11 +78,11 @@ void kernel::abort()
 	this->error("System Faild Was benn Called!");
 	exit(-1);
 }
-void kernel::message(string info, string file, int line)
+void kernel::_message(string info, string file, int line)
 {
 	if (debug_stat) cout << "[" << file << "][" << line << "]" << info << endl;
 }
-void kernel::error(string info, string file, int line)
+void kernel::_error(string info, string file, int line)
 {
 	cout << "[ERROR][" << file << "][" << line << "]" << info << endl;
 	exit(-1);

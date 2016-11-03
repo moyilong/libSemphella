@@ -120,4 +120,71 @@ struct API block_math {
 
 API vector<LIMIT_LINE> ShortX(vector<LIMIT_LINE> data);
 API void ShortXTest(uint64_t test_numbers,string outformal="%ld,%ld,%ld ,, %ld,%ld,%ld\n");
-API void random_test();
+
+template<class num>struct NumberList {
+	vector<num> collect;
+	vector<num>ret;
+	inline NumberList(num begin, num step, num end);
+	inline NumberList(num *list, num number);
+	inline Drandom(uint64_t seek=time(0) ^ clock());
+};
+
+template<class num>
+inline NumberList<num>::NumberList(num begin, num step, num end)
+{
+	for (num n = beign; n < end; n += end)
+		collect.push_back(n);
+}
+
+template<class num>
+inline NumberList<num>::NumberList(num * list, num number)
+{
+	for (num n; n < number; n++)
+		collect.push_back(list[n]);
+}
+
+template<class num>
+inline NumberList<num>::Drandom(uint64_t seek)
+{
+	if (collect.size() == 0)
+		throw ERRNO(INVALID_ARGMENTS);
+	//vector<num> data(collect);
+	ret.clear();
+	char buff[MAX_BUFF_SIZE];
+
+	num kseek = clock();
+	num vseek = time();
+
+	//num * prelist = (num*)malloc(sizeof(num)*collect.size());
+	num * getlist = (num*)malloc(sizeof(num)*collect.size());
+	bool *table = (bool*)malloc(sizeof(bool)*collect.size());
+	
+
+	for (num n = 0; n < collect.size(); n++)
+	{
+		prelist[n] = collect.at(n);
+		table[n] = false;
+		getlist[n] = 0;
+	}
+	for (num n = 0; n < collect.size(); n++)
+	{
+		bool cont = true;
+		kseek += 0xF0;
+		vseek += 0xB0;
+		num posit = 0;
+		do {
+			posit= eabs(sin(kseek ^ bseek + collect.at(n))*collect.size());
+			kseek += 0xA2;
+			vseek += 0x9F;
+		} while (table[posit] == false);
+		table[posit] = true;
+		getlist[posit] = collect.at(n);
+
+	}
+	for (int n = 0; n < collect.size(); n++)
+		ret.push_back(getlist[n]);
+	free(table);
+	free(getlist);
+	getlist = NULL;
+	table = NULL;
+}

@@ -61,7 +61,9 @@
     <ClCompile Include="logd.cpp">
       <Filter>代码</Filter>
     </ClCompile>
-    <ClCompile Include="sysapi_modcall.cpp" />
+    <ClCompile Include="sysapi_modcall.cpp">
+      <Filter>代码</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="crypt.h">
@@ -137,6 +139,9 @@
       <Filter>头</Filter>
     </ClInclude>
     <ClInclude Include="logd.h">
+      <Filter>头</Filter>
+    </ClInclude>
+    <ClInclude Include="error.h">
       <Filter>头</Filter>
     </ClInclude>
   </ItemGroup>

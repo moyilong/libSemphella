@@ -170,6 +170,7 @@
     <ClInclude Include="date_recovery_plus.h" />
     <ClInclude Include="debug.h" />
     <ClInclude Include="emmx.h" />
+    <ClInclude Include="error.h" />
     <ClInclude Include="files.h" />
     <ClInclude Include="license.h" />
     <ClInclude Include="logd.h" />
