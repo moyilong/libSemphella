@@ -34,6 +34,10 @@ kernel::kernel()
 	kver.fix = 3;
 }
 
+kernel::~kernel()
+{
+}
+
 void kernel::LogoPrint()
 {
 	cout << "                 ___         ___                ___  \n               /      /     /   /   /\\    /   /      \n              /----  /     /   /   /  \\  /   /----   \n             /____  /___  /___/   /    \\/   /____    \n";
@@ -62,11 +66,6 @@ int kernel::get_api_ver()
 	return API_VER;
 }
 
-kernel::~kernel()
-{
-	for (int n = 0; n < exit_call.size(); n++)
-		exit_call.at(n)();
-}
 
 time_t kernel::get_start_time()
 {
@@ -78,11 +77,11 @@ void kernel::abort()
 	this->error("System Faild Was benn Called!");
 	exit(-1);
 }
-void kernel::_message(string info, string file, int line)
+void kernel::message(string info, string file, int line)
 {
 	if (debug_stat) cout << "[" << file << "][" << line << "]" << info << endl;
 }
-void kernel::_error(string info, string file, int line)
+void kernel::error(string info, string file, int line)
 {
 	cout << "[ERROR][" << file << "][" << line << "]" << info << endl;
 	exit(-1);

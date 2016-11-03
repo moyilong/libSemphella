@@ -120,13 +120,14 @@ struct API block_math {
 
 API vector<LIMIT_LINE> ShortX(vector<LIMIT_LINE> data);
 API void ShortXTest(uint64_t test_numbers,string outformal="%ld,%ld,%ld ,, %ld,%ld,%ld\n");
+API void random_test();
 
-template<class num>struct NumberList {
+template<class num>class NumberList {
 	vector<num> collect;
-	vector<num>ret;
+	vector<num> ret;
 	inline NumberList(num begin, num step, num end);
 	inline NumberList(num *list, num number);
-	inline Drandom(uint64_t seek=time(0) ^ clock());
+	inline void Drandom(uint64_t seek = clock());
 };
 
 template<class num>
@@ -144,7 +145,7 @@ inline NumberList<num>::NumberList(num * list, num number)
 }
 
 template<class num>
-inline NumberList<num>::Drandom(uint64_t seek)
+inline void NumberList<num>::Drandom(uint64_t seek)
 {
 	if (collect.size() == 0)
 		throw ERRNO(INVALID_ARGMENTS);

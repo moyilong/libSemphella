@@ -46,3 +46,7 @@ string hdebug::Val2Str()
 {
 	return ull2s(ival);
 }
+
+API const char *error_list = {
+	"INVALID_ARGMENT",
+};
