@@ -2,6 +2,7 @@
 #include <vector>
 #include <cmath>
 #include <math.h>
+#include <time.h>
 
 template<class T>inline T dZero(T n, T def = 1)
 {
@@ -133,14 +134,14 @@ template<class num>class NumberList {
 template<class num>
 inline NumberList<num>::NumberList(num begin, num step, num end)
 {
-	for (num n = beign; n < end; n += end)
+	for (num n = begin; n < end; n += step)
 		collect.push_back(n);
 }
 
 template<class num>
 inline NumberList<num>::NumberList(num * list, num number)
 {
-	for (num n; n < number; n++)
+	for (num n=0; n < number; n++)
 		collect.push_back(list[n]);
 }
 
@@ -154,7 +155,7 @@ inline void NumberList<num>::Drandom(uint64_t seek)
 	char buff[MAX_BUFF_SIZE];
 
 	num kseek = clock();
-	num vseek = time();
+	num vseek = time(0);
 
 	//num * prelist = (num*)malloc(sizeof(num)*collect.size());
 	num * getlist = (num*)malloc(sizeof(num)*collect.size());
@@ -163,7 +164,6 @@ inline void NumberList<num>::Drandom(uint64_t seek)
 
 	for (num n = 0; n < collect.size(); n++)
 	{
-		prelist[n] = collect.at(n);
 		table[n] = false;
 		getlist[n] = 0;
 	}
@@ -174,7 +174,7 @@ inline void NumberList<num>::Drandom(uint64_t seek)
 		vseek += 0xB0;
 		num posit = 0;
 		do {
-			posit= eabs(sin(kseek ^ bseek + collect.at(n))*collect.size());
+			posit= eabs(sin(kseek ^ vseek + collect.at(n))*collect.size());
 			kseek += 0xA2;
 			vseek += 0x9F;
 		} while (table[posit] == false);
