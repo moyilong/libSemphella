@@ -11,7 +11,6 @@ set (SOURCE_FILES argment.cpp
 	math.cpp
 	string.cpp
 	AES.cpp
-	date_recovery_plus.cpp
 	time.cpp
 	emmx.cpp
 	stl.cpp
@@ -43,7 +42,6 @@ INSTALL (FILES apd.h
 	math.h
 	string.h
 	utils.h
-	date_recovery_plus.h
 	license.h 
 	sysapi_modcall.h
 	emmx.h

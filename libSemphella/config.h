@@ -5,7 +5,7 @@
 #endif
 
 #ifdef __ALLOW_DEBUG_STAT_CHANGE
-#define __ALLOW_DYMANIC_DEBUG			//允许动态修改调试状态
+//#define __ALLOW_DYMANIC_DEBUG			//允许动态修改调试状态
 #endif
 
 #ifndef __DEFAULT_DEBUG_STAT

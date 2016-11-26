@@ -40,9 +40,6 @@
     <ClCompile Include="AES.cpp">
       <Filter>代码</Filter>
     </ClCompile>
-    <ClCompile Include="date_recovery_plus.cpp">
-      <Filter>代码</Filter>
-    </ClCompile>
     <ClCompile Include="time.cpp">
       <Filter>代码</Filter>
     </ClCompile>
@@ -62,6 +59,9 @@
       <Filter>代码</Filter>
     </ClCompile>
     <ClCompile Include="sysapi_modcall.cpp">
+      <Filter>代码</Filter>
+    </ClCompile>
+    <ClCompile Include="EFS.cpp">
       <Filter>代码</Filter>
     </ClCompile>
   </ItemGroup>
@@ -117,9 +117,6 @@
     <ClInclude Include="sysapi_modcall.h">
       <Filter>头</Filter>
     </ClInclude>
-    <ClInclude Include="date_recovery_plus.h">
-      <Filter>头</Filter>
-    </ClInclude>
     <ClInclude Include="time.h">
       <Filter>头</Filter>
     </ClInclude>
@@ -142,6 +139,9 @@
       <Filter>头</Filter>
     </ClInclude>
     <ClInclude Include="error.h">
+      <Filter>头</Filter>
+    </ClInclude>
+    <ClInclude Include="EFS.h">
       <Filter>头</Filter>
     </ClInclude>
   </ItemGroup>

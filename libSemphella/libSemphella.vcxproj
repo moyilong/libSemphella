@@ -167,7 +167,6 @@
     <ClInclude Include="compress.h" />
     <ClInclude Include="config.h" />
     <ClInclude Include="crypt.h" />
-    <ClInclude Include="date_recovery_plus.h" />
     <ClInclude Include="debug.h" />
     <ClInclude Include="emmx.h" />
     <ClInclude Include="error.h" />
@@ -194,7 +193,6 @@
     <ClCompile Include="bmp.cpp" />
     <ClCompile Include="compress.cpp" />
     <ClCompile Include="crypt.cpp" />
-    <ClCompile Include="date_recovery_plus.cpp" />
     <ClCompile Include="debug.cpp" />
     <ClCompile Include="emmx.cpp" />
     <ClCompile Include="files.cpp" />

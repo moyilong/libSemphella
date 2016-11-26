@@ -6,7 +6,6 @@
 #include <libSemphella/argment.h>
 #include <libERT/libERT.h>
 #include <libERT/ext_io.h>
-#include <libSemphella/date_recovery_plus.h>
 
 void logo()
 {
@@ -148,40 +147,10 @@ void config_read(string name, string value)
 			aesTest();
 			exit(0);
 		}
-		if (streval(temp.data(), "drptest"))
-		{
-			uint64_t val = time(0);
-			uint64_t len = LIM_RAND_ULD(4096, 16384);
-			cout << val << " => " << len << endl;
-			if (!TrustyTestPerFrame(val, len))
-			{
-				cout << "Faild!" << endl;
-			}
-			exit(0);
-		}
 		if (streval(temp.data(), "decrypt"))
 		{
 			getsum2_decrypt(getsumV2("moyilong", strlen("moyilong")));
 			exit(0);
-		}
-		if (streval(temp.data(), "drpstreet"))
-		{
-			uint64_t all = 0;
-			uint64_t fin = 0;
-			uint64_t beg = time(0);
-			while (true)
-			{
-				all++;
-				uint64_t val = time(0);
-				uint64_t len = LIM_RAND_ULD(4096, 16384);
-				//cout << val << " => " << len << endl;
-				if (TrustyTestPerFrame(val, len))
-					fin++;
-				if (all % 5 == 0)
-				{
-					cout << "                                         " << (double)(fin * 100 / all) << "% " << (all - fin) << ":" << all << " " << (double)(all / dZero((time(0) - beg))) << " fps  \r";
-				}
-			}
 		}
 		if (streval(temp.data(), "mp2test"))
 		{
@@ -195,7 +164,7 @@ void config_read(string name, string value)
 	}
 }
 
-int main(int argc, char *argv[])
+int _main(int argc, char *argv[])
 {
 	KERNEL.SetDebugStat(false);
 	pre_calc_pct(4096);
@@ -310,4 +279,19 @@ int main(int argc, char *argv[])
 		return -1;
 	}
 	return 0;
+}
+
+int main(int argc, char *argv[])
+{
+	try {
+		return main(argc, argv);
+	}
+	catch (uint64_t id)
+	{
+		cout << "Catch a bug! ERROR: 0x" << hex<<id<<oct << endl;
+	}
+	catch (...)
+	{
+		cout << "System Catch an unknow error!" << endl;
+	}
 }
