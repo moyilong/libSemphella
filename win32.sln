@@ -13,8 +13,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "s2s", "s2s\s2s.vcxproj", "{
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cryptutil2", "cryptutil2\cryptutil2.vcxproj", "{1D5AAFC3-EA6A-4035-81AF-002D00894D3E}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SerialPortUtils", "SerialPortUtils\DragonEDGE.vcxproj", "{6C8FC2DC-53D3-4266-AEE5-06F6FBCB29A8}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xCPU", "xCPU\xCPU.vcxproj", "{B34A3B1F-EDC5-47C6-BEB5-1BA8A3E9C1F5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{740DF442-5DA3-4C86-88C7-99F19A99E972}"
