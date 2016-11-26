@@ -22,10 +22,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		CMakeLists.txt = CMakeLists.txt
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TAHITI", "TAHITI\TAHITI.vcxproj", "{D4094C16-ACC4-4954-B161-AC21CDBC51F9}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ULTRON", "ULTRON\ULTRON.vcxproj", "{AECB8DCF-DACF-4FAF-87FD-7B9AE588F21F}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PerformanceInvilige", "PerformanceInvilige\PerformanceInvilige.vcxproj", "{4DE26F91-50D8-49DB-9E8E-953B23EDB1F7}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libERT", "libERT\libERT.vcxproj", "{0F010312-834C-4D3E-84F7-A95FD8CA63C6}"
@@ -47,10 +43,6 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PT2", "PT2\PT2.vcxproj", "{392DFBD2-B5EF-4678-A61A-174710821C3D}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "stlcheck", "stlcheck\stlcheck.vcxproj", "{D9C92407-F750-486A-BD7C-02FD48B5AA89}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libQr", "libQr\libQr.vcxproj", "{B8CF5A9C-58FD-44CE-B86E-EC04E6A1A5EA}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "qrcreate", "qrcreate\qrcreate.vcxproj", "{A86B1574-30EB-4807-BF63-E73F1E29C640}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "logd", "logd\logd.vcxproj", "{84B92FA7-38AC-4E80-A110-AA5989DA9598}"
 EndProject
