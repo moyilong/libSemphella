@@ -284,7 +284,7 @@ int _main(int argc, char *argv[])
 int main(int argc, char *argv[])
 {
 	try {
-		return main(argc, argv);
+		return _main(argc, argv);
 	}
 	catch (uint64_t id)
 	{
