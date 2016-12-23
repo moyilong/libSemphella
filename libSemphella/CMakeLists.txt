@@ -34,6 +34,7 @@ INSTALL (FILES apd.h
 	debug.h
 	files.h
 	kernel.h
+	VER.h
 	linux.h
 	time.h
 	logd.h
