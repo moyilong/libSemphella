@@ -43,5 +43,19 @@ int main(int argc, char *argv[])
 		cout << "-n\tSend Title" << endl;
 		return -1;
 	}
+	if (xsend.at(0) == 'f' && xsend.at(1) == ':')
+	{
+		string fname = xsend.substr(2);
+		file fi;
+		fi.open(fname,"r");
+		if (!fi.is_open())
+		{
+			cout << "Open File Faild!" << fname << endl;
+		}
+		char *buffers = (char *)malloc(fi.tell_len());
+		fi.read(buffers, fi.tell_len());
+		xsend = buffers;
+		free(buffers);
+	}
 	return SendEmail(smtp, username, password, target, xsend,title);
 }
