@@ -11,6 +11,7 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/socket.h>
+#include <netdb.h>
 
 #define closesocket(socket) close(socket)
 #define INVALID_SOCKET	-1
