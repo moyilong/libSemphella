@@ -14,6 +14,7 @@
 
 #define closesocket(socket) close(socket)
 #define INVALID_SOCKET	-1
+#define SOCKET_ERROR	-1
 #define SOCKET int
 
 #endif
