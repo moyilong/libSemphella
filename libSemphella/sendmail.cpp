@@ -38,7 +38,7 @@ API bool SendEmail(const string& smtpServer, const string& username, const strin
 #ifndef __linux__
 	memcpy(&sin.sin_addr.S_un.S_addr, 
 #else
-	memcpy(&sin.sin_addr.s_un.s_addr, 
+	memcpy(&sin.sin_addr.s_addr, 
 #endif
 		ph->h_addr_list[0], ph->h_length);
 	debug << "Prepare to connect..." << endl;
