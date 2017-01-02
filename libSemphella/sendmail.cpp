@@ -2,7 +2,7 @@
 //author: Zero
 
 //facade of function send()
-__inline void Send(SOCKET& s, string& data) {
+__inline void _Send(SOCKET& s, string& data) {
 	if (send(s, data.c_str(), data.length(), 0) == SOCKET_ERROR) {
 		debug << "send data \"" << data << "\" error" << endl;
 	}
@@ -12,7 +12,7 @@ __inline void Send(SOCKET& s, string& data) {
 }
 
 //facade of function recv()
-__inline void Recv(SOCKET& s, char* buf, int len) {
+__inline void _Recv(SOCKET& s, char* buf, int len) {
 	memset(buf, 0, len);
 	if (recv(s, buf, len, 0) == SOCKET_ERROR) {
 		debug << "error, while receiving data" << endl;
@@ -20,6 +20,9 @@ __inline void Recv(SOCKET& s, char* buf, int len) {
 	else
 		debug << "success recv data:" << buf << endl;
 }
+
+#define Send _Send
+#define Recv _Recv
 
 API bool SendEmail(const string& smtpServer, const string& username, const string& pw, const string& to, const string& data) {
 	hostent *ph = gethostbyname(smtpServer.data());
