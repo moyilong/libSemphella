@@ -35,7 +35,12 @@ API bool SendEmail(const string& smtpServer, const string& username, const strin
 	memset(&sin, 0, sizeof(sin));
 	sin.sin_family = AF_INET;
 	sin.sin_port = htons(25);    //port of SMTP 
-	memcpy(&sin.sin_addr.S_un.S_addr, ph->h_addr_list[0], ph->h_length);
+#ifndef __linux__
+	memcpy(&sin.sin_addr.S_un.S_addr, 
+#else
+	memcpy(&sin.sin_addr.s_un.s_addr, 
+#endif
+		ph->h_addr_list[0], ph->h_length);
 	debug << "Prepare to connect..." << endl;
 	//connect to the mail server
 	SOCKET s = socket(PF_INET, SOCK_STREAM, 0);
