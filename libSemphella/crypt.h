@@ -76,3 +76,5 @@ API string dgst_string(const dgst a);
 API emmx mpSum(const char *data, uint64_t len, int caluc_length);
 API void mpSum_Test(int test_length,bool v2_algr=false);
 API uint64_t mpsum2(const char *data, uint64_t len);
+
+API string Base64Encode(const string& src);

@@ -141,7 +141,7 @@
       <WarningLevel>Level3</WarningLevel>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <FunctionLevelLinking>true</FunctionLevelLinking>
-      <PreprocessorDefinitions>NDEBUG;_WINDOWS;_USRDLL;LIBSEMPHELLA_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32_LEAN_AND_MEAN;NDEBUG;_WINDOWS;_USRDLL;LIBSEMPHELLA_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalOptions>/D__DLL_EXPORT /D_CRT_SECURE_NO_WARNINGS /fs %(AdditionalOptions)</AdditionalOptions>
       <OpenMPSupport>true</OpenMPSupport>
@@ -173,6 +173,7 @@
     <ClInclude Include="files.h" />
     <ClInclude Include="license.h" />
     <ClInclude Include="logd.h" />
+    <ClInclude Include="net.h" />
     <ClInclude Include="stl.h" />
     <ClInclude Include="kernel.h" />
     <ClInclude Include="libsemphella.h" />
@@ -198,6 +199,7 @@
     <ClCompile Include="files.cpp" />
     <ClCompile Include="license.cpp" />
     <ClCompile Include="logd.cpp" />
+    <ClCompile Include="sendmail.cpp" />
     <ClCompile Include="stl.cpp" />
     <ClCompile Include="kernel.cpp" />
     <ClCompile Include="libSemphella.cpp" />

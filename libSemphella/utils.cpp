@@ -94,3 +94,21 @@ API string shell(string cmds)
 		ret += buff;
 	return ret;
 }
+
+API void HexDump(const char *ptr, uint64_t len)
+{
+	char buff[17];
+	for (uint64_t n = 0; n < len; n++)
+	{
+		if (n % 16 == 0)
+		{
+			if (n == 0)
+				cout << endl;
+			else
+				cout << buff << endl;
+		}
+		printf("0x%02x ", (unsigned int)ptr[n]);
+		if (ptr[n] >= 0x21 && ptr[n] <= 0x7E)
+			buff[n % 16] = ptr[n];
+	}
+}

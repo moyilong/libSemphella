@@ -3,6 +3,7 @@ set (SOURCE_FILES argment.cpp
 	APD_LOADER.cpp
 	crypt.cpp
 	debug.cpp
+	sendmail.cpp
 	files.cpp
 	compress.cpp
 	kernel.cpp
@@ -40,6 +41,7 @@ INSTALL (FILES apd.h
 	logd.h
 	main.h
 	compress.h
+	net.h
 	math.h
 	string.h
 	utils.h

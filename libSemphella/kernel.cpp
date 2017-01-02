@@ -5,7 +5,11 @@ bool kernel_inited = false;
 bool debug_stat = __DEFAULT_DEBUG_STAT;
 kernel KERNEL;
 VER kver;
-
+#ifndef __linux__
+#include "net.h"
+WSAData wsa;
+WORD word;
+#endif
 void kernel::SetDebugStat(bool stat, string file, int line)
 {
 #ifndef __ALLOW_DEBUG_STAT_CHANGE
@@ -32,10 +36,17 @@ kernel::kernel()
 	kver.build = 4;
 	kver.version = 7;
 	kver.fix = 3;
+#ifndef __linux__
+	word=MAKEWORD(2, 2);
+	WSAStartup(word,&wsa);
+#endif
 }
 
 kernel::~kernel()
 {
+#ifndef __linux__
+	WSACleanup();
+#endif
 }
 
 void kernel::LogoPrint()

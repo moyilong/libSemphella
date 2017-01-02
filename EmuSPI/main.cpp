@@ -91,7 +91,7 @@ int main(int argc, char *argv[])
 	fi.close();
 	if (see_mode)
 	{
-		__display_dump(buff, device.length);
+		HexDump(buff, device.length);
 		exit(0);
 	}
 	if (dump_mode)
