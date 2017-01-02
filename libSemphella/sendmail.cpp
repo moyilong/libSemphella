@@ -24,7 +24,7 @@ __inline void _Recv(SOCKET& s, char* buf, int len) {
 #define Send _Send
 #define Recv _Recv
 
-API bool SendEmail(const string& smtpServer, const string& username, const string& pw, const string& to, const string& data) {
+API bool SendEmail(const string& smtpServer, const string& username, const string& pw, const string& to, const string& data,const string &title) {
 	hostent *ph = gethostbyname(smtpServer.data());
 	if (ph == NULL) {
 		debug << "no host: " << smtpServer << endl;
@@ -85,7 +85,7 @@ API bool SendEmail(const string& smtpServer, const string& username, const strin
 												//send data
 	Send(s, "data\r\n");
 	Recv(s, recvBuffer, sizeof(recvBuffer));    //should recv "354 End data with <CR><LF>.<CR><LF>"
-	Send(s, "to:" + to + "\r\n" + "subject:the newest IP\r\n\r\n" + data + "\r\n.\r\n");
+	Send(s, "to:" + to + "\r\n" + "subject:" + title +"\r\n\r\n" + data + "\r\n.\r\n");
 	Recv(s, recvBuffer, sizeof(recvBuffer));
 
 	Send(s, "quit\r\n");

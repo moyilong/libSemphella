@@ -28,4 +28,4 @@ struct nconfig {
 };
 
 
-API bool SendEmail(const string& smtpServer, const string& username, const string& pw, const string& to, const string& data);
+API bool SendEmail(const string& smtpServer, const string& username, const string& pw, const string& to, const string& data,const string &title="msend simple sned program");
