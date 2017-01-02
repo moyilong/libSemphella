@@ -2,7 +2,7 @@
 //author: Zero
 
 //facade of function send()
-__inline void _Send(SOCKET& s, string& data) {
+__inline void _Send(SOCKET& s, string data) {
 	if (send(s, data.c_str(), data.length(), 0) == SOCKET_ERROR) {
 		debug << "send data \"" << data << "\" error" << endl;
 	}
@@ -52,7 +52,7 @@ API bool SendEmail(const string& smtpServer, const string& username, const strin
 	Send(s, "HELO " + smtpServer + "\r\n");
 	Recv(s, recvBuffer, sizeof(recvBuffer));    //should recv "250 OK"
 	debug << "start to log in    " << endl;
-	Send(s, (string)"auth login\r\n");
+	Send(s, "auth login\r\n");
 	Recv(s, recvBuffer, sizeof(recvBuffer));    //should recv "334 username:"(This is the decode message)
 
 	Send(s, Base64Encode(username) + "\r\n");
@@ -78,12 +78,12 @@ API bool SendEmail(const string& smtpServer, const string& username, const strin
 	Recv(s, recvBuffer, sizeof(recvBuffer));    //should recv "250 Mail OK"
 
 												//send data
-	Send(s, (string)"data\r\n");
+	Send(s, "data\r\n");
 	Recv(s, recvBuffer, sizeof(recvBuffer));    //should recv "354 End data with <CR><LF>.<CR><LF>"
 	Send(s, "to:" + to + "\r\n" + "subject:the newest IP\r\n\r\n" + data + "\r\n.\r\n");
 	Recv(s, recvBuffer, sizeof(recvBuffer));
 
-	Send(s, (string)"quit\r\n");
+	Send(s, "quit\r\n");
 	Recv(s, recvBuffer, sizeof(recvBuffer));
 	closesocket(s);
 	return true;
