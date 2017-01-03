@@ -26,6 +26,10 @@ void procd(string name, string value)
 	case 'n':
 		title = value;
 		break;
+	case 'v':
+		if (strequal(name.data(), "verbose"))
+			KERNEL.SetDebugStat(true);
+		break;
 	}
 }
 

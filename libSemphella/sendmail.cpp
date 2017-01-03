@@ -45,7 +45,7 @@ API bool SendEmail(const string& smtpServer, const string& username, const strin
 	//connect to the mail server
 	SOCKET s = socket(PF_INET, SOCK_STREAM, 0);
 	if (connect(s, (sockaddr*)&sin, sizeof(sin))) {
-		debug << "failed to connect the mail server" << endl;
+		cout << "failed to connect the mail server" << endl;
 		return false;
 	}
 
