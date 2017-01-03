@@ -1,5 +1,6 @@
 #pragma once
-#define ASSIGN_TYPE	uint64_t
+//#define ASSIGN_TYPE	uint64_t
+typedef uint64_t ASSIGN_TYPE;
 #define SIGNED_TYPE	int64_t
 #define ARCH_LENGTH	sizeof(ASSIGN_TYPE)
 
@@ -11,5 +12,5 @@
 #define GB	MB*1024
 
 #define SECURE_ZONE_SIZE	128
-#define ALLOW_SIZE	8*MB
+#define ALLOW_SIZE	128*MB
 #define MEM_SIZE	ALLOW_SIZE-SECURE_ZONE_SIZE

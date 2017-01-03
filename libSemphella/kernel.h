@@ -22,14 +22,17 @@ public:
 	~kernel();
 	time_t get_start_time();
 	void abort();
-	void message(string info, string file = __FILE__, int line = __LINE__);
-	void error(string info, string file = __FILE__, int line = __LINE__);
+	void _message(string info, string file , int line );
+	void _error(string info, string file , int line );
 	bool GetDebugStat();
-	void SetDebugStat(bool stat, string file = __FILE__, int line = __LINE__);
+	void _SetDebugStat(bool stat, string file , int line );
 	void LogoPrint();
 	void Register(REG_TYPE reg, KSAPI api);
 	VER GetVer();
 	int get_api_ver();
+#define message(info) _message(info,__FILE__,__LINE__)
+#define error(info) _error(info,__FILE__,__LINE__)
+#define SetDebugStat(info) _SetDebugStat(info,__FILE__,__LINE__)
 private:
 	time_t start_time;
 	vector<KSAPI> init_call;

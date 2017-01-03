@@ -1,4 +1,5 @@
 #pragma once
+#undef error
 void init();
 void error();
 void poweroff();

@@ -10,10 +10,10 @@ VER kver;
 WSAData wsa;
 WORD word;
 #endif
-void kernel::SetDebugStat(bool stat, string file, int line)
+void kernel::_SetDebugStat(bool stat, string file, int line)
 {
 #ifndef __ALLOW_DEBUG_STAT_CHANGE
-	message("Debug stat change was been disabled! Track from " + file);
+	_message("Debug stat change was been disabled! Track from " ,file,line);
 #else
 	debug_stat = stat;
 #endif
@@ -34,8 +34,8 @@ kernel::kernel()
 		init_call.at(n)();
 	kver.main = 1;
 	kver.build = 4;
-	kver.version = 7;
-	kver.fix = 3;
+	kver.version = 8;
+	kver.fix = 0;
 #ifndef __linux__
 	word=MAKEWORD(2, 2);
 	WSAStartup(word,&wsa);
@@ -88,11 +88,11 @@ void kernel::abort()
 	this->error("System Faild Was benn Called!");
 	exit(-1);
 }
-void kernel::message(string info, string file, int line)
+void kernel::_message(string info, string file, int line)
 {
 	if (debug_stat) cout << "[" << file << "][" << line << "]" << info << endl;
 }
-void kernel::error(string info, string file, int line)
+void kernel::_error(string info, string file, int line)
 {
 	cout << "[ERROR][" << file << "][" << line << "]" << info << endl;
 	exit(-1);
