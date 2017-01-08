@@ -12,6 +12,7 @@ public:
 	emmx(uint64_t length);
 	~emmx();
 	void alloc(uint64_t length);
+#undef free
 	void free();
 	char operator[] (uint64_t off) const;
 	bool operator==(const emmx mmx) const;

@@ -13,6 +13,7 @@ set (SOURCE_FILES argment.cpp
 	string.cpp
 	AES.cpp
 	time.cpp
+	secload.cpp
 	emmx.cpp
 	stl.cpp
 	bmp.cpp
@@ -33,6 +34,7 @@ INSTALL (FILES apd.h
 	stl.h
 	AES.h
 	debug.h
+	secload.h
 	files.h
 	kernel.h
 	VER.h

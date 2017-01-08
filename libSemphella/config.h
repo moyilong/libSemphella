@@ -20,6 +20,10 @@
 #define MTYPE	float					//数学库浮点类型
 #endif
 
+#ifndef MDEBUG_STAT
+#define MDEBUG_STAT true				//内存调试模式
+#endif
+
 /*连接*/
 #define DEFAULT_DEBUG_STAT  __DEFAULT_DEBUG_STAT
 

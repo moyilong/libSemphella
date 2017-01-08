@@ -4,6 +4,7 @@
 #include <libSemphella/utils.h>
 #include <libSemphella/crypt.h>
 #include <libSemphella/debug.h>
+#include <libSemphella/secload.h>
 #undef max
 #undef min
 #include <limits>

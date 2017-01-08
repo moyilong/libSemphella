@@ -37,6 +37,7 @@ WORK_MODE mode = CRYPT;
 //char *buff = nullptr;
 #include <libSemphella/math.h>
 bool broken = false;
+bool exited = false;
 void config_read(string name, string value)
 {
 	int itemp;
@@ -66,7 +67,7 @@ void config_read(string name, string value)
 		break;
 	case 'P':
 		PerformanceTest();
-		exit(0);
+		exited = true;
 		break;
 	case 'b':
 		bs = atoi(value.data());
@@ -85,7 +86,7 @@ void config_read(string name, string value)
 		if (LoadExternalLib(value) != 0)
 		{
 			cout << "Loadlib:" << value << " Faild" << endl;
-			exit(-1);
+			exited = true;
 		}
 		break;
 	case 'A':
@@ -93,7 +94,7 @@ void config_read(string name, string value)
 		if (get_alg_id(al) == -1)
 		{
 			cout << "Faild to Get Algorghim!" << endl;
-			exit(-1);
+			exited = true;
 		}
 		debug << "Set ID To" << al << endl;
 		break;
@@ -113,7 +114,7 @@ void config_read(string name, string value)
 		cout << "Default Fhandle Size:" << DEFAULT_FHANDLE << endl;
 		cout << "Alloed Fhandle ID:" << endl;
 		cout << endl;
-		exit(0);
+		exited = true;
 		break;
 	case 'a':
 		logo();
@@ -126,7 +127,7 @@ void config_read(string name, string value)
 			get_alg_info(n, itemp, temp);
 			cout << n << ":" << itemp << "\t" << temp << endl;
 		}
-		exit(0);
+		exited = true;
 	case 'l':
 		mode = LICENSE_CREATE;
 		break;
@@ -140,17 +141,17 @@ void config_read(string name, string value)
 		if (streval(temp.data(), "fctest"))
 		{
 			fcTest();
-			exit(0);
+			exited = true;
 		}
 		if (streval(temp.data(), "aestest"))
 		{
 			aesTest();
-			exit(0);
+			exited = true;
 		}
 		if (streval(temp.data(), "decrypt"))
 		{
 			getsum2_decrypt(getsumV2("moyilong", strlen("moyilong")));
-			exit(0);
+			exited = true;
 		}
 		if (streval(temp.data(), "mp2test"))
 		{
@@ -187,6 +188,8 @@ int _main(int argc, char *argv[])
 	cp2 << "Process Argment by foreach" << endl;
 	config_load.for_each(config_read);
 	cp2 << "Init Funcation" << endl;
+	if (exited)
+		return 0;
 	HEAD head;
 	RETURN_STAT stat = OK;
 	switch (mode)
@@ -195,12 +198,12 @@ int _main(int argc, char *argv[])
 		if (!file_name_check(input))
 		{
 			cout << "Input Name Check Faild!" << endl;
-			exit(-1);
+			return -1;
 		}
 		if (input.empty())
 		{
 			cout << "Input is Empty!" << endl;
-			exit(-1);
+			return -1;
 		}
 		head = get_head(input);
 		if (broken)
@@ -214,14 +217,14 @@ int _main(int argc, char *argv[])
 		if (input.empty())
 		{
 			cout << "Input is Empty!" << endl;
-			exit(-1);
+			return -1;
 		}
 		if (output.empty())
 			output = input + ".ert4";
 		if (!file_name_check(output))
 		{
 			cout << "File name Check Faild!" << endl;
-			exit(-1);
+			return -1;
 		}
 		stat = crypt_to_file(input, output, password, al, fhand, ext_file, bs);
 		break;
@@ -229,18 +232,18 @@ int _main(int argc, char *argv[])
 		if (!file_name_check(input))
 		{
 			cout << "File name Check Faild!" << endl;
-			exit(-1);
+			return -1;
 		}
 		if (input.empty())
 		{
 			cout << "Input is Empty!" << endl;
-			exit(-1);
+			return -1;
 		}
 		if (!std_mode)
 			if (output.empty())
 			{
 				cout << "Output is Empty!" << endl;
-				exit(-1);
+				return -1;
 			}
 		stat = decrtpt_to_file(input, output, password, std_mode);
 		break;
@@ -249,7 +252,7 @@ int _main(int argc, char *argv[])
 			if (output.empty())
 			{
 				cout << "Output is Empty!" << endl;
-				exit(-1);
+				return -1;
 			}
 		return create_license(output, std_mode, bs);
 		break;
@@ -257,17 +260,17 @@ int _main(int argc, char *argv[])
 		if (!file_name_check(input))
 		{
 			cout << "File name Check Faild!" << endl;
-			exit(-1);
+			return -1;
 		}
 		if (input.empty())
 		{
 			cout << "Input is Empty!" << endl;
-			exit(-1);
+			return -1;
 		}
 		if (output.empty())
 		{
 			cout << "Output is Empty!" << endl;
-			exit(-1);
+			return -1;
 		}
 		stat = get_ext_to_file(input, output, std_mode);
 		break;
@@ -281,17 +284,4 @@ int _main(int argc, char *argv[])
 	return 0;
 }
 
-int main(int argc, char *argv[])
-{
-	try {
-		return _main(argc, argv);
-	}
-	catch (uint64_t id)
-	{
-		cout << "Catch a bug! ERROR: 0x" << hex<<id<<oct << endl;
-	}
-	catch (...)
-	{
-		cout << "System Catch an unknow error!" << endl;
-	}
-}
+SEC_LOADER;

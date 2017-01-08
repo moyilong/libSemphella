@@ -14,3 +14,4 @@
 #include <libSemphella/kernel.h>
 #include <libSemphella/crypt.h>
 #include <libSemphella/files.h>
+#include <libSemphella/secload.h>

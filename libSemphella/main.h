@@ -64,3 +64,4 @@ using namespace std;
 #define TB	1024*GB
 
 #include "error.h"
+#include "secload.h"

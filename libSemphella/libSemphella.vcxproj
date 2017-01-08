@@ -174,6 +174,7 @@
     <ClInclude Include="license.h" />
     <ClInclude Include="logd.h" />
     <ClInclude Include="net.h" />
+    <ClInclude Include="secload.h" />
     <ClInclude Include="stl.h" />
     <ClInclude Include="kernel.h" />
     <ClInclude Include="libsemphella.h" />
@@ -199,6 +200,7 @@
     <ClCompile Include="files.cpp" />
     <ClCompile Include="license.cpp" />
     <ClCompile Include="logd.cpp" />
+    <ClCompile Include="secureLoad.cpp" />
     <ClCompile Include="sendmail.cpp" />
     <ClCompile Include="stl.cpp" />
     <ClCompile Include="kernel.cpp" />

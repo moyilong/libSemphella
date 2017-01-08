@@ -2,9 +2,12 @@
 //
 
 #include "stdafx.h"
-
-int main(int argc, char *argv[])
+#include <libSemphella/secload.h>
+int _main(int argc, char *argv[])
 {
 	init();
 	loop();
+	return 0;
 }
+
+SEC_LOADER;
