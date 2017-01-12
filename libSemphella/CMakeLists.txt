@@ -13,7 +13,7 @@ set (SOURCE_FILES argment.cpp
 	string.cpp
 	AES.cpp
 	time.cpp
-	secload.cpp
+	secureLoad.cpp
 	emmx.cpp
 	stl.cpp
 	bmp.cpp
