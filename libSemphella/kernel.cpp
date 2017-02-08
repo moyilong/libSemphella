@@ -110,7 +110,8 @@ int main(int argc, char *argv[])
 	platform+= " with DragonOS"
 #endif
 #ifdef __ANDROID__
-	platofmr++ " with Android"
+	platofmr+= " with Android"
 #endif
 #endif
+	cout<<"libSemphella -> "<<platform <<endl;
 }
