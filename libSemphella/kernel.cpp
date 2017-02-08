@@ -122,7 +122,7 @@ int main(int argc, char *argv[])
 #if __DEFAULT_DEBUG_STAT 
 	cout<<"Enable";
 #else
-	cout<<"Dsiable";
+	cout<<"Disable";
 #endif
 	cout<<endl;
 #endif
