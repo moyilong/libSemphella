@@ -120,9 +120,10 @@ int main(int argc, char *argv[])
 #ifdef __ALLOW_DYMANIC_DEBUG
 	cout<<"Dymanic Debug is Enable, Default Debug is ";
 #if __DEFAULT_DEBUG_STAT 
-	cout<<" Enable"
+	cout<<" Enable";
 #else
-	cout<<" Dsiable"
+	cout<<" Dsiable";
 #endif
+	cout<<endl;
 #endif
 }
