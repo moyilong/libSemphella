@@ -26,13 +26,18 @@ API vector<string> Splite(string val, const char  spliter, const bool auto_trim)
 	string temp;
 	for (uint64_t n = 0; n < val.size(); n++)
 	{
-		if (val[n] == spliter)
+		if (val.at(n) == spliter|| n+1==val.size())
 		{
-			temp = val.substr(last, n - last);
+			if (n + 1 == val.size())
+				temp = val.substr(last);
+			else
+				temp = val.substr(last, n - last);
+			debug << "Splite Str:" << temp << endl;
 			if (auto_trim)
 				temp = Trim(temp);
 			ret.push_back(temp);
-			last = n;
+			last = n+1;
+			n++;
 		}
 	}
 	return ret;
@@ -54,7 +59,9 @@ API string Trim(string val)
 			end = n;
 			break;
 		}
-	return val.substr(beg, end - beg);
+	string str=val.substr(beg, end - beg+1);
+	debug << "Trimed Str:" << str << endl;
+	return str;
 }
 
 API string api_human_read_time_unit(uint64_t val)
@@ -249,8 +256,6 @@ API string strrm(const char* str, const char *rm_list)
 
 API string strreplace(string orig, string replace, string value)
 {
-	display_dump(orig.data(), orig.size());
-	display_dump(replace.data(), replace.size());
 	string ret;
 
 	for (int n = 0; n < orig.size(); n++)
@@ -419,3 +424,14 @@ API bool StrMatch(const char *str, const char *match)
 	}
 	return true;
 }
+
+API bool operator==(const char * stra, const string strb)
+{
+	return strequal(stra, strb.data());
+}
+
+API bool operator==(const string stra, const char * strb)
+{
+	return strequal(strb, stra.data());
+}
+

@@ -5,8 +5,8 @@
 #else
 #define MAX_BUFF_SIZE	4096
 #endif
-#define API_VER         166
-#define CORE_NAME       "libSemphella-Phoenix"
+#define API_VER         170
+#define CORE_NAME       "Semphella-Phoenix"
 
 #ifdef __ANDROID__
 #define nullptr NULL

@@ -40,4 +40,7 @@ API vector<string> splite(string val, char spliter);
 API double atolf(string val);
 API bool StrMatch(const char *str, const char *match);
 
+API bool operator == (const char * stra, const string strb);
+API bool operator == (const string stra, const char *strb);
+
 #define strequal streval
