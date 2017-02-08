@@ -26,7 +26,7 @@ API vector<string> Splite(string val, const char  spliter, const bool auto_trim)
 	string temp;
 	for (uint64_t n = 0; n < val.size(); n++)
 	{
-		if (val.at(n) == spliter|| n+1==val.size())
+		if (val.at(n) == spliter || n + 1 == val.size())
 		{
 			if (n + 1 == val.size())
 				temp = val.substr(last);
@@ -36,7 +36,7 @@ API vector<string> Splite(string val, const char  spliter, const bool auto_trim)
 			if (auto_trim)
 				temp = Trim(temp);
 			ret.push_back(temp);
-			last = n+1;
+			last = n + 1;
 			n++;
 		}
 	}
@@ -59,7 +59,7 @@ API string Trim(string val)
 			end = n;
 			break;
 		}
-	string str=val.substr(beg, end - beg+1);
+	string str = val.substr(beg, end - beg + 1);
 	debug << "Trimed Str:" << str << endl;
 	return str;
 }
@@ -70,14 +70,14 @@ API string api_human_read_time_unit(uint64_t val)
 	return human_read(val, ret, 1024);
 }
 
-API string StrLimit(string str, int len,bool spare)
+API string StrLimit(string str, int len, bool spare)
 {
 	if (len <= 8)
 		return str;
-		//KERNEL.error("StrLimit is too short!");
+	//KERNEL.error("StrLimit is too short!");
 	if (str.size() <= len)
 	{
-		char *buff = (char*)malloc(len+1);
+		char *buff = (char*)malloc(len + 1);
 		memset(buff, ' ', len + 1);
 		buff[len] = '\0';
 		strcpy(buff, str.data());
@@ -194,9 +194,9 @@ API string upper_string(string str, bool upper)
 	for (int n = 0; n < str.size(); n++)
 	{
 		if (is_upper(str.at(n)))
-			buff[n]= set_upper(str.at(n), upper);
+			buff[n] = set_upper(str.at(n), upper);
 		else
-			buff[n]= str.at(n);
+			buff[n] = str.at(n);
 	}
 	return buff;
 }
@@ -391,7 +391,7 @@ API bool StrMatch(const char *str, const char *match)
 	const int mat_len = strlen(match);
 	if (str_len == 0 || mat_len == 0)
 		return true;
-	int str_id=0;
+	int str_id = 0;
 	for (int n = 0; n < mat_len; n++)
 	{
 		if (match[n] == '*')
@@ -399,7 +399,7 @@ API bool StrMatch(const char *str, const char *match)
 			if (n == mat_len - 1)
 				return true;
 			bool cont_match = false;
-			for (int b = str_id; b < str_len;b++)
+			for (int b = str_id; b < str_len; b++)
 				if (match_bit(str[b], match[n + 1]))
 				{
 					str_id = b;
@@ -434,4 +434,3 @@ API bool operator==(const string stra, const char * strb)
 {
 	return strequal(strb, stra.data());
 }
-

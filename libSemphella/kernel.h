@@ -22,10 +22,10 @@ public:
 	~kernel();
 	time_t get_start_time();
 	void abort();
-	void _message(string info, string file , int line );
-	void _error(string info, string file , int line );
+	void _message(string info, string file, int line);
+	void _error(string info, string file, int line);
 	bool GetDebugStat();
-	void _SetDebugStat(bool stat, string file , int line );
+	void _SetDebugStat(bool stat, string file, int line);
 	void LogoPrint();
 	void Register(REG_TYPE reg, KSAPI api);
 	VER GetVer();
@@ -37,7 +37,6 @@ private:
 	time_t start_time;
 	vector<KSAPI> init_call;
 	vector<KSAPI> exit_call;
-	
 };
 
 extern "C" API kernel KERNEL;

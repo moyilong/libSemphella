@@ -33,7 +33,6 @@ using namespace std;
 #include <sys/types.h>
 #endif
 
-
 #ifndef DEFAULT_WORD_WHITE_LIST
 #define DEFAULT_WORD_WHITE_LIST "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
 #endif
