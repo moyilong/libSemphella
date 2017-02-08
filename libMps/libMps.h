@@ -2,12 +2,15 @@
 #include <libSemphella/main.h>
 #include <libSemphella/string.h>
 #include <libSemphella/debug.h>
-
+class
+#ifndef __LINUX__
 #ifdef MPS_EXPORT;
-class __declspec(dllexport) libMps {
+__declspec(dllexport)
 #else
-class __declspec(dllimport) libMps {
+__declspec(dllimport)
 #endif
+#endif
+libMps {
 public:
 #define exe execute
 	libMps();
