@@ -113,5 +113,16 @@ int main(int argc, char *argv[])
 	platofmr+= " with Android"
 #endif
 #endif
+#ifdef __ALLOW_LOWMEM_PREFER
+	platform+= " in low memory devices";
+#endif
 	cout<<"libSemphella -> "<<platform <<endl;
+#ifdef __ALLOW_DYMANIC_DEBUG
+	cout<<"Dymanic Debug is Enable, Default Debug is ";
+#if __DEFAULT_DEBUG_STAT 
+	cout<<" Enable"
+#else
+	cout<<" Dsiable"
+#endif
+#endif
 }

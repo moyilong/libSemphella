@@ -5,7 +5,7 @@
 #endif
 
 #ifdef __ALLOW_DEBUG_STAT_CHANGE
-//#define __ALLOW_DYMANIC_DEBUG			//允许动态修改调试状态
+#define __ALLOW_DYMANIC_DEBUG			//允许动态修改调试状态
 #endif
 
 #ifndef __DEFAULT_DEBUG_STAT
@@ -14,7 +14,7 @@
 
 //#define __WNO_OMP						//禁用OpenMP头
 
-#define __ALLOW_LOWMEM_PREFER			//使用低内存优化配置
+//#define __ALLOW_LOWMEM_PREFER			//使用低内存优化配置
 
 #ifndef MTYPE
 #define MTYPE	float					//数学库浮点类型
