@@ -101,5 +101,16 @@ void kernel::_error(string info, string file, int line)
 int main(int argc, char *argv[])
 {
 	KERNEL.LogoPrint();
-	cout << "libSemphella " << CORE_NAME << endl;
+	cout << "libSemphella " << CORE_NAME<< " "<<API_VER << endl;
+	cout<<"Generic Defined Buffers Size:" << MAX_BUFF_SIZE<<endl;
+	string platform="Windows";
+#ifdef __LINUX__
+	platform= "Linux";
+#ifdef __DRAGONOS
+	platform+= " with DragonOS"
+#endif
+#ifdef __ANDROID__
+	platofmr++ " with Android"
+#endif
+#endif
 }
