@@ -107,10 +107,10 @@ int main(int argc, char *argv[])
 #ifdef __LINUX__
 	platform= "Linux";
 #ifdef __DRAGONOS
-	platform+= " with DragonOS"
+	platform += " with DragonOS";
 #endif
 #ifdef __ANDROID__
-	platofmr+= " with Android"
+		platofmr += " with Android";
 #endif
 #endif
 #ifdef __ALLOW_LOWMEM_PREFER
