@@ -27,5 +27,4 @@ struct nconfig {
 	double try_to_try_wait = 1000;
 };
 
-
-API bool SendEmail(const string& smtpServer, const string& username, const string& pw, const string& to, const string& data,const string &title="msend simple sned program");
+API bool SendEmail(const string& smtpServer, const string& username, const string& pw, const string& to, const string& data, const string &title = "msend simple sned program");

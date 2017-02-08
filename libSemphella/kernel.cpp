@@ -13,7 +13,7 @@ WORD word;
 void kernel::_SetDebugStat(bool stat, string file, int line)
 {
 #ifndef __ALLOW_DEBUG_STAT_CHANGE
-	_message("Debug stat change was been disabled! Track from " ,file,line);
+	_message("Debug stat change was been disabled! Track from ", file, line);
 #else
 	debug_stat = stat;
 #endif
@@ -37,8 +37,8 @@ kernel::kernel()
 	kver.version = 8;
 	kver.fix = 0;
 #ifndef __linux__
-	word=MAKEWORD(2, 2);
-	WSAStartup(word,&wsa);
+	word = MAKEWORD(2, 2);
+	WSAStartup(word, &wsa);
 #endif
 }
 
@@ -77,7 +77,6 @@ int kernel::get_api_ver()
 	return API_VER;
 }
 
-
 time_t kernel::get_start_time()
 {
 	return time(0) - start_time;
@@ -101,29 +100,29 @@ void kernel::_error(string info, string file, int line)
 int main(int argc, char *argv[])
 {
 	KERNEL.LogoPrint();
-	cout << "libSemphella " << CORE_NAME<< " "<<API_VER << endl;
-	cout<<"Generic Defined Buffers Size:" << MAX_BUFF_SIZE<<endl;
-	string platform="Windows";
+	cout << "libSemphella " << CORE_NAME << " " << API_VER << endl;
+	cout << "Generic Defined Buffers Size:" << MAX_BUFF_SIZE << endl;
+	string platform = "Windows";
 #ifdef __LINUX__
-	platform= "Linux";
+	platform = "Linux";
 #ifdef __DRAGONOS
 	platform += " with DragonOS";
 #endif
 #ifdef __ANDROID__
-		platofmr += " with Android";
+	platofmr += " with Android";
 #endif
 #endif
 #ifdef __ALLOW_LOWMEM_PREFER
-	platform+= " in low memory devices";
+	platform += " in low memory devices";
 #endif
-	cout<<"libSemphella -> "<<platform <<endl;
+	cout << "libSemphella -> " << platform << endl;
 #ifdef __ALLOW_DYMANIC_DEBUG
-	cout<<"Dymanic Debug is Enable, Default Debug is ";
-#if __DEFAULT_DEBUG_STAT 
-	cout<<"Enable";
+	cout << "Dymanic Debug is Enable, Default Debug is ";
+#if __DEFAULT_DEBUG_STAT
+	cout << "Enable";
 #else
-	cout<<"Disable";
+	cout << "Disable";
 #endif
-	cout<<endl;
+	cout << endl;
 #endif
 }

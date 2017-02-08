@@ -6,7 +6,7 @@ stl::stl(string filename)
 }
 uint64_t stl::VectorSize() const
 {
-	return data.size() * 4;	
+	return data.size() * 4;
 }
 uint64_t stl::TrianglesSize() const
 {
@@ -34,7 +34,7 @@ bool stl::ReadASCII(const string cfilename)
 	if (!io.is_open())
 		return false;
 	string head_info = io.getline();
-	strcpy((char*)head, StrLimit(Splite(head_info, ' ', true)[1],80).data());
+	strcpy((char*)head, StrLimit(Splite(head_info, ' ', true)[1], 80).data());
 	debug << "STL Get Filename:" << head << endl;
 	Triangles temp;
 	while (!io.is_eof())
@@ -65,7 +65,7 @@ bool stl::ReadBinary(const string cfilename)
 	io.read((char*)head, sizeof(uint8_t) * 80);
 	io.read((char*)&size, sizeof(size));
 	debug << "Get Size Info:" << size << endl;
-	display_dump((char*)&size,sizeof(size));
+	display_dump((char*)&size, sizeof(size));
 	for (uint32_t n = 0; n < size; n++)
 	{
 		if (n % 10 == 0)
@@ -81,7 +81,6 @@ bool stl::ReadBinary(const string cfilename)
 		io.read((char*)&temp, 48);
 		io.read(temp.attr, 2);
 		data.push_back(temp);
-
 	}
 	return true;
 }
@@ -96,7 +95,7 @@ bool stl::ReadSTLFile(const string cfilename)
 	char buff[80];
 	in.read(buff, 80);
 
-	if (strfind(buff,'\n')!=0)
+	if (strfind(buff, '\n') != 0)
 		ReadASCII(cfilename);
 	else
 		ReadBinary(cfilename);
@@ -106,7 +105,7 @@ bool stl::ReadSTLFile(const string cfilename)
 
 void stl::SetHeaders(uint8_t tdata[80])
 {
-	memcpy(head, tdata,80*sizeof(uint8_t));
+	memcpy(head, tdata, 80 * sizeof(uint8_t));
 }
 
 Triangles stl::operator=(uint64_t val)

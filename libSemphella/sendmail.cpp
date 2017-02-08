@@ -24,7 +24,7 @@ __inline void _Recv(SOCKET& s, char* buf, int len) {
 #define Send _Send
 #define Recv _Recv
 
-API bool SendEmail(const string& smtpServer, const string& username, const string& pw, const string& to, const string& data,const string &title) {
+API bool SendEmail(const string& smtpServer, const string& username, const string& pw, const string& to, const string& data, const string &title) {
 	hostent *ph = gethostbyname(smtpServer.data());
 	if (ph == NULL) {
 		debug << "no host: " << smtpServer << endl;
@@ -34,11 +34,11 @@ API bool SendEmail(const string& smtpServer, const string& username, const strin
 	sockaddr_in sin;
 	memset(&sin, 0, sizeof(sin));
 	sin.sin_family = AF_INET;
-	sin.sin_port = htons(25);    //port of SMTP 
+	sin.sin_port = htons(25);    //port of SMTP
 #ifndef __linux__
-	memcpy(&sin.sin_addr.S_un.S_addr, 
+	memcpy(&sin.sin_addr.S_un.S_addr,
 #else
-	memcpy(&sin.sin_addr.s_addr, 
+	memcpy(&sin.sin_addr.s_addr,
 #endif
 		ph->h_addr_list[0], ph->h_length);
 	debug << "Prepare to connect..." << endl;
@@ -85,7 +85,7 @@ API bool SendEmail(const string& smtpServer, const string& username, const strin
 												//send data
 	Send(s, "data\r\n");
 	Recv(s, recvBuffer, sizeof(recvBuffer));    //should recv "354 End data with <CR><LF>.<CR><LF>"
-	Send(s, "to:" + to + "\r\n" + "subject:" + title +"\r\n\r\n" + data + "\r\n.\r\n");
+	Send(s, "to:" + to + "\r\n" + "subject:" + title + "\r\n\r\n" + data + "\r\n.\r\n");
 	Recv(s, recvBuffer, sizeof(recvBuffer));
 
 	Send(s, "quit\r\n");

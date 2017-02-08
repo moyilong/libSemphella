@@ -92,15 +92,15 @@ API bool is_prime(uint64_t value)
 	return stat;
 }
 #define PREDEF "moyilong_predef"
-uint64_t random_seek=getsumV2(PREDEF,strlen(PREDEF));
-API void random(char * buff, int64_t len,uint64_t loop_size)
+uint64_t random_seek = getsumV2(PREDEF, strlen(PREDEF));
+API void random(char * buff, int64_t len, uint64_t loop_size)
 {
 	char cbuff[sizeof(uint64_t)];
-	memcpy(cbuff, &random_seek,sizeof(uint64_t));
+	memcpy(cbuff, &random_seek, sizeof(uint64_t));
 #pragma omp parallel for
 	for (int64_t n = 0; n < len; n++)
 	{
-		int id =  sin((n + 23) + sizeof(uint64_t) + random_seek);
+		int id = sin((n + 23) + sizeof(uint64_t) + random_seek);
 		if (id < 0)
 			id = -id;
 		buff[n] = cbuff[id];
@@ -181,7 +181,7 @@ API vector<LIMIT_LINE> ShortX(vector<LIMIT_LINE> data)
 	return ret;
 }
 #include "debug.h"
-API void ShortXTest(uint64_t test_numbers,string outformal)
+API void ShortXTest(uint64_t test_numbers, string outformal)
 {
 	debug << "Perparing Memory..." << endl;
 	vector<LIMIT_LINE> memm(test_numbers);
@@ -215,8 +215,7 @@ API void ShortXTest(uint64_t test_numbers,string outformal)
 	}
 }
 
-
-uint64_t block_math::Addr2Block(uint64_t addr, uint64_t & blk, uint64_t & off,bool with_head)
+uint64_t block_math::Addr2Block(uint64_t addr, uint64_t & blk, uint64_t & off, bool with_head)
 {
 	if (with_head)
 		addr -= begin_offset;

@@ -23,7 +23,7 @@ class CAPI APD {
 public:
 	APD();
 	APD(string filename);
-	APD(string filename,string pwd);
+	APD(string filename, string pwd);
 	~APD();
 	void load(string filename);
 	string get_label(string node, string lab);
@@ -33,7 +33,7 @@ public:
 	COUNT_TYPE check_label(string node, string label);
 	COUNT_TYPE check_label(COUNT_TYPE node, string label);
 	string GetNode(COUNT_TYPE id);
-	void node_for_each(for_each_api *api, for_each_check *check=true_each_check, bool omp = true);
+	void node_for_each(for_each_api *api, for_each_check *check = true_each_check, bool omp = true);
 	void remove(string node);
 	void remove(string node, string lab);
 	void save();

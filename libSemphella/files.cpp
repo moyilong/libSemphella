@@ -14,7 +14,7 @@ file::~file()
 
 void file::close()
 {
-	if (fp==NULL)
+	if (fp == NULL)
 		return;
 	check();
 	fclose(fp);
@@ -33,7 +33,6 @@ void file::write(char *buff, uint64_t len)
 {
 	check();
 	fwrite(buff, sizeof(char), len / sizeof(char), fp);
-
 }
 
 bool file::open(string filename, string mode)

@@ -100,14 +100,14 @@ API MTYPE LINE_2D_K(XPOINT a, XPOINT b);
 API MTYPE LIM_RAND(MTYPE min, MTYPE max, MTYPE deep = 0);
 API uint64_t LIM_RAND_ULD(uint64_t min, uint64_t max, uint64_t deep = 0);
 API bool is_prime(uint64_t value);
-API void random(char *buff, int64_t len, uint64_t loop_size=512);
+API void random(char *buff, int64_t len, uint64_t loop_size = 512);
 #ifndef __LINUX__
 inline uint64_t random()
 {
 	char buff[sizeof(uint64_t)];
 	random(buff, sizeof(uint64_t));
 	uint64_t ret;
-	memcpy(&ret, buff,sizeof(uint64_t));
+	memcpy(&ret, buff, sizeof(uint64_t));
 	return ret;
 }
 #endif
@@ -115,12 +115,11 @@ struct API block_math {
 	uint64_t begin_offset;
 	uint64_t block_size;
 	uint64_t block_append;
-	uint64_t Addr2Block(uint64_t addr, uint64_t &blk, uint64_t &off,bool with_head=false);
+	uint64_t Addr2Block(uint64_t addr, uint64_t &blk, uint64_t &off, bool with_head = false);
 };
 
-
 API vector<LIMIT_LINE> ShortX(vector<LIMIT_LINE> data);
-API void ShortXTest(uint64_t test_numbers,string outformal="%ld,%ld,%ld ,, %ld,%ld,%ld\n");
+API void ShortXTest(uint64_t test_numbers, string outformal = "%ld,%ld,%ld ,, %ld,%ld,%ld\n");
 API void random_test();
 
 template<class num>class NumberList {
@@ -141,7 +140,7 @@ inline NumberList<num>::NumberList(num begin, num step, num end)
 template<class num>
 inline NumberList<num>::NumberList(num * list, num number)
 {
-	for (num n=0; n < number; n++)
+	for (num n = 0; n < number; n++)
 		collect.push_back(list[n]);
 }
 
@@ -160,7 +159,6 @@ inline void NumberList<num>::Drandom(uint64_t seek)
 	//num * prelist = (num*)malloc(sizeof(num)*collect.size());
 	num * getlist = (num*)malloc(sizeof(num)*collect.size());
 	bool *table = (bool*)malloc(sizeof(bool)*collect.size());
-	
 
 	for (num n = 0; n < collect.size(); n++)
 	{
@@ -174,13 +172,12 @@ inline void NumberList<num>::Drandom(uint64_t seek)
 		vseek += 0xB0;
 		num posit = 0;
 		do {
-			posit= eabs(sin(kseek ^ vseek + collect.at(n))*collect.size());
+			posit = eabs(sin(kseek ^ vseek + collect.at(n))*collect.size());
 			kseek += 0xA2;
 			vseek += 0x9F;
 		} while (table[posit] == false);
 		table[posit] = true;
 		getlist[posit] = collect.at(n);
-
 	}
 	for (int n = 0; n < collect.size(); n++)
 		ret.push_back(getlist[n]);

@@ -8,12 +8,12 @@ API  void ShowProcessBar(float _percent, string display, char finish, char split
 	if (val >= 1)
 		val = val / 100;
 	int comp = val*bis;
-	char *buff = (char*)malloc(bis+1);
+	char *buff = (char*)malloc(bis + 1);
 	memset(buff, inprocess, bis);
 	memset(buff, finish, comp);
 	buff[bis] = '\0';
 	buff[comp] = splite;
-	cout << StrLimit(display,8,true) << " [" << buff << "] \r";
+	cout << StrLimit(display, 8, true) << " [" << buff << "] \r";
 	free(buff);
 }
 
@@ -58,7 +58,7 @@ API void ValueDisplay(double data, string tips, ValueInfo &info, char end_char)
 
 	info.min = emin(data, info.min);
 	info.max = emax(data, info.max);
-	printf(out.data(),tips.data(), data, dir_diff, dd_per * 100, avg, avg_diff, ad_per * 100, info.min, info.max);
+	printf(out.data(), tips.data(), data, dir_diff, dd_per * 100, avg, avg_diff, ad_per * 100, info.min, info.max);
 	info.last = data;
 	info.avg = avg;
 	info.all_count++;

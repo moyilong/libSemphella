@@ -54,7 +54,7 @@ void APD::load(string filename)
 	}
 	char head[HEAD_LEN];
 	fileio.read(head, HEAD_LEN);
-	bin_mode = memequal(head, bin_head,HEAD_LEN);
+	bin_mode = memequal(head, bin_head, HEAD_LEN);
 	if (!bin_mode)
 	{
 		fileio.seekg(0);
@@ -69,7 +69,7 @@ void APD::load(string filename)
 				continue;
 			if (sbuff[0] == '#')
 				continue;
-			if (sbuff.at(0) == '['&&sbuff.at(sbuff.size()-1))
+			if (sbuff.at(0) == '['&&sbuff.at(sbuff.size() - 1))
 			{
 				check_node(sbuff.substr(1, sbuff.size() - 1));
 			}
@@ -80,7 +80,7 @@ void APD::load(string filename)
 				write_label(last_node, name, data);
 			}
 		}
-	} 
+	}
 	else {
 		fileio.seekg(0);
 		uint64_t node_size;
@@ -194,8 +194,6 @@ string APD::GetNode(COUNT_TYPE id)
 	return poll.at(id).n_name;
 }
 
-
-
 void APD::node_for_each(for_each_api *api, for_each_check *check, bool omp)
 {
 	if (omp)
@@ -203,7 +201,7 @@ void APD::node_for_each(for_each_api *api, for_each_check *check, bool omp)
 		for (COUNT_TYPE n = 0; n < poll.size(); n++)
 		{
 			if (check(poll.at(n).n_name))
-				api(poll.at(n), n); 
+				api(poll.at(n), n);
 		}
 	else {
 		for (COUNT_TYPE n = 0; n < poll.size(); n++)
@@ -215,7 +213,7 @@ void APD::node_for_each(for_each_api *api, for_each_check *check, bool omp)
 void APD::save()
 {
 	ofstream fileio;
-	fileio.open(filename.data(), ios::in | ios::out|ios::trunc);
+	fileio.open(filename.data(), ios::in | ios::out | ios::trunc);
 	if (!fileio.is_open()) {
 		apd << "resume file stat!" << endl;
 		apd << "Operating File:" << filename << endl;
@@ -238,18 +236,17 @@ void APD::save()
 			fileio.write((char*)&blen, sizeof(uint64_t));
 			for (uint64_t x = 0; x < poll.at(n).label.size(); x++)
 			{
-				uint64_t slen=poll.at(n).label.at(x).name.size();
+				uint64_t slen = poll.at(n).label.at(x).name.size();
 				fileio.write((char*)&slen, sizeof(uint64_t));
 				fileio.write(poll.at(n).label.at(n).name.data(), poll.at(n).label.at(x).name.size());
 				uint64_t slen2 = poll.at(n).label.at(x).data.size();
 				fileio.write((char*)&slen2, sizeof(uint64_t));
 				fileio.write(poll.at(n).label.at(n).data.data(), poll.at(n).label.at(x).data.size());
-
 			}
 			uint64_t slen = poll.at(n).n_name.size();
 			fileio.write((char*)&slen, sizeof(uint64_t));
 			fileio.write(poll.at(n).n_name.data(), poll.at(n).n_name.size());
-		} 
+		}
 	}
 	else {
 		for (COUNT_TYPE n = 0; n < poll.size(); n++)
@@ -274,7 +271,6 @@ uint64_t APD::lab_size(string node_name)
 	if (id == -1)
 		return -1;
 	return poll.at(id).label.size();
-
 }
 
 void APD::SetPassword(string dpwd)

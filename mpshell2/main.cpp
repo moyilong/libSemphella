@@ -40,7 +40,7 @@ void foreach(string lab, string name)
 			cout << "Step is 0!" << endl;
 			exit(-1);
 		}
-		for (int n=beg;n<=end;n+=step)
+		for (int n = beg; n <= end; n += step)
 		{
 			debug << "Add Command " << n << endl;
 			mps += eitoa(n, ridx);
@@ -74,8 +74,6 @@ int _main(int argc, char *argv[])
 	mps.execute();
 	return 0;
 }
-
-
 
 int main(int argc, char *argv[])
 {

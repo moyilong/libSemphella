@@ -16,9 +16,9 @@ namespace LogDaemon {
 			data_file.close();
 		}
 	}
-	logd::logd(string path, string password,bool create)
+	logd::logd(string path, string password, bool create)
 	{
-		Load(path, password,create);
+		Load(path, password, create);
 	}
 	uint64_t logd::getLogSize()
 	{
@@ -44,12 +44,12 @@ namespace LogDaemon {
 		return true;
 	}
 
-	void logd::Load(string path, string password,bool create)
+	void logd::Load(string path, string password, bool create)
 	{
 		SetPassword(password);
 		string meta_name = path + "/logd.meta";
 		string data_name = path + "/data.meta";
-		meta_file.open(meta_name,ios_base::in|ios_base::out| ios_base::binary);
+		meta_file.open(meta_name, ios_base::in | ios_base::out | ios_base::binary);
 		if (!meta_file.is_open())
 			throw META_READ_EXCEPTED;
 		data_file.open(data_name, ios_base::in | ios_base::out | ios_base::binary);
@@ -68,19 +68,19 @@ namespace LogDaemon {
 			}
 			meta.meta_ver = meta_info;
 			section.clear();
-			memset(meta.CDATA,'c', CUSTMON_DATA);
+			memset(meta.CDATA, 'c', CUSTMON_DATA);
 			meta.a = 'v';
 			meta.b = 'e';
 			debug << "Writing Meta File..." << endl;
 			WriteMeta();
 			debug << "Init Log..." << endl;
 			Append("Init Log Daemon! for Version:" + meta_info.to_str());
-		}else
+		}
+		else
 		{
 			debug << "Reading Meta Data..." << endl;
 			ReadMeta();
 		}
-
 	}
 
 	string logd::GetLogDescription(uint64_t id)
@@ -128,13 +128,12 @@ namespace LogDaemon {
 		debug << "Updating Meta File.." << endl;
 		meta.SectionSize++;
 		WriteMeta();
-
 	}
 
 	void logd::ReadCustmonData(char CDATA[CUSTMON_DATA])
 	{
 		ReadMeta();
-		memcpy( CDATA, meta.CDATA, CUSTMON_DATA);
+		memcpy(CDATA, meta.CDATA, CUSTMON_DATA);
 	}
 
 	void logd::SaveCustmonData(const char CDATA[CUSTMON_DATA])
@@ -175,7 +174,7 @@ namespace LogDaemon {
 		for (uint64_t n = 0; n < meta.SectionSize; n++)
 		{
 			char temp[sizeof(Section)];
-			meta_file.read(temp,sizeof(Section));
+			meta_file.read(temp, sizeof(Section));
 			Section v;
 			memcpy(&v, temp, sizeof(Section));
 			section.push_back(v);
@@ -192,13 +191,11 @@ namespace LogDaemon {
 		meta.SectionSize = section.size();
 		meta_file.seekp(meta_file.beg);
 		meta_file.seekg(meta_file.beg);
-		
+
 		meta_file.write((char*)&meta, sizeof(META_INFO));
 		debug << "Writing Section " << meta.SectionSize << endl;
 		for (uint64_t n = 0; n < meta.SectionSize; n++)
 			meta_file.write((char*)&section.at(n), sizeof(Section));
-
-		
 	}
 	uint64_t logd::GetOffSet(uint64_t id)
 	{
@@ -211,6 +208,4 @@ namespace LogDaemon {
 		debug << "Get Offset:" << ret << endl;
 		return ret;
 	}
-
-
 };

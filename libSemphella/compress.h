@@ -4,7 +4,7 @@
 #define PROTOCO_VER		0xBF
 #define MAX_FILENAME_LEN	128
 #define MAX_DESCRIPTION_LEN	4096
-#define MAX_FILE_SIZE(size) 
+#define MAX_FILE_SIZE(size)
 #define PREDEF_HEAD		"ELCOMP"
 #define EXT_FORMAT_VER	0xA0
 #define BLK_FORMAT_VER	0xA1
@@ -26,7 +26,7 @@ struct block_keep {
 struct keep_data_f {
 	char description[MAX_DESCRIPTION_LEN];
 	int _ver = EXT_FORMAT_VER;
-	uint64_t password_lize=0;
+	uint64_t password_lize = 0;
 };
 
 struct head_f {
@@ -63,17 +63,17 @@ public:
 		BLK_DATA,
 		LINK_AND_DATA,
 	};
-	Compress(string filename, vector<string> collect,const configure_t cfg=def_cfg);
-	Compress(string filename,bool create=false, const configure_t cfg = def_cfg);
+	Compress(string filename, vector<string> collect, const configure_t cfg = def_cfg);
+	Compress(string filename, bool create = false, const configure_t cfg = def_cfg);
 	Compress();
 	~Compress();
 	vector<string> FileList();
-	void Import(string filename,bool create=false, const configure_t cfg = def_cfg);
+	void Import(string filename, bool create = false, const configure_t cfg = def_cfg);
 	void ReadBuffer(string filename, uint64_t begin, uint64_t length, char *buff);
 	void AddFile(string filename);
 	void AddFile(vector<string>filename);
 	bool VerifyFileHead();
-	bool Verify(VERIFY_MODE mode,int mpsize=-1);
+	bool Verify(VERIFY_MODE mode, int mpsize = -1);
 private:
 	struct file_t {
 		file_f infile;
@@ -101,6 +101,6 @@ protected:
 			return;
 		IDReadBuff(id, ptr);
 	}
-	bool VerifyLink(int mpsize=-1);
+	bool VerifyLink(int mpsize = -1);
 	bool VerifyBlock(int mpsize = -1);
 };

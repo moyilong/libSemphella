@@ -23,11 +23,11 @@ namespace LogDaemon {
 	public:
 		~logd();
 		inline logd() {};
-		logd(string path,string password="",bool create=false);
+		logd(string path, string password = "", bool create = false);
 		uint64_t getLogSize();
 		void SetPassword(string password);
 		bool VerifyFile();
-		void Load(string path, string password = "", bool create=false);
+		void Load(string path, string password = "", bool create = false);
 		string GetLogDescription(uint64_t id);
 		void Append(string description);
 		void ReadCustmonData(char CDATA[CUSTMON_DATA]);
@@ -39,15 +39,15 @@ namespace LogDaemon {
 			char begin[16];
 			VER meta_ver;
 			bool crypted;
-			uint64_t hash_code=0;
+			uint64_t hash_code = 0;
 			uint64_t SectionSize;
 			char CDATA[CUSTMON_DATA] = { 0x00 };
-			char a='v';
+			char a = 'v';
 			uint64_t verify;
 			char b = 'e';
 		};
 		struct Section {
-			char begin='b';
+			char begin = 'b';
 			time_t time_log;
 			uint64_t descript_len;
 		};

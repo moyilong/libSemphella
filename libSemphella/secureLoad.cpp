@@ -3,7 +3,6 @@
 #include "string.h"
 #include "secload.h"
 
-
 API bool mDebugStat = MDEBUG_STAT;
 
 #define err cout<<"[ERROR: "<<__FILE__<<"@"<<__LINE__<<"]"
@@ -18,7 +17,7 @@ struct mtracert {
 
 vector<mtracert> poll;
 
-API int secure_init (int argc, char *argv[],tmain entry,tmain preload)
+API int secure_init(int argc, char *argv[], tmain entry, tmain preload)
 {
 	if (entry == NULL)
 	{

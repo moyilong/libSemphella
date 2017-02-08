@@ -1,4 +1,3 @@
-
 #include "BMP.h"
 #include <stdio.h>
 
@@ -111,7 +110,6 @@ RGB_COLOR CBmpReader::GetColorAt(int row, int col) const
 
 #define OUTPUT_ITEM_CONTENT(item, name) \
 	cout << "\t" << #name << ": " << item->name << endl;
-
 
 void API OutputBitMapFileHeader(PBITMAPFILEHEADER pFileHeader) {
 	OUTPUT_TITLE("Bitmap File Header");

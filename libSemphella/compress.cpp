@@ -4,23 +4,19 @@
 #define BLOCK_FILE	".blk"
 #define INDEX_FILE	".idx"
 
-
-
-
-
 const configure_t def_cfg = {
 	128,
 };
 
 Compress::Compress(string filename, vector<string> collect, const configure_t cfg)
 {
-	Import(filename, true,cfg);
+	Import(filename, true, cfg);
 	AddFile(collect);
 }
 
 Compress::Compress(string filename, bool create, const configure_t cfg)
 {
-	Import(filename, create,cfg);
+	Import(filename, create, cfg);
 }
 
 Compress::Compress()
@@ -80,11 +76,11 @@ void Compress::ReadBuffer(string filename, uint64_t begin, uint64_t length, char
 {
 	uint64_t begin_block = begin / head.block_len;
 	uint64_t begin_offset = begin - (head.block_len*begin_block);
-	uint64_t end_block =  (length-begin_offset) / head.block_len;
+	uint64_t end_block = (length - begin_offset) / head.block_len;
 	uint64_t end_offset = (length - begin_offset) - (head.block_len*begin_block);
 	char *buff = (char*)malloc(head.block_len);
 	uint64_t id = -1;
-	for (uint64_t n = 0; n < fat.size();n++)
+	for (uint64_t n = 0; n < fat.size(); n++)
 		if (strcmp(fat.at(n).infile.name, filename.data()))
 		{
 			id = n;
@@ -96,23 +92,22 @@ void Compress::ReadBuffer(string filename, uint64_t begin, uint64_t length, char
 		free(buff);
 		return;
 	}
-	for (uint64_t n = begin_block+1; n < end_block; n++)
+	for (uint64_t n = begin_block + 1; n < end_block; n++)
 	{
-		ReadBuff(fat.at(id).bcc.at(n + begin_block),buffc+begin_offset+head.block_len*n);
+		ReadBuff(fat.at(id).bcc.at(n + begin_block), buffc + begin_offset + head.block_len*n);
 	}
-	ReadBuff(fat.at(begin_block).bcc.at(begin_block),buff);
+	ReadBuff(fat.at(begin_block).bcc.at(begin_block), buff);
 	memcpy(buffc, buff + (head.block_len - begin_offset), head.block_len - begin_offset);
 
 	ReadBuff(fat.at(id).bcc.at(end_block + begin_block), buff);
 	memcpy(buffc + end_offset, buff, end_offset);
 	free(buff);
-	
 }
 
 void Compress::AddFile(string filename)
 {
 	file fi;
-	fi.open(filename,"r");
+	fi.open(filename, "r");
 	uint64_t len = fi.tell_len();
 	uint64_t block_size = fi.tell_len() / head.block_len;
 	uint64_t fix = len - (block_size*head.block_len);
@@ -156,7 +151,7 @@ bool Compress::VerifyFileHead()
 	return true;
 }
 
-bool Compress::Verify(VERIFY_MODE mode,int mpsie)
+bool Compress::Verify(VERIFY_MODE mode, int mpsie)
 {
 	if (mode == LINK_AND_DATA)
 	{
@@ -211,13 +206,13 @@ void Compress::UpdateIDFile()
 	head.filesize = fat.size();
 	head.blocksize = bat.size();
 	index.seekp(0);
-	index.write(&head,1);
-	index.write(&keep,1);
+	index.write(&head, 1);
+	index.write(&keep, 1);
 	block.seekp(0);
 	block.write(&blk_keep, 1);
 	for (uint64_t n = 0; n < fat.size(); n++)
 	{
-		index.write(&fat.at(n).infile,1);
+		index.write(&fat.at(n).infile, 1);
 		for (int b = 0; b < fat.at(n).infile.block_size; b++)
 			index.write(&fat.at(n).bcc.at(b), 1);
 	}
@@ -248,7 +243,7 @@ bool Compress::VerifyLink(int mpsize)
 {
 	if (mpsize == -1)
 		mpsize = omp_get_num_procs();
-	for (uint64_t n = 0; n < fat.size(); n+=mpsize)
+	for (uint64_t n = 0; n < fat.size(); n += mpsize)
 	{
 		bool stat = true;
 #pragma omp parallel for
@@ -289,7 +284,7 @@ bool Compress::VerifyBlock(int mpsize)
 API extern const int ext_format[] = { 0xA0,0xFF };
 API extern const int pro_format[] = { 0xBF,0xFF };
 API extern const int blk_format[] = { 0xA1,0xFF };
-__inline bool CompactTest(const char ver,const int *match_tree)
+__inline bool CompactTest(const char ver, const int *match_tree)
 {
 	int offset = 0;
 	while (true)

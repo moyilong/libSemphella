@@ -190,7 +190,7 @@ API void half_dymanic_code(const char *license, long long license_len, string pa
 		license_buff += license_buff;
 	}
 	char crypt_len[MAX_BUFF_SIZE];
-	memcpy(crypt_len,&now,sizeof(COUNT_TYPE));
+	memcpy(crypt_len, &now, sizeof(COUNT_TYPE));
 	crypt(crypt_len, MAX_BUFF_SIZE, license_buff);
 	crypt(crypt_len, MAX_BUFF_SIZE, password);
 	char lbuff[MAX_BUFF_SIZE] = { 0x00 };
@@ -261,8 +261,6 @@ API void fastCrypt(char *data, int64_t len, string password, int PMLEN)
 		data[n] ^= stuffix + len + seed;
 	}
 }
-
-
 
 #define TEST_LEN 128*8
 API void fcTest()
@@ -562,7 +560,7 @@ API uint64_t mpsum2(const char *data, uint64_t len)
 	return ret;
 }
 #include "utils.h"
-API void mpSum_Test(int test_length,bool v2_algr)
+API void mpSum_Test(int test_length, bool v2_algr)
 {
 #define BEG	1000000000000
 	uint64_t n = BEG;

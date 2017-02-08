@@ -63,7 +63,6 @@ public:
 	unsigned int GetGreenAt(int row, int col) const;
 	unsigned int GetBlueAt(int row, int col) const;
 	RGB_COLOR GetColorAt(int row, int col) const;
-	
 
 private:
 	PBITMAPFILEHEADER m_pFileHeader;
