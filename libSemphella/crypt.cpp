@@ -616,4 +616,3 @@ API string Base64Encode(const string& src) {
 
 	return dst;
 }
-

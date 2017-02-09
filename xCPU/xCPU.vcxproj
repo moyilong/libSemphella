@@ -152,11 +152,13 @@
   <ItemGroup>
     <ClInclude Include="arch_def.h" />
     <ClInclude Include="basic.h" />
+    <ClInclude Include="compiler.h" />
     <ClInclude Include="feature.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="compiler.cpp" />
     <ClCompile Include="emx.cpp" />
     <ClCompile Include="feature.cpp" />
     <ClCompile Include="hard_funcation.cpp" />

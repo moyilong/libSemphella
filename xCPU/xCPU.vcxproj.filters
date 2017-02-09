@@ -34,6 +34,9 @@
     <ClInclude Include="basic.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="compiler.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -49,6 +52,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="emx.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="compiler.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
