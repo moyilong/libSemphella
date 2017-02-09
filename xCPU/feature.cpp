@@ -24,3 +24,11 @@ void exec(ASSIGN_TYPE type)
 		if (cmd_poll.at(n).reg == type)
 			cmd_poll.at(n).api();
 }
+
+ASSIGN_TYPE search(const string name)
+{
+	for (ASSIGN_TYPE n = 0; n < cmd_poll.size(); n++)
+		if (cmd_poll.at(n).name == name)
+			return n;
+	return 0;
+}

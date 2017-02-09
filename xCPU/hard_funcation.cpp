@@ -16,8 +16,11 @@ ASSIGN_TYPE auto_rst = 0;
 ASSIGN_TYPE mem_rst = 0;
 ASSIGN_TYPE cloop = 0;
 ASSIGN_TYPE reset_size = 0;
+ASSIGN_TYPE bool_buff = 0;
 vector<CMD> program;
+bool bool_poll[BOOL_VAL_AREA];
 char memory[ALLOW_SIZE];
+
 
 void info()
 {
@@ -34,6 +37,7 @@ void info()
 	disp_st(auto_rst, "AutoReset");
 	disp_st(mem_rst, "Resetting Memory");
 	disp_st(err_rst, "Error Reset Count");
+	disp_st(bool_buff, "Bool Poll Ptr");
 	cout << "MemSize:" << human_read_storage_str(ALLOW_SIZE) << endl;
 }
 
@@ -81,6 +85,7 @@ void reset()
 	mem_buff = 0;
 	arg_buff = 0;
 	arg2_buff = 0;
+	bool_buff = 0;
 	cloop = 0;
 	cout << "Resetting Secure Zone.." << endl;
 	for (int n = 0; n < SECURE_ZONE_SIZE; n++)
@@ -101,6 +106,8 @@ void reset()
 		cout << endl;
 		mem_rst = 1;
 	}
+	for (int n = 0; n < BOOL_VAL_AREA; n++)
+		bool_poll[n] = true;
 	cout << "Reset Over!" << endl;
 	auto_rst = 1;
 	rst = 0;
@@ -122,9 +129,11 @@ void loop()
 			arg_buff = program.at(cmd_ptr).arg;
 		arg2_buff = program.at(cmd_ptr).arg2;
 		cmd_buff = program.at(cmd_ptr).type;
+		bool_buff = program.at(cmd_ptr).bptr;
 		loadmem(mem_ptr, &mem_buff);
 		ERR_CHECK;
-		exec(cmd_buff);
+		if (bool_get)
+			exec(cmd_buff);
 		cmd_ptr++;
 		mem_ptr++;
 	}

@@ -13,7 +13,7 @@ public:
 extern vector<_feature> cmd_poll;
 void exec(string reg_name);
 void exec(ASSIGN_TYPE type);
-
+ASSIGN_TYPE search(const string name);
 void loadmem(ASSIGN_TYPE ptr, void *rptr);
 void setmem(ASSIGN_TYPE ptr, void *rptr);
 #define feature static _feature

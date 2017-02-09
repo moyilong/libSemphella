@@ -78,3 +78,5 @@ API void mpSum_Test(int test_length, bool v2_algr = false);
 API uint64_t mpsum2(const char *data, uint64_t len);
 
 API string Base64Encode(const string& src);
+
+typedef uint64_t(*hash_api)(const char *data, const uint64_t len);
