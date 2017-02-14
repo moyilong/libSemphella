@@ -90,3 +90,13 @@ uint64_t emmx::hash()
 {
 	return getsumV2((char*)ptr, xsize);
 }
+
+emmx emmx::operator+(uint64_t val)
+{
+	emmx mmx;
+	if (val >= xsize)
+		return mmx;
+	mmx.ptr = ptr + val;
+	mmx.xsize = xsize - val;
+	return mmx;
+}
