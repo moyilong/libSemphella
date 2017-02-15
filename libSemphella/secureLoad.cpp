@@ -27,7 +27,7 @@ API int secure_init(int argc, char *argv[], tmain entry, tmain preload)
 	}
 	catch (const string val)
 	{
-		err << "String Error Dump Catched:"<<val << endl;
+		err << "String Error Dump Catched:" << val << endl;
 		return -1;
 	}
 	catch (...)

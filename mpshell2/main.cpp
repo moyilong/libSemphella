@@ -75,4 +75,4 @@ int _main(int argc, char *argv[])
 	return 0;
 }
 
-LOADDEF(_main,NULL);
+LOADDEF(_main, NULL);
