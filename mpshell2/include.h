@@ -6,3 +6,4 @@
 #include <libSemphella/argment.h>
 
 #include <libMps/libMps.h>
+#include <libSemphella/secload.h>

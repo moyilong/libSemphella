@@ -7,21 +7,12 @@ API bool mDebugStat = MDEBUG_STAT;
 
 #define err cout<<"[ERROR: "<<__FILE__<<"@"<<__LINE__<<"]"
 
-struct mtracert {
-	void *ptr;
-	string file;
-	uint64_t line;
-	uint64_t addr;
-	uint64_t size;
-};
-
-vector<mtracert> poll;
-
 API int secure_init(int argc, char *argv[], tmain entry, tmain preload)
 {
+	debug << "Secure Init is Load!" << endl;
 	if (entry == NULL)
 	{
-		err << "Defined Entry is " << entry << endl;
+		err << "Defined Entry is Empty!" << endl;
 		return -1;
 	}
 	try {
@@ -33,6 +24,11 @@ API int secure_init(int argc, char *argv[], tmain entry, tmain preload)
 	{
 		err << "Program throw an defined error:" << error_list[value] << endl;
 		return value;
+	}
+	catch (const string val)
+	{
+		err << "String Error Dump Catched:"<<val << endl;
+		return -1;
 	}
 	catch (...)
 	{

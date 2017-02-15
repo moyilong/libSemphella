@@ -75,14 +75,4 @@ int _main(int argc, char *argv[])
 	return 0;
 }
 
-int main(int argc, char *argv[])
-{
-	try {
-		return _main(argc, argv);
-	}
-	catch (...)
-	{
-		cout << "Detach an Unknow Error!" << endl;
-	}
-	return -1;
-}
+LOADDEF(_main,NULL);
