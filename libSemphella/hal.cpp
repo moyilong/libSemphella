@@ -115,6 +115,7 @@ void Serial::open()
 }
 #endif
 	status = true;
+	debug << "Port Open Success!" << endl;
 	return;
 }
 
