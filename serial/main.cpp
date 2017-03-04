@@ -12,6 +12,7 @@ void proc_config(string lab, string val)
 	{
 	case 's':
 		serial.SetPath(val);
+		debug << "Serail:\"" << val << "\"" << endl;
 		break;
 	case 'd':
 		cfg.data_bit = atoi(val.data());
