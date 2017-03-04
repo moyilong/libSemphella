@@ -39,7 +39,7 @@ public:
 	SerialConfig GetConfig();
 	bool is_opened();
 
-	int read(char *buff, int &len);
+	int read(char *buff, int len);
 	void write(const char *buff, const int len);
 private:
 	SerialConfig cfg;

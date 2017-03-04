@@ -33,7 +33,7 @@
 #include<errno.h>      /*错误号定义*/  
 #include<string.h>  
 
-
+#include "debug.h"
 //宏定义  
 #define FALSE  -1  
 #define TRUE   0  
@@ -282,12 +282,13 @@ int UART0_Recv(int fd, char *rcv_buf, int data_len)
 	if (fs_sel)
 	{
 		len = read(fd, rcv_buf, data_len);
-		printf("I am right!(version1.2) len = %d fs_sel = %d\n", len, fs_sel);
+		//printf("I am right!(version1.2) len = %d fs_sel = %d\n", len, fs_sel);
 		return len;
 	}
 	else
 	{
-		printf("Sorry,I am wrong!");
+		//printf("Sorry,I am wrong!");
+		debug << "Operating Error!" << endl;
 		return FALSE;
 	}
 }

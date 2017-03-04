@@ -157,7 +157,7 @@ bool Serial::is_opened()
 	return status;
 }
 
-int Serial::read(char * buff, int &len)
+int Serial::read(char * buff, int len)
 {
 #ifdef _WINDOWS
 	LPDWORD get=NULL;
