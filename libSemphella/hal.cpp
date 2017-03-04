@@ -59,7 +59,7 @@ void Serial::open()
 		break;
 	case EVEN:
 		dcfg.Parity = EVENPARITY;
-		break;		
+		break;
 	}
 	dcfg.fOutxCtsFlow = FALSE;  // No CTS output flow control  
 	dcfg.fOutxDsrFlow = FALSE;  // No DSR output flow control  
@@ -105,12 +105,14 @@ void Serial::open()
 		parity_mode = 'N';
 		break;
 	}
-	if (UART0_Init(&handle, cfg.speed, 0, cfg.data_bit, cfg.stop_bit, parity_mode) == 0)
+	int value = UART0_Init(&handle, cfg.speed, 0, cfg.data_bit, cfg.stop_bit, parity_mode);
+	if (value == 0)
 	{
 		debug << "Linux Init Faild! Handle Return Empty" << endl;
+		debug << "Return Value:" << value << endl;
 		close();
 		return;
-	}
+}
 #endif
 	status = true;
 	return;
