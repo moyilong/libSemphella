@@ -277,20 +277,7 @@ int UART0_Recv(int fd, char *rcv_buf, int data_len)
 	time.tv_sec = 10;
 	time.tv_usec = 0;
 
-	//使用select实现串口的多路通信  
-	fs_sel = select(fd + 1, &fs_read, NULL, NULL, &time);
-	if (fs_sel)
-	{
-		len = read(fd, rcv_buf, data_len);
-		//printf("I am right!(version1.2) len = %d fs_sel = %d\n", len, fs_sel);
-		return len;
-	}
-	else
-	{
-		//printf("Sorry,I am wrong!");
-		debug << "Operating Error!" << endl;
-		return FALSE;
-	}
+	return read(fd, rcv_buf, data_len);
 }
 /********************************************************************
 * 名称：                  UART0_Send
