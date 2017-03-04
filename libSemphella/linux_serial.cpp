@@ -124,6 +124,7 @@ int UART0_Set(int fd, int speed, int flow_ctrl, int databits, int stopbits, int 
 		{
 			cfsetispeed(&options, speed_arr[i]);
 			cfsetospeed(&options, speed_arr[i]);
+			break;
 		}
 	}
 
