@@ -51,7 +51,7 @@
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
     <UseOfMfc>Static</UseOfMfc>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
@@ -171,10 +171,10 @@
     <ClInclude Include="emmx.h" />
     <ClInclude Include="error.h" />
     <ClInclude Include="files.h" />
+    <ClInclude Include="hal.h" />
     <ClInclude Include="license.h" />
     <ClInclude Include="logd.h" />
     <ClInclude Include="net.h" />
-    <ClInclude Include="sato.h" />
     <ClInclude Include="secload.h" />
     <ClInclude Include="stl.h" />
     <ClInclude Include="kernel.h" />
@@ -199,9 +199,10 @@
     <ClCompile Include="debug.cpp" />
     <ClCompile Include="emmx.cpp" />
     <ClCompile Include="files.cpp" />
+    <ClCompile Include="hal.cpp" />
     <ClCompile Include="license.cpp" />
+    <ClCompile Include="linux_serial.cpp" />
     <ClCompile Include="logd.cpp" />
-    <ClCompile Include="sato.cpp" />
     <ClCompile Include="secureLoad.cpp" />
     <ClCompile Include="sendmail.cpp" />
     <ClCompile Include="stl.cpp" />

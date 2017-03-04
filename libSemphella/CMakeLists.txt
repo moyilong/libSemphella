@@ -18,6 +18,8 @@ set (SOURCE_FILES argment.cpp
 	stl.cpp
 	bmp.cpp
 	logd.cpp
+	hal.cpp
+	linux_serial.cpp
 	utils.cpp)
 
 
@@ -32,6 +34,7 @@ INSTALL (FILES apd.h
 	config.h
 	crypt.h
 	stl.h
+	hal.h
 	AES.h
 	debug.h
 	secload.h
