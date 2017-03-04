@@ -1,0 +1,4 @@
+ADD_EXECUTABLE(serial  main.cpp)
+INSTALL (TARGETS serial DESTINATION bin)
+TARGET_LINK_LIBRARIES(serial -lSemphella)
+INCLUDE_DIRECTORIES(..)

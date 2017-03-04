@@ -39,6 +39,7 @@ void Serial::open()
 	DCB dcfg;
 	if (!GetCommState(handle, &dcfg))
 	{
+		debug << "Import Configure Faild!" << endl;
 		close();
 		return;
 	}
@@ -72,9 +73,14 @@ void Serial::open()
 	dcfg.fRtsControl = RTS_CONTROL_DISABLE;   //No RTS flow control  
 	dcfg.fAbortOnError = FALSE;  // 当串口发生错误，并不终止串口读写  
 	dcfg.ByteSize = cfg.data_bit;
-	dcfg.StopBits = cfg.stop_bit;
+	//dcfg.StopBits = cfg.stop_bit;
+	if (cfg.stop_bit == 2)
+		dcfg.StopBits = TWOSTOPBITS;
+	else
+		dcfg.StopBits = ONESTOPBIT;
 	if (!SetCommState(handle, &dcfg))
 	{
+		debug << "Setting Faild!" << endl;
 		close();
 		return;
 	}
@@ -143,12 +149,14 @@ bool Serial::is_opened()
 	return status;
 }
 
-void Serial::read(char * buff, int &len)
+int Serial::read(char * buff, int &len)
 {
 #ifdef _WINDOWS
-	ReadFile(handle, buff, 10, (DWORD *)len, NULL);
+	LPDWORD get=NULL;
+	ReadFile(handle, buff, len, get, NULL);
+	return (DWORD)get;
 #elif defined(__linux__)
-	UART0_Recv(handle, buff, len);
+	return UART0_Recv(handle, buff, len);
 #endif
 }
 

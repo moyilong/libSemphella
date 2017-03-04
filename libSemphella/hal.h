@@ -19,9 +19,9 @@ enum Party {
 };
 
 struct SerialConfig {
-	int speed;
+	int speed=115200;
 	int data_bit = 8;
-	int stop_bit = 0;
+	int stop_bit = 1;
 	Party parity = NONE;
 };
 
@@ -39,16 +39,16 @@ public:
 	SerialConfig GetConfig();
 	bool is_opened();
 
-	void read(char *buff, int &len);
+	int read(char *buff, int &len);
 	void write(const char *buff, const int len);
 private:
 	SerialConfig cfg;
 	string path;
 #ifdef _WINDOWS
-	HANDLE 
+	HANDLE handle;
 #elif defined(__linux__)
-	int
+	int handle;
 #endif
-	handle;
 	bool status = false;
 };
+

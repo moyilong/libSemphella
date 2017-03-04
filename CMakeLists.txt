@@ -24,7 +24,7 @@ ADD_SUBDIRECTORY(logd)
 ADD_SUBDIRECTORY(msend)
 ADD_SUBDIRECTORY(mpshell2)
 ADD_SUBDIRECTORY(libMps)
-
+ADD_SUBDIRECTORY(serial)
 
 ADD_DEPENDENCIES(s2s Semphella)
 ADD_DEPENDENCIES(mpshell Semphella)
@@ -40,6 +40,7 @@ ADD_DEPENDENCIES(PT2 Semphella)
 ADD_DEPENDENCIES(stlcheck Semphella)
 ADD_DEPENDENCIES(logd Semphella)
 ADD_DEPENDENCIES(msend Semphella)
+ADD_DEPENDENCIES(serial Semphella)
 # Testutils
 
 ADD_DEPENDENCIES(cp2_extlibtest Semphella)
