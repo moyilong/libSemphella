@@ -157,6 +157,6 @@ void Serial::write(const char * buff, const int len)
 #ifdef _WINDOWS
 	WriteFile(handle, buff, 10, (DWORD *)len, NULL);
 #elif defined(__linux__)
-	UART0_Write(handle, buff, len);
+	UART0_Send(handle, buff, len);
 #endif
 }
