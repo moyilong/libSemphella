@@ -4,6 +4,7 @@
 
 enum ERRNO {
 	INVALID_ARGMENTS,
+	INVALID_DICT_FIND,
 };
 
-extern API const char *error_list;
+extern API const char *error_list[];

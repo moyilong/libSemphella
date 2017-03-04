@@ -1,5 +1,5 @@
 #include "perfect.h"
-
+#include <libSemphella/secload.h>
 
 argment args;
 string smtp, target, username, password,xsend;
@@ -33,7 +33,7 @@ void procd(string name, string value)
 	}
 }
 
-int main(int argc, char *argv[])
+int _main(int argc, char *argv[])
 {
 	args.load(argc, argv);
 	args.for_each(procd);
@@ -63,3 +63,5 @@ int main(int argc, char *argv[])
 	}
 	return SendEmail(smtp, username, password, target, xsend,title);
 }
+
+LOADDEF(_main, NULL);

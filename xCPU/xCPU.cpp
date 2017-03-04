@@ -10,4 +10,4 @@ int _main(int argc, char *argv[])
 	return 0;
 }
 
-SEC_LOADER;
+LOADDEF(_main, NULL);
