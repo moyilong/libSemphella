@@ -107,6 +107,7 @@ void Serial::open()
 	}
 	if (UART0_Init(&handle, cfg.speed, 0, cfg.data_bit, cfg.stop_bit, parity_mode) == 0)
 	{
+		debug << "Linux Init Faild! Handle Return Empty" << endl;
 		close();
 		return;
 	}
