@@ -86,8 +86,12 @@ void Serial::open()
 	}
 #elif defined(__linux__)
 	UART0_Open(&handle, path.data());
+	debug << "Handle ID:" << handle << endl;
 	if (handle == NULL)
+	{
+		debug << "Enable Handle Faild!" << endl;
 		return;
+	}
 	status = true;
 	int parity_mode = 'n';
 	switch (cfg.parity)
