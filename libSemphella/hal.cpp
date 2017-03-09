@@ -113,7 +113,7 @@ void Serial::open()
 		parity_mode = 'N';
 		break;
 	}
-	int value = UART0_Init(handle, cfg.speed, 0, cfg.data_bit, cfg.stop_bit, parity_mode);
+	int value = UART0_Set(handle, cfg.speed, 0, cfg.data_bit, cfg.stop_bit, parity_mode);
 	debug << "Return Value:" << value << endl;
 	if (!value)
 	{
