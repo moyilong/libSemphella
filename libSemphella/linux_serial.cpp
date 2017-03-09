@@ -122,7 +122,7 @@ int UART0_Set(int fd, int speed, int flow_ctrl, int databits, int stopbits, int 
 	//设置串口输入波特率和输出波特率  
 	for (i = 0; i < sizeof(speed_arr) / sizeof(int); i++)
 	{
-		debug<<"Branching Speed:"<<name_attr[i]<<endl;
+		debug<<"Branching Speed:"<<name_arr[i]<<endl;
 		if (speed == name_arr[i])
 		{
 			cfsetispeed(&options, speed_arr[i]);
