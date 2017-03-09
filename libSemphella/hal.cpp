@@ -91,7 +91,8 @@ void Serial::open()
 		debug << "Enable Handle Faild!" << endl;
 		return;
 	}
-	int parity_mode = 'n';
+	debug << "Handle ID=" << handle << endl;
+	int parity_mode = 'N';
 	switch (cfg.parity)
 	{
 	case ODD:
