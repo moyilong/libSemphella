@@ -90,7 +90,6 @@ void Serial::open()
 		debug << "Enable Handle Faild!" << endl;
 		return;
 	}
-	status = true;
 	int parity_mode = 'n';
 	switch (cfg.parity)
 	{
@@ -111,8 +110,7 @@ void Serial::open()
 	debug << "Return Value:" << value << endl;
 	if (value)
 	{
-		debug << "Linux Init Faild! Handle Return Empty" << endl;
-		close();
+		debug << "Linux Init Faild! Handle Return Empty" << endl;;
 		return;
 }
 #endif
