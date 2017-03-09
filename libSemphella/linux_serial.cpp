@@ -230,7 +230,7 @@ int UART0_Set(int fd, int speed, int flow_ctrl, int databits, int stopbits, int 
 		perror("com set error!\n");
 		return (FALSE);
 	}
-	return (TRUE);
+	return true;
 }
 /*******************************************************************
 * Ãû³Æ£º                UART0_Init()
