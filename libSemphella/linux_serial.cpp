@@ -113,7 +113,9 @@ int UART0_Set(int fd, int speed, int flow_ctrl, int databits, int stopbits, int 
 	*/
 	if (tcgetattr(fd, &options) != 0)
 	{
-		perror("SetupSerial 1");
+		//perror("SetupSerial 1");
+		debug<<"Setup Serail Faild!"<<endl;
+		debug<<"FD="<<fd<<endl;
 		return(FALSE);
 	}
 
