@@ -35,8 +35,8 @@
 
 #include "debug.h"
 //ºê¶¨Òå  
-#define FALSE  -1  
-#define TRUE   0  
+#define FALSE  false
+#define TRUE   true
 
 /*******************************************************************
 * Ãû³Æ£º                  UART0_Open
