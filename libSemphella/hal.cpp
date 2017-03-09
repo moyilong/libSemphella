@@ -95,6 +95,7 @@ void Serial::open()
 	if (handle == 0)
 	{
 		debug << "Handle is Zero!" << endl;
+		return;
 	}
 	debug << "Handle ID=" << handle << endl;
 	int parity_mode = 'N';
