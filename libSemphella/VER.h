@@ -49,4 +49,5 @@ struct VER {
 			return false;
 		return true;
 	}
+
 };

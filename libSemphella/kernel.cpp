@@ -35,7 +35,7 @@ kernel::kernel()
 	kver.main = 1;
 	kver.build = 4;
 	kver.version = 8;
-	kver.fix = 0;
+	kver.fix = API_VER;
 #ifndef __linux__
 	word = MAKEWORD(2, 2);
 	WSAStartup(word, &wsa);
@@ -100,7 +100,7 @@ void kernel::_error(string info, string file, int line)
 int main(int argc, char *argv[])
 {
 	KERNEL.LogoPrint();
-	cout << "libSemphella " << CORE_NAME << " " << API_VER << endl;
+	cout << "libSemphella " << CORE_NAME << " " << kver.to_str() << endl;
 	cout << "Generic Defined Buffers Size:" << MAX_BUFF_SIZE << endl;
 	string platform = "Windows";
 #ifdef __LINUX__
