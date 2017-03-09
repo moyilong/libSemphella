@@ -85,7 +85,7 @@ void Serial::open()
 		return;
 	}
 #elif defined(__linux__)
-	if (!UART0_Open(&handle, path.data());)
+	if (!UART0_Open(&handle, path.data()))
 	{
 		debug << "Enable Handle Faild!" << endl;
 		return;
