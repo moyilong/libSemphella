@@ -174,9 +174,12 @@ bool Serial::read(char * buff, int len)
 bool Serial::write(const char * buff, const int len)
 {
 #ifdef _WINDOWS
-	LPDWORD get = NULL;
+	/*LPDWORD get = NULL;
 	debug << "Writting ...." << endl;
-	return WriteFile(handle, buff, len, get, NULL);
+	bool tget=WriteFile(handle, buff, len, get, NULL);
+	debug << "Success!" << endl;
+	return tget;*/
+	return true;
 #elif defined(__linux__)
 	return UART0_Send(handle, buff, len);
 #endif

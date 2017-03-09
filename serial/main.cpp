@@ -50,7 +50,7 @@ void xwrite()
 		debug << "GetValue:" << val << endl;
 		serial.write(val, 8);*/
 		char buf[2];
-		buf[0] = getchar();
+		buf[0] = cin.get();
 		buf[1] = '\0';
 		serial.write(buf, 1);
 	}
