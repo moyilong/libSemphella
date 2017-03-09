@@ -109,7 +109,7 @@ void Serial::open()
 	}
 	int value = UART0_Set(&handle, cfg.speed, 0, cfg.data_bit, cfg.stop_bit, parity_mode);
 	debug << "Return Value:" << value << endl;
-	if (value == 0)
+	if (value)
 	{
 		debug << "Linux Init Faild! Handle Return Empty" << endl;
 		close();
