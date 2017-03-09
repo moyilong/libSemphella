@@ -69,10 +69,11 @@ int _main(int argc, char *argv[])
 		cout << "Open Port Faild!" << endl;
 		return 1;
 	}
-	thread tm(monitor);
+	/*thread tm(monitor);
 	thread wr(xwrite);
 	tm.join();
-	wr.join();
+	wr.join();*/
+	monitor();
 
 	return 0;
 }
