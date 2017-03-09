@@ -35,7 +35,7 @@ void monitor()
 		memset(bit, '\0', sizeof(bit));
 		int val = 1;
 		if (serial.read(bit, val))
-			cout << bit << endl;
+			cout << bit;
 	}
 }
 
