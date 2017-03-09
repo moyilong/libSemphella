@@ -56,12 +56,12 @@ int UART0_Open(int fd, char* port)
 	//恢复串口为阻塞状态                                 
 	if (fcntl(fd, F_SETFL, 0) < 0)
 	{
-		printf("fcntl failed!\n");
+		debug<<"fcntl failed!"<<endl;
 		return(FALSE);
 	}
 	else
 	{
-		printf("fcntl=%d\n", fcntl(fd, F_SETFL, 0));
+		//printf("fcntl=%d\n", fcntl(fd, F_SETFL, 0));
 	}
 	//测试是否为终端设备      
 	if (0 == isatty(STDIN_FILENO))
@@ -71,9 +71,9 @@ int UART0_Open(int fd, char* port)
 	}
 	else
 	{
-		printf("isatty success!\n");
+		//printf("isatty success!\n");
 	}
-	printf("fd->open=%d\n", fd);
+	//printf("fd->open=%d\n", fd);
 	return fd;
 }
 /*******************************************************************
