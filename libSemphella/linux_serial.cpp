@@ -247,6 +247,7 @@ int UART0_Set(int fd, int speed, int flow_ctrl, int databits, int stopbits, int 
 *******************************************************************/
 int UART0_Init(int fd, int speed, int flow_ctrl, int databits, int stopbits, int parity)
 {
+	debug<<"Use C Lib Default Configure to Load"<<endl;
 	int err;
 	//设置串口数据帧格式  
 	if (UART0_Set(fd, 19200, 0, 8, 1, 'N') == FALSE)
