@@ -3,7 +3,7 @@
 #ifdef __linux__
 int UART0_Open(int fd, char* port);
 void UART0_Close(int fd);
-int UART0_Init(int fd, int speed, int flow_ctrl, int databits, int stopbits, int parity);
+int UART0_Set(int fd, int speed, int flow_ctrl, int databits, int stopbits, int parity);
 int UART0_Recv(int fd, char *rcv_buf, int data_len);
 int UART0_Send(int fd, char *send_buf, int data_len);
 #endif
@@ -109,7 +109,7 @@ void Serial::open()
 		parity_mode = 'N';
 		break;
 	}
-	int value = UART0_Init(&handle, cfg.speed, 0, cfg.data_bit, cfg.stop_bit, parity_mode);
+	int value = UART0_Set(&handle, cfg.speed, 0, cfg.data_bit, cfg.stop_bit, parity_mode);
 	debug << "Return Value:" << value << endl;
 	if (value == 0)
 	{
@@ -157,22 +157,21 @@ bool Serial::is_opened()
 	return status;
 }
 
-int Serial::read(char * buff, int len)
+bool Serial::read(char * buff, int len)
 {
 #ifdef _WINDOWS
 	LPDWORD get=NULL;
-	ReadFile(handle, buff, len, get, NULL);
-	return (DWORD)get;
+	return ReadFile(handle, buff, len, get, NULL);
 #elif defined(__linux__)
 	return UART0_Recv(handle, buff, len);
 #endif
 }
 
-void Serial::write(const char * buff, const int len)
+bool Serial::write(const char * buff, const int len)
 {
 #ifdef _WINDOWS
-	WriteFile(handle, buff, 10, (DWORD *)len, NULL);
+	return WriteFile(handle, buff, 10, (DWORD *)len, NULL);
 #elif defined(__linux__)
-	UART0_Send(handle, buff, len);
+	return UART0_Send(handle, buff, len);
 #endif
 }

@@ -33,14 +33,25 @@ void monitor()
 	{
 		char bit[8];
 		memset(bit, '\0', sizeof(bit));
-		int val = 8;
-		int get=serial.read(bit, val);
-		if (get == 0)
-		{
-			cout << "Get Zero Length!" << endl;
-		}
-		for (int n = 0; n < get; n++)
-			cout << bit[n];
+		int val = 1;
+		if (serial.read(bit, val))
+			cout << bit << endl;
+	}
+}
+
+void xwrite()
+{
+	while (true)
+	{
+		/*char val[8];
+		memset(val, '\0', sizeof(val));
+		cin.read(val, 8);
+		debug << "GetValue:" << val << endl;
+		serial.write(val, 8);*/
+		char buf[2];
+		buf[0] = getchar();
+		buf[1] = '\0';
+		serial.write(buf, 1);
 	}
 }
 
@@ -56,15 +67,10 @@ int _main(int argc, char *argv[])
 		return 1;
 	}
 	thread tm(monitor);
+	thread wr(xwrite);
 	tm.join();
-	while (true)
-	{
-		char val[8];
-		memset(val, '\0', sizeof(val));
-		cin.read(val, 8);
-		debug << "GetValue:" << val << endl;
-		serial.write(val, 8);
-	}
+	wr.join();
+
 	return 0;
 }
 
