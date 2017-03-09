@@ -48,10 +48,13 @@ void xwrite()
 		cin.read(val, 8);
 		debug << "GetValue:" << val << endl;
 		serial.write(val, 8);*/
-		char buf[2];
+		/*char buf[2];
 		buf[0] = getchar();
 		buf[1] = '\0';
-		serial.write(buf, 1);
+		serial.write(buf, 1);*/
+		string get;
+		getline(cin, get);
+		serial.write(get.data(), get.size());
 	}
 }
 
