@@ -35,7 +35,7 @@ void monitor()
 		memset(bit, '\0', sizeof(bit));
 		int val = 1;
 		if (serial.read(bit, val))
-			printf("%02x ", (unsigned char)bit);
+			printf("%02x ", (unsigned char)bit[0]);
 	}
 }
 
