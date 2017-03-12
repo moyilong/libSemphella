@@ -47,6 +47,20 @@ API uint64_t getsumV2(const char *data, int64_t len);
 #define anySUM(ptr) getsumV2((char*)ptr,sizeof(ptr));
 
 API void fastCrypt(char *data, int64_t len, string password, int PMLEN = 16);
+inline void fastCrypt_128(char *data, int64_t len, string password)
+{
+	fastCrypt(data, len, password, 16);
+}
+inline void fastCrypt_256(char *data, int64_t len, string password)
+{
+	fastCrypt(data, len, password, 32);
+}
+
+inline void fastCrypt_4096(char *data, int64_t len, string password)
+{
+	fastCrypt(data, len, password, 512);
+}
+
 API void fcTest();
 API void mask(char *buff, int64_t len);
 API void pre_calc_pct(int64_t len);

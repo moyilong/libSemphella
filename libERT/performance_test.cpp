@@ -58,7 +58,7 @@ LIBERT_API int PerformanceTest(int timeout)
 				continue;
 			}
 			poll.push_back(sc);
-			cout << "ID:" << id << "\tTimtout:" << sc.time_out << " IOPS\tof " << sc.all_count << " IOS \tin " << sc.timeout << " SECOND" << endl;
+			cout << "ID:" << id << "\tTimtout:" << sc.time_out << " IOPS\tof " << sc.all_count << " IOS \tin " << sc.timeout << " SECOND\t(" << APOLL[n].doc<<")"<< endl;
 		}
 		else {
 			cout << "ID:" << id << "\tUnsupported!" << endl;
