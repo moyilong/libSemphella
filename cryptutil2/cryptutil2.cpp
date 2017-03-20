@@ -150,7 +150,7 @@ void config_read(string name, string value)
 		}
 		if (streval(temp.data(), "decrypt"))
 		{
-			getsum2_decrypt(getsumV2("moyilong", strlen("moyilong")));
+			getsum2_decrypt(getsumV2("moyilong", strlen("moyilong")),0xFFFFFFFFF,numeric_limits<uint64_t>::max(),"abcdefghijklmnopqrstuvwxyz");
 			exited = true;
 		}
 		if (streval(temp.data(), "mp2test"))

@@ -48,6 +48,7 @@ INSTALL (FILES apd.h
 	compress.h
 	net.h
 	math.h
+	error.h
 	string.h
 	utils.h
 	license.h 

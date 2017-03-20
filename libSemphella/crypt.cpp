@@ -456,6 +456,7 @@ API  vector<string> getsum2_decrypt(uint64_t sum, uint64_t begin_seek, uint64_t 
 	uint64_t ops = 0;
 	double last_ops = 0, iops = 0;
 	time_t begin = time(0);
+	time_t last = time(0);
 	for (uint64_t n = begin_seek; n < end_seek; n += mp_size)
 	{
 		value = n;
@@ -467,8 +468,9 @@ API  vector<string> getsum2_decrypt(uint64_t sum, uint64_t begin_seek, uint64_t 
 				ret.push_back(xval);
 		}
 		ops += mp_size;
-		if (time(0) - begin > 0)
+		if (time(0) - begin > 0&& time(0) - last > 1 )
 		{
+			last = time(0);
 			last_ops = iops;
 			iops = ops / (time(0) - begin);
 			cout << "iLen:" << extoa(value, allow_string.data()).size() << "\tPF:" << (long int)iops << "\tDIFF:" << last_ops - iops << "\tAF:" << ret.size() << "\t" << extoa(n, allow_string.data()) << "\n";
