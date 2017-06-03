@@ -22,7 +22,7 @@
     <ProjectGuid>{2411331A-58DF-4D70-AD21-756DFEC3459F}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>msend</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

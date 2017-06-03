@@ -22,7 +22,7 @@
     <ProjectGuid>{F3378033-D61A-4A92-B37A-2DAE91C51CAF}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>EmuSPI</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
