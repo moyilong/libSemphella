@@ -1,4 +1,7 @@
 #pragma once
+#ifndef __LINUX__
+#pragma warning(disable:4251 4309 4244 4237 4018)
+#endif
 #include "config.h"
 #ifndef __ALLOW_LOWMEM_PREFER
 #define MAX_BUFF_SIZE   512

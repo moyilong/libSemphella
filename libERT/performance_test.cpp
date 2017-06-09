@@ -54,11 +54,12 @@ LIBERT_API int PerformanceTest(int timeout)
 			}
 			catch (...)
 			{
-				cout << "Have an Unexcept Error Catch in Test progress!" << endl;
+				//cout << "Have an Unexcept Error Catch in Test progress!" << endl;
+				cout << "ID:" << id << "\tError" << endl;
 				continue;
 			}
 			poll.push_back(sc);
-			cout << "ID:" << id << "\tTimtout:" << sc.time_out << " IOPS\tof " << sc.all_count << " IOS \tin " << sc.timeout << " SECOND\t(" << APOLL[n].doc<<")"<< endl;
+			cout << "ID:" << id << "\tResult:" << sc.time_out << " IOPS\tof " << sc.all_count << " IOS \tin " << sc.timeout << " Seconds\t(" << APOLL[n].doc<<")"<< endl;
 		}
 		else {
 			cout << "ID:" << id << "\tUnsupported!" << endl;
