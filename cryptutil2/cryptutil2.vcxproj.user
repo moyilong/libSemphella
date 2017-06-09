@@ -6,7 +6,7 @@
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <LocalDebuggerCommandArguments> -i mconf.exe -p 123</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>cryptutil2.exe -x -o test</LocalDebuggerCommandArguments>
     <LocalDebuggerWorkingDirectory>$(SolutionDir)$(Platform)\$(Configuration)\</LocalDebuggerWorkingDirectory>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>

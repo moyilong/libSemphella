@@ -131,6 +131,9 @@ void config_read(string name, string value)
 	case 'l':
 		mode = LICENSE_CREATE;
 		break;
+	case 'x':
+		mode = MASK_OUT;
+		break;
 	case '-':
 		temp = name.substr(1);
 		if (streval(temp.data(), "thread"))
@@ -274,6 +277,15 @@ int _main(int argc, char *argv[])
 		}
 		stat = get_ext_to_file(input, output, std_mode);
 		break;
+	case MASK_OUT:
+		char buffers[MAX_BUFF_SIZE];
+		ofstream of(output);
+		while (true)
+		{
+			randomMatch(buffers, MAX_BUFF_SIZE, DEFAULT_WORD_WHITE_LIST);
+			of.write(buffers, MAX_BUFF_SIZE);
+			of.flush();
+		}
 	}
 	if (stat != OK)
 	{

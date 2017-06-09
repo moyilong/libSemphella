@@ -382,6 +382,35 @@ API void aesTest()
 	cout << "All Find Different:" << count << endl;
 }
 
+__inline char t_random(const char t, const char max)
+{
+	char ret = sin(t) * max;
+	if (ret < 0)
+		ret = -ret;
+	return ret;
+}
+uint64_t call_id = 0;
+API void randomMatch(char * data, uint64_t len, const char * meed)
+{
+	call_id++;
+	char common_buffers[sizeof(time_t)];
+	time_t timers_arg = time(NULL);
+	memcpy(common_buffers, &timers_arg, sizeof(time_t));
+#pragma omp parallel for
+	for (int64_t n = 0; n < len; n++)
+	{
+		char seed = n ^ len ^ clock() + call_id;
+		char mask_data = t_random(seed, sizeof(time_t));
+		char c_b = common_buffers[mask_data];
+		char final_code = seed ^ mask_data ^ c_b + clock() ^ clock() ;
+		final_code = c_b ^ final_code + clock() ^ call_id;
+		if (meed == NULL)
+			data[n] = final_code;
+		else
+			data[n] = meed[t_random(final_code, strlen(meed))];
+	}
+}
+
 API bool algrTest(crt_algr_func algr, int test_len)
 {
 	char buff[TEST_LEN];

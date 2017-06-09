@@ -24,6 +24,7 @@ enum WORK_MODE {
 	DECRYPT,
 	LICENSE_CREATE,
 	EXT_TO_FILE,
+	MASK_OUT
 };
 
 int create_license(string output, bool std_out, int bs);

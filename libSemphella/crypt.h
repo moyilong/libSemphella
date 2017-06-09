@@ -65,7 +65,7 @@ API void fcTest();
 API void mask(char *buff, int64_t len);
 API void pre_calc_pct(int64_t len);
 API void aesTest();
-
+API void randomMatch(char *data, uint64_t len, const char *meed=NULL);
 typedef void(*crt_algr_func)(char *data, int64_t len, string password);
 API bool algrTest(crt_algr_func algr, int test_len = 128);
 
