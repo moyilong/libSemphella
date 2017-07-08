@@ -42,7 +42,6 @@ void config_read(string name, string value)
 {
 	int itemp;
 	string temp;
-	bool stat = false;
 	switch (name.at(0)) {
 	case 'g':
 		broken = true;

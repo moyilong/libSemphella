@@ -51,7 +51,7 @@ LIBERT_API RETURN_STAT crypt_to_file(string in, string out, string password, int
 	head.password_sum = APOLL[trans_id(head.algrthom)].px(password);
 	head.bs = bs;
 	head.password_sum = APOLL[trans_id(alg)].px(password);
-	double old_presend = 0, dlen = i.tell_len();
+	double old_presend = 0;
 	uint64_t ulen = 0;
 	o.write(&head, 1);
 	if (!extfil.empty())
@@ -144,7 +144,7 @@ LIBERT_API RETURN_STAT decrtpt_to_file(string in, string out, string password, i
 		all_ext_len = sizeof(EXT) + ex.length;
 	}
 	uint64_t len = i.tell_len() - sizeof(HEAD) - all_ext_len;
-	double old_presend = 0, dlen = i.tell_len();
+	double old_presend = 0;
 	uint64_t ulen = 0;
 	uint64_t mbs, fix;
 	mbs = len / head.bs;
