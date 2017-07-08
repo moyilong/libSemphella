@@ -8,7 +8,7 @@
 #else
 #define MAX_BUFF_SIZE	4096
 #endif
-#define API_VER         177
+#define API_VER         180
 #define CORE_NAME       "Phoenix"
 
 #ifdef __ANDROID__

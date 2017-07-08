@@ -33,8 +33,8 @@ kernel::kernel()
 	for (int n = 0; n < init_call.size(); n++)
 		init_call.at(n)();
 	kver.main = 1;
-	kver.build = 4;
-	kver.version = 8;
+	kver.build = 5;
+	kver.version = 0;
 	kver.fix = API_VER;
 #ifndef __linux__
 	word = MAKEWORD(2, 2);
