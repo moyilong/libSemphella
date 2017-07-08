@@ -4,7 +4,7 @@
 bool kernel_inited = false;
 bool debug_stat = __DEFAULT_DEBUG_STAT;
 kernel KERNEL;
-VER kver;
+VER kver(1,5,0,API_VER);
 #ifndef __linux__
 #include "net.h"
 WSAData wsa;
@@ -32,10 +32,6 @@ kernel::kernel()
 	start_time = time(0);
 	for (int n = 0; n < init_call.size(); n++)
 		init_call.at(n)();
-	kver.main = 1;
-	kver.build = 5;
-	kver.version = 0;
-	kver.fix = API_VER;
 #ifndef __linux__
 	word = MAKEWORD(2, 2);
 	WSAStartup(word, &wsa);
