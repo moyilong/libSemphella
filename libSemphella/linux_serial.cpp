@@ -276,7 +276,6 @@ int UART0_Init(int fd, int speed, int flow_ctrl, int databits, int stopbits, int
 *******************************************************************/
 int UART0_Recv(int fd, char *rcv_buf, int data_len)
 {
-	int len;
 	/*fd_set fs_read;
 
 	struct timeval time;
