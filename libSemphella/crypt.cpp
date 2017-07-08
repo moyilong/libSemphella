@@ -481,7 +481,6 @@ API  vector<string> getsum2_decrypt(uint64_t sum, uint64_t begin_seek, uint64_t 
 	vector<string>ret;
 	int64_t mp_size = MAX_BUFF_SIZE*MAX_BUFF_SIZE;
 	uint64_t value;
-	char *buff;
 	uint64_t ops = 0;
 	double last_ops = 0, iops = 0;
 	time_t begin = time(0);
@@ -599,7 +598,6 @@ API void mpSum_Test(int test_length, bool v2_algr)
 	ValueInfo vval;
 	while (true)
 	{
-		bool find = false;
 		string val = eitoa(n, strlen(DEFAULT_WORD_WHITE_LIST), DEFAULT_WORD_WHITE_LIST);
 		if (n % 100000 == 0)
 		{

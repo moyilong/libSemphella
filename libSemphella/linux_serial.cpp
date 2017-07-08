@@ -103,7 +103,6 @@ int UART0_Set(int fd, int speed, int flow_ctrl, int databits, int stopbits, int 
 {
 
 	int   i;
-	int   status;
 	int   speed_arr[] = { B115200, B57600,B19200, B9600, B4800, B2400, B1200, B300 };
 	int   name_arr[] = { 115200,  57600,19200,  9600,  4800,  2400,  1200,  300 };
 
@@ -256,7 +255,6 @@ int UART0_Set(int fd, int speed, int flow_ctrl, int databits, int stopbits, int 
 int UART0_Init(int fd, int speed, int flow_ctrl, int databits, int stopbits, int parity)
 {
 	debug<<"Use C Lib Default Configure to Load"<<endl;
-	int err;
 	//设置串口数据帧格式  
 	if (UART0_Set(fd, 19200, 0, 8, 1, 'N') == FALSE)
 	{
@@ -278,7 +276,7 @@ int UART0_Init(int fd, int speed, int flow_ctrl, int databits, int stopbits, int
 *******************************************************************/
 int UART0_Recv(int fd, char *rcv_buf, int data_len)
 {
-	int len, fs_sel;
+	int len;
 	/*fd_set fs_read;
 
 	struct timeval time;
