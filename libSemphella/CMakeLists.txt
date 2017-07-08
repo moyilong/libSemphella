@@ -5,7 +5,6 @@ set (SOURCE_FILES argment.cpp
 	debug.cpp
 	sendmail.cpp
 	files.cpp
-	compress.cpp
 	kernel.cpp
 	libSemphella.cpp
 	license.cpp
@@ -45,7 +44,6 @@ INSTALL (FILES apd.h
 	time.h
 	logd.h
 	main.h
-	compress.h
 	net.h
 	math.h
 	error.h

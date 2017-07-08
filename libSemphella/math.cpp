@@ -112,7 +112,6 @@ API void random(char * buff, int64_t len, uint64_t loop_size)
 }
 API void random_test()
 {
-	uint64_t val = 0;
 	vector<uint64_t>valx;
 	while (true)
 	{

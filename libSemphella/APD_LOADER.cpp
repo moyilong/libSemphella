@@ -59,7 +59,6 @@ void APD::load(string filename)
 	{
 		fileio.seekg(0);
 		string last_node = "_system_";
-		bool first = true;
 		while (!fileio.eof())
 		{
 			string sbuff;

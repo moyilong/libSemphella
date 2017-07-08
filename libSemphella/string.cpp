@@ -366,7 +366,6 @@ API vector<string> splite(string val, char spliter)
 API double atolf(string val)
 {
 	double ret = 0;
-	char buff[MAX_BUFF_SIZE] = { 0x00 };
 	sscanf(val.data(), "%lf", &ret);
 	return ret;
 }
