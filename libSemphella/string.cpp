@@ -67,7 +67,7 @@ API string Trim(string val)
 API string api_human_read_time_unit(uint64_t val)
 {
 	string ret[] = { "S","M","H" };
-	return human_read(val, ret, 1024);
+	return human_read(val, ret, 60);
 }
 
 API string StrLimit(string str, int len, bool spare)
