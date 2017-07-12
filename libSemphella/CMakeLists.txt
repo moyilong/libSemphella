@@ -19,6 +19,7 @@ set (SOURCE_FILES argment.cpp
 	logd.cpp
 	hal.cpp
 	linux_serial.cpp
+	sysapi_modcall.cpp
 	utils.cpp)
 
 
