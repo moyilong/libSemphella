@@ -57,3 +57,5 @@ INSTALL (FILES apd.h
 	BMP.h
 	DESTINATION include/libSemphella)
 
+TARGET_LINK_LIBRARIES(Semphella -ldl)
+TARGET_LINK_LIBRARIES(libSemphella -ldl)
