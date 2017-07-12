@@ -19,6 +19,7 @@ set (SOURCE_FILES argment.cpp
 	logd.cpp
 	hal.cpp
 	linux_serial.cpp
+	sysapi_modcall.cpp
 	utils.cpp)
 
 
@@ -56,3 +57,5 @@ INSTALL (FILES apd.h
 	BMP.h
 	DESTINATION include/libSemphella)
 
+TARGET_LINK_LIBRARIES(Semphella -ldl)
+TARGET_LINK_LIBRARIES(libSemphella -ldl)
