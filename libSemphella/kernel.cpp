@@ -33,6 +33,7 @@ kernel::kernel()
 	for (int n = 0; n < init_call.size(); n++)
 		init_call.at(n)();
 #ifndef __linux__
+	debug << "Init Windows Socket Network" << endl;
 	word = MAKEWORD(2, 2);
 	WSAStartup(word, &wsa);
 #endif
