@@ -13,6 +13,17 @@ namespace libSCS_WPFForm
 {
     public partial class debugwindow : Form
     {
+        static debugwindow formal = new debugwindow();
+
+        public static void Display()
+        {
+            formal.Show();
+        }
+        public static void Push(string str)
+        {
+            
+            formal.AddString(str);
+        }
         public debugwindow()
         {
             InitializeComponent();
@@ -37,7 +48,7 @@ namespace libSCS_WPFForm
 
         public void AddString(string data)
         {
-            richTextBox1.Text += System.Environment.NewLine + "[" + System.DateTime.UtcNow.ToString() + "]" + data;
+            richTextBox1.Text = richTextBox1.Text +  System.Environment.NewLine + "[" + System.DateTime.UtcNow.ToString() + "]" + data;
             if (checkBox1.Checked)
             {
                 richTextBox1.SelectionStart = richTextBox1.Text.Length;
