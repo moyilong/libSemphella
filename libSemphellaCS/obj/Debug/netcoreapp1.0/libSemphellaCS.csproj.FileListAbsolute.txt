@@ -1,0 +1,7 @@
+C:\Users\moyil.DESKTOP-PM76HBE\Desktop\libSemphella\libSemphellaCS\bin\Debug\netcoreapp1.0\libSemphellaCS.deps.json
+C:\Users\moyil.DESKTOP-PM76HBE\Desktop\libSemphella\libSemphellaCS\bin\Debug\netcoreapp1.0\libSemphellaCS.dll
+C:\Users\moyil.DESKTOP-PM76HBE\Desktop\libSemphella\libSemphellaCS\bin\Debug\netcoreapp1.0\libSemphellaCS.pdb
+C:\Users\moyil.DESKTOP-PM76HBE\Desktop\libSemphella\libSemphellaCS\obj\Debug\netcoreapp1.0\libSemphellaCS.csprojResolveAssemblyReference.cache
+C:\Users\moyil.DESKTOP-PM76HBE\Desktop\libSemphella\libSemphellaCS\obj\Debug\netcoreapp1.0\libSemphellaCS.AssemblyInfo.cs
+C:\Users\moyil.DESKTOP-PM76HBE\Desktop\libSemphella\libSemphellaCS\obj\Debug\netcoreapp1.0\libSemphellaCS.dll
+C:\Users\moyil.DESKTOP-PM76HBE\Desktop\libSemphella\libSemphellaCS\obj\Debug\netcoreapp1.0\libSemphellaCS.pdb

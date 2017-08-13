@@ -4,13 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E4EBA592-2C6B-4155-BCFF-BAE8AA103B61}</ProjectGuid>
+    <ProjectGuid>{C4982E8D-E71C-4929-A017-283B9E0E5476}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>libSCS_WPFForm</RootNamespace>
-    <AssemblyName>libSCS_WPFForm</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CSemphella</RootNamespace>
+    <AssemblyName>CSemphella</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -20,7 +20,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,7 +28,6 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -38,40 +36,14 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="debugwindow.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="debugwindow.Designer.cs">
-      <DependentUpon>debugwindow.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ErrorHandle.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ErrorHandle.Designer.cs">
-      <DependentUpon>ErrorHandle.cs</DependentUpon>
-    </Compile>
+    <Compile Include="inioperator.cs" />
+    <Compile Include="libSemphellaCS.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="debugwindow.resx">
-      <DependentUpon>debugwindow.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ErrorHandle.resx">
-      <DependentUpon>ErrorHandle.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\CSemphella\CSemphella.csproj">
-      <Project>{c4982e8d-e71c-4929-a017-283b9e0e5476}</Project>
-      <Name>CSemphella</Name>
-    </ProjectReference>
+    <Compile Include="utils.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
