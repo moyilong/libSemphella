@@ -4,11 +4,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections;
-
+using System.Security.Cryptography;
 namespace CSemphella
 {
     public static class utils
     {
+        public static string GetMD5(string data)
+        {
+            return GetMD5(Encoding.UTF8.GetBytes(data));
+        }
+        public  static string GetMD5(byte[] data)
+        {
+            MD5 md5 = new MD5CryptoServiceProvider();
+            byte[] hash = md5.ComputeHash(data);
+            string ret = "";
+            for (int i = 0; i < hash.Length; i++)
+                ret += hash[i].ToString("x2");
+            return ret;
+        }
         public static bool in_array<T>(T [] get,T find)
         {
             bool stat = false;
@@ -33,8 +46,9 @@ namespace CSemphella
         {
             Hashtable ret = new Hashtable();
             string[] format = raw_data.Split('\n');
-            foreach (string line in format)
+            foreach (string _line in format)
             {
+                string line = _line;
                 if (line == "" || line[0] == '#')
                     continue;
                 int poffset = -1;
@@ -55,5 +69,36 @@ namespace CSemphella
             }
             return ret;
         }
+    }
+
+    public static class XConvert
+    {
+        private static string[] storage_unit =
+        {
+            "B",
+            "KB",
+            "MB",
+            "GB",
+            "TB",
+            "PB",
+            "EB",
+        };
+        public static string StorageSizeCheck(long val,int begin_level=0)
+        {
+            return UnitConvert(val, begin_level, storage_unit, 1024);
+        }
+
+        public static string UnitConvert(long val,int current_level,string[] level_array,int step)
+        {
+            double rv = val;
+            int level = current_level;
+            while (level > step && level < level_array.Count())
+            {
+                rv /= step;
+                level++;
+            }
+            return String.Format("{0:N2}" + level_array[level], rv);
+        }
+
     }
 }

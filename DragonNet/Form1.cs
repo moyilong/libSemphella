@@ -88,7 +88,14 @@ namespace DragonNet
                                 rdata["DRAGONOS_BUILD_ID"] as string);
                             item.SubItems.Add(diff.TotalMilliseconds.ToString());
                             item.SubItems.Add(ping_data.RoundtripTime.ToString());
-                            item.SubItems.Add(rdata["DEVICE_SERIAL"].ToString());
+                            try
+                            {
+                                item.SubItems.Add(rdata["DEVICE_SERIAL"].ToString());
+                            }
+                            catch(Exception)
+                            {
+                                item.SubItems.Add("Unknow");
+                            }
                             listView1.Items.Add(item);
                         }
                     }
