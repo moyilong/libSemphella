@@ -46,18 +46,40 @@ namespace CSemphella
                 return (data == null);
             }
         }
-
-        public void OpenFile(string file)
+        string _password = "CSEMPHELLA_AES_DEFAULT_CIPHER_PASSWORD";
+        public string Password
         {
+            set
+            {
+                _password = value;
+            }
+        }
+        static string TestHead = "PASSWORD_VERIFY_INDA";
+        public bool BinaryMode = false;
+        public void OpenFile(string file,string password=null)
+        {
+            if (password != null)
+                Password = password;
             data = new List<Section>();
-            StreamReader fs=File.OpenText(file);
-            if (fs == null)
-                throw new Exception("OpenFileFaild!");
+            string[] buff = File.ReadAllText(file).Split('\n');
+            if (buff[0] == "APD_BIN:")
+            {
+                BinaryMode = true;
+                if (TestHead  != AESHelper.AESDecrypt(buff[0].Substring(9),_password))
+                {
+                    throw new Exception("PASSWORD_INVALID");
+                }
+                System.Threading.Tasks.Parallel.For(1, buff.Length, i=>{
+                    buff[i] = AESHelper.AESDecrypt(buff[i], _password);
+                });
+            }
             Section temp = new Section();
             bool first = true;
-            while (!fs.EndOfStream)
+            for (UInt64 p=0;p<Convert.ToUInt64( buff.Length);p++)
             {
-                string line = fs.ReadLine();
+                if (BinaryMode && p == 0)
+                    continue;
+                string line = buff[p];
                 char[] array = line.ToCharArray();
                 if (array[0] == '#'|| line.Length==0)
                     continue;
@@ -102,10 +124,19 @@ namespace CSemphella
         {
             if (!IsOpen)
                 throw new Exception("FILE_IS_NOT_OPEN");
-            FileStream fs = new FileStream(file, FileMode.CreateNew);
-            if (fs == null)
-                throw new Exception("WRITE_FILE_FAILD");
-
+            string pdata = "";
+            foreach(Section sec in data)
+            {
+                pdata += "[" + sec.name + "]" + System.Environment.NewLine;
+                foreach (Node n in sec.collect)
+                    pdata += n.name + "=" + n.data + System.Environment.NewLine;
+            }
+            if (BinaryMode)
+            {
+                string head = "APD_BIN:" + AESHelper.AESEncrypt(TestHead, _password) + "\n";
+                pdata = head + AESHelper.AESEncrypt(pdata,_password);
+            }
+            File.WriteAllText(file, pdata);
         }
         int  checksection(string section)
         {
