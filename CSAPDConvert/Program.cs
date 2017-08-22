@@ -28,6 +28,9 @@ namespace CSAPDConvert
                         case 'o':
                             output = s.Substring(2);
                             break;
+                        case 'd':
+                            decrypt = true;
+                            break;
                     }
             }
             if (input == null || output == null)

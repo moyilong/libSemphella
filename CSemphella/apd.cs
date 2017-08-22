@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.Threading.Tasks;
+using System.Configuration;
+using System.Collections;
 
 namespace CSemphella
 {
@@ -37,14 +39,14 @@ namespace CSemphella
         {
             OpenFile(file, pwd);
         }
-
-        private List<Section> data=null;
+       
+        private List<Section> data = null;
 
         public bool IsOpen
         {
             get
             {
-                return (data == null);
+                return (data != null);
             }
         }
         string _password = "CSEMPHELLA_AES_DEFAULT_CIPHER_PASSWORD";
@@ -54,6 +56,10 @@ namespace CSemphella
             {
                 _password = value;
             }
+            private get
+            {
+                return _password;
+            }
         }
         static string TestHead = "PASSWORD_VERIFY_INDA";
         public bool BinaryMode = false;
@@ -61,76 +67,66 @@ namespace CSemphella
         {
             if (password != null)
                 Password = password;
-            data = new List<Section>();
+            Create();
             string read = File.ReadAllText(file);
             string[] buff = read.Split('\n');
-            if (buff[0].Substring(0, 8) == "APD_BIN:")
+            try
             {
-                Console.WriteLine("Use Binary Mode");
-                BinaryMode = true;
-                Console.WriteLine("EncryptoBuffer:" + buff[1]);
-                Console.WriteLine("TestCode:" + buff[0].Substring(8));
-                if (TestHead != AESHelper.AESDecrypt(buff[0].Substring(8), _password))
+                if (buff[0].Substring(0, 8) == "APD_BIN:")
                 {
-                    throw new Exception("PASSWORD_INVALID");
-                }
-                int offset = -1;
-                for (int n = 0; n < read.Length; n++)
-                    if (read[n] == '\n')
+                    Console.WriteLine("Use Binary Mode");
+                    BinaryMode = true;
+                    Console.WriteLine("EncryptoBuffer:" + buff[1]);
+                    Console.WriteLine("TestCode:" + buff[0].Substring(8));
+                    if (TestHead != AESHelper.AESDecrypt(buff[0].Substring(8), _password))
                     {
-                        offset = n;
-                        break;
+                        throw new Exception("PASSWORD_INVALID");
                     }
-                
-                string dec = AESHelper.AESDecrypt(buff[1], _password);
-                buff = dec.Split('\n');
-                Console.WriteLine("Decodec:" + dec);
-                Console.WriteLine(buff.Length.ToString());
+                    int offset = -1;
+                    for (int n = 0; n < read.Length; n++)
+                        if (read[n] == '\n')
+                        {
+                            offset = n;
+                            break;
+                        }
+
+                    string dec = AESHelper.AESDecrypt(buff[1], Password);
+                    buff = dec.Split('\n');
+                    Console.WriteLine("Decodec:" + dec);
+                    Console.WriteLine(buff.Length.ToString());
+                }
             }
-            
-            Section temp = new Section();
-            bool first = true;
+            catch
+            {
+
+            }
+            string opname = "_global_";
             for (UInt64 p=0;p<Convert.ToUInt64( buff.Length);p++)
             {
-                if (BinaryMode && p == 0)
-                    continue;
                 string line = buff[p].Trim();
-                char[] array = line.ToCharArray();
-                Console.WriteLine("=>" + line);
-                if (array[0] == '#'|| line.Length==0)
-                    continue;
-                if (array[0] == '[' && array[line.Length - 1] == ']')
+                Console.WriteLine("=>\"" + line+"\"");
+                if (line.Length == 0|| line[0] == '#')
                 {
-                    if (first)
-                    {
-                        first = false;
-                    }
-                    else
-                    {
-                        data.Add(temp);
-                    }
-                    temp = new Section();
-                    temp.collect = new List<Node>();
-                    temp.name = line.Substring(1, line.Length - 2);
+                    Console.WriteLine("Skip");
+                    continue;
+                }
+                if (line[0] == '[' && line[line.Length - 1] == ']')
+                {
+                    opname = line.Substring(1, line.Length - 2);
                 }
                 else
                 {
-                    Node get = new Node();
-                    int poffset = -1;
-                    for (int n = 0; n < line.Length && poffset == -1; n++)
-                        if (array[n] == '=')
-                            poffset = n;
-                    if (poffset == -1)
-                    {
-                        get.name = line.Trim();
-                        get.data = "true";
-                    }
-                    else
-                    {
-                        get.name = line.Substring(0, poffset).Trim();
-                        get.data = line.Substring(poffset + 1).Trim();
-                    }
-                    temp.collect.Add(get);
+                    Node g = new Node();
+                    g.name = line;
+                    g.data = "defs";
+                    for (int n = 0; n < line.Length; n++)
+                        if (line[n] == '=')
+                        {
+                            g.name = line.Substring(0, n).Trim();
+                            g.data = line.Substring(n + 1).Trim();
+                        }
+                    Console.WriteLine("ADD Line:" + g.name);
+                    Insert(opname, g);
                 }
             }
         }
@@ -143,14 +139,19 @@ namespace CSemphella
             string pdata = "";
             foreach(Section sec in data)
             {
-                pdata += "[" + sec.name + "]" + System.Environment.NewLine;
+                
+                Console.WriteLine("Save:" + sec.name);
+                pdata += "[" + sec.name + "]\n";
                 foreach (Node n in sec.collect)
-                    pdata += n.name + "=" + n.data + System.Environment.NewLine;
+                {
+                    Console.WriteLine("Save:" + n.name);
+                    pdata += n.name + "=" + n.data + "\n";
+                }
             }
             if (BinaryMode)
             {
                 string head = "APD_BIN:" + AESHelper.AESEncrypt(TestHead, _password) + "\n";
-                pdata = head + AESHelper.AESEncrypt(pdata,_password);
+                pdata = head + AESHelper.AESEncrypt(pdata,Password);
             }
             File.WriteAllText(file, pdata);
         }
@@ -160,7 +161,8 @@ namespace CSemphella
                 return -1;
             for (int n=0;n<data.Count;n++)
             {
-                if (data[n].name == section)
+                Console.WriteLine("=>" + section + " = " + data[n].name);
+                if (data[n].name  == section)
                     return n;
             }
             return -1;
@@ -192,21 +194,30 @@ namespace CSemphella
             return true;
         }
 
-        public void AddSection(string sectionname,string name,string data)
+        public void Insert(string sectionname,string name,string data)
         {
+            Insert(sectionname, new Node(name, data));
+        }
+
+        public void Insert(string sectionname,Node vdata)
+        {
+            Console.WriteLine("Insert:" + sectionname + "." + vdata.name);
             int sec = checksection(sectionname);
             if (sec == -1)
             {
                 this.data.Add(new Section(sectionname));
                 sec = checksection(sectionname);
             }
-            int nod = checknode(sectionname, name);
+            if (sec == -1)
+                throw new Exception("ADD_FAILD");
+            int nod = checknode(sectionname, vdata.name);
             if (nod == -1)
             {
-                this.data[sec].collect.Add(new Node(name, data));
+                data[sec].collect.Add(vdata);
                 return;
             }
-            this.data[sec].collect[nod].Set(data);
+            data[sec].collect[nod].Set(vdata.data);
+            
         }
 
         public string ReadSection(string sectionname,string name,string auto_set = null)
