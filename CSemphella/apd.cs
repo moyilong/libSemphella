@@ -74,10 +74,10 @@ namespace CSemphella
             {
                 if (buff[0].Substring(0, 8) == "APD_BIN:")
                 {
-                    Console.WriteLine("Use Binary Mode");
+                    //Console.WriteLine("Use Binary Mode");
                     BinaryMode = true;
-                    Console.WriteLine("EncryptoBuffer:" + buff[1]);
-                    Console.WriteLine("TestCode:" + buff[0].Substring(8));
+                    //Console.WriteLine("EncryptoBuffer:" + buff[1]);
+                    //Console.WriteLine("TestCode:" + buff[0].Substring(8));
                     if (TestHead != AESHelper.AESDecrypt(buff[0].Substring(8), _password))
                     {
                         throw new Exception("PASSWORD_INVALID");
@@ -92,8 +92,8 @@ namespace CSemphella
 
                     string dec = AESHelper.AESDecrypt(buff[1], Password);
                     buff = dec.Split('\n');
-                    Console.WriteLine("Decodec:" + dec);
-                    Console.WriteLine(buff.Length.ToString());
+                    //Console.WriteLine("Decodec:" + dec);
+                    //Console.WriteLine(buff.Length.ToString());
                 }
             }
             catch
@@ -104,10 +104,10 @@ namespace CSemphella
             for (UInt64 p=0;p<Convert.ToUInt64( buff.Length);p++)
             {
                 string line = buff[p].Trim();
-                Console.WriteLine("=>\"" + line+"\"");
+                //Console.WriteLine("=>\"" + line+"\"");
                 if (line.Length == 0|| line[0] == '#')
                 {
-                    Console.WriteLine("Skip");
+                    //Console.WriteLine("Skip");
                     continue;
                 }
                 if (line[0] == '[' && line[line.Length - 1] == ']')
@@ -125,7 +125,7 @@ namespace CSemphella
                             g.name = line.Substring(0, n).Trim();
                             g.data = line.Substring(n + 1).Trim();
                         }
-                    Console.WriteLine("ADD Line:" + g.name);
+                    //Console.WriteLine("ADD Line:" + g.name);
                     Insert(opname, g);
                 }
             }
@@ -140,11 +140,11 @@ namespace CSemphella
             foreach(Section sec in data)
             {
                 
-                Console.WriteLine("Save:" + sec.name);
+                //Console.WriteLine("Save:" + sec.name);
                 pdata += "[" + sec.name + "]\n";
                 foreach (Node n in sec.collect)
                 {
-                    Console.WriteLine("Save:" + n.name);
+                    //Console.WriteLine("Save:" + n.name);
                     pdata += n.name + "=" + n.data + "\n";
                 }
             }
@@ -161,7 +161,7 @@ namespace CSemphella
                 return -1;
             for (int n=0;n<data.Count;n++)
             {
-                Console.WriteLine("=>" + section + " = " + data[n].name);
+                //Console.WriteLine("=>" + section + " = " + data[n].name);
                 if (data[n].name  == section)
                     return n;
             }
@@ -201,7 +201,7 @@ namespace CSemphella
 
         public void Insert(string sectionname,Node vdata)
         {
-            Console.WriteLine("Insert:" + sectionname + "." + vdata.name);
+            //Console.WriteLine("Insert:" + sectionname + "." + vdata.name);
             int sec = checksection(sectionname);
             if (sec == -1)
             {

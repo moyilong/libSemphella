@@ -1,0 +1,9 @@
+C:\Users\moyil.DESKTOP-PM76HBE\Desktop\libSemphella\CSAPDConvert\bin\Release\CSAPDConvert.exe.config
+C:\Users\moyil.DESKTOP-PM76HBE\Desktop\libSemphella\CSAPDConvert\bin\Release\CSAPDConvert.exe
+C:\Users\moyil.DESKTOP-PM76HBE\Desktop\libSemphella\CSAPDConvert\bin\Release\CSAPDConvert.pdb
+C:\Users\moyil.DESKTOP-PM76HBE\Desktop\libSemphella\CSAPDConvert\bin\Release\CSemphella.dll
+C:\Users\moyil.DESKTOP-PM76HBE\Desktop\libSemphella\CSAPDConvert\bin\Release\CSemphella.pdb
+C:\Users\moyil.DESKTOP-PM76HBE\Desktop\libSemphella\CSAPDConvert\obj\Release\CSAPDConvert.csprojResolveAssemblyReference.cache
+C:\Users\moyil.DESKTOP-PM76HBE\Desktop\libSemphella\CSAPDConvert\obj\Release\CSAPDConvert.csproj.CoreCompileInputs.cache
+C:\Users\moyil.DESKTOP-PM76HBE\Desktop\libSemphella\CSAPDConvert\obj\Release\CSAPDConvert.exe
+C:\Users\moyil.DESKTOP-PM76HBE\Desktop\libSemphella\CSAPDConvert\obj\Release\CSAPDConvert.pdb

@@ -6,3 +6,4 @@ C:\Users\moyil.DESKTOP-PM76HBE\Desktop\libSemphella\libSCS_WPFForm\obj\Release\l
 C:\Users\moyil.DESKTOP-PM76HBE\Desktop\libSemphella\libSCS_WPFForm\obj\Release\libSCS_WPFForm.csproj.GenerateResource.Cache
 C:\Users\moyil.DESKTOP-PM76HBE\Desktop\libSemphella\libSCS_WPFForm\obj\Release\libSCS_WPFForm.dll
 C:\Users\moyil.DESKTOP-PM76HBE\Desktop\libSemphella\libSCS_WPFForm\obj\Release\libSCS_WPFForm.pdb
+C:\Users\moyil.DESKTOP-PM76HBE\Desktop\libSemphella\libSCS_WPFForm\obj\Release\libSCS_WPFForm.csproj.CoreCompileInputs.cache

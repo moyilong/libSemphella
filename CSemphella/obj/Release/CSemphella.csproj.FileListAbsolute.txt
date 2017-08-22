@@ -3,6 +3,4 @@ C:\Users\moyil.DESKTOP-PM76HBE\Desktop\libSemphella\CSemphella\bin\Release\CSemp
 C:\Users\moyil.DESKTOP-PM76HBE\Desktop\libSemphella\CSemphella\obj\Release\CSemphella.csprojResolveAssemblyReference.cache
 C:\Users\moyil.DESKTOP-PM76HBE\Desktop\libSemphella\CSemphella\obj\Release\CSemphella.dll
 C:\Users\moyil.DESKTOP-PM76HBE\Desktop\libSemphella\CSemphella\obj\Release\CSemphella.pdb
-C:\Users\moyil.DESKTOP-PM76HBE\Desktop\libSemphella\CSemphella\bin\Release\MySql.Data.dll
-C:\Users\moyil.DESKTOP-PM76HBE\Desktop\libSemphella\CSemphella\bin\Release\MySql.Data.pdb
-C:\Users\moyil.DESKTOP-PM76HBE\Desktop\libSemphella\CSemphella\bin\Release\MySql.Data.xml
+C:\Users\moyil.DESKTOP-PM76HBE\Desktop\libSemphella\CSemphella\obj\Release\CSemphella.csproj.CoreCompileInputs.cache
