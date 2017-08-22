@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CSemphella
 {
-    public class inioperator
+    public class apd
     {
         public struct Node
         {
@@ -32,9 +32,10 @@ namespace CSemphella
                 collect = new List<Node>();
             }
         }
-        public inioperator(string file)
+
+        public apd(string file ,string pwd=null)
         {
-            OpenFile(file);
+            OpenFile(file, pwd);
         }
 
         private List<Section> data=null;
@@ -61,29 +62,44 @@ namespace CSemphella
             if (password != null)
                 Password = password;
             data = new List<Section>();
-            string[] buff = File.ReadAllText(file).Split('\n');
-            if (buff[0] == "APD_BIN:")
+            string read = File.ReadAllText(file);
+            string[] buff = read.Split('\n');
+            if (buff[0].Substring(0, 8) == "APD_BIN:")
             {
+                Console.WriteLine("Use Binary Mode");
                 BinaryMode = true;
-                if (TestHead  != AESHelper.AESDecrypt(buff[0].Substring(9),_password))
+                Console.WriteLine("EncryptoBuffer:" + buff[1]);
+                Console.WriteLine("TestCode:" + buff[0].Substring(8));
+                if (TestHead != AESHelper.AESDecrypt(buff[0].Substring(8), _password))
                 {
                     throw new Exception("PASSWORD_INVALID");
                 }
-                System.Threading.Tasks.Parallel.For(1, buff.Length, i=>{
-                    buff[i] = AESHelper.AESDecrypt(buff[i], _password);
-                });
+                int offset = -1;
+                for (int n = 0; n < read.Length; n++)
+                    if (read[n] == '\n')
+                    {
+                        offset = n;
+                        break;
+                    }
+                
+                string dec = AESHelper.AESDecrypt(buff[1], _password);
+                buff = dec.Split('\n');
+                Console.WriteLine("Decodec:" + dec);
+                Console.WriteLine(buff.Length.ToString());
             }
+            
             Section temp = new Section();
             bool first = true;
             for (UInt64 p=0;p<Convert.ToUInt64( buff.Length);p++)
             {
                 if (BinaryMode && p == 0)
                     continue;
-                string line = buff[p];
+                string line = buff[p].Trim();
                 char[] array = line.ToCharArray();
+                Console.WriteLine("=>" + line);
                 if (array[0] == '#'|| line.Length==0)
                     continue;
-                if (array[0]=='[' && array[line.Length-1] == ']')
+                if (array[0] == '[' && array[line.Length - 1] == ']')
                 {
                     if (first)
                     {
@@ -92,25 +108,27 @@ namespace CSemphella
                     else
                     {
                         data.Add(temp);
-                        temp = new Section();
                     }
+                    temp = new Section();
+                    temp.collect = new List<Node>();
                     temp.name = line.Substring(1, line.Length - 2);
-                }else
+                }
+                else
                 {
-                    Node get=new Node();
+                    Node get = new Node();
                     int poffset = -1;
                     for (int n = 0; n < line.Length && poffset == -1; n++)
                         if (array[n] == '=')
                             poffset = n;
-                    if (poffset==-1)
+                    if (poffset == -1)
                     {
-                        get.name = line;
+                        get.name = line.Trim();
                         get.data = "true";
                     }
                     else
                     {
-                        get.name = line.Substring(0, poffset);
-                        get.data = line.Substring(poffset + 1);
+                        get.name = line.Substring(0, poffset).Trim();
+                        get.data = line.Substring(poffset + 1).Trim();
                     }
                     temp.collect.Add(get);
                 }
@@ -122,8 +140,6 @@ namespace CSemphella
         }
         public void WriteFile(string file)
         {
-            if (!IsOpen)
-                throw new Exception("FILE_IS_NOT_OPEN");
             string pdata = "";
             foreach(Section sec in data)
             {
