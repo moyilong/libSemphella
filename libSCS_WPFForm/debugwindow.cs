@@ -51,14 +51,18 @@ namespace libSCS_WPFForm
             richTextBox1.Text = richTextBox1.Text +  System.Environment.NewLine + "[" + System.DateTime.UtcNow.ToString() + "]" + data;
             if (checkBox1.Checked)
             {
-                richTextBox1.SelectionStart = richTextBox1.Text.Length;
-                richTextBox1.ScrollToCaret();
+                ExtraCS.RichTextBoxAutoScrool(richTextBox1);
             }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             richTextBox1.Text = "";
+        }
+
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CSemphella
 {
-    public class AESHelper
+    public static class AESHelper
     {
         /// <summary>
         /// AES加密
