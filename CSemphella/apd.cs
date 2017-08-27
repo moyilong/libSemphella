@@ -74,10 +74,7 @@ namespace CSemphella
             {
                 if (buff[0].Substring(0, 8) == "APD_BIN:")
                 {
-                    //Console.WriteLine("Use Binary Mode");
                     BinaryMode = true;
-                    //Console.WriteLine("EncryptoBuffer:" + buff[1]);
-                    //Console.WriteLine("TestCode:" + buff[0].Substring(8));
                     if (TestHead != AESHelper.AESDecrypt(buff[0].Substring(8), _password))
                     {
                         throw new Exception("PASSWORD_INVALID");
@@ -92,8 +89,6 @@ namespace CSemphella
 
                     string dec = AESHelper.AESDecrypt(buff[1], Password);
                     buff = dec.Split('\n');
-                    //Console.WriteLine("Decodec:" + dec);
-                    //Console.WriteLine(buff.Length.ToString());
                 }
             }
             catch
@@ -104,10 +99,8 @@ namespace CSemphella
             for (UInt64 p=0;p<Convert.ToUInt64( buff.Length);p++)
             {
                 string line = buff[p].Trim();
-                //Console.WriteLine("=>\"" + line+"\"");
                 if (line.Length == 0|| line[0] == '#')
                 {
-                    //Console.WriteLine("Skip");
                     continue;
                 }
                 if (line[0] == '[' && line[line.Length - 1] == ']')

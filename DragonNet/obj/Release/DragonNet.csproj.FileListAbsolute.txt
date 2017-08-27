@@ -13,3 +13,4 @@ C:\Users\moyil.DESKTOP-PM76HBE\Desktop\libSemphella\DragonNet\bin\Release\libSCS
 C:\Users\moyil.DESKTOP-PM76HBE\Desktop\libSemphella\DragonNet\bin\Release\libSCS_WPFForm.pdb
 C:\Users\moyil.DESKTOP-PM76HBE\Desktop\libSemphella\DragonNet\obj\Release\DragonNet.AboutBox1.resources
 C:\Users\moyil.DESKTOP-PM76HBE\Desktop\libSemphella\DragonNet\obj\Release\DragonNet.csproj.CoreCompileInputs.cache
+C:\Users\moyil.DESKTOP-PM76HBE\Desktop\libSemphella\DragonNet\obj\Release\DragonNet.Signal.resources

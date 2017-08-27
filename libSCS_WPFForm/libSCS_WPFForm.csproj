@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>libSCS_WPFForm</RootNamespace>
     <AssemblyName>libSCS_WPFForm</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -58,6 +58,12 @@
     </Compile>
     <Compile Include="ExtraCS.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StartupForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StartupForm.Designer.cs">
+      <DependentUpon>StartupForm.cs</DependentUpon>
+    </Compile>
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
@@ -66,6 +72,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ErrorHandle.resx">
       <DependentUpon>ErrorHandle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StartupForm.resx">
+      <DependentUpon>StartupForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

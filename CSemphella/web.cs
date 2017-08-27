@@ -18,15 +18,29 @@ namespace CSemphella
         {
             return true; //总是接受  
         }
-        public static string GetContentByURL(string url)
+        public static byte[] GetContentByURL_Byte(string url)
         {
             WebClient wc = new WebClient();
             ServicePointManager.ServerCertificateValidationCallback = new System.Net.Security.RemoteCertificateValidationCallback(CheckValidationResult);
             HttpWebRequest request = null;
             request = WebRequest.Create(url) as HttpWebRequest;
             HttpWebResponse getdata = request.GetResponse() as HttpWebResponse;
-            StreamReader read = new StreamReader(getdata.GetResponseStream(), System.Text.Encoding.UTF8);
-            return read.ReadToEnd();            
+            Stream read = getdata.GetResponseStream();
+            //getdata.GetResponseStream()
+            List<byte> ret = new List<byte>();
+            while (true)
+            {
+                int get = read.ReadByte();
+                if (get == -1)
+                    return ret.ToArray();
+                ret.Add(Convert.ToByte(get));
+            }
+        }
+
+        public static string GetContentByURL(string url)
+        {
+            byte[] get = GetContentByURL_Byte(url);
+            return Encoding.UTF8.GetString(get);
         }
 
         public static List<IPAddress> GetIPList()

@@ -54,7 +54,9 @@ namespace DragonNet
         {
             set
             {
-                active_thread += value;
+                active_thread = value;
+                if (active_thread < 0)
+                    active_thread = 0;
                 textBox1.Text = active_thread.ToString();
             }
             get
@@ -92,7 +94,7 @@ namespace DragonNet
                             {
                                 item.SubItems.Add(rdata["DEVICE_SERIAL"].ToString());
                             }
-                            catch(Exception)
+                            catch (Exception)
                             {
                                 item.SubItems.Add("Unknow");
                             }
@@ -125,7 +127,7 @@ namespace DragonNet
             {
                 if (stop_label)
                     return;
-                ActiveThread=1;
+                ActiveThread += 1;
                 progressBar1.Value++;
                 try
                 {
@@ -134,10 +136,10 @@ namespace DragonNet
                     temp = null;
                     SingalIPCheck(ipaddr);
                 }
-                catch (Exception e)
+                catch
                 {
                 }
-                ActiveThread=-1;
+                ActiveThread -= 1;
             });
             end:
             MutexLock(true);
@@ -156,7 +158,7 @@ namespace DragonNet
             {
                 IPAddress test = IPAddress.Parse(comboBox1.Text as string);
             }
-            catch(Exception d)
+            catch
             {
                 MessageBox.Show("请输入一个标准的IPv4地址\n比如:192.168.1.1", "IP地址不标准!", MessageBoxButtons.OK,MessageBoxIcon.Error);
             }
@@ -184,6 +186,18 @@ namespace DragonNet
         private void 关于程序ToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             new AboutBox1().ShowDialog(this);
+        }
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listView1_DoubleClick(object sender, EventArgs e)
+        {
+            /*ListViewItem selected = listView1.FocusedItem;
+            System.Diagnostics.Process.Start("explorer.exe", "http://" + selected.SubItems[1].Text);*/
+            new Signal(listView1.FocusedItem.SubItems[1].Text).ShowDialog();
         }
     }
 }

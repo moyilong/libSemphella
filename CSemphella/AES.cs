@@ -49,7 +49,8 @@ namespace CSemphella
                 Cryptograph = null;
             }
 
-            return Convert.ToBase64String(Cryptograph);
+            //return Convert.ToBase64String(Cryptograph);
+            return BinaryString.BinaryToString(Cryptograph);
         }
 
         /// <summary>
@@ -61,7 +62,8 @@ namespace CSemphella
         /// <returns>明文</returns>
         public static String AESDecrypt(String Data, String Key, String Vector)
         {
-            Byte[] encryptedBytes = Convert.FromBase64String(Data);
+            //Byte[] encryptedBytes = Convert.FromBase64String(Data);
+            Byte[] encryptedBytes = BinaryString.StringToBinary(Data);
             Byte[] bKey = new Byte[32];
             Array.Copy(Encoding.UTF8.GetBytes(Key.PadRight(bKey.Length)), bKey, bKey.Length);
             Byte[] bVector = new Byte[16];
@@ -128,7 +130,7 @@ namespace CSemphella
             {
                 cryptoStream.Write(plainBytes, 0, plainBytes.Length);
                 cryptoStream.FlushFinalBlock();
-                return Convert.ToBase64String(mStream.ToArray());
+                return BinaryString.BinaryToString(mStream.ToArray());
             }
             finally
             {
@@ -146,7 +148,7 @@ namespace CSemphella
         /// <returns>明文</returns>
         public static string AESDecrypt(String Data, String Key)
         {
-            Byte[] encryptedBytes = Convert.FromBase64String(Data);
+            Byte[] encryptedBytes = BinaryString.StringToBinary(Data);
             Byte[] bKey = new Byte[32];
             Array.Copy(Encoding.UTF8.GetBytes(Key.PadRight(bKey.Length)), bKey, bKey.Length);
 
