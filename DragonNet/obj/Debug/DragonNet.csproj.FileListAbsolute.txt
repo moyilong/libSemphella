@@ -13,3 +13,4 @@ C:\Users\moyil\Desktop\libSemphella\DragonNet\obj\Debug\DragonNet.csproj.Generat
 C:\Users\moyil\Desktop\libSemphella\DragonNet\obj\Debug\DragonNet.csproj.CoreCompileInputs.cache
 C:\Users\moyil\Desktop\libSemphella\DragonNet\obj\Debug\DragonNet.exe
 C:\Users\moyil\Desktop\libSemphella\DragonNet\obj\Debug\DragonNet.pdb
+C:\Users\moyil\Desktop\libSemphella\DragonNet\obj\Debug\DragonNet.Signal.resources

@@ -8,12 +8,12 @@ namespace libSCS_WPFForm
 {
     public static class ExtraCS
     {
-        public static bool Confirm(string title,string data)
+        public static bool Confirm(string data, string title)
         {
             return (MessageBox.Show(data, title, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes);
         }
 
-        public static void Error(string title,string data)
+        public static void Error(string data, string title)
         {
             MessageBox.Show(data, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
