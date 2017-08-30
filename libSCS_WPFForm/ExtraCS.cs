@@ -38,6 +38,5 @@ namespace libSCS_WPFForm
                 }
             }
         }
-
     }
 }

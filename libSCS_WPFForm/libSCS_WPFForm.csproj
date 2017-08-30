@@ -44,6 +44,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormExtra.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="debugwindow.cs">
       <SubType>Form</SubType>
     </Compile>
