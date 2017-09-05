@@ -39,7 +39,6 @@ namespace CSemphella
                 }
                 ret.Add(Convert.ToByte(spd[pos]));
             }
-            return null;
         }
     }
 }

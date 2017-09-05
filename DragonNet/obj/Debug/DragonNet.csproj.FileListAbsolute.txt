@@ -9,8 +9,8 @@ C:\Users\moyil\Desktop\libSemphella\DragonNet\obj\Debug\DragonNet.csprojResolveA
 C:\Users\moyil\Desktop\libSemphella\DragonNet\obj\Debug\DragonNet.AboutBox1.resources
 C:\Users\moyil\Desktop\libSemphella\DragonNet\obj\Debug\DragonNet.Form1.resources
 C:\Users\moyil\Desktop\libSemphella\DragonNet\obj\Debug\DragonNet.Properties.Resources.resources
+C:\Users\moyil\Desktop\libSemphella\DragonNet\obj\Debug\DragonNet.Signal.resources
 C:\Users\moyil\Desktop\libSemphella\DragonNet\obj\Debug\DragonNet.csproj.GenerateResource.Cache
 C:\Users\moyil\Desktop\libSemphella\DragonNet\obj\Debug\DragonNet.csproj.CoreCompileInputs.cache
 C:\Users\moyil\Desktop\libSemphella\DragonNet\obj\Debug\DragonNet.exe
 C:\Users\moyil\Desktop\libSemphella\DragonNet\obj\Debug\DragonNet.pdb
-C:\Users\moyil\Desktop\libSemphella\DragonNet\obj\Debug\DragonNet.Signal.resources
