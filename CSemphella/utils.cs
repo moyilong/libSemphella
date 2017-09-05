@@ -100,5 +100,16 @@ namespace CSemphella
             return String.Format("{0:N2}" + level_array[level], rv);
         }
 
+        public static int SecureIntConvert(string str, int def = 0)
+        {
+            try
+            {
+                return int.Parse(str);
+            }
+            catch
+            {
+                return def;
+            }
+        }
     }
 }
