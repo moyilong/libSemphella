@@ -1,5 +1,6 @@
 C:\Users\moyil\Desktop\libSemphella\nPinyin\bin\Debug\NPinyin.dll
 C:\Users\moyil\Desktop\libSemphella\nPinyin\bin\Debug\NPinyin.pdb
+C:\Users\moyil\Desktop\libSemphella\nPinyin\obj\Debug\NPinyin.csprojResolveAssemblyReference.cache
 C:\Users\moyil\Desktop\libSemphella\nPinyin\obj\Debug\NPinyin.csproj.CoreCompileInputs.cache
 C:\Users\moyil\Desktop\libSemphella\nPinyin\obj\Debug\NPinyin.dll
 C:\Users\moyil\Desktop\libSemphella\nPinyin\obj\Debug\NPinyin.pdb

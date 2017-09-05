@@ -3,8 +3,10 @@ C:\Users\moyil\Desktop\libSemphella\DragonNet\bin\Debug\DragonNet.exe
 C:\Users\moyil\Desktop\libSemphella\DragonNet\bin\Debug\DragonNet.pdb
 C:\Users\moyil\Desktop\libSemphella\DragonNet\bin\Debug\CSemphella.dll
 C:\Users\moyil\Desktop\libSemphella\DragonNet\bin\Debug\libSCS_WPFForm.dll
+C:\Users\moyil\Desktop\libSemphella\DragonNet\bin\Debug\NPinyin.dll
 C:\Users\moyil\Desktop\libSemphella\DragonNet\bin\Debug\CSemphella.pdb
 C:\Users\moyil\Desktop\libSemphella\DragonNet\bin\Debug\libSCS_WPFForm.pdb
+C:\Users\moyil\Desktop\libSemphella\DragonNet\bin\Debug\NPinyin.pdb
 C:\Users\moyil\Desktop\libSemphella\DragonNet\obj\Debug\DragonNet.csprojResolveAssemblyReference.cache
 C:\Users\moyil\Desktop\libSemphella\DragonNet\obj\Debug\DragonNet.AboutBox1.resources
 C:\Users\moyil\Desktop\libSemphella\DragonNet\obj\Debug\DragonNet.Form1.resources
@@ -14,5 +16,3 @@ C:\Users\moyil\Desktop\libSemphella\DragonNet\obj\Debug\DragonNet.csproj.Generat
 C:\Users\moyil\Desktop\libSemphella\DragonNet\obj\Debug\DragonNet.csproj.CoreCompileInputs.cache
 C:\Users\moyil\Desktop\libSemphella\DragonNet\obj\Debug\DragonNet.exe
 C:\Users\moyil\Desktop\libSemphella\DragonNet\obj\Debug\DragonNet.pdb
-C:\Users\moyil\Desktop\libSemphella\DragonNet\bin\Debug\NPinyin.dll
-C:\Users\moyil\Desktop\libSemphella\DragonNet\bin\Debug\NPinyin.pdb
