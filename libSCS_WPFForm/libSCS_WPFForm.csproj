@@ -85,6 +85,10 @@
       <Project>{c4982e8d-e71c-4929-a017-283b9e0e5476}</Project>
       <Name>CSemphella</Name>
     </ProjectReference>
+    <ProjectReference Include="..\nPinyin\NPinyin.csproj">
+      <Project>{265ed519-5902-4798-a817-b8295c91dd8f}</Project>
+      <Name>NPinyin</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

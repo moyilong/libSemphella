@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using NPinyin;
 namespace libSCS_WPFForm
 {
     public static class ExtraCS
@@ -93,6 +94,11 @@ namespace libSCS_WPFForm
             byte[] convert = orig.GetBytes(write);
             convert = Encoding.Convert(orig, output, convert);
             File.WriteAllBytes(rpath, convert);
+        }
+
+        public static string StringToComboFastGet(string orig)
+        {
+            return NPinyin.Pinyin.GetInitials(orig) + ":" + orig;
         }
     }
 }

@@ -10,3 +10,5 @@ C:\Users\moyil\Desktop\libSemphella\libSCS_WPFForm\obj\Debug\libSCS_WPFForm.cspr
 C:\Users\moyil\Desktop\libSemphella\libSCS_WPFForm\obj\Debug\libSCS_WPFForm.csproj.CoreCompileInputs.cache
 C:\Users\moyil\Desktop\libSemphella\libSCS_WPFForm\obj\Debug\libSCS_WPFForm.dll
 C:\Users\moyil\Desktop\libSemphella\libSCS_WPFForm\obj\Debug\libSCS_WPFForm.pdb
+C:\Users\moyil\Desktop\libSemphella\libSCS_WPFForm\bin\Debug\NPinyin.dll
+C:\Users\moyil\Desktop\libSemphella\libSCS_WPFForm\bin\Debug\NPinyin.pdb
