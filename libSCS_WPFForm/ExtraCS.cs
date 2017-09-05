@@ -64,6 +64,9 @@ namespace libSCS_WPFForm
             if (rpath == null)
                 return;
             string write = "";
+            for (int n = 0; n < view.Columns.Count; n++)
+                write += view.Columns[n].Name + ",";
+            write += "\n";
             for (int n = 0; n < view.Items.Count; n++)
             {
                 string line = "";
@@ -75,20 +78,6 @@ namespace libSCS_WPFForm
                 }
                 write += line + "\n";
             }
-            Encoding target = null;
-            try
-            {
-                target = System.Text.Encoding.GetEncoding(encoder);
-            }
-            catch (Exception e)
-            {
-                EncodingInfo[] list = Encoding.GetEncodings();
-                string codelist = "";
-                foreach (EncodingInfo info in list)
-                    codelist += "\n" + info.Name + " == " + info.DisplayName;
-                Error("编码器获取错误 ：" + encoder + codelist, "编码器错误");
-                return;
-            }
             Encoding orig = Encoding.GetEncoding(decoder);
             Encoding output = Encoding.GetEncoding(encoder);
             byte[] convert = orig.GetBytes(write);
@@ -99,6 +88,14 @@ namespace libSCS_WPFForm
         public static string StringToComboFastGet(string orig)
         {
             return NPinyin.Pinyin.GetInitials(orig) + ":" + orig;
+        }
+
+        public static void UpdateComboToAutoComplete(ComboBox cbox)
+        {
+            cbox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            cbox.AutoCompleteSource = AutoCompleteSource.ListItems;
+            for (int n = 0; n < cbox.Items.Count; n++)
+                cbox.Items[n] = StringToComboFastGet(cbox.Items[n] as string);
         }
     }
 }
