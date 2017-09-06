@@ -1,9 +1,0 @@
-C:\Users\moyil\Desktop\libSemphella\CSAPDConvert\bin\Debug\CSAPDConvert.exe.config
-C:\Users\moyil\Desktop\libSemphella\CSAPDConvert\bin\Debug\CSAPDConvert.exe
-C:\Users\moyil\Desktop\libSemphella\CSAPDConvert\bin\Debug\CSAPDConvert.pdb
-C:\Users\moyil\Desktop\libSemphella\CSAPDConvert\bin\Debug\CSemphella.dll
-C:\Users\moyil\Desktop\libSemphella\CSAPDConvert\bin\Debug\CSemphella.pdb
-C:\Users\moyil\Desktop\libSemphella\CSAPDConvert\obj\Debug\CSAPDConvert.csprojResolveAssemblyReference.cache
-C:\Users\moyil\Desktop\libSemphella\CSAPDConvert\obj\Debug\CSAPDConvert.csproj.CoreCompileInputs.cache
-C:\Users\moyil\Desktop\libSemphella\CSAPDConvert\obj\Debug\CSAPDConvert.exe
-C:\Users\moyil\Desktop\libSemphella\CSAPDConvert\obj\Debug\CSAPDConvert.pdb

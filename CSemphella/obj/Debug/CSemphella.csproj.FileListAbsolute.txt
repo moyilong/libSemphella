@@ -1,6 +1,0 @@
-C:\Users\moyil\Desktop\libSemphella\CSemphella\bin\Debug\CSemphella.dll
-C:\Users\moyil\Desktop\libSemphella\CSemphella\bin\Debug\CSemphella.pdb
-C:\Users\moyil\Desktop\libSemphella\CSemphella\obj\Debug\CSemphella.csproj.CoreCompileInputs.cache
-C:\Users\moyil\Desktop\libSemphella\CSemphella\obj\Debug\CSemphella.dll
-C:\Users\moyil\Desktop\libSemphella\CSemphella\obj\Debug\CSemphella.pdb
-C:\Users\moyil\Desktop\libSemphella\CSemphella\obj\Debug\CSemphella.csprojResolveAssemblyReference.cache
