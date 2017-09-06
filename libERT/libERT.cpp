@@ -99,7 +99,6 @@ LIBERT_API RETURN_STAT crypt_to_file(string in, string out, string password, int
 	o.write(&head, 1);
 	cout << endl << endl;
 	debug << "WriteHead:" << getsumV2((char*)&head, sizeof(head)) << endl;
-	cout << "SysteDecode:" << head.sum << "=>" << sum << endl;
 	i.close();
 	o.close();
 	return OK;
@@ -181,7 +180,7 @@ LIBERT_API RETURN_STAT decrtpt_to_file(string in, string out, string password, i
 	o.close();
 	if (!std_mode)
 	{
-		cout << "SysteDecode:" << head.sum << "=>" << sum << endl;
+		cout <<endl<< "SysteDecode:" << head.sum << "=>" << sum << endl;
 	}
 	if (sum != head.sum)
 		return FILE_VERIFY_FAILD;

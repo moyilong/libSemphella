@@ -156,11 +156,9 @@ namespace CSemphella
             string pdata = "";
             foreach (Section sec in data)
             {
-                //Console.WriteLine("Save:" + sec.name);
                 pdata += "[" + sec.name + "]\n";
                 foreach (Node n in sec.collect)
                 {
-                    //Console.WriteLine("Save:" + n.name);
                     pdata += n.name + "=" + n.data + "\n";
                 }
             }
@@ -178,7 +176,6 @@ namespace CSemphella
                 return -1;
             for (int n = 0; n < data.Count; n++)
             {
-                //Console.WriteLine("=>" + section + " = " + data[n].name);
                 if (data[n].name == section)
                     return n;
             }
@@ -219,7 +216,6 @@ namespace CSemphella
 
         public void Insert(string sectionname, Node vdata)
         {
-            //Console.WriteLine("Insert:" + sectionname + "." + vdata.name);
             int sec = checksection(sectionname);
             if (sec == -1)
             {

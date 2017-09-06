@@ -195,5 +195,10 @@ namespace DragonNet
             System.Diagnostics.Process.Start("explorer.exe", "http://" + selected.SubItems[1].Text);*/
             new Signal(listView1.FocusedItem.SubItems[1].Text).ShowDialog();
         }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            ExtraCS.UpdateComboToAutoComplete(comboBox1, false);
+        }
     }
 }
