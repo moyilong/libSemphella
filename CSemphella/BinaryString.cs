@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CSemphella
 {
     public static class BinaryString
     {
-
         public static string BinaryToString(byte[] data)
         {
             string ret = "EVD:";

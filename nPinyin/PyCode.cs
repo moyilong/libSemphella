@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace NPinyin
+﻿namespace NPinyin
 {
-  internal class PyCode
-  {
-    internal static string[] codes = new string[]{
+    internal class PyCode
+    {
+        internal static string[] codes = new string[]{
 "a     :阿啊吖嗄腌锕",
 "ai    :爱埃碍矮挨唉哎哀皑癌蔼艾隘捱嗳嗌嫒瑷暧砹锿霭",
 "an    :安按暗岸案俺氨胺鞍谙埯揞犴庵桉铵鹌黯",
@@ -406,5 +402,5 @@ namespace NPinyin
 "zui   :最罪嘴醉蕞",
 "zun   :尊遵撙樽鳟",
 "zuo   :作做左座坐昨佐柞阼唑嘬怍胙祚"};
-  }
+    }
 }

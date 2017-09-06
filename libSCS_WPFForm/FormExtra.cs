@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Collections;
 using System.IO;
+
 namespace libSCS_WPFForm
 {
     public struct DataCollect
@@ -13,6 +14,7 @@ namespace libSCS_WPFForm
         public int disp_id;
         public string disp_name;
         public object direct_data;
+
         public string DisplayName
         {
             get
@@ -20,6 +22,7 @@ namespace libSCS_WPFForm
                 return disp_id.ToString() + ":" + disp_name;
             }
         }
+
         public static DataCollect[] FormatCollect(DataCollect[] collect)
         {
             DataCollect[] ret = new DataCollect[collect.Length];
@@ -31,20 +34,24 @@ namespace libSCS_WPFForm
             return ret;
         }
     }
+
     public class ComboExtra : ComboBox
     {
-        DataCollect[] collect = null;
+        private DataCollect[] collect = null;
+
         public void InitCollect(DataCollect[] data)
         {
             collect = DataCollect.FormatCollect(data);
             UpdateDisplay();
         }
-        void UpdateDisplay()
+
+        private void UpdateDisplay()
         {
             Items.Clear();
             foreach (DataCollect dc in collect)
                 Items.Add(dc.DisplayName);
         }
+
         public object CurrentObject
         {
             get
@@ -61,13 +68,15 @@ namespace libSCS_WPFForm
 
     public class ListViewExtra : ListView
     {
-        DataCollect[] collect = null;
+        private DataCollect[] collect = null;
+
         public void InitCollect(DataCollect[] data, Func<object, ListViewItem> call)
         {
             collect = DataCollect.FormatCollect(data);
             UpdateDisplay(call);
         }
-        void UpdateDisplay(Func<object, ListViewItem> call)
+
+        private void UpdateDisplay(Func<object, ListViewItem> call)
         {
             foreach (DataCollect dc in collect)
             {

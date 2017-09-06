@@ -1,33 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CSemphella;
+﻿using CSemphella;
+using System;
+
 namespace CSAPDConvert
 {
-    class Program
+    internal class Program
     {
-        static bool decrypt = false;
-        static string password = null;
-        static string input = null;
-        static string output = null;
-        static void Main(string[] args)
+        private static bool decrypt = false;
+        private static string password = null;
+        private static string input = null;
+        private static string output = null;
+
+        private static void Main(string[] args)
         {
             foreach (string s in args)
             {
                 if (s[0] == '-')
-                    switch(s[1])
+                    switch (s[1])
                     {
                         case 'p':
                             password = s.Substring(2);
                             break;
+
                         case 'i':
                             input = s.Substring(2);
                             break;
+
                         case 'o':
                             output = s.Substring(2);
                             break;
+
                         case 'd':
                             decrypt = true;
                             break;
@@ -36,7 +37,7 @@ namespace CSAPDConvert
             if (input == null || output == null)
                 return;
             Console.WriteLine("From:" + input + " => " + output);
-            apd a = new apd(input,password);
+            apd a = new apd(input, password);
             a.BinaryMode = !decrypt;
             a.WriteFile(output);
         }

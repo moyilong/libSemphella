@@ -1,18 +1,13 @@
-﻿using System;
+﻿using CSemphella;
+using libSCS_WPFForm;
+using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
+using System.Net;
+using System.Net.NetworkInformation;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using CSemphella;
-using System.Net;
-using System.Threading;
-using System.Net.NetworkInformation;
-using libSCS_WPFForm;
-using System.Collections;
 
 namespace DragonNet
 {
@@ -28,7 +23,7 @@ namespace DragonNet
             MutexLock(true);
         }
 
-        List<IPAddress> poll= null;
+        private List<IPAddress> poll = null;
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -40,7 +35,7 @@ namespace DragonNet
             }
         }
 
-        void MutexLock(bool stat)
+        private void MutexLock(bool stat)
         {
             button2.Enabled = stat;
             button1.Enabled = stat;
@@ -49,8 +44,9 @@ namespace DragonNet
             comboBox1.Enabled = stat;
         }
 
-        int active_thread = 0;
-        int ActiveThread
+        private int active_thread = 0;
+
+        private int ActiveThread
         {
             set
             {
@@ -65,10 +61,10 @@ namespace DragonNet
             }
         }
 
-        static string head_prefix = "DRAGONOS_NIGHTFURY_DRIVER_VERSION";
-        bool stop_label = false;
+        private static string head_prefix = "DRAGONOS_NIGHTFURY_DRIVER_VERSION";
+        private bool stop_label = false;
 
-        void SingalIPCheck(string ipaddr)
+        private void SingalIPCheck(string ipaddr)
         {
             PingReply ping_data = new Ping().Send(ipaddr);
             if (ping_data != null && ipaddr != null)
@@ -103,7 +99,8 @@ namespace DragonNet
                     }
                 }
         }
-        void Search()
+
+        private void Search()
         {
             IPAddress local = null;
             foreach (IPAddress ip in poll)
@@ -145,11 +142,11 @@ namespace DragonNet
             MutexLock(true);
         }
 
-        Thread search_t = null;
+        private Thread search_t = null;
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (search_t!=null)
+            if (search_t != null)
             {
                 search_t.Abort();
                 search_t = null;
@@ -160,7 +157,7 @@ namespace DragonNet
             }
             catch
             {
-                MessageBox.Show("请输入一个标准的IPv4地址\n比如:192.168.1.1", "IP地址不标准!", MessageBoxButtons.OK,MessageBoxIcon.Error);
+                MessageBox.Show("请输入一个标准的IPv4地址\n比如:192.168.1.1", "IP地址不标准!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             MutexLock(false);
             stop_label = false;
@@ -190,7 +187,6 @@ namespace DragonNet
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
-
         }
 
         private void listView1_DoubleClick(object sender, EventArgs e)

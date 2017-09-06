@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using System.Collections;
-using System.Security.Cryptography;
+
 namespace CSemphella
 {
     public static class utils
@@ -13,7 +13,8 @@ namespace CSemphella
         {
             return GetMD5(Encoding.UTF8.GetBytes(data));
         }
-        public  static string GetMD5(byte[] data)
+
+        public static string GetMD5(byte[] data)
         {
             MD5 md5 = new MD5CryptoServiceProvider();
             byte[] hash = md5.ComputeHash(data);
@@ -22,7 +23,8 @@ namespace CSemphella
                 ret += hash[i].ToString("x2");
             return ret;
         }
-        public static bool in_array<T>(T [] get,T find)
+
+        public static bool in_array<T>(T[] get, T find)
         {
             bool stat = false;
             Parallel.ForEach(get, who =>
@@ -32,9 +34,10 @@ namespace CSemphella
              });
             return stat;
         }
-        public static string SearchInArray(string[] array,string search)
+
+        public static string SearchInArray(string[] array, string search)
         {
-            foreach(string get in array)
+            foreach (string get in array)
             {
                 if (get.IndexOf(search) != 0)
                     return get;
@@ -52,19 +55,19 @@ namespace CSemphella
                 if (line == "" || line[0] == '#')
                     continue;
                 int poffset = -1;
-                for(int n=0;n<line.Length;n++)
-                    if (line[n]=='=')
+                for (int n = 0; n < line.Length; n++)
+                    if (line[n] == '=')
                     {
                         poffset = n;
                         break;
                     }
-                if (poffset==-1)
+                if (poffset == -1)
                 {
                     ret.Add(line, "true");
                 }
                 else
                 {
-                    ret.Add(line.Substring(0, poffset), line.Substring(poffset+1));
+                    ret.Add(line.Substring(0, poffset), line.Substring(poffset + 1));
                 }
             }
             return ret;
@@ -83,12 +86,13 @@ namespace CSemphella
             "PB",
             "EB",
         };
-        public static string StorageSizeCheck(long val,int begin_level=0)
+
+        public static string StorageSizeCheck(long val, int begin_level = 0)
         {
             return UnitConvert(val, begin_level, storage_unit, 1024);
         }
 
-        public static string UnitConvert(long val,int current_level,string[] level_array,int step)
+        public static string UnitConvert(long val, int current_level, string[] level_array, int step)
         {
             double rv = val;
             int level = current_level;

@@ -1,23 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Net.Http;
-using System.Web;
-using System.Net;
 using System.IO;
+using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
+using System.Text;
+
 namespace CSemphella
 {
-    
     public static class web
     {
         private static bool CheckValidationResult(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors errors)
         {
-            return true; //总是接受  
+            return true; //总是接受
         }
+
         public static byte[] GetContentByURL_Byte(string url)
         {
             WebClient wc = new WebClient();

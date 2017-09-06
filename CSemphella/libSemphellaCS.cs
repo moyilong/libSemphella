@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CSemphella
+﻿namespace CSemphella
 {
     public class libSemphellaCS
     {
@@ -10,6 +8,7 @@ namespace CSemphella
             public int release;
             public int fix;
             public string arch_name;
+
             public string StringOut
             {
                 get
@@ -18,6 +17,7 @@ namespace CSemphella
                 }
             }
         }
+
         public static Version CurrentVersion
         {
             get
@@ -31,7 +31,8 @@ namespace CSemphella
             }
         }
 
-        static int []compactable_api_list = {0xF0};
+        private static int[] compactable_api_list = { 0xF0 };
+
         static public bool CheckCompact(int api)
         {
             foreach (int compact in compactable_api_list)
@@ -39,6 +40,5 @@ namespace CSemphella
                     return true;
             return false;
         }
-
     }
 }

@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace libSCS_WPFForm
@@ -17,6 +10,7 @@ namespace libSCS_WPFForm
             InitializeComponent();
             this.FormBorderStyle = FormBorderStyle.Fixed3D;
         }
+
         public string Title
         {
             set
@@ -37,13 +31,15 @@ namespace libSCS_WPFForm
                 return richTextBox1.Text;
             }
         }
-        public static void Show(string title,string data)
+
+        public static void Show(string title, string data)
         {
             ErrorHandle hand = new ErrorHandle();
             hand.Title = title;
             hand.Data = data;
             hand.ShowDialog();
         }
+
         public static void Show(string title, Exception data)
         {
             Show(title, data.ToString());
@@ -51,7 +47,6 @@ namespace libSCS_WPFForm
 
         private void button1_Click(object sender, EventArgs e)
         {
-
         }
     }
 }

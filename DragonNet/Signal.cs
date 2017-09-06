@@ -1,26 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using libSCS_WPFForm;
-using CSemphella;
+﻿using CSemphella;
+using System;
 using System.Collections;
+using System.Drawing;
 using System.IO;
+using System.Windows.Forms;
 
 namespace DragonNet
 {
     public partial class Signal : Form
     {
-        Hashtable rdata = null;
+        private Hashtable rdata = null;
+
         public Signal(string ip)
         {
             InitializeComponent();
-            
+
             string data = web.GetContentByURL("http://" + ip + ":570");
             rdata = utils.EqualFormat(data);
             textBox1.Text = rdata["DNAME"] as string;
@@ -29,7 +23,7 @@ namespace DragonNet
             textBox4.Text = rdata["DEVICE_SERIAL"] as string;
             textBox5.Text = rdata["UNAME"] as string;
             byte[] img = web.GetContentByURL_Byte("http://" + ip + "/img/nightfury.jpg");
-            pictureBox1.Image = Image.FromStream(new MemoryStream(img),true);
+            pictureBox1.Image = Image.FromStream(new MemoryStream(img), true);
             pictureBox1.BackgroundImageLayout = ImageLayout.Stretch;
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             MaximizeBox = false;
@@ -40,7 +34,6 @@ namespace DragonNet
 
         private void Signal_Load(object sender, EventArgs e)
         {
-
         }
     }
 }

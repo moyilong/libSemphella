@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using NPinyin;
 
 namespace libSCS_WPFForm
 {
@@ -21,19 +16,21 @@ namespace libSCS_WPFForm
             MessageBox.Show(data, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        public static void Tips(string data, string title="提示")
+        public static void Tips(string data, string title = "提示")
         {
             MessageBox.Show(data, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
         public static void RichTextBoxAutoScrool(RichTextBox rt)
         {
             rt.SelectionStart = rt.Text.Length;
             rt.ScrollToCaret();
         }
+
         public static void TextboxNumberLimits(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == 0x20) e.KeyChar = (char)0;  //禁止空格键  
-            if ((e.KeyChar == 0x2D) && (((TextBox)sender).Text.Length == 0)) return;   //处理负数  
+            if (e.KeyChar == 0x20) e.KeyChar = (char)0;  //禁止空格键
+            if ((e.KeyChar == 0x2D) && (((TextBox)sender).Text.Length == 0)) return;   //处理负数
             if (e.KeyChar > 0x20)
             {
                 try
@@ -42,7 +39,7 @@ namespace libSCS_WPFForm
                 }
                 catch
                 {
-                    e.KeyChar = (char)0;   //处理非法字符  
+                    e.KeyChar = (char)0;   //处理非法字符
                 }
             }
         }

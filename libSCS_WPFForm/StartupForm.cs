@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿using CSemphella;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using CSemphella;
+
 namespace libSCS_WPFForm
 {
     public partial class StartupForm : Form
@@ -18,10 +12,10 @@ namespace libSCS_WPFForm
             FormBorderStyle = FormBorderStyle.None;
             StartPosition = FormStartPosition.CenterScreen;
             label2.Text = "ELONE inside 2010 - 2017 " + libSemphellaCS.CurrentVersion.StringOut;
-            
         }
 
-        public string Tips {
+        public string Tips
+        {
             set
             {
                 label1.Text = value;
@@ -32,7 +26,8 @@ namespace libSCS_WPFForm
             }
         }
 
-        public Image SetPircture {
+        public Image SetPircture
+        {
             set
             {
                 pictureBox1.Image = value;
@@ -46,8 +41,5 @@ namespace libSCS_WPFForm
                 label2.Enabled = value;
             }
         }
-
-
-
     }
 }

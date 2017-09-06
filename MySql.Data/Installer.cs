@@ -1,23 +1,23 @@
-// Copyright © 2004, 2013, Oracle and/or its affiliates. All rights reserved.
+// Copyright ?2004, 2013, Oracle and/or its affiliates. All rights reserved.
 //
 // MySQL Connector/NET is licensed under the terms of the GPLv2
-// <http://www.gnu.org/licenses/old-licenses/gpl-2.0.html>, like most 
-// MySQL Connectors. There are special exceptions to the terms and 
-// conditions of the GPLv2 as it is applied to this software, see the 
+// <http://www.gnu.org/licenses/old-licenses/gpl-2.0.html>, like most
+// MySQL Connectors. There are special exceptions to the terms and
+// conditions of the GPLv2 as it is applied to this software, see the
 // FLOSS License Exception
 // <http://www.mysql.com/about/legal/licensing/foss-exception.html>.
 //
-// This program is free software; you can redistribute it and/or modify 
-// it under the terms of the GNU General Public License as published 
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published
 // by the Free Software Foundation; version 2 of the License.
 //
-// This program is distributed in the hope that it will be useful, but 
-// WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY 
-// or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License 
+// This program is distributed in the hope that it will be useful, but
+// WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+// or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
 // for more details.
 //
-// You should have received a copy of the GNU General Public License along 
-// with this program; if not, write to the Free Software Foundation, Inc., 
+// You should have received a copy of the GNU General Public License along
+// with this program; if not, write to the Free Software Foundation, Inc.,
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA
 
 #if !MONO && !PocketPC
@@ -92,7 +92,6 @@ namespace MySql.Data.MySqlClient
 
     private static XmlElement CreateNodeAssemblyBindingRedirection(XmlElement mysqlNode, XmlDocument doc, string oldVersion, string newVersion)
     {
-
       if (doc == null || mysqlNode == null)
         return null;
 
@@ -148,10 +147,9 @@ namespace MySql.Data.MySqlClient
       return mysqlNode;
     }
 
-
     private static void AddProviderToMachineConfigInDir(string path)
     {
-      string configFile = String.Format(@"{0}\machine.config", path);      
+      string configFile = String.Format(@"{0}\machine.config", path);
       if (!File.Exists(configFile)) return;
 
       // now read the config file into memory
@@ -216,7 +214,6 @@ namespace MySql.Data.MySqlClient
         runtimeNode[0].AppendChild(mysqlNode);
       }
       catch {}
-      
 
       // Save the document to a file and auto-indent the output.
       XmlTextWriter writer = new XmlTextWriter(configFile, null);
@@ -228,7 +225,6 @@ namespace MySql.Data.MySqlClient
 
     private static XmlDocument RemoveOldBindingRedirection(XmlDocument doc)
     {
-
       if (doc.GetElementsByTagName("assemblyBinding").Count == 0) return doc;
 
       XmlNodeList nodesDependantAssembly = doc.GetElementsByTagName("assemblyBinding")[0].ChildNodes;
@@ -247,10 +243,6 @@ namespace MySql.Data.MySqlClient
       }
       return doc;
     }
-
-
-
-
 
     /// <summary>
     /// We override Uninstall so we can remove out assembly from the

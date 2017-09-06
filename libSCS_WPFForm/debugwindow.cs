@@ -1,29 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.IO;
+using System.Windows.Forms;
 
 namespace libSCS_WPFForm
 {
     public partial class debugwindow : Form
     {
-        static debugwindow formal = new debugwindow();
+        private static debugwindow formal = new debugwindow();
 
         public static void Display()
         {
             formal.Show();
         }
+
         public static void Push(string str)
         {
-            
             formal.AddString(str);
         }
+
         public debugwindow()
         {
             InitializeComponent();
@@ -39,7 +33,7 @@ namespace libSCS_WPFForm
                 {
                     File.WriteAllText(file.FileName, richTextBox1.Text);
                 }
-                catch(Exception xe)
+                catch (Exception xe)
                 {
                     ErrorHandle.Show("保存时发生错误", xe);
                 }
@@ -48,7 +42,7 @@ namespace libSCS_WPFForm
 
         public void AddString(string data)
         {
-            richTextBox1.Text = richTextBox1.Text +  System.Environment.NewLine + "[" + System.DateTime.UtcNow.ToString() + "]" + data;
+            richTextBox1.Text = richTextBox1.Text + System.Environment.NewLine + "[" + System.DateTime.UtcNow.ToString() + "]" + data;
             if (checkBox1.Checked)
             {
                 ExtraCS.RichTextBoxAutoScrool(richTextBox1);
@@ -62,7 +56,6 @@ namespace libSCS_WPFForm
 
         private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
-
         }
     }
 }

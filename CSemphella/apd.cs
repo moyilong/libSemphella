@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.IO;
-using System.Threading.Tasks;
-using System.Configuration;
-using System.Collections;
 
 namespace CSemphella
 {
@@ -14,20 +10,24 @@ namespace CSemphella
         {
             public string name;
             public string data;
-            public Node(string _name,string _data)
+
+            public Node(string _name, string _data)
             {
                 name = _name;
                 data = _data;
             }
+
             public void Set(string _data)
             {
                 data = _data;
             }
         }
+
         public struct Section
         {
             public List<Node> collect;
             public string name;
+
             public Section(string _name)
             {
                 name = _name;
@@ -35,11 +35,11 @@ namespace CSemphella
             }
         }
 
-        public apd(string file ,string pwd=null)
+        public apd(string file, string pwd = null)
         {
             OpenFile(file, pwd);
         }
-       
+
         private List<Section> data = null;
 
         public bool IsOpen
@@ -49,7 +49,9 @@ namespace CSemphella
                 return (data != null);
             }
         }
-        string _password = "CSEMPHELLA_AES_DEFAULT_CIPHER_PASSWORD";
+
+        private string _password = "CSEMPHELLA_AES_DEFAULT_CIPHER_PASSWORD";
+
         public string Password
         {
             set
@@ -61,9 +63,11 @@ namespace CSemphella
                 return _password;
             }
         }
-        static string TestHead = "PASSWORD_VERIFY_INDA";
+
+        private static string TestHead = "PASSWORD_VERIFY_INDA";
         public bool BinaryMode = false;
-        public void OpenFile(string file,string password=null)
+
+        public void OpenFile(string file, string password = null)
         {
             if (password != null)
                 Password = password;
@@ -93,13 +97,12 @@ namespace CSemphella
             }
             catch
             {
-
             }
             string opname = "_global_";
-            for (UInt64 p=0;p<Convert.ToUInt64( buff.Length);p++)
+            for (UInt64 p = 0; p < Convert.ToUInt64(buff.Length); p++)
             {
                 string line = buff[p].Trim();
-                if (line.Length == 0|| line[0] == '#')
+                if (line.Length == 0 || line[0] == '#')
                 {
                     continue;
                 }
@@ -123,16 +126,17 @@ namespace CSemphella
                 }
             }
         }
+
         public void Create()
         {
             data = new List<Section>();
         }
+
         public void WriteFile(string file)
         {
             string pdata = "";
-            foreach(Section sec in data)
+            foreach (Section sec in data)
             {
-                
                 //Console.WriteLine("Save:" + sec.name);
                 pdata += "[" + sec.name + "]\n";
                 foreach (Node n in sec.collect)
@@ -144,18 +148,19 @@ namespace CSemphella
             if (BinaryMode)
             {
                 string head = "APD_BIN:" + AESHelper.AESEncrypt(TestHead, _password) + "\n";
-                pdata = head + AESHelper.AESEncrypt(pdata,Password);
+                pdata = head + AESHelper.AESEncrypt(pdata, Password);
             }
             File.WriteAllText(file, pdata);
         }
-        int  checksection(string section)
+
+        private int checksection(string section)
         {
             if (!IsOpen)
                 return -1;
-            for (int n=0;n<data.Count;n++)
+            for (int n = 0; n < data.Count; n++)
             {
                 //Console.WriteLine("=>" + section + " = " + data[n].name);
-                if (data[n].name  == section)
+                if (data[n].name == section)
                     return n;
             }
             return -1;
@@ -167,12 +172,13 @@ namespace CSemphella
                 return true;
             return false;
         }
-        int checknode(string section, string node)
+
+        private int checknode(string section, string node)
         {
             int sec = checksection(section);
             if (sec == -1)
                 return -1;
-            for (int n=0;n<data[sec].collect.Count;n++)
+            for (int n = 0; n < data[sec].collect.Count; n++)
             {
                 if (data[sec].collect[n].name == node)
                     return n;
@@ -187,12 +193,12 @@ namespace CSemphella
             return true;
         }
 
-        public void Insert(string sectionname,string name,string data)
+        public void Insert(string sectionname, string name, string data)
         {
             Insert(sectionname, new Node(name, data));
         }
 
-        public void Insert(string sectionname,Node vdata)
+        public void Insert(string sectionname, Node vdata)
         {
             //Console.WriteLine("Insert:" + sectionname + "." + vdata.name);
             int sec = checksection(sectionname);
@@ -210,10 +216,9 @@ namespace CSemphella
                 return;
             }
             data[sec].collect[nod].Set(vdata.data);
-            
         }
 
-        public string ReadSection(string sectionname,string name,string auto_set = null)
+        public string ReadSection(string sectionname, string name, string auto_set = null)
         {
             int sec = checksection(sectionname);
             if (sec == -1)
@@ -228,7 +233,7 @@ namespace CSemphella
             int nod = checknode(sectionname, name);
             if (nod == -1)
             {
-                if (auto_set!=null)
+                if (auto_set != null)
                 {
                     this.data[sec].collect.Add(new Node(name, auto_set));
                 }
