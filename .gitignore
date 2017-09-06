@@ -6,6 +6,8 @@ UpgradeLog.htm
 *.ert
 *.cache
 *.o
+*/bin/*
+*/obj/*
 .DS_Store
 .*.swp
 .svn/*
