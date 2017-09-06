@@ -11,17 +11,17 @@ namespace libSCS_WPFForm
 {
     public static class ExtraCS
     {
-        public static bool Confirm(string data, string title)
+        public static bool Confirm(string data, string title = "请确认")
         {
             return (MessageBox.Show(data, title, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes);
         }
 
-        public static void Error(string data, string title)
+        public static void Error(string data, string title = "错误")
         {
             MessageBox.Show(data, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        public static void Tips(string data, string title)
+        public static void Tips(string data, string title="提示")
         {
             MessageBox.Show(data, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
@@ -91,12 +91,13 @@ namespace libSCS_WPFForm
             return NPinyin.Pinyin.GetInitials(orig) + ":" + orig;
         }
 
-        public static void UpdateComboToAutoComplete(ComboBox cbox)
+        public static void UpdateComboToAutoComplete(ComboBox cbox, bool use_chinese_translate = true)
         {
             cbox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             cbox.AutoCompleteSource = AutoCompleteSource.ListItems;
-            for (int n = 0; n < cbox.Items.Count; n++)
-                cbox.Items[n] = StringToComboFastGet(cbox.Items[n] as string);
+            if (use_chinese_translate)
+                for (int n = 0; n < cbox.Items.Count; n++)
+                    cbox.Items[n] = StringToComboFastGet(cbox.Items[n] as string);
         }
     }
 }
