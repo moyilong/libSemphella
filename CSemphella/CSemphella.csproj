@@ -44,6 +44,7 @@
     <Compile Include="AES.cs" />
     <Compile Include="apd.cs" />
     <Compile Include="BinaryString.cs" />
+    <Compile Include="CacheInterface.cs" />
     <Compile Include="libSemphellaCS.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="utils.cs" />

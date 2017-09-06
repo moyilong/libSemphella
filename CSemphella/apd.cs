@@ -67,7 +67,7 @@ namespace CSemphella
         private static string TestHead = "PASSWORD_VERIFY_INDA";
         public bool BinaryMode = false;
 
-        public void OpenFile(string file, string password = null)
+        public void OpenFile(string file, string password = null,Func<string> PasswordCorrectFun=null)
         {
             if (password != null)
                 Password = password;
@@ -81,7 +81,26 @@ namespace CSemphella
                     BinaryMode = true;
                     if (TestHead != AESHelper.AESDecrypt(buff[0].Substring(8), _password))
                     {
-                        throw new Exception("PASSWORD_INVALID");
+                        if (PasswordCorrectFun == null)
+                            throw new Exception("PASSWORD_INVALID");
+                        else
+                        {
+                            int count = 0;
+                            while (true)
+                            {
+                                count++;
+                                string get = PasswordCorrectFun();
+                                if (get == null)
+                                    throw new Exception("PASSWORD_INVALID");
+                                Password = get;
+                                if (TestHead != AESHelper.AESDecrypt(buff[0].Substring(8), _password))
+                                {
+                                    count++;
+                                    continue;
+                                }
+                                break;
+                            }
+                        }
                     }
                     int offset = -1;
                     for (int n = 0; n < read.Length; n++)
@@ -97,6 +116,7 @@ namespace CSemphella
             }
             catch
             {
+
             }
             string opname = "_global_";
             for (UInt64 p = 0; p < Convert.ToUInt64(buff.Length); p++)
@@ -121,7 +141,6 @@ namespace CSemphella
                             g.name = line.Substring(0, n).Trim();
                             g.data = line.Substring(n + 1).Trim();
                         }
-                    //Console.WriteLine("ADD Line:" + g.name);
                     Insert(opname, g);
                 }
             }

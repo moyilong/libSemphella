@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Linq;
-
+using CSemphella;
 namespace MySql.Data.MySqlClient
 {
     public static class DB
     {
-        private static string host;
-        private static string db;
-        private static string password;
-        private static string username;
+        private static string host="";
+        private static string db="";
+        private static string password="";
+        private static string username="";
 
         public static MySqlDataReader RunSQL(string _sql)
         {
@@ -53,7 +53,12 @@ namespace MySql.Data.MySqlClient
                 sql += ";";
             return sql;
         }
-
+        static string[] ForceUseNoResultExecute =
+        {
+            "INSERT INTO",
+            "DELETE FROM",
+            "UPDATE"
+        };
         private static MySqlDataReader Exec(bool result, string _sql, string phost, string pdb, string ppassword, string pusername)
         {
             string sql = PrefixSQL(_sql);
@@ -61,10 +66,21 @@ namespace MySql.Data.MySqlClient
             MySqlCommand cmd = new MySqlCommand(sql, conn);
             if (result)
             {
+                foreach (string match in ForceUseNoResultExecute)
+                {
+                    if (!utils.PostVerifyNoBigLittle(sql, match))
+                        throw new Exception("THIS_SQL_MUST_USE_NO_QUERY");
+                }
                 return cmd.ExecuteReader();
             }
             cmd.ExecuteNonQuery();
             return null;
+        }
+
+        public static UInt64 SqlNumberCollect(string db,string where)
+        {
+            MySqlDataReader read = RunSQL("SELECT count(*)number FROM " + db + " WHERE " + where);
+            return read.GetUInt64("number");
         }
     }
 }

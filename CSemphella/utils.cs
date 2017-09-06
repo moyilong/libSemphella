@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -72,10 +75,6 @@ namespace CSemphella
             }
             return ret;
         }
-    }
-
-    public static class XConvert
-    {
         private static string[] storage_unit =
         {
             "B",
@@ -114,6 +113,61 @@ namespace CSemphella
             {
                 return def;
             }
+        }
+
+        public static bool PostVerify(string orig, string header, bool on_foot=false)
+        {
+            if (header.Length > orig.Length)
+                return false;
+            if (orig == header)
+                return true;
+            if (on_foot)
+                return (orig.Substring(orig.Length - header.Length) == header);
+            else
+                return (orig.Substring(0, header.Length) == header);
+        }
+
+        public static bool PostVerifyNoBigLittle(string orig, string header, bool onoot = false)
+        {
+            return PostVerify(orig.ToUpper(), header.ToUpper(), onoot);
+        }
+
+        public struct ModulesVersionInfo
+        {
+            public Version ver;
+            public FileInfo info;
+        }
+
+        public static ModulesVersionInfo[] GetDirectoryModulesVersionInfo()
+        {
+            string[] default_filter =
+            {
+                "dll",
+                "exe"
+            };
+            return GetDirectoryModulesVersionInfo(System.Environment.CurrentDirectory, default_filter);
+        }
+
+        public static ModulesVersionInfo[] GetDirectoryModulesVersionInfo(string path, string[] filter)
+        {
+            DirectoryInfo info = new DirectoryInfo(path);
+            List<ModulesVersionInfo> ret = new List<ModulesVersionInfo>();
+            foreach (FileInfo file in info.GetFiles())
+            {
+                string[] spl = file.Name.Split('.');
+                string subname = spl[spl.Length - 1];
+                foreach (string f in filter)
+                    if (f == subname)
+                    {
+                        ModulesVersionInfo temp = new ModulesVersionInfo();
+                        temp.info = file;
+                        Assembly asm = Assembly.LoadFile(file.FullName);
+                        temp.ver = asm.GetName().Version;
+                        ret.Add(temp);
+                        break;
+                    }
+            }
+            return ret.ToArray();
         }
     }
 }

@@ -7,7 +7,8 @@ namespace libSCS_WPFForm
     public partial class debugwindow : Form
     {
         private static debugwindow formal = new debugwindow();
-
+        public static bool WriteToConsole = true;
+        public static bool Enable = true;
         public static void Display()
         {
             formal.Show();
@@ -42,7 +43,12 @@ namespace libSCS_WPFForm
 
         public void AddString(string data)
         {
-            richTextBox1.Text = richTextBox1.Text + System.Environment.NewLine + "[" + System.DateTime.UtcNow.ToString() + "]" + data;
+            if (!Enable)
+                return;
+            string procd_data = "[" + System.DateTime.UtcNow.ToString() + "]" + data;
+            if (WriteToConsole)
+                Console.WriteLine(procd_data);
+            richTextBox1.Text = richTextBox1.Text + System.Environment.NewLine + procd_data;
             if (checkBox1.Checked)
             {
                 ExtraCS.RichTextBoxAutoScrool(richTextBox1);
