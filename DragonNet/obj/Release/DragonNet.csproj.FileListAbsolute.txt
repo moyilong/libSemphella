@@ -32,3 +32,5 @@ C:\Users\moyil\Desktop\libSemphella\DragonNet\obj\Release\DragonNet.csproj.Gener
 C:\Users\moyil\Desktop\libSemphella\DragonNet\obj\Release\DragonNet.csproj.CoreCompileInputs.cache
 C:\Users\moyil\Desktop\libSemphella\DragonNet\obj\Release\DragonNet.exe
 C:\Users\moyil\Desktop\libSemphella\DragonNet\obj\Release\DragonNet.pdb
+C:\Users\moyil.DESKTOP-PM76HBE\Desktop\libSemphella\DragonNet\bin\Release\NPinyin.dll
+C:\Users\moyil.DESKTOP-PM76HBE\Desktop\libSemphella\DragonNet\bin\Release\NPinyin.pdb

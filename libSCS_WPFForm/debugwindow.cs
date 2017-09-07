@@ -64,4 +64,19 @@ namespace libSCS_WPFForm
         {
         }
     }
+
+    public class DebugSection
+    {
+        public string section_name = "UnDefine";
+        public bool Enable = true;
+        public DebugSection(string n)
+        {
+            section_name = n;
+        }
+        public void Push(string str)
+        {
+            if (Enable)
+                debugwindow.Push("[" + section_name + "]" + str);
+        }
+    }
 }

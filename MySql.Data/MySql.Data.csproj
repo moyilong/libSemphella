@@ -109,6 +109,7 @@
     <Reference Include="System.Management" />
     <Reference Include="System.Security" />
     <Reference Include="System.Transactions" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -279,6 +280,10 @@
     <ProjectReference Include="..\CSemphella\CSemphella.csproj">
       <Project>{c4982e8d-e71c-4929-a017-283b9e0e5476}</Project>
       <Name>CSemphella</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\libSCS_WPFForm\libSCS_WPFForm.csproj">
+      <Project>{e4eba592-2c6b-4155-bcff-bae8aa103b61}</Project>
+      <Name>libSCS_WPFForm</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

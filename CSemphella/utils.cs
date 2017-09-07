@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
@@ -159,15 +160,35 @@ namespace CSemphella
                 foreach (string f in filter)
                     if (f == subname)
                     {
-                        ModulesVersionInfo temp = new ModulesVersionInfo();
-                        temp.info = file;
-                        Assembly asm = Assembly.LoadFile(file.FullName);
-                        temp.ver = asm.GetName().Version;
-                        ret.Add(temp);
+                        try
+                        {
+                            ModulesVersionInfo temp = new ModulesVersionInfo();
+                            temp.info = file;
+                            Assembly asm = Assembly.LoadFile(file.FullName);
+                            temp.ver = asm.GetName().Version;
+                            ret.Add(temp);
+                        }
+                        catch
+                        {
+
+                        }
                         break;
                     }
             }
             return ret.ToArray();
+        }
+
+        public static string CurrentIP
+        {
+            get
+            {
+                string ret = "";
+                foreach (IPAddress ip in Dns.GetHostAddresses(Dns.GetHostName()))
+                    if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                        if (ip.ToString() != "127.0.0.1")
+                            ret += ip.ToString() + " ";
+                return ret;
+            }
         }
     }
 }
