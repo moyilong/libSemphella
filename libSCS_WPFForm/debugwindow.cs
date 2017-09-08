@@ -43,15 +43,29 @@ namespace libSCS_WPFForm
 
         public void AddString(string data)
         {
-            if (!Enable)
-                return;
-            string procd_data = "[" + System.DateTime.UtcNow.ToString() + "]" + data;
-            if (WriteToConsole)
-                Console.WriteLine(procd_data);
-            richTextBox1.Text = richTextBox1.Text + System.Environment.NewLine + procd_data;
-            if (checkBox1.Checked)
+            try
             {
-                ExtraCS.RichTextBoxAutoScrool(richTextBox1);
+                if (!Enable)
+                    return;
+                string procd_data = "[" + System.DateTime.UtcNow.ToString() + "]" + data;
+                if (WriteToConsole)
+                    Console.WriteLine(procd_data);
+                richTextBox1.Text = richTextBox1.Text + System.Environment.NewLine + procd_data;
+                if (checkBox1.Checked)
+                {
+                    try
+                    {
+                        ExtraCS.RichTextBoxAutoScrool(richTextBox1);
+                    }
+                    catch
+                    {
+
+                    }
+                }
+            }
+            catch
+            {
+
             }
         }
 
