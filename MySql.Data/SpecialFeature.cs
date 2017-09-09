@@ -12,6 +12,8 @@ namespace MySql.Data.MySqlClient
         private static string password="";
         private static string username="";
         private static DebugSection DebugPush = new DebugSection("MySQL");
+        private static UInt64 count = 0;
+        public static bool DebugSQL = false;
         public static string Host
         {
             set
@@ -96,10 +98,13 @@ namespace MySql.Data.MySqlClient
         };
         private static MySqlDataReader Exec(bool result, string _sql, string phost, string pdb, string ppassword, string pusername)
         {
+            count++;
             string sql = PrefixSQL(_sql);
             DebugPush.Push("正在申请链接...");
             MySqlConnection conn = ConnectSQLServer(pusername, pdb, phost, ppassword);
             MySqlCommand cmd = new MySqlCommand(sql, conn);
+            if (DebugSQL)
+                DebugPush.Push("[" + result + "][" + count.ToString() + "]" + sql);
             if (result)
             {
                 DebugPush.Push("执行安全检查并且运行....");
