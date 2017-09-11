@@ -83,6 +83,7 @@ namespace libSCS_WPFForm
     {
         public string section_name = "UnDefine";
         public bool Enable = true;
+        public Int64 Count = -1;
         public DebugSection(string n)
         {
             section_name = n;
@@ -90,7 +91,12 @@ namespace libSCS_WPFForm
         public void Push(string str)
         {
             if (Enable)
-                debugwindow.Push("[" + section_name + "]" + str);
+            {
+                string count_str = "";
+                if (Count != -1)
+                    count_str += "[" + Count.ToString() + "]";
+                debugwindow.Push("[" + section_name + "]" + count_str + str);
+            }
         }
     }
 }

@@ -63,7 +63,7 @@ namespace libSCS_WPFForm
                 return;
             string write = "";
             for (int n = 0; n < view.Columns.Count; n++)
-                write += view.Columns[n].Name + ",";
+                write += view.Columns[n].Text + ",";
             write += "\n";
             for (int n = 0; n < view.Items.Count; n++)
             {
@@ -96,5 +96,7 @@ namespace libSCS_WPFForm
                 for (int n = 0; n < cbox.Items.Count; n++)
                     cbox.Items[n] = StringToComboFastGet(cbox.Items[n] as string);
         }
+        
+
     }
 }

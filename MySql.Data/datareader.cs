@@ -21,13 +21,7 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA
 
 using System;
-
-#if !RT
-
 using System.Data;
-
-#endif
-
 using MySql.Data.Types;
 using System.Globalization;
 using MySql.Data.MySqlClient.Properties;
@@ -83,7 +77,7 @@ namespace MySql.Data.MySqlClient
             }
 #endif
         }
-
+       
         #region Properties
 
         internal PreparableStatement Statement

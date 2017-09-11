@@ -7,18 +7,45 @@ namespace MySql.Data.MySqlClient
 #pragma warning disable CS1591 // 缺少对公共可见类型或成员的 XML 注释
     public static class DB
     {
-        private static string host="";
-        private static string db="";
-        private static string password="";
-        private static string username="";
+        private static string host = "";
+        private static string db = "";
+        private static string password = "";
+        private static string username = "";
         private static DebugSection DebugPush = new DebugSection("MySQL");
         private static UInt64 count = 0;
+
+        public delegate bool SQLPreprocessEvent(string sql);
+        public delegate void SQLExecuteEvent(bool result_event);
+
+        private static SQLPreprocessEvent preprocess;
+        private static SQLExecuteEvent execute;
+
+        public static SQLPreprocessEvent PreProcess
+        {
+            set
+            {
+                preprocess += value;
+            }
+        }
+        public static SQLExecuteEvent ExecuteEvent
+        {
+            set
+            {
+                execute += value;
+            }
+        }
         public static bool DebugSQL = false;
         public static string Host
         {
             set
             {
                 host = value ?? throw new Exception("数据不能为NULL!");
+            }
+            private get
+            {
+                if (!utils.StringIsAllow(host))
+                    throw new Exception("数据库配置出错");
+                return host;
             }
         }
 
@@ -28,6 +55,12 @@ namespace MySql.Data.MySqlClient
             {
                 db = value ?? throw new Exception("数据不能为NULL!");
             }
+            private get
+            {
+                if (!utils.StringIsAllow(db))
+                    throw new Exception("数据库配置出错");
+                return db;
+            }
         }
 
         public static string Password
@@ -35,6 +68,12 @@ namespace MySql.Data.MySqlClient
             set
             {
                 password = value ?? throw new Exception("数据不能为NULL!");
+            }
+            private get
+            {
+                if (!utils.StringIsAllow(host))
+                    throw new Exception("数据库配置出错");
+                return password;
             }
         }
 
@@ -44,11 +83,17 @@ namespace MySql.Data.MySqlClient
             {
                 username = value ?? throw new Exception("数据不能为NULL!");
             }
+            private get
+            {
+                if (!utils.StringIsAllow(host))
+                    throw new Exception("数据库配置出错");
+                return username;
+            }
         }
 
         public static MySqlDataReader RunSQL(string _sql)
         {
-            return RunSQL(_sql, host, db, password, username);
+            return RunSQL(_sql, Host, DataBase, Password, Username);
         }
 
         public static MySqlDataReader RunSQL(string _sql, string phost, string pdb, string ppassword, string pusername)
@@ -58,7 +103,7 @@ namespace MySql.Data.MySqlClient
 
         public static void RunSQL_NoResult(string _sql)
         {
-            RunSQL_NoResult(_sql, host, db, password, username);
+            RunSQL_NoResult(_sql, Host, DataBase, Password, Username);
         }
 
         public static void RunSQL_NoResult(string _sql, string phost, string pdb, string ppassword, string pusername)
@@ -100,27 +145,32 @@ namespace MySql.Data.MySqlClient
         {
             count++;
             string sql = PrefixSQL(_sql);
+            if (!preprocess(sql))
+                return null;
             DebugPush.Push("正在申请链接...");
             MySqlConnection conn = ConnectSQLServer(pusername, pdb, phost, ppassword);
             MySqlCommand cmd = new MySqlCommand(sql, conn);
+            MySqlDataReader read = null;
             if (DebugSQL)
                 DebugPush.Push("[" + result + "][" + count.ToString() + "]" + sql);
             if (result)
             {
                 DebugPush.Push("执行安全检查并且运行....");
                 foreach (string match in ForceUseNoResultExecute)
-                {
-                    if (!utils.PostVerifyNoBigLittle(sql, match))
-                        return cmd.ExecuteReader();
-                }
-                throw new Exception("SQL必须由NoResult模式执行!\n" + _sql);
+                    if (utils.PostVerifyNoBigLittle(sql, match))
+                        throw new Exception("SQL必须由NoResult模式执行!\n" + _sql);
+                read = cmd.ExecuteReader();
             }
-            DebugPush.Push("执行无结果返回....");
-            cmd.ExecuteNonQuery();
-            return null;
+            else
+            {
+                DebugPush.Push("执行无结果返回....");
+                cmd.ExecuteNonQuery();
+            }
+            execute(result);
+            return read;
         }
 
-        public static UInt64 SqlNumberCollect(string db,string where)
+        public static UInt64 SqlNumberCollect(string db, string where)
         {
             MySqlDataReader read = RunSQL("SELECT count(*)number FROM " + db + " WHERE " + where);
             return read.GetUInt64("number");

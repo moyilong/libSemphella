@@ -190,5 +190,12 @@ namespace CSemphella
                 return ret;
             }
         }
+
+        public static bool StringIsAllow(string str)
+        {
+            if (str == null || str.Length == 0)
+                return false;
+            return true;
+        }
     }
 }

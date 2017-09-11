@@ -26,7 +26,7 @@
                 ret.api = 0xF0;
                 ret.release = 0x00;
                 ret.fix = 0x00;
-                ret.arch_name = "libSemphella CSharp Prelease";
+                ret.arch_name = "libSemphella CSharp";
                 return ret;
             }
         }
