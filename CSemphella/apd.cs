@@ -6,6 +6,7 @@ namespace CSemphella
 {
     public class apd
     {
+        DebugNode node = new DebugNode("APD");
         public struct Node
         {
             public string name;
@@ -67,20 +68,26 @@ namespace CSemphella
         private static string TestHead = "PASSWORD_VERIFY_INDA";
         public bool BinaryMode = false;
 
-        public void OpenFile(string file, string password = null,Func<string> PasswordCorrectFun=null)
+        public void OpenFile(string file, string password = null, Func<string> PasswordCorrectFun = null)
         {
             if (password != null)
                 Password = password;
             Create();
             string read = File.ReadAllText(file);
             string[] buff = read.Split('\n');
-            try
-            {
-                if (buff[0].Substring(0, 8) == "APD_BIN:")
+            node.Push("Current Read File Complete!");
+            /*try
+            {*/
+                //if (buff[0].Substring(0, 8) == "APD_BIN:")
+                if (utils.PostVerify(read,"APD_BIN:"))
                 {
+                    node.Push("BinaryMode!");
                     BinaryMode = true;
-                    if (TestHead != AESHelper.AESDecrypt(buff[0].Substring(8), _password))
+                    string pwd_head = buff[0].Substring(8);
+                    node.Push("Password Head:" + pwd_head);
+                    if (TestHead != AESHelper.AESDecrypt(pwd_head, _password))
                     {
+                        node.Push("Invalid Password Value!");
                         if (PasswordCorrectFun == null)
                             throw new Exception("PASSWORD_INVALID");
                         else
@@ -88,10 +95,13 @@ namespace CSemphella
                             int count = 0;
                             while (true)
                             {
+                                node.Push("Try to Decrypting...");
                                 count++;
                                 string get = PasswordCorrectFun();
                                 if (get == null)
                                     throw new Exception("PASSWORD_INVALID");
+                                if (count > 30)
+                                    throw new Exception("TO_MANY_TRY");
                                 Password = get;
                                 if (TestHead != AESHelper.AESDecrypt(buff[0].Substring(8), _password))
                                 {
@@ -102,26 +112,22 @@ namespace CSemphella
                             }
                         }
                     }
-                    int offset = -1;
-                    for (int n = 0; n < read.Length; n++)
-                        if (read[n] == '\n')
-                        {
-                            offset = n;
-                            break;
-                        }
-
+                    node.Push("Password Match!");
+                    node.Push("Decrypting...");
                     string dec = AESHelper.AESDecrypt(buff[1], Password);
                     buff = dec.Split('\n');
+                    node.Push("Get Line:" + buff.Length);
                 }
-            }
+            /*}
             catch
             {
 
-            }
-            string opname = "_global_";
+            }*/
+            string opname = null;
             for (UInt64 p = 0; p < Convert.ToUInt64(buff.Length); p++)
             {
                 string line = buff[p].Trim();
+                node.Push("Processing Line:" + line);
                 if (line.Length == 0 || line[0] == '#')
                 {
                     continue;
@@ -132,6 +138,8 @@ namespace CSemphella
                 }
                 else
                 {
+                    if (opname == null)
+                        throw new Exception("Syntax Error! No Section Name");
                     Node g = new Node();
                     g.name = line;
                     g.data = "defs";
@@ -216,6 +224,7 @@ namespace CSemphella
 
         public void Insert(string sectionname, Node vdata)
         {
+            node.Push("Insert:" + sectionname + "/" + vdata.name + "=" + vdata.data);
             int sec = checksection(sectionname);
             if (sec == -1)
             {

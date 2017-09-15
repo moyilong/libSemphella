@@ -13,6 +13,7 @@ namespace CSemphella
 {
     public static class utils
     {
+        private static DebugNode node = new DebugNode("Utils");
         public static string GetMD5(string data)
         {
             return GetMD5(Encoding.UTF8.GetBytes(data));
@@ -122,10 +123,13 @@ namespace CSemphella
                 return false;
             if (orig == header)
                 return true;
+            string str = null;
             if (on_foot)
-                return (orig.Substring(orig.Length - header.Length) == header);
+                str = orig.Substring(orig.Length - header.Length);
             else
-                return (orig.Substring(0, header.Length) == header);
+                str = orig.Substring(0, header.Length);
+            node.Push("Verify:" + str + " == " + header + " ret=" + (str==header).ToString());
+            return (str == header);
         }
 
         public static bool PostVerifyNoBigLittle(string orig, string header, bool onoot = false)

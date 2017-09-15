@@ -10,6 +10,8 @@ C:\Users\moyil.DESKTOP-PM76HBE\Desktop\libSemphella\libSCS_WPFForm\obj\Release\l
 C:\Users\moyil.DESKTOP-PM76HBE\Desktop\libSemphella\libSCS_WPFForm\obj\Release\libSCS_WPFForm.StartupForm.resources
 C:\Users\moyil.DESKTOP-PM76HBE\Desktop\libSemphella\libSCS_WPFForm\bin\Release\CSemphella.dll
 C:\Users\moyil.DESKTOP-PM76HBE\Desktop\libSemphella\libSCS_WPFForm\bin\Release\CSemphella.pdb
+C:\Users\moyil.DESKTOP-PM76HBE\Desktop\libSemphella\libSCS_WPFForm\bin\Release\NPinyin.dll
+C:\Users\moyil.DESKTOP-PM76HBE\Desktop\libSemphella\libSCS_WPFForm\bin\Release\NPinyin.pdb
 C:\Users\moyil\Desktop\libSemphella\libSCS_WPFForm\bin\Release\libSCS_WPFForm.dll
 C:\Users\moyil\Desktop\libSemphella\libSCS_WPFForm\bin\Release\libSCS_WPFForm.pdb
 C:\Users\moyil\Desktop\libSemphella\libSCS_WPFForm\bin\Release\CSemphella.dll
@@ -24,5 +26,3 @@ C:\Users\moyil\Desktop\libSemphella\libSCS_WPFForm\obj\Release\libSCS_WPFForm.cs
 C:\Users\moyil\Desktop\libSemphella\libSCS_WPFForm\obj\Release\libSCS_WPFForm.csproj.CoreCompileInputs.cache
 C:\Users\moyil\Desktop\libSemphella\libSCS_WPFForm\obj\Release\libSCS_WPFForm.dll
 C:\Users\moyil\Desktop\libSemphella\libSCS_WPFForm\obj\Release\libSCS_WPFForm.pdb
-C:\Users\moyil.DESKTOP-PM76HBE\Desktop\libSemphella\libSCS_WPFForm\bin\Release\NPinyin.dll
-C:\Users\moyil.DESKTOP-PM76HBE\Desktop\libSemphella\libSCS_WPFForm\bin\Release\NPinyin.pdb

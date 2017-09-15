@@ -5,6 +5,7 @@ namespace CSemphella
 {
     public static class BinaryString
     {
+        private static DebugNode node = new DebugNode("BinaryToString");
         public static string BinaryToString(byte[] data)
         {
             string ret = "EVD:";
@@ -26,13 +27,14 @@ namespace CSemphella
             while (true)
             {
                 pos++;
-                if (spd[pos].Length > 3)
+                if (spd[pos].Length >= 3)
                 {
                     if (spd[pos][0] == 'E' && spd[pos][1] == 'V' && spd[pos][2] == 'D')
                     {
                         return ret.ToArray();
                     }
                 }
+                node.Push(spd[pos]);
                 ret.Add(Convert.ToByte(spd[pos]));
             }
         }

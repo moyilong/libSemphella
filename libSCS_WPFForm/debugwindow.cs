@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Windows.Forms;
-
+using CSemphella;
 namespace libSCS_WPFForm
 {
     public partial class debugwindow : Form
@@ -79,23 +79,31 @@ namespace libSCS_WPFForm
         }
     }
 
-    public class DebugSection
+    public class DebugSection : DebugNode
     {
-        public string section_name = "UnDefine";
-        public bool Enable = true;
-        public Int64 Count = -1;
-        public DebugSection(string n)
+        public bool GraphiceOutput = true;
+        public bool ConsoleOutput = true;
+        public DebugSection(string n,bool stat=true) : base(n,stat)
         {
-            section_name = n;
+
         }
-        public void Push(string str)
+
+        public void GraphiceOut(string str)
+        {
+            if (str == null)
+                return;
+            debugwindow.Push(str);
+        }
+
+        public override void Push(string str)
         {
             if (Enable)
             {
-                string count_str = "";
-                if (Count != -1)
-                    count_str += "[" + Count.ToString() + "]";
-                debugwindow.Push("[" + section_name + "]" + count_str + str);
+                string data = Msg(str);
+                if (GraphiceOutput)
+                    GraphiceOut(data);
+                if (ConsoleOutput)
+                    ConsoleOut(data);
             }
         }
     }
