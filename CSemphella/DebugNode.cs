@@ -10,7 +10,7 @@ namespace CSemphella
     {
         public string section_name = "UnDefine";
         public bool local_enable = true;
-        private Int64 Count = -1;
+        public Int64 Count = -1;
         public static bool GlobalEnable=true;
 
         public bool Enable
@@ -46,7 +46,7 @@ namespace CSemphella
                 count_str += "[" + Count.ToString() + "]";
                 Count++;
             }
-            return "[" +section_name + "]" + count_str + str;
+            return "[" + DateTime.Now.ToString() + "][" + section_name + "]" + count_str + str;
         }
 
         public void ConsoleOut(string str)

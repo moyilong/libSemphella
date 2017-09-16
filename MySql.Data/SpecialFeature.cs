@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using CSemphella;
-using libSCS_WPFForm;
+using CSemphella;
 namespace MySql.Data.MySqlClient
 {
 #pragma warning disable CS1591 // 缺少对公共可见类型或成员的 XML 注释
@@ -11,30 +11,12 @@ namespace MySql.Data.MySqlClient
         private static string db = "";
         private static string password = "";
         private static string username = "";
-        private static DebugSection DebugPush = new DebugSection("MySQL");
-        private static UInt64 count = 0;
-
-        public delegate bool SQLPreprocessEvent(string sql);
-        public delegate void SQLExecuteEvent(bool result_event);
-
-        private static SQLPreprocessEvent preprocess;
-        private static SQLExecuteEvent execute;
-
-        public static SQLPreprocessEvent PreProcess
-        {
-            set
-            {
-                preprocess += value;
-            }
-        }
-        public static SQLExecuteEvent ExecuteEvent
-        {
-            set
-            {
-                execute += value;
-            }
-        }
+        private static DebugNode DebugPush = new DebugNode("MySQL");
         public static bool DebugSQL = false;
+        static DB()
+        {
+            DebugPush.Count = 0;
+        }
         public static string Host
         {
             set
@@ -143,16 +125,13 @@ namespace MySql.Data.MySqlClient
         };
         private static MySqlDataReader Exec(bool result, string _sql, string phost, string pdb, string ppassword, string pusername)
         {
-            count++;
             string sql = PrefixSQL(_sql);
-            if (!preprocess(sql))
-                return null;
             DebugPush.Push("正在申请链接...");
             MySqlConnection conn = ConnectSQLServer(pusername, pdb, phost, ppassword);
             MySqlCommand cmd = new MySqlCommand(sql, conn);
             MySqlDataReader read = null;
             if (DebugSQL)
-                DebugPush.Push("[" + result + "][" + count.ToString() + "]" + sql);
+                DebugPush.Push("[" + result + "]" + sql);
             if (result)
             {
                 DebugPush.Push("执行安全检查并且运行....");
@@ -166,7 +145,6 @@ namespace MySql.Data.MySqlClient
                 DebugPush.Push("执行无结果返回....");
                 cmd.ExecuteNonQuery();
             }
-            execute(result);
             return read;
         }
 

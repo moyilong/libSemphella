@@ -13,6 +13,7 @@ namespace DragonNet
 {
     public partial class Form1 : Form
     {
+        static DebugSection node = new DebugSection("DebugNode");
         public Form1()
         {
             InitializeComponent();
@@ -113,7 +114,7 @@ namespace DragonNet
             }
             if (local == null)
             {
-                debugwindow.Push("Invalid IP!");
+                node.Push("Invalid IP!");
                 goto end;
             }
             progressBar1.Value = 0;

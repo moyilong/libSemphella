@@ -4,7 +4,7 @@ using System.Windows.Forms;
 using CSemphella;
 namespace libSCS_WPFForm
 {
-    public partial class debugwindow : Form
+    partial class debugwindow : Form
     {
         private static debugwindow formal = new debugwindow();
         public static bool WriteToConsole = true;
@@ -19,7 +19,7 @@ namespace libSCS_WPFForm
             formal.AddString(str);
         }
 
-        public debugwindow()
+        debugwindow()
         {
             InitializeComponent();
         }
@@ -45,12 +45,7 @@ namespace libSCS_WPFForm
         {
             try
             {
-                if (!Enable)
-                    return;
-                string procd_data = "[" + System.DateTime.UtcNow.ToString() + "]" + data;
-                if (WriteToConsole)
-                    Console.WriteLine(procd_data);
-                richTextBox1.Text = richTextBox1.Text + System.Environment.NewLine + procd_data;
+                richTextBox1.Text = richTextBox1.Text + System.Environment.NewLine + data;
                 if (checkBox1.Checked)
                 {
                     try
