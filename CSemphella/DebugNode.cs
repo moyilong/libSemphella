@@ -13,14 +13,13 @@ namespace CSemphella
         public Int64 Count = -1;
         public static bool GlobalEnable=true;
 
-        public bool Enable
+        public  bool Enable
         {
             get
             {
-                /* if (!GlobalEnable)
+                 if (!GlobalEnable)
                      return false;
-                 return local_enable;*/
-                return true;
+                 return local_enable;
             }
             set
             {
