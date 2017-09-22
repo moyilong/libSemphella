@@ -26,3 +26,4 @@ C:\Users\moyil\Desktop\libSemphella\libSCS_WPFForm\obj\Release\libSCS_WPFForm.cs
 C:\Users\moyil\Desktop\libSemphella\libSCS_WPFForm\obj\Release\libSCS_WPFForm.csproj.CoreCompileInputs.cache
 C:\Users\moyil\Desktop\libSemphella\libSCS_WPFForm\obj\Release\libSCS_WPFForm.dll
 C:\Users\moyil\Desktop\libSemphella\libSCS_WPFForm\obj\Release\libSCS_WPFForm.pdb
+C:\Users\moyil\Desktop\libSemphella\libSCS_WPFForm\obj\Release\libSCS_WPFForm.Tips.resources

@@ -11,11 +11,18 @@ namespace libSCS_WPFForm
         public static bool Enable = true;
         public static void Display()
         {
+            if (formal == null || formal.IsDisposed)
+                formal = new debugwindow();
             formal.Show();
         }
-
+        public static void Hide()
+        {
+            formal.Close();
+        }
         public static void Push(string str)
         {
+            if (formal == null || formal.IsDisposed)
+                return;
             formal.AddString(str);
         }
 
@@ -78,6 +85,14 @@ namespace libSCS_WPFForm
     {
         public bool GraphiceOutput = true;
         public bool ConsoleOutput = true;
+        public static void Display()
+        {
+            debugwindow.Display();
+        }
+        public static void Hide()
+        {
+            debugwindow.Hide();
+        }
         public DebugSection(string n,bool stat=true) : base(n,stat)
         {
 

@@ -40,7 +40,7 @@ namespace MySql.Data.Types
     //The WKB type is a code that indicates the geometry type. Values
     //from 1 through 7 indicate Point, LineString, Polygon, MultiPoint,
     //MultiLineString, MultiPolygon, and GeometryCollection.
-
+#pragma warning disable CS1573 // 参数在 XML 注释中没有匹配的 param 标记(但其他参数有)
     public struct MySqlGeometry : IMySqlValue
     {
         private MySqlDbType _type;
@@ -290,11 +290,11 @@ namespace MySql.Data.Types
             return result;
         }
 
-        /// <summary>
-        /// Try to get value from WKT format
-        /// SRID=0;POINT (x y) or POINT (x y)
-        /// </summary>
-        /// <param name="value">WKT string format</param>
+                              /// <summary>
+                              /// Try to get value from WKT format
+                              /// SRID=0;POINT (x y) or POINT (x y)
+                              /// </summary>
+                              /// <param name="value">WKT string format</param>
         public static bool TryParse(string value, out MySqlGeometry mySqlGeometryValue)
         {
             string[] arrayResult = new string[0];

@@ -6,7 +6,18 @@ namespace CSemphella
 {
     public class apd
     {
-        DebugNode node = new DebugNode("APD");
+        static DebugNode node = new DebugNode("APD");
+        public static bool DebugFlag
+        {
+            set
+            {
+                node.Enable = value;
+            }
+            get
+            {
+                return node.Enable;
+            }
+        }
         public struct Node
         {
             public string name;
@@ -76,53 +87,45 @@ namespace CSemphella
             string read = File.ReadAllText(file);
             string[] buff = read.Split('\n');
             node.Push("Current Read File Complete!");
-            /*try
-            {*/
-                //if (buff[0].Substring(0, 8) == "APD_BIN:")
-                if (utils.PostVerify(read,"APD_BIN:"))
+            if (utils.PostVerify(read, "APD_BIN:"))
+            {
+                node.Push("BinaryMode!");
+                BinaryMode = true;
+                string pwd_head = buff[0].Substring(8);
+                node.Push("Password Head:" + pwd_head);
+                if (TestHead != AESHelper.AESDecrypt(pwd_head, _password))
                 {
-                    node.Push("BinaryMode!");
-                    BinaryMode = true;
-                    string pwd_head = buff[0].Substring(8);
-                    node.Push("Password Head:" + pwd_head);
-                    if (TestHead != AESHelper.AESDecrypt(pwd_head, _password))
+                    node.Push("Invalid Password Value!");
+                    if (PasswordCorrectFun == null)
+                        throw new Exception("PASSWORD_INVALID");
+                    else
                     {
-                        node.Push("Invalid Password Value!");
-                        if (PasswordCorrectFun == null)
-                            throw new Exception("PASSWORD_INVALID");
-                        else
+                        int count = 0;
+                        while (true)
                         {
-                            int count = 0;
-                            while (true)
+                            node.Push("Try to Decrypting...");
+                            count++;
+                            string get = PasswordCorrectFun();
+                            if (get == null)
+                                throw new Exception("PASSWORD_INVALID");
+                            if (count > 30)
+                                throw new Exception("TO_MANY_TRY");
+                            Password = get;
+                            if (TestHead != AESHelper.AESDecrypt(buff[0].Substring(8), _password))
                             {
-                                node.Push("Try to Decrypting...");
                                 count++;
-                                string get = PasswordCorrectFun();
-                                if (get == null)
-                                    throw new Exception("PASSWORD_INVALID");
-                                if (count > 30)
-                                    throw new Exception("TO_MANY_TRY");
-                                Password = get;
-                                if (TestHead != AESHelper.AESDecrypt(buff[0].Substring(8), _password))
-                                {
-                                    count++;
-                                    continue;
-                                }
-                                break;
+                                continue;
                             }
+                            break;
                         }
                     }
-                    node.Push("Password Match!");
-                    node.Push("Decrypting...");
-                    string dec = AESHelper.AESDecrypt(buff[1], Password);
-                    buff = dec.Split('\n');
-                    node.Push("Get Line:" + buff.Length);
                 }
-            /*}
-            catch
-            {
-
-            }*/
+                node.Push("Password Match!");
+                node.Push("Decrypting...");
+                string dec = AESHelper.AESDecrypt(buff[1], Password);
+                buff = dec.Split('\n');
+                node.Push("Get Line:" + buff.Length);
+            }
             string opname = null;
             for (UInt64 p = 0; p < Convert.ToUInt64(buff.Length); p++)
             {
