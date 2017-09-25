@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace CSemphella
 {
@@ -51,7 +52,10 @@ namespace CSemphella
         {
             OpenFile(file, pwd);
         }
-
+        public apd()
+        {
+            Create();
+        }
         private List<Section> data = null;
 
         public bool IsOpen
@@ -85,8 +89,12 @@ namespace CSemphella
                 Password = password;
             Create();
             string read = File.ReadAllText(file);
-            string[] buff = read.Split('\n');
             node.Push("Current Read File Complete!");
+            OpenStream(read, password, PasswordCorrectFun);
+        }
+        public void OpenStream(string read,string password = null,Func<string> PasswordCorrectFun =null)
+        {
+            string[] buff = read.Split('\n');
             if (utils.PostVerify(read, "APD_BIN:"))
             {
                 node.Push("BinaryMode!");
@@ -156,13 +164,36 @@ namespace CSemphella
                 }
             }
         }
+        public string[] SectionList
+        {
+            get
+            {
+                string[] ret = new string[data.Count];
+                Parallel.For(0, data.Count, i =>
+                {
+                    ret[i] = data[i].name;
+                });
+                return ret;
+            }
+        }
 
+        public Node[] NameList(string namelist)
+        {
+            int id = checksection(namelist);
+            if (id == -1)
+                return null;
+            return data[id].collect.ToArray();
+        }
         public void Create()
         {
             data = new List<Section>();
         }
 
         public void WriteFile(string file)
+        {
+            File.WriteAllText(file, ExportStream());
+        }
+        public string ExportStream()
         {
             string pdata = "";
             foreach (Section sec in data)
@@ -178,7 +209,7 @@ namespace CSemphella
                 string head = "APD_BIN:" + AESHelper.AESEncrypt(TestHead, _password) + "\n";
                 pdata = head + AESHelper.AESEncrypt(pdata, Password);
             }
-            File.WriteAllText(file, pdata);
+            return pdata;
         }
 
         private int checksection(string section)
@@ -225,14 +256,23 @@ namespace CSemphella
             Insert(sectionname, new Node(name, data));
         }
 
+        public void AddSection(string sectionanme)
+        {
+            if (checksection(sectionanme)==-1)
+            {
+                this.data.Add(new Section(sectionanme));
+            }
+        }
+
         public void Insert(string sectionname, Node vdata)
         {
             node.Push("Insert:" + sectionname + "/" + vdata.name + "=" + vdata.data);
             int sec = checksection(sectionname);
             if (sec == -1)
             {
-                this.data.Add(new Section(sectionname));
+                AddSection(sectionname);
                 sec = checksection(sectionname);
+
             }
             if (sec == -1)
                 throw new Exception("ADD_FAILD");
@@ -267,6 +307,60 @@ namespace CSemphella
                 return auto_set;
             }
             return this.data[sec].collect[nod].data;
+        }
+
+        public void Delete(string sectionname)
+        {
+            int id = checksection(sectionname);
+            if (id != -1)
+                data.RemoveAt(id);
+        }
+
+        public void Clean(string sectionname)
+        {
+            Delete(sectionname);
+            AddSection(sectionname);
+        }
+
+        public void Clean()
+        {
+            Create();
+        }
+
+        public void Delete(string sectionname,string nodename)
+        {
+            int id = checksection(sectionname);
+            if (id != -1)
+            {
+                int node = checknode(sectionname, nodename);
+                data[id].collect.RemoveAt(node);
+            }
+        }
+
+        /*RSA操作合集*/
+        RSAHelper helper = new RSAHelper();
+        public void RSAOpenFile(string file,string password,string key, Func<string> PasswordCorrectFun = null)
+        {
+            RSAOpenStream(File.ReadAllText(file), password, key, PasswordCorrectFun);
+        }
+
+        public void RSAOpenStream(string stream,string password,string key, Func<string> PasswordCorrectFun = null)
+        {
+            helper.Key = key;
+            OpenStream(System.Text.Encoding.Default.GetString((helper.Decrypt(stream))), password, PasswordCorrectFun);
+        }
+
+        public string RSAExportStream(string password, string key)
+        {
+            helper.Key = key;
+            if (helper.IsPublicKey)
+                throw new Exception("Public Key Can't Encrypt");
+            return helper.Crypt(System.Text.Encoding.Default.GetBytes(ExportStream()));
+        }
+
+        public void RSAWriteFile(string file,string password,string key)
+        {
+            File.WriteAllText(file, RSAExportStream(password, key));
         }
     }
 }
