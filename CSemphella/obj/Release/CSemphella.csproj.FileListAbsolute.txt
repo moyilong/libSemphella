@@ -1,12 +1,11 @@
-C:\Users\moyil.DESKTOP-PM76HBE\Desktop\libSemphella\CSemphella\bin\Release\CSemphella.dll
-C:\Users\moyil.DESKTOP-PM76HBE\Desktop\libSemphella\CSemphella\bin\Release\CSemphella.pdb
-C:\Users\moyil.DESKTOP-PM76HBE\Desktop\libSemphella\CSemphella\obj\Release\CSemphella.csprojResolveAssemblyReference.cache
-C:\Users\moyil.DESKTOP-PM76HBE\Desktop\libSemphella\CSemphella\obj\Release\CSemphella.dll
-C:\Users\moyil.DESKTOP-PM76HBE\Desktop\libSemphella\CSemphella\obj\Release\CSemphella.pdb
-C:\Users\moyil.DESKTOP-PM76HBE\Desktop\libSemphella\CSemphella\obj\Release\CSemphella.csproj.CoreCompileInputs.cache
 C:\Users\moyil\Desktop\libSemphella\CSemphella\bin\Release\CSemphella.dll
 C:\Users\moyil\Desktop\libSemphella\CSemphella\bin\Release\CSemphella.pdb
 C:\Users\moyil\Desktop\libSemphella\CSemphella\obj\Release\CSemphella.csproj.CoreCompileInputs.cache
 C:\Users\moyil\Desktop\libSemphella\CSemphella\obj\Release\CSemphella.dll
 C:\Users\moyil\Desktop\libSemphella\CSemphella\obj\Release\CSemphella.pdb
 C:\Users\moyil\Desktop\libSemphella\CSemphella\obj\Release\CSemphella.csprojResolveAssemblyReference.cache
+C:\Users\moyil.DESKTOP-PM76HBE\Desktop\libSemphella\CSemphella\bin\Release\CSemphella.dll
+C:\Users\moyil.DESKTOP-PM76HBE\Desktop\libSemphella\CSemphella\bin\Release\CSemphella.pdb
+C:\Users\moyil.DESKTOP-PM76HBE\Desktop\libSemphella\CSemphella\obj\Release\CSemphella.csproj.CoreCompileInputs.cache
+C:\Users\moyil.DESKTOP-PM76HBE\Desktop\libSemphella\CSemphella\obj\Release\CSemphella.dll
+C:\Users\moyil.DESKTOP-PM76HBE\Desktop\libSemphella\CSemphella\obj\Release\CSemphella.pdb

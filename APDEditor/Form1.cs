@@ -41,7 +41,7 @@ namespace APDEditor
                 if (textBox3.Text != "")
                     apd.OpenFile(textBox1.Text, pwd);
                 else
-                    apd.RSAOpenFile(textBox1.Text, pwd,textBox3.Text);
+                    apd.RSAOpenFile(textBox1.Text, pwd, textBox3.Text);
                 Flush();
             }
         }
