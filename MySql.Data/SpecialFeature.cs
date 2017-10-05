@@ -94,7 +94,7 @@ namespace MySql.Data.MySqlClient
         }
         public static MySqlConnection ConnectSQLServer(string u, string db, string h, string p, int recall_level = 0)
         {
-            DebugPush.Push("链接数据库:mysql://" + u + ":MASKED@" + h + "/" + db);
+            DebugPush.Push("链接数据库:mysql://" + u + "@" + h + "/" + db);
             MySqlConnection conn = new MySqlConnection("database=" + db + ";server=" + h + ";user id=" + u + ";password=" + p);
             try
             {

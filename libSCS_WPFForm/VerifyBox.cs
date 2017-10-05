@@ -83,7 +83,6 @@ namespace libSCS_WPFForm
             set
             {
                 string ret = "";
-                //for (int n = 0; n < 65536; n++)
                 while (ret.Length < 65536)
                 {
                     char data = value[FancyRandom(0, value.Length)];

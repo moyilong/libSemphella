@@ -29,7 +29,7 @@ namespace CSemphella
 
         public void DeleteFromCache(CacheObject obj)
         {
-            for (int n=0;n<cache_poll.Count;n++)
+            for (int n = 0; n < cache_poll.Count; n++)
                 if (cache_poll[n].ID == obj.ID)
                 {
                     cache_poll.RemoveAt(n);

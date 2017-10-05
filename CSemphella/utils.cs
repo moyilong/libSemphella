@@ -137,7 +137,7 @@ namespace CSemphella
             return PostVerify(orig.ToUpper(), header.ToUpper(), onoot);
         }
 
-        public struct ModulesVersionInfo
+        public class ModulesVersionInfo
         {
             public Version ver;
             public FileInfo info;
@@ -195,11 +195,53 @@ namespace CSemphella
             }
         }
 
+        public static IPAddress[] CurrentIPAddress
+        {
+            get
+            {
+                return Dns.GetHostAddresses(Dns.GetHostName());
+            }
+        }
+
         public static bool StringIsAllow(string str)
         {
             if (str == null || str.Length == 0)
                 return false;
             return true;
         }
+
+        public static string PaddingString(string orig_data,int padlen,string accept_str = "0123456789ZBCDEFGHIJKLMNOPQRSTUVWXYZ")
+        {
+            string ret = "";
+            while (ret.Length < padlen)
+            {
+                int argment = orig_data.Length ^ ret.Length ^ accept_str.Length ^ padlen;
+                argment = (argment << 4) ^ orig_data[Math.Abs(Math.Sign(argment) * (orig_data.Length - 1))];
+                ret += accept_str[Math.Abs(Math.Sign(argment) * (accept_str.Length - 1))];
+            }
+            return ret;
+        }
+
+        public static byte[] PaddingByte(byte[] orig_data,int padlen,byte[] accept_pad=null)
+        {
+            byte[] ret = new byte[padlen];
+            Parallel.For(0, padlen, i =>
+            {
+                int temp = i ^ padlen ^ orig_data.Length;
+                temp = (temp << 4) + (int)orig_data[Convert.ToInt32(Math.Abs(Math.Sin(temp) * (orig_data.Length - 1)))];
+                if (accept_pad!=null)
+                {
+                    temp = (temp << 4) ^ accept_pad.Length;
+                    ret[i] = accept_pad[Math.Abs(Math.Sign(temp) * (accept_pad.Length - 1))];
+                }
+                else
+                {
+                    ret[i] = Convert.ToByte(temp);
+                }
+
+            });
+            return ret;
+        }
+
     }
 }
