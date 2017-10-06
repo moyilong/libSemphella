@@ -83,7 +83,7 @@ namespace libSCS_WPFForm
             set
             {
                 string ret = "";
-                while (ret.Length < 65536)
+                while (ret.Length < 256)
                 {
                     char data = value[FancyRandom(0, value.Length)];
                     if (remove_list.IndexOf(data) != -1)
