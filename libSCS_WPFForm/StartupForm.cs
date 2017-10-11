@@ -12,8 +12,17 @@ namespace libSCS_WPFForm
             FormBorderStyle = FormBorderStyle.None;
             StartPosition = FormStartPosition.CenterScreen;
             label2.Text = "ELONE inside 2010 - 2017 " + libSemphellaCS.CurrentVersion.StringOut;
+            label1.Parent = pictureBox1;
+            label2.Parent = pictureBox1;
         }
+        public Color TipsColor{
+            set
+            {
+                label1.ForeColor = value;
+                label2.ForeColor = value;
+            }
 
+            }
         public string Tips
         {
             set
@@ -40,6 +49,11 @@ namespace libSCS_WPFForm
             {
                 label2.Enabled = value;
             }
+        }
+
+        private void pictureBox1_Click(object sender, System.EventArgs e)
+        {
+
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using CSemphella;
-using CSemphella;
 namespace MySql.Data.MySqlClient
 {
 #pragma warning disable CS1591 // 缺少对公共可见类型或成员的 XML 注释
@@ -13,6 +12,22 @@ namespace MySql.Data.MySqlClient
         private static string username = "";
         private static DebugNode DebugPush = new DebugNode("MySQL");
         public static bool DebugSQL = false;
+
+        private static Func<string,bool> MysqlEvent = null;
+        public static Func<string,bool> SqlEventFunction
+        {
+            set
+            {
+                MysqlEvent = value;
+            }
+        }
+
+        public static bool Event(string sql)
+        {
+            if (MysqlEvent == null)
+                return true;
+            return MysqlEvent(sql);
+        }
         static DB()
         {
             DebugPush.Count = 0;
@@ -123,9 +138,11 @@ namespace MySql.Data.MySqlClient
             "DELETE FROM",
             "UPDATE"
         };
-        private static MySqlDataReader Exec(bool result, string _sql, string phost, string pdb, string ppassword, string pusername)
+        private static MySqlDataReader Exec(bool result, string _sql, string phost, string pdb, string ppassword, string pusername,bool event_call = true)
         {
             string sql = PrefixSQL(_sql);
+            if (event_call)
+                Event(sql);
             DebugPush.Push("正在申请链接...");
             MySqlConnection conn = ConnectSQLServer(pusername, pdb, phost, ppassword);
             MySqlCommand cmd = new MySqlCommand(sql, conn);
@@ -148,9 +165,19 @@ namespace MySql.Data.MySqlClient
             return read;
         }
 
+        public static void LogExec(string _sql)
+        {
+            LogExec(_sql, Host, DataBase, Password, Username);
+        }
+
+        public static void LogExec(string _sql, string phost, string pdb, string ppassword, string pusername)
+        {
+            Exec(false, _sql, phost, pdb, ppassword, pusername,false);
+        }
         public static UInt64 SqlNumberCollect(string db, string where)
         {
             MySqlDataReader read = RunSQL("SELECT count(*)number FROM " + db + " WHERE " + where);
+            read.Read();
             return read.GetUInt64("number");
         }
     }

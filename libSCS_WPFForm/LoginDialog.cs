@@ -83,5 +83,15 @@ namespace libSCS_WPFForm
             LoginDialog login = new LoginDialog(call_back);
             return login.ShowDialog(win);
         }
+
+        private void LoginDialog_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

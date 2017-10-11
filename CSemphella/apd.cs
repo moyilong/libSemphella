@@ -191,7 +191,7 @@ namespace CSemphella
 
         public void WriteFile(string file)
         {
-            File.WriteAllText(file, ExportStream());
+            File.WriteAllText(file, ExportStream(),System.Text.Encoding.Default);
         }
         public string ExportStream()
         {
@@ -209,6 +209,7 @@ namespace CSemphella
                 string head = "APD_BIN:" + AESHelper.AESEncrypt(TestHead, _password) + "\n";
                 pdata = head + AESHelper.AESEncrypt(pdata, Password);
             }
+            node.Push("Result:\n" + pdata);
             return pdata;
         }
 
@@ -282,7 +283,9 @@ namespace CSemphella
                 data[sec].collect.Add(vdata);
                 return;
             }
-            data[sec].collect[nod].Set(vdata.data);
+            //data[sec].collect[nod].Set(vdata.data);
+            data[sec].collect.RemoveAt(nod);
+            data[sec].collect.Add(vdata);
         }
 
         public string ReadSection(string sectionname, string name, string auto_set = null)
