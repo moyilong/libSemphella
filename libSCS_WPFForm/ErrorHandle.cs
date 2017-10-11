@@ -5,18 +5,26 @@ namespace libSCS_WPFForm
 {
     public partial class ErrorHandle : Form
     {
+        public static CSemphella.EMailInfo eminfo=null;
+        public static string SendTo = null;
         public ErrorHandle()
         {
             InitializeComponent();
-            this.FormBorderStyle = FormBorderStyle.Fixed3D;
+            //this.FormBorderStyle = FormBorderStyle.Fixed3D;
+            if (eminfo == null || SendTo == null)
+                button3.Enabled = false;
         }
 
         public string Title
         {
             set
             {
-                this.Text = value;
+                //this.Text = value;
                 label1.Text = value;
+            }
+            get
+            {
+                return label1.Text;
             }
         }
 
@@ -47,6 +55,20 @@ namespace libSCS_WPFForm
 
         private void button1_Click(object sender, EventArgs e)
         {
+            this.Close();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetText(richTextBox1.Text);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (CSemphella.EMail.SendTextMail(SendTo, "应用程序错误报告:"+Title, Data, eminfo))
+                ExtraCS.Tips("发送成功!");
+            else
+                ExtraCS.Tips("发送失败!");
         }
     }
 }

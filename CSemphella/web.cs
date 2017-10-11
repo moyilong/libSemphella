@@ -14,9 +14,10 @@ namespace CSemphella
         {
             return true; //总是接受
         }
-
+        static DebugNode node = new DebugNode("WebAccess");
         public static byte[] GetContentByURL_Byte(string url)
         {
+            node.Push("Byte Mode URL:" + url);
             WebClient wc = new WebClient();
             ServicePointManager.ServerCertificateValidationCallback = new System.Net.Security.RemoteCertificateValidationCallback(CheckValidationResult);
             HttpWebRequest request = null;
@@ -36,6 +37,7 @@ namespace CSemphella
 
         public static string GetContentByURL(string url)
         {
+            node.Push("URL:" + url);
             byte[] get = GetContentByURL_Byte(url);
             return Encoding.UTF8.GetString(get);
         }

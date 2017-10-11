@@ -7,7 +7,7 @@ using CSemphella;
 
 namespace SemphellaAutoUpdate
 {
-    public class DefaultPHPConfigure
+    public class DefaultPHPConfigure : UpdateServerHAL
     {
         string url,project;
         public DefaultPHPConfigure(string _url,string _project)
@@ -19,18 +19,23 @@ namespace SemphellaAutoUpdate
         {
             return web.GetContentByURL(url + "?Project=" + project + "&&Command=GetFileMD5&&FileName=" + file);
         }
+        public int GetRemoteVersion()
+        {
+            return int.Parse(web.GetContentByURL(url + "?Project=" + project + "&&Command=GetVersion"));
+        }
         public DateTime GetFileChangeDate(string file)
         {
             return DateTime.Parse(web.GetContentByURL(url + "?Project=" + project + "&&Command=GetFileChangeDate&&FileName=" + file));
         }
         public string[] GetFileList()
         {
-            return web.GetContentByURL(url + "?Project=" + project + "&&Command=FetFileList").Split(';');
+            return web.GetContentByURL(url + "?Project=" + project + "&&Command=GetFileList").Split(';');
         }
         public byte[] GetFileByte(string file)
         {
-            return web.GetContentByURL_Byte(url + "?Project=" + project + "&&Command=GetFileChangeDate&&FileName=" + file);
+            return web.GetContentByURL_Byte(url + "?Project=" + project + "&&Command=GetFileData&&FileName=" + file);
         }
+        
     }
 
     public interface UpdateServerHAL
@@ -39,6 +44,6 @@ namespace SemphellaAutoUpdate
         DateTime GetFileChangeDate(string file);
         string[] GetFileList();
         byte[] GetFileByte(string file);
-
+        int GetRemoteVersion();
     }
 }
