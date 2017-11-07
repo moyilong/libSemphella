@@ -60,21 +60,10 @@ using namespace std;
 #pragma warning(disable:4996)
 #endif
 
-#ifndef KB
 #define KB	1024
-#endif
-
-#ifndef MB
 #define MB	1024*KB
-#endif
-
-#ifndef GB
 #define GB	1024*MB
-#endif
-
-#ifndef TB
 #define TB	1024*GB
-#endif
 
 #include "error.h"
 #include "secload.h"
