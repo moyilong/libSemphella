@@ -6,7 +6,6 @@ set (SOURCE_FILES argment.cpp
 	files.cpp
 	kernel.cpp
 	libSemphella.cpp
-	license.cpp
 	math.cpp
 	string.cpp
 	AES.cpp
@@ -49,7 +48,6 @@ INSTALL (FILES apd.h
 	error.h
 	string.h
 	utils.h
-	license.h 
 	sysapi_modcall.h
 	emmx.h
 	libSemphella.h
