@@ -12,7 +12,6 @@ ADD_SUBDIRECTORY(libERT)
 # Application
 ADD_SUBDIRECTORY(mpshell)
 ADD_SUBDIRECTORY(cryptutil2)
-ADD_SUBDIRECTORY(cp2_extlibtest)
 ADD_SUBDIRECTORY(APD_UTILS)
 ADD_SUBDIRECTORY(stlcheck)
 ADD_SUBDIRECTORY(mpshell2)
@@ -27,6 +26,3 @@ ADD_DEPENDENCIES(cryptutil2 Semphella ERT)
 ADD_DEPENDENCIES(APD_UTILS Semphella)
 ADD_DEPENDENCIES(stlcheck Semphella)
 ADD_DEPENDENCIES(serial Semphella)
-# Testutils
-
-ADD_DEPENDENCIES(cp2_extlibtest Semphella)
