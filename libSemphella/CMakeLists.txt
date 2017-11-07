@@ -3,7 +3,6 @@ set (SOURCE_FILES argment.cpp
 	APD_LOADER.cpp
 	crypt.cpp
 	debug.cpp
-	sendmail.cpp
 	files.cpp
 	kernel.cpp
 	libSemphella.cpp
