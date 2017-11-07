@@ -13,8 +13,6 @@ set (SOURCE_FILES argment.cpp
 	secureLoad.cpp
 	emmx.cpp
 	stl.cpp
-	bmp.cpp
-	logd.cpp
 	hal.cpp
 	linux_serial.cpp
 	sysapi_modcall.cpp
@@ -41,8 +39,6 @@ INSTALL (FILES apd.h
 	VER.h
 	linux.h
 	time.h
-	logd.h
-	main.h
 	net.h
 	math.h
 	error.h
@@ -51,7 +47,6 @@ INSTALL (FILES apd.h
 	sysapi_modcall.h
 	emmx.h
 	libSemphella.h
-	BMP.h
 	DESTINATION include/libSemphella)
 
 TARGET_LINK_LIBRARIES(Semphella -ldl)
