@@ -7,6 +7,7 @@ set (SOURCE_FILES argment.cpp
 	kernel.cpp
 	libSemphella.cpp
 	math.cpp
+	estring.cpp
 	string.cpp
 	AES.cpp
 	time.cpp
