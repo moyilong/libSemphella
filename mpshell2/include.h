@@ -1,5 +1,5 @@
 #pragma once
-#include <libSemphella/main.h>
+#include <libSemphella/libSemphella.h>
 #include <libSemphella/debug.h>
 #include <libSemphella/string.h>
 

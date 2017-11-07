@@ -2,10 +2,27 @@
 //
 
 #include "stdafx.h"
-#include "cryptutil2.h"
+#include <libSemphella/libSemphella.h>
 #include <libSemphella/argment.h>
+#include <libSemphella/string.h>
 #include <libERT/libERT.h>
 #include <libERT/ext_io.h>
+#include <libERT/libERT.h>
+/*
+#define FILE_TYPE ".ert3"
+#define strtbl "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+
+#define cp2 debug
+#define DEBUG debug
+#define MAX_PASSWORD_LEN	MAX_BUFF_SIZE
+
+enum WORK_MODE {
+	FILE_INFO,
+	CRYPT,
+	DECRYPT,
+	EXT_TO_FILE,
+	MASK_OUT
+};
 
 void logo()
 {
@@ -33,8 +50,6 @@ bool file_name_check(string filename)
 }
 bool std_mode = false;
 WORK_MODE mode = CRYPT;
-//bool load_ext_info = false;
-//char *buff = nullptr;
 #include <libSemphella/math.h>
 bool broken = false;
 bool exited = false;
@@ -127,9 +142,6 @@ void config_read(string name, string value)
 			cout << n << ":" << itemp << "\t" << temp << endl;
 		}
 		exited = true;
-	case 'l':
-		mode = LICENSE_CREATE;
-		break;
 	case 'x':
 		mode = MASK_OUT;
 		break;
@@ -171,7 +183,6 @@ int _main(int argc, char *argv[])
 {
 	KERNEL.SetDebugStat(false);
 	pre_calc_pct(4096);
-	//KERNEL.SetDebugStat(false);
 #ifndef __LINUX__
 	logo();
 	cout << "Error:This Program is can't run in windows !" << endl;
@@ -288,3 +299,73 @@ int _main(int argc, char *argv[])
 
 //SEC_LOADER;
 LOADDEF(_main,NULL);
+*/
+estring input, output, password,extfile;
+bool decrypt = false;
+int algr = DEFAULT_ALG_ID;
+int bs = 16*KB;
+void proc(string _name, string value)
+{
+	estring name = estring(_name).ToLower();
+	switch (name.at(0))
+	{
+	case 'i':
+		input = value;
+		break;
+	case 'o':
+		output = value;
+		break;
+	case 'p':
+		password = value;
+		break;
+	case 'P':
+		PerformanceTest();
+		exit(0);
+		break;
+	case 'd':
+		decrypt = true;
+		break;
+	case 'a':
+		algr = atoi(value.data());
+		break;
+	case 'e':
+		extfile = value;
+		break;
+	case 'b':
+		bs = atoi(value.data());
+		break;
+	}
+}
+void Help()
+{
+	cout << "============Help of CryptUtils==============" << endl;
+	cout << "\t-i\tInput File" << endl;
+	cout << "\t-o\tOutput File" << endl;
+	cout << "\t-p\tPassword" << endl;
+	cout << "\t-P\tPerformance Test Mode" << endl;
+	cout << "\t-d\tDecrypt Mode" << endl;
+	cout << "\t-a\tSet Algorthim ID" << endl;
+	cout << "\t-e\tSet Extentision File" << endl;
+	cout << "\t-b\tSet Block Length" << endl;
+}
+int main(int argc, char *argv[])
+{
+	argment args;
+	args.load(argc, argv);
+	args.for_each(proc);
+	cout << input << " -> " << output << endl;
+	if (input.empty() || password.empty())
+	{
+		Help();
+		return 0;
+	}
+	if (output.empty() && !decrypt)
+		output = input + ".ert4";
+	if (decrypt)
+		decrtpt_to_file(input, output, password, (output == "-"));
+	else
+		crypt_to_file(input, output, password, algr, 0, extfile, bs);
+	return 0;
+}
+
+//LOADDEF(_main, NULL);

@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "feature.h"
-#include <libSemphella/main.h>
+#include <libSemphella/libSemphella.h>
 
 ASSIGN_TYPE cmd_ptr = 0;
 ASSIGN_TYPE mem_ptr = 0;

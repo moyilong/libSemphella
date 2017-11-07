@@ -15,7 +15,7 @@ void inf(const string fname)
 
 void foreach(string lab, string name)
 {
-	vector<string> spl = Splite(name, ',', true);
+	vector<estring> spl = estring(name).Split( ',', true);
 	int ridx = 10;
 	int beg, step, end;
 	switch (lab.at(0))

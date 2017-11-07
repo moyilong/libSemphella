@@ -6,7 +6,7 @@
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <LocalDebuggerCommandArguments>cryptutil2.exe -x -o test</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>-i libERT.exp -p admin</LocalDebuggerCommandArguments>
     <LocalDebuggerWorkingDirectory>$(SolutionDir)$(Platform)\$(Configuration)\</LocalDebuggerWorkingDirectory>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>

@@ -4,7 +4,7 @@
 #include "feature.h"
 CMD parse_line(const string str)
 {
-	vector<string> get = Splite(str, ',', true);
+	vector<estring> get =estring(str.data()).Split(',', true);
 	CMD ret;
 	ret.arg = 0;
 	ret.arg2 = 0;

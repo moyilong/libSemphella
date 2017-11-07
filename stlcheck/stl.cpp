@@ -1,4 +1,4 @@
-#include <libSemphella/main.h>
+#include <libSemphella/libSemphella.h>
 #include <libSemphella/stl.h>
 #include <libSemphella/argment.h>
 #include <libSemphella/math.h>

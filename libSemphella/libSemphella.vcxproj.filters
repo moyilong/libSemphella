@@ -132,9 +132,6 @@
     <ClInclude Include="utils.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="estring.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMakeLists.txt" />

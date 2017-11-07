@@ -7,7 +7,7 @@
 
 // TODO:  在此处引用程序需要的其他头文件
 #include <libSemphella/libSemphella.h>
-#include <libSemphella/main.h>
+#include <libSemphella/libSemphella.h>
 #include <libSemphella/string.h>
 #include <libSemphella/crypt.h>
 #include "arch_def.h"

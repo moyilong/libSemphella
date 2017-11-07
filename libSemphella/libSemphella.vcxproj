@@ -168,7 +168,6 @@
     <ClInclude Include="debug.h" />
     <ClInclude Include="emmx.h" />
     <ClInclude Include="error.h" />
-    <ClInclude Include="estring.h" />
     <ClInclude Include="files.h" />
     <ClInclude Include="hal.h" />
     <ClInclude Include="net.h" />

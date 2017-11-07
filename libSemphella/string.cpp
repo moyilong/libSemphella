@@ -8,7 +8,6 @@ using namespace std;
 #include "libSemphella.h"
 #include "string.h"
 #include "debug.h"
-#include "estring.h"
 //libDebug strr("stringlib");
 
 #define strr debug<<"[StringLib]"
@@ -19,32 +18,7 @@ API string  api_human_read_storage_unit(uint64_t val)
 	return human_read(val, ret, 1024);
 }
 
-API vector<estring> Splite(string val, const char  spliter, const bool auto_trim)
-{
-	estring str = val;
-	return str.Split(spliter, auto_trim);
-}
 
-API string Trim(string val)
-{
-	uint64_t beg = 0;
-	uint64_t end = 0;
-	for (uint64_t n = 0; n < val.size(); n++)
-		if (val[n] != ' ')
-		{
-			beg = n;
-			break;
-		}
-	for (uint64_t n = val.size() - 1; n >= 0; n++)
-		if (val[n] != ' ')
-		{
-			end = n;
-			break;
-		}
-	string str = val.substr(beg, end - beg + 1);
-	debug << "Trimed Str:" << str << endl;
-	return str;
-}
 
 API string api_human_read_time_unit(uint64_t val)
 {
@@ -77,7 +51,7 @@ API string AddressGetFileName(string filename)
 			last = n;
 			break;
 		}
-	return strrm(filename.substr(last).data(), "/\\");
+	return estring(filename.substr(last)).RemoveCharArray("/\\");
 }
 
 API int strfind(const char *str, char find, bool wn)
@@ -150,38 +124,6 @@ API bool is_str(const char bit)
 	return false;
 }
 
-API bool is_upper(const char bit)
-{
-	if (!is_str(bit))
-		return false;
-	if ('A' >= bit && 'Z' <= bit)
-		return true;
-	return false;
-}
-
-API char set_upper(const char bit, bool upper)
-{
-	if (!is_str(bit))
-		return false;
-	if (is_upper(bit))
-		return bit + ('a' - 'A');
-	else
-		return bit - ('a' - 'A');
-}
-
-API string upper_string(string str, bool upper)
-{
-	char *buff = (char*)malloc(str.length());
-#pragma omp parallel for
-	for (int n = 0; n < str.size(); n++)
-	{
-		if (is_upper(str.at(n)))
-			buff[n] = set_upper(str.at(n), upper);
-		else
-			buff[n] = str.at(n);
-	}
-	return buff;
-}
 
 API string human_read(uint64_t _in, string *unit, int step)
 {
@@ -221,20 +163,7 @@ API string ull2s(uint64_t value)
 	return buff;
 }
 
-API string strrm(const char* str, const char *rm_list)
-{
-	string ret;
-	for (int n = 0; n < strlen(str); n++)
-	{
-		bool stat = true;
-		for (int x = 0; x < strlen(rm_list); x++)
-			if (str[n] == rm_list[x])
-				stat = false;
-		if (stat)
-			ret += str[n];
-	}
-	return ret;
-}
+
 
 API string strreplace(string orig, string replace, string value)
 {
@@ -330,19 +259,6 @@ API bool memequal(const void * a, const void * b, uint64_t size)
 		if (c[n] != d[n])
 			return false;
 	return true;
-}
-
-API vector<string> splite(string val, char spliter)
-{
-	vector<string>ret;
-	int last = 0;
-	for (int n = 0; n < val.size(); n++)
-		if (val.at(n) == spliter)
-		{
-			ret.push_back(val.substr(last, n - last));
-			last = n;
-		}
-	return ret;
 }
 
 API double atolf(string val)

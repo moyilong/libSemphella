@@ -35,14 +35,14 @@ bool stl::ReadASCII(const string cfilename)
 	if (!io.is_open())
 		return false;
 	string head_info = io.getline();
-	strcpy((char*)head, StrLimit(Splite(head_info, ' ', true)[1], 80).data());
+	strcpy((char*)head, StrLimit(estring(head_info).Split( ' ', true)[1], 80).data());
 	debug << "STL Get Filename:" << head << endl;
 	Triangles temp;
 	while (!io.is_eof())
 	{
 		string line = io.getline();
 		//string normal_v = io.getline();
-		vector<string> normal_v = Splite(io.getline(), ' ', true);
+		vector<estring> normal_v = estring(io.getline()).Split( ' ', true);
 		temp.normal.x = atolf(normal_v[3].data());
 		temp.normal.y = atolf(normal_v[3].data());
 		temp.normal.z = atolf(normal_v[3].data());
@@ -119,7 +119,7 @@ Triangles stl::operator=(uint64_t val)
 vector_t stl::StringToVectorT(string data)
 {
 	vector_t ret;
-	vector<string> va = Splite(data, ' ', true);
+	vector<estring> va =estring(data).Split(' ', true);
 	ret.x = atolf(va[0].data());
 	ret.y = atolf(va[1].data());
 	ret.z = atolf(va[2].data());
