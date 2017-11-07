@@ -2,7 +2,7 @@
 // http://mingcn.cnblogs.com //
 //  xelz CopyRight (c) 2010  //
 ///////////////////////////////
-#include "main.h"
+#include "libSemphella.h"
 #include "string.h"
 #include "AES.h"
 

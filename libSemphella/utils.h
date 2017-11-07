@@ -1,5 +1,5 @@
 #pragma once
-#include "main.h"
+#include "libSemphella.h"
 #include "libSemphella.h"
 #include "string.h"
 
@@ -16,6 +16,16 @@ struct API ValueInfo {
 	void clean();
 	ValueInfo();
 };
+
+API void sZero(void *dest, int value, int len);
+
+#ifdef __LINUX__
+#define esleep(ms) usleep(ms*1000)
+#else
+#include <Windows.h>
+#define esleep(ms) Sleep(ms)
+#endif
+
 
 API void ShowProcessBar(float percent, string display, char finish = '=', char splite = '>', char inprocess = '.', int bis = 60);
 API void ShowProcessBarEx(int all, int st_1, int st_2, string display, char st1_ch = '=', char st2_ch = '*', char st3_ch = '.');

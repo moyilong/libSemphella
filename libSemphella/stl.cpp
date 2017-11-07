@@ -26,6 +26,7 @@ bool stl::WriteFile(const string filename)
 		io.write((char*)&at(n), 48);
 		io.write(at(n).attr, 2);
 	}
+	return true;
 }
 bool stl::ReadASCII(const string cfilename)
 {

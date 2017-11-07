@@ -161,7 +161,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cryptutil2.cpp" />
-    <ClCompile Include="license_create.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\libERT\libERT.vcxproj">

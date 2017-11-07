@@ -1,5 +1,5 @@
 #pragma once
-#include "main.h"
+#include "libSemphella.h"
 #include <limits>
 #include "emmx.h"
 API char get_off();

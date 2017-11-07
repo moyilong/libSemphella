@@ -1,5 +1,5 @@
 #pragma once
-#include "main.h"
+#include "libSemphella.h"
 #include "debug.h"
 #ifndef __LINUX__
 #include <Windows.h>

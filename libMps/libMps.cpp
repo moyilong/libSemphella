@@ -41,6 +41,7 @@ int libMps::run(string cmds)
 	{
 		return system(cmds.data());
 	}
+	return 0;
 }
 
 int libMps::execute(uint64_t cid,uint64_t pid)
@@ -64,6 +65,7 @@ bool libMps::execute(uint64_t id)
 	for (int64_t n = 0; n < poll.size(); n++)
 			if (execute(id, n) != 0)
 				stat = false;
+	return stat;
 }
 
 bool libMps::execute(bool keep,bool mps)

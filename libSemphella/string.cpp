@@ -8,7 +8,7 @@ using namespace std;
 #include "libSemphella.h"
 #include "string.h"
 #include "debug.h"
-
+#include "estring.h"
 //libDebug strr("stringlib");
 
 #define strr debug<<"[StringLib]"
@@ -19,28 +19,10 @@ API string  api_human_read_storage_unit(uint64_t val)
 	return human_read(val, ret, 1024);
 }
 
-API vector<string> Splite(string val, const char  spliter, const bool auto_trim)
+API vector<estring> Splite(string val, const char  spliter, const bool auto_trim)
 {
-	vector<string> ret;
-	uint64_t last = 0;
-	string temp;
-	for (uint64_t n = 0; n < val.size(); n++)
-	{
-		if (val.at(n) == spliter || n + 1 == val.size())
-		{
-			if (n + 1 == val.size())
-				temp = val.substr(last);
-			else
-				temp = val.substr(last, n - last);
-			debug << "Splite Str:" << temp << endl;
-			if (auto_trim)
-				temp = Trim(temp);
-			ret.push_back(temp);
-			last = n + 1;
-			n++;
-		}
-	}
-	return ret;
+	estring str = val;
+	return str.Split(spliter, auto_trim);
 }
 
 API string Trim(string val)

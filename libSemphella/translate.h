@@ -1,6 +1,6 @@
 #pragma once
 #include "libSemphella.h"
-#include "main.h"
+#include "libSemphella.h"
 
 struct TRANSLATE_BLOCK {
 	string orig;

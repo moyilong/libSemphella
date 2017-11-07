@@ -26,5 +26,3 @@ enum WORK_MODE {
 	EXT_TO_FILE,
 	MASK_OUT
 };
-
-int create_license(string output, bool std_out, int bs);

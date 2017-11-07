@@ -1,4 +1,4 @@
-#include "main.h"
+#include "libSemphella.h"
 #include "emmx.h"
 
 uint64_t global_alloc = 0;
@@ -62,6 +62,7 @@ bool emmx::operator==(const emmx mmx) const
 	for (uint64_t n = 0; n < xsize; n++)
 		if (mmx[n] != ptr[n])
 			return false;
+	return this;
 }
 
 void emmx::reallow()

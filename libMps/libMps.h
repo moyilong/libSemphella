@@ -4,7 +4,7 @@
 #include <libSemphella/debug.h>
 class
 #ifndef __LINUX__
-#ifdef MPS_EXPORT;
+#ifdef MPS_EXPORT
 __declspec(dllexport)
 #else
 __declspec(dllimport)

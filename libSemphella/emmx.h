@@ -1,5 +1,5 @@
 #pragma once
-#include "main.h"
+#include "libSemphella.h"
 
 enum EMMX_EXCEPTION {
 	MEM_OVERLOAD,

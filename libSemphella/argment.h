@@ -1,5 +1,5 @@
 #pragma once
-#include "main.h"
+#include "libSemphella.h"
 
 #define ARG_NOT_EXIST	"__not_exist___"
 

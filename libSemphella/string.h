@@ -1,6 +1,7 @@
 #pragma once
-#include "main.h"
+#include "libSemphella.h"
 #include "debug.h"
+#include "estring.h"
 
 API string StrLimit(string str, int len = 8, bool spare = false);
 API int strfind(const char *str, char find, bool wn = false);
@@ -20,7 +21,7 @@ API string convert_process(const char *data);
 API string human_read(uint64_t _in, string *unit, int step);
 API string api_human_read_time_unit(uint64_t val);
 API string api_human_read_storage_unit(uint64_t val);
-API vector<string> Splite(string val, const char spliter, const bool auto_trim = false);
+API vector<estring> Splite(string val, const char spliter, const bool auto_trim = false);
 API string Trim(string val);
 #define human_read_time_unit api_human_read_time_unit
 #define human_read_storage_str api_human_read_storage_unit

@@ -1,5 +1,5 @@
 #pragma once
-#include "main.h"
+#include "libSemphella.h"
 
 #ifndef __LINUX__
 #pragma warning(disable:4996)

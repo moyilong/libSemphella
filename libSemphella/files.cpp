@@ -1,4 +1,4 @@
-#include "main.h"
+#include "libSemphella.h"
 #include "files.h"
 #include <fstream>
 #include "debug.h"

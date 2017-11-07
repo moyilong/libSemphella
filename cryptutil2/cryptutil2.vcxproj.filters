@@ -30,8 +30,5 @@
     <ClCompile Include="cryptutil2.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="license_create.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>

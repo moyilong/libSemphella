@@ -249,15 +249,6 @@ int _main(int argc, char *argv[])
 			}
 		stat = decrtpt_to_file(input, output, password, std_mode);
 		break;
-	case LICENSE_CREATE:
-		if (!std_mode)
-			if (output.empty())
-			{
-				cout << "Output is Empty!" << endl;
-				return -1;
-			}
-		return create_license(output, std_mode, bs);
-		break;
 	case EXT_TO_FILE:
 		if (!file_name_check(input))
 		{
