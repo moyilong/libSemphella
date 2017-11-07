@@ -1,6 +1,5 @@
 ADD_EXECUTABLE(cryptutil2  
 	cryptutil2.cpp
-	license_create.cpp
 	)
 
 INCLUDE_DIRECTORIES(..)
