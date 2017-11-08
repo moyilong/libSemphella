@@ -78,8 +78,21 @@ public:
 	estring ToLower();
 	estring Trim();
 	estring RemoveCharArray(const char *arr);
-	bool empty()
+	inline bool empty()
 	{
 		return (length() == 0);
+	}
+	static inline estring format(const char *format, void *data)
+	{
+		char buff[MAX_BUFF_SIZE];
+		sprintf(buff, format, data);
+		return estring(buff);
+	}
+	static inline estring connect(vector<estring>str, estring connector)
+	{
+		estring ret;
+		for (int n = 0; n < str.size(); n++)
+			ret += connector + str[n];
+		return ret.substr(connector.size()+1);
 	}
 };

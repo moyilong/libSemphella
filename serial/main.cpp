@@ -44,11 +44,6 @@ void xwrite()
 {
 	while (true)
 	{
-		/*char val[8];
-		memset(val, '\0', sizeof(val));
-		cin.read(val, 8);
-		debug << "GetValue:" << val << endl;
-		serial.write(val, 8);*/
 		char buf[2];
 		buf[0] = cin.get();
 		buf[1] = '\0';
