@@ -24,7 +24,7 @@ void load_ext_data(string filename)
 	ext.close();
 }
 
-LIBERT_API RETURN_STAT crypt_to_file(string in, string out, string password, int alg, int fid, string extfil, int bs)
+LIBERT_API RETURN_STAT crypt_to_file(string in, string out, string password, int alg, int fid, string extfil, int bs,ProgressAPI api)
 {
 	decryptmode = false;
 	file i, o;
@@ -35,7 +35,6 @@ LIBERT_API RETURN_STAT crypt_to_file(string in, string out, string password, int
 	i.open(in, "r");
 	if (!i.is_open())
 	{
-		cout << "Open File " << in << " Faild!" << endl;
 		return FILE_IO_FAILD;
 	}
 
@@ -68,7 +67,6 @@ LIBERT_API RETURN_STAT crypt_to_file(string in, string out, string password, int
 	i.get_steps(bs, mbs, fix);
 	uint64_t sum = 0;
 	time_t start = time(0);
-	char str_buff[MAX_BUFF_SIZE];
 	double per = 0;
 	for (uint64_t n = 0; n < mbs;)
 	{
@@ -77,19 +75,17 @@ LIBERT_API RETURN_STAT crypt_to_file(string in, string out, string password, int
 			count = count_set;
 		get_fhandle(head.ext[EXT_FHANDLE])(head, i, o, sum, head.bs, n*head.bs, false, false, count);
 		per = (double)((double)n*(double)head.bs) / (double)i.tell_len();
-		if (per != old_presend)
-		{
-			old_presend = per;
-			ulen = (n* head.bs) / dZero(time(0) - start);
-			sprintf(str_buff, "%sPS", human_read_storage_str(ulen).data());
-			ShowProcessBar(per, str_buff);
-		}
+		if (per != old_presend && api != NULL)
+			if (api != NULL)
+				api(per);
 		n += count;
 	}
-	ShowProcessBar(1, " END");
+	if (api != NULL)
+		api(1);
 	if (fix > 0)
 		get_fhandle(head.ext[EXT_FHANDLE])(head, i, o, sum, fix, mbs*head.bs, false, false, 1);
-	ShowProcessBar(1, " Finish");
+	if (api != NULL)
+		api(1);
 	head.sum = sum;
 	head.algrthom = alg;
 	head.ext[EXT_FHANDLE] = fid;
@@ -104,7 +100,7 @@ LIBERT_API RETURN_STAT crypt_to_file(string in, string out, string password, int
 	return OK;
 }
 
-LIBERT_API RETURN_STAT decrtpt_to_file(string in, string out, string password, int std_mode)
+LIBERT_API RETURN_STAT decrtpt_to_file(string in, string out, string password, int std_mode,ProgressAPI api)
 {
 	decryptmode = true;
 	file i, o;
@@ -159,39 +155,27 @@ LIBERT_API RETURN_STAT decrtpt_to_file(string in, string out, string password, i
 		if (!std_mode)
 		{
 			double per = (double)((double)n*(double)head.bs) / (double)i.tell_len();
-			if (per != old_presend)
-			{
-				old_presend = per;
-				ulen = (n* head.bs) / dZero(time(0) - start);
-				ShowProcessBar(per, human_read_storage_str(ulen) + "PS");
-			}
+			if (per != old_presend  && api == NULL)
+				api(per);
 		}
 		n += count;
 	}
-	if (!std_mode)
-		ShowProcessBar(1, " END");
+	if (!std_mode && api != NULL)
+		api(1);
 	if (fix > 0)
-	{
 		get_fhandle(head.ext[EXT_FHANDLE])(head, i, o, sum, fix, mbs*head.bs, true, std_mode, 1);
-	}
-	if (!std_mode)
-		ShowProcessBar(1, " Finish");
+	if (!std_mode && api != NULL)
+		api(1);
 	i.close();
 	o.close();
-	if (!std_mode)
-	{
-		cout <<endl<< "SysteDecode:" << head.sum << "=>" << sum << endl;
-	}
 	if (sum != head.sum)
 		return FILE_VERIFY_FAILD;
-	if (!std_mode)
-		cout << endl << endl;
 	return OK;
 }
 
-LIBERT_API RETURN_STAT decrypt_to_std(string in, string out, string password)
+LIBERT_API RETURN_STAT decrypt_to_std(string in, string out, string password,ProgressAPI api)
 {
-	return decrtpt_to_file(in, out, password, true);
+	return decrtpt_to_file(in, out, password, true,api);
 }
 
 LIBERT_API RETURN_STAT get_ext_to_file(string in, string out, bool std_mode)
@@ -273,6 +257,6 @@ LIBERT_API int get_alg_id(int tid)
 
 LIBERT_API string get_api_ver()
 {
-	return "ERT4.1.1850";
+	return "ERT4.2.0000";
 }
 

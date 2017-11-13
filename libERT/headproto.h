@@ -12,7 +12,6 @@ struct  HEAD {
 	char account_level = level;
 	char algrthom;
 	uint64_t sum;
-	//uint64_t matrix_sum;
 	char ext[EXT_SIZE];
 	uint64_t password_sum;
 	uint64_t bs = bs;
@@ -28,12 +27,12 @@ struct  HEAD {
 };
 
 struct EXT {
-	const char start_bit = 0xB0;
+	char start_bit = '\n';
 	uint64_t length;
 	uint64_t checksum;
-	const char stop_bit = 0xB1;
+	char stop_bit = 0xB1;
 	char buff[DESIGN_KEEP_SIZE - sizeof(uint64_t) * 2];
-	const char stop_all = 0xBA;
+	char stop_all = '\n';
 };
 #pragma pack(pop)
 #define EXT_SUPPORT	0
@@ -65,7 +64,7 @@ inline bool HEAD::check()
 	cp2 << "Extenision Table Size:" << EXT_SIZE << endl;
 	if (account_level > level || account_level < level_compact)
 	{
-		cout << "Error: HEAD Protoco Check Fail d!" << endl;
+		cout << "Error: HEAD Protoco Check Faild!" << endl;
 		cout << "Unsupported Level:" << (int)account_level << endl;
 		cout << "Compact of:" << level_compact << " max  " << level << endl;
 		return false;

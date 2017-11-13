@@ -18,8 +18,6 @@ API string  api_human_read_storage_unit(uint64_t val)
 	return human_read(val, ret, 1024);
 }
 
-
-
 API string api_human_read_time_unit(uint64_t val)
 {
 	string ret[] = { "S","M","H" };

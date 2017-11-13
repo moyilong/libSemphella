@@ -132,7 +132,7 @@ void loop()
 		bool_buff = program.at(cmd_ptr).bptr;
 		loadmem(mem_ptr, &mem_buff);
 		ERR_CHECK;
-		if (bool_get)
+		if (bool_get())
 			exec(cmd_buff);
 		cmd_ptr++;
 		mem_ptr++;

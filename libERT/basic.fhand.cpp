@@ -40,8 +40,7 @@ void FileProcess(HEAD head, file in, file out, uint64_t &sum, int len, uint64_t 
 		if (!std_out)
 			out.write(buff[n], len);
 		else
-			//		cout<<buff;
-			fprintf(stdout, "%s", buff);
+			fprintf(stdout, "%s", buff[n]);
 		free(buff[n]);
 	}
 	free(buff);
