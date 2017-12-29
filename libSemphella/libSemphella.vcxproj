@@ -195,6 +195,7 @@
     <ClCompile Include="files.cpp" />
     <ClCompile Include="hal.cpp" />
     <ClCompile Include="linux_serial.cpp" />
+    <ClCompile Include="net.cpp" />
     <ClCompile Include="secureLoad.cpp" />
     <ClCompile Include="stl.cpp" />
     <ClCompile Include="kernel.cpp" />
