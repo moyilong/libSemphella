@@ -55,36 +55,39 @@ API string AddressGetFileName(string filename)
 API int strfind(const char *str, char find, bool wn)
 {
 	int ret = 0;
-	for (int n = 0; n < strlen(str); n++)
-		if (str[n] == find)
+	int offset = 0;
+	while (str[offset] != '\0')
+	{
+		if (str[offset] == find)
+		{
 			if (wn)
-				return n;
+				return offset;
 			else
 				ret++;
+		}
+	}
 	return ret;
 }
 
-CAPI void strcpy(char *dest, const char *origin, long long cplen, long long r_off, long long w_off)
+API bool strequal(const char *a, const char *b, bool over_len)
 {
-#pragma omp parallel for
-	for (long long n = 0; n < cplen; n++)
-		dest[n + w_off] = origin[n + r_off];
-}
-
-API bool streval(const char *a, const char *b, bool over_len)
-{
-	if (strlen(a) != strlen(b))
-		if (!over_len)
+	int offset = 0;
+	while (true)
+	{
+		if (a[offset] == '\0' || b[offset] == '\0')
+		{
+			if (a[offset] != b[offset] && over_len)
+				return true;
 			return false;
-	for (int n = 0; n < strlen(a); n++)
-		if (a[n] != b[n])
+		}
+		if (a[offset] != b[offset])
 			return false;
-	return true;
+		offset++;
+	}
 }
 
 API char* eitoa(int num, char*str, int radix, const char *word_list)
 {
-	//char *index = (char*)calloc(strlen(word_list), sizeof(char));
 	char index[MAX_BUFF_SIZE];
 	strcpy(index, word_list);
 	unsigned unum;
@@ -253,9 +256,13 @@ API bool memequal(const void * a, const void * b, uint64_t size)
 {
 	const char *c = (const char*)a;
 	const char *d = (const char*)b;
-	for (int n = 0; n < size; n++)
-		if (c[n] != d[n])
+	uint64_t offset = 0;
+	while (offset < size)
+	{
+		if (c[offset] != d[offset])
 			return false;
+		offset++;
+	}
 	return true;
 }
 

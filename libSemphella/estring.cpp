@@ -1,6 +1,6 @@
 #include "string.h"
 
-vector<estring> estring::Split(char arr,bool auto_trim)
+vector<estring> estring::Split(char arr, bool auto_trim)
 {
 	vector<estring> ret;
 	uint64_t last = 0;
@@ -23,7 +23,6 @@ vector<estring> estring::Split(char arr,bool auto_trim)
 	}
 	return ret;
 }
-
 estring estring::ToUpper()
 {
 	char *buff = (char*)malloc(size());

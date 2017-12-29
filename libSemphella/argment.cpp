@@ -56,7 +56,7 @@ bool argment::define(string name)
 int argment::get_id(string name)
 {
 	for (int n = 0; n < block.size(); n++)
-		if (streval(name.data(), block.at(n).name.data()))
+		if (strequal(name.data(), block.at(n).name.data()))
 			return n;
 	return -1;
 }

@@ -14,7 +14,7 @@ _feature::_feature(ASSIGN_TYPE cmd_reg, string reg_name, API_CALL call)
 void exec(string reg_name)
 {
 	for (int n = 0; n < cmd_poll.size(); n++)
-		if (streval(reg_name.data(), cmd_poll.at(n).name.data()))
+		if (strequal(reg_name.data(), cmd_poll.at(n).name.data()))
 			cmd_poll.at(n).api();
 }
 

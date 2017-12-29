@@ -130,7 +130,7 @@ int main(int argc, char* argv[])
 				}
 				break;
 			case '-':
-				if (streval(argv[n], "--disable-nullline"))
+				if (strequal(argv[n], "--disable-nullline"))
 					disable_nl = true;
 				break;
 			default:

@@ -79,7 +79,7 @@ CAPI void crypt(char* data, long long len, const char *password)
 CAPI void crypt_t(char *data, long long len, const char *password, const char *la, const char *lb)
 {
 	char *t_password = (char*)malloc(strlen(password));
-	strcpy(t_password, password, 0, 0, 0);
+	strcpy(t_password, password);
 	word_list_convert(data, la, lb);
 	crypt(data, len, t_password);
 	free(t_password);

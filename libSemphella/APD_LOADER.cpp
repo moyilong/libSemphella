@@ -148,7 +148,7 @@ COUNT_TYPE APD::check_node(string node)
 	COUNT_TYPE ret = -1;
 #pragma omp parallel for
 	for (COUNT_TYPE n = 0; n < poll.size(); n++)
-		if (streval(poll.at(n).n_name.data(), node.data()))
+		if (strequal(poll.at(n).n_name.data(), node.data()))
 		{
 			ret = n;
 		}
@@ -175,7 +175,7 @@ COUNT_TYPE APD::check_label(COUNT_TYPE node, string label)
 	COUNT_TYPE ret = -1;
 #pragma omp parallel for
 	for (COUNT_TYPE n = 0; n < poll.at(node).label.size(); n++)
-		if (streval(poll.at(node).label.at(n).name.data(), label.data()))
+		if (strequal(poll.at(node).label.at(n).name.data(), label.data()))
 			ret = n;
 	if (ret == -1)
 	{

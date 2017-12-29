@@ -47,7 +47,7 @@ API void Register(TRANSLATE_BLOCK tblock)
 	bool check_stat = true;
 #pragma omp parallel for
 	for (int n = 0; n < tpoll.size(); n++)
-		if (streval(tpoll.at(n).orig.data(), tblock.orig.data()))
+		if (strequal(tpoll.at(n).orig.data(), tblock.orig.data()))
 			check_stat = false;
 	if (!check_stat)
 		std::cout << "Warring: " << tblock.orig << " => " << tblock.trans << " insert faild! is already exist!" << endl;
@@ -63,7 +63,7 @@ API string SearchStr(string orig)
 		reg_exit_call = true;
 	}
 	for (int n = 0; n < tpoll.size(); n++)
-		if (streval(tpoll.at(n).orig.data(), orig.data()))
+		if (strequal(tpoll.at(n).orig.data(), orig.data()))
 			return tpoll.at(n).trans;
 	return "";
 }

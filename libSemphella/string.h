@@ -6,8 +6,7 @@
 
 API string StrLimit(string str, int len = 8, bool spare = false);
 API int strfind(const char *str, char find, bool wn = false);
-CAPI void strcpy(char *dest, const char *origin, long long cplen, long long r_off, long long w_off);
-API bool streval(const char *a, const char *b, bool over_len = false);
+API bool strequal(const char *a, const char *b, bool over_len = false);
 API char* eitoa(int num, char*str, int radix, const char *word_list = DEFAULT_WORD_WHITE_LIST);
 API bool is_str(const char bit);
 API string ull2s(uint64_t value);
@@ -34,11 +33,8 @@ API string f2s(float value);
 API bool memequal(const void * a, const void * b, uint64_t size);
 API double atolf(string val);
 API bool StrMatch(const char *str, const char *match);
-
 API bool operator == (const char * stra, const string strb);
 API bool operator == (const string stra, const char *strb);
-
-#define strequal streval
 
 inline bool is_upper(const char bit)
 {
@@ -74,6 +70,14 @@ public:
 	{
 		return strequal(data(), str);
 	}
+	inline bool operator==(const estring str)
+	{
+		return strequal(data(), str.data());
+	}
+	inline bool operator==(const string str)
+	{
+		return strequal(data(), str.data());
+	}
 	estring ToUpper();
 	estring ToLower();
 	estring Trim();
@@ -95,4 +99,5 @@ public:
 			ret += connector + str[n];
 		return ret.substr(connector.size()+1);
 	}
+
 };

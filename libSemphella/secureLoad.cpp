@@ -5,7 +5,7 @@
 
 API bool mDebugStat = MDEBUG_STAT;
 
-#define err cout<<"[ERROR: "<<__FILE__<<"@"<<__LINE__<<"]"
+#define err cout<<"[ERROR][ "<<__FILE__<<"@"<<__LINE__<<"]"
 
 API int secure_init(int argc, char *argv[], tmain entry, tmain preload)
 {
